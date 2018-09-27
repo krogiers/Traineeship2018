@@ -1,3 +1,4 @@
+package com.colruyt.traineeship;
 
 public class Person {
 	public String Name;

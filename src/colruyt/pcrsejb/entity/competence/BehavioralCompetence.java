@@ -5,6 +5,6 @@ import java.util.LinkedHashSet;
 public class BehavioralCompetence extends Competence implements FunctionCompetence {
 
     private int minLevel;
-    private LinkedHashSet<String> possibilitiesSet;
+    private LinkedHashSet<String> possibilityLinkedHashSet;
 
 }

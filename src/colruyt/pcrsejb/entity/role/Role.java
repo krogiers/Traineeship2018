@@ -7,6 +7,6 @@ import java.util.List;
 public class Role {
 
     private String name;
-    private List<Competence> competencesList;
+    private List<Competence> competenceList;
 
 }

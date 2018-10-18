@@ -8,7 +8,7 @@ import java.util.TreeSet;
 public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
 
     private LocalDate yearsInCurrentFunction;
-    private TreeSet<SurveySet> allSurveysSet;
+    private TreeSet<SurveySet> surveySetTreeSet;
 
 
 }

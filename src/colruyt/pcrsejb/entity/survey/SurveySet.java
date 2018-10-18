@@ -8,7 +8,7 @@ import java.util.Set;
 public class SurveySet implements Comparable<SurveySet>{
 
     private LocalDate surveyYear;
-    private Set<Survey> surveysSet;
+    private Set<Survey> surveySet;
 
     @Override
     public int compareTo(SurveySet o) {

@@ -1,0 +1,18 @@
+[‎18/‎10/‎2018 17:00]  Jente Sondervorst:
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+

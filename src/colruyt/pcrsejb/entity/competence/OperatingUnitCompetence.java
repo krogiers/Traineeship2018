@@ -7,5 +7,12 @@ public class OperatingUnitCompetence extends Competence implements FunctionCompe
 	public OperatingUnitCompetence(String name, String description)  {
 		super(name, description);
 		// TODO Auto-generated constructor stub
+		
+		
+	}
+
+	public OperatingUnitCompetence() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 }

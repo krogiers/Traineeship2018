@@ -10,8 +10,11 @@ public class BehavioralCompetence extends Competence implements FunctionCompeten
 	private int minLevel;
     private LinkedHashSet<String> possibilityLinkedHashSet;
 
-	
-    
+
+
+	public BehavioralCompetence() {
+		super();
+	}
 
 
 	public BehavioralCompetence(String name, String description, int minLevel,

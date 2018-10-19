@@ -7,6 +7,9 @@ public abstract class Competence {
     private String name;
     private String description;
     
+	public Competence() {
+		super();
+	}
 	public Competence(String name, String description)  {
 		super();
 		this.setName(name);

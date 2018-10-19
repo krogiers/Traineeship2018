@@ -113,7 +113,7 @@ public class User {
 	 * 
 	 * @return privileges
 	 */
-	public Set<Privilege> getPrivileges() {
+	public HashSet<Privilege> getPrivileges() {
 		return privileges;
 	}
 

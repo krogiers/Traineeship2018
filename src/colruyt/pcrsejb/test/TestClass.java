@@ -1,8 +1,7 @@
 package colruyt.pcrsejb.test;
 
 
-import colruyt.pcrsejb.entity.competence.CraftCompetence;
-import colruyt.pcrsejb.entity.competence.RoleCompetence;
+import colruyt.pcrsejb.entity.competence.*;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.role.Role;
 import colruyt.pcrsejb.entity.team.Team;
@@ -17,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestClass {
 
-    User lauraLynn, jos;
+    User lauraLynn, jos, wouter;
     HashSet<Privilege> teamMemberPriviligeSet;
     TeamMemberPrivilege teamMemberPrivilige;
     Team javaTrainee;
@@ -35,6 +34,7 @@ class TestClass {
         teamMemberPrivilige.setFunction(softwareEngineer);
         lauraLynn = new User("Laura", "Lynn", "LauraLynn@gmail.com", "LauraLynn", null);
         jos = new User("Jos", "Bond", "jos.bond@gmail.com", "JosBond", null );
+        wouter = new User("Wouter", "Mosselmans", "wouter.mosselsmans@gmail.com", "WouterMosselsmans", null);
         teamMemberPriviligeSet = new HashSet<>();
         developer = new Role();
         leadDeveloper = new Role();
@@ -59,7 +59,7 @@ class TestClass {
 
     @Test
     void checkUsersInATeam(){
-        javaTrainee = new Team("Java Trainees", null);
+        //javaTrainee = new Team("Java Trainees", wouter);
 
     }
 
@@ -75,6 +75,8 @@ class TestClass {
         teamMemberPriviligeSet.add(teamMemberPrivilige);
         lauraLynn.setPrivileges(teamMemberPriviligeSet);
         Function fhp = null;
+
+        //fhp = lauraLynn.getPrivileges().stream().forEach(p -> ((FunctionHoldingPrivilege)p).getFunction());
 
         for(Privilege p : lauraLynn.getPrivileges()){
             fhp = ((FunctionHoldingPrivilege)p).getFunction();

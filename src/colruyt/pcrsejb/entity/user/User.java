@@ -126,21 +126,6 @@ public class User {
 		this.privileges = privileges;
 	}
 
-	/**
-	 * Methode voor het aanvragen van privilege
-	 * 
-	 * @return privilegeReturn
-	 */
-	public Privilege hasPrivilege(Privilege privilege) {
-		Privilege privilegeReturn = null;
-		for (Privilege privi : this.getPrivileges()) {
-			if (privilege.getClass().isInstance(privi)) {
-				privilegeReturn = privi;
-			}
-		}
-		return privilegeReturn;
-	}
-
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="

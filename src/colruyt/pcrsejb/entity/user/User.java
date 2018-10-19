@@ -22,11 +22,11 @@ public class User {
 	/**
 	 * Constructor voor het aanmaken van een User
 	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param password
-	 * @param privileges
+	 * @param firstName String
+	 * @param lastName String
+	 * @param email String
+	 * @param password String
+	 * @param privileges HashSet
 	 */
 	public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
 		setFirstName(firstName);

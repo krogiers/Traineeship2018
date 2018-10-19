@@ -9,7 +9,7 @@ import colruyt.pcrsejb.entity.user.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.user.privileges.TeamMemberPrivilege;
 
 /**
- * Klasse voor het aanmaken van een Team
+ * Klasse voor het aanmaken van een Team.
  * @author jda1mbw
  */
 public class Team {

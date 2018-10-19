@@ -5,6 +5,11 @@ import colruyt.pcrsejb.entity.user.privileges.Privilege;
 
 import java.util.Set;
 
+/**
+ * Klasse voor het aanmaken van een User
+ * @author jda1mbw
+ *
+ */
 public class User {
 
     private String firstName;

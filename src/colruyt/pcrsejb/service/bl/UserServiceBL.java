@@ -32,6 +32,8 @@ public class UserServiceBL{
     }
     
     public boolean hasPrivilege(){
+		// TODO
+    	return false;
     
     }
     

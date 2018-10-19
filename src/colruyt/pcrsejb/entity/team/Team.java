@@ -1,12 +1,9 @@
 package colruyt.pcrsejb.entity.team;
 
-import java.util.HashMap;
-import java.util.Map;
+import colruyt.pcrsejb.entity.user.*;
+import colruyt.pcrsejb.entity.user.privileges.*;
 
-import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.entity.user.privileges.Privilege;
-import colruyt.pcrsejb.entity.user.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.user.privileges.TeamMemberPrivilege;
+import java.util.*;
 
 /**
  * Klasse voor het aanmaken van een Team.
@@ -30,26 +27,7 @@ public class Team {
 		teamMembersMap = new HashMap<>();
 		teamMembersMap.put(teamManager, teamManager.hasPrivilege(new TeamManagerPrivilege()));
 	}
-
-//	/**
-//	 * Methode die controleert ofdat de User wel 
-//	 * het privilege TeamManager heeft
-//	 * @param teamManager
-//	 * @return privilege
-//	 */
-//	public Privilege checkLeader(User teamManager) {
-//		if (teamManager.getPrivileges().contains(new TeamManagerPrivilege())) {
-//			for (Privilege privi : teamManager.getPrivileges()) {
-//				if (privi instanceof TeamManagerPrivilege) {
-//					return privi;
-//				}
-//
-//			}
-//
-//		}
-//		throw new IllegalAccessError("User heeft niet de juiste privileges");
-//	}
-
+	
 	/**
 	 * Methode die de naam van het team retourneert
 	 * 
@@ -109,5 +87,25 @@ public class Team {
 		}
 		return ownerReturn.toString();
 	}
-
+	
+	
+	@Override
+	public boolean equals(Object o){
+		if(this == o)
+			return true;
+		if(!(o instanceof Team))
+			return false;
+		Team team = (Team) o;
+		return Objects.equals(getName(), team.getName()) && Objects.equals(getTeamMembersMap(), team.getTeamMembersMap());
+	}
+	
+	@Override
+	public int hashCode(){
+		return Objects.hash(getName(), getTeamMembersMap());
+	}
+	
+	@Override
+	public String toString(){
+		return "Team{" + "name='" + name + '\'' + ", teamMembersMap=" + teamMembersMap + '}';
+	}
 }

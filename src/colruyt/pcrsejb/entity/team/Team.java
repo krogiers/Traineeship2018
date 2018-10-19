@@ -26,7 +26,7 @@ public class Team {
 	 */
 	public Team(String name, User teamManager) {
 		setName(name);
-		
+
 		teamMembersMap = new HashMap<>();
 		teamMembersMap.put(teamManager, teamManager.hasPrivilege(new TeamManagerPrivilege()));
 	}

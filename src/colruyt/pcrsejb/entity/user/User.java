@@ -62,7 +62,7 @@ public class User {
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	/**
 	 * Methode voor het instellen van de familienaam
 	 * 
@@ -143,7 +143,7 @@ public class User {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-	
+
 	/**
 	 * Methode voor het aanvragen van privilege
 	 * 

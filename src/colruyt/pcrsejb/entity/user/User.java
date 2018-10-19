@@ -2,8 +2,6 @@ package colruyt.pcrsejb.entity.user;
 
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.privileges.Privilege;
-import colruyt.pcrsejb.entity.user.privileges.TeamManagerPrivilege;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -65,23 +63,6 @@ public class User {
 		return lastName;
 	}
 	
-	/**
-	 * Methode voor het aanvragen van privilege
-	 * @return the instance of the asked Class or null if the user doesn't have this privilege
-	 */
-	public Privilege hasPrivilege(Class privilege) {
-			for (Privilege privi : this.getPrivileges()) {
-				if (privilege.isInstance(privi)) {
-					return privi;
-				}
-			}
-			return null;
-	}
-	
-	public Privilege hasPrivilege(Privilege privilege) {
-		return hasPrivilege(privilege.getClass());
-	}
-
 	/**
 	 * Methode voor het instellen van de familienaam
 	 * 
@@ -161,6 +142,21 @@ public class User {
 	 */
 	public void setTeam(Team team) {
 		this.team = team;
+	}
+	
+	/**
+	 * Methode voor het aanvragen van privilege
+	 * 
+	 * @return privilegeReturn
+	 */
+	public Privilege hasPrivilege(Privilege privilege) {
+		Privilege privilegeReturn = null;
+		for (Privilege privi : this.getPrivileges()) {
+			if (privilege.getClass().isInstance(privi)) {
+				privilegeReturn = privi;
+			}
+		}
+		return privilegeReturn;
 	}
 
 	@Override

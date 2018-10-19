@@ -1,7 +1,5 @@
 package colruyt.pcrsejb.entity.role;
 
-import colruyt.pcrsejb.entity.competence.Competence;
-import colruyt.pcrsejb.entity.competence.CraftCompetence;
 import colruyt.pcrsejb.entity.competence.RoleCompetence;
 
 import java.util.List;
@@ -9,15 +7,15 @@ import java.util.List;
 public class Role {
 	
 	private String name;
-    private List<RoleCompetence> craftCompetenceList;
+    private List<RoleCompetence> roleCompetenceList;
     
     public Role() {
 		super();
 	}
-	public Role(String name, List<RoleCompetence> craftCompetenceList) {
+	public Role(String name, List<RoleCompetence> roleCompetenceList) {
 		super();
 		this.name = name;
-		this.craftCompetenceList = craftCompetenceList;
+		this.roleCompetenceList = roleCompetenceList;
 	}
 	public String getName() {
 		return name;
@@ -25,11 +23,11 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<RoleCompetence> getCraftCompetenceList() {
-		return craftCompetenceList;
+	public List<RoleCompetence> getRoleCompetenceList() {
+		return roleCompetenceList;
 	}
-	public void setCraftCompetenceList(List<RoleCompetence> craftCompetenceList) {
-		this.craftCompetenceList = craftCompetenceList;
+	public void setRoleCompetenceList(List<RoleCompetence> roleCompetenceList) {
+		this.roleCompetenceList = roleCompetenceList;
 	}
 
 

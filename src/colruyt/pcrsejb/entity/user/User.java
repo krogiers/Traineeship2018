@@ -2,7 +2,6 @@ package colruyt.pcrsejb.entity.user;
 
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.privileges.Privilege;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,11 +22,11 @@ public class User {
 	/**
 	 * Constructor voor het aanmaken van een User
 	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param password
-	 * @param privileges
+	 * @param firstName String
+	 * @param lastName String
+	 * @param email String
+	 * @param password String
+	 * @param privileges HashSet
 	 */
 	public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
 		setFirstName(firstName);
@@ -143,6 +142,21 @@ public class User {
 	 */
 	public void setTeam(Team team) {
 		this.team = team;
+	}
+
+	/**
+	 * Methode voor het aanvragen van privilege
+	 * 
+	 * @return privilegeReturn
+	 */
+	public Privilege hasPrivilege(Privilege privilege) {
+		Privilege privilegeReturn = null;
+		for (Privilege privi : this.getPrivileges()) {
+			if (privilege.getClass().isInstance(privi)) {
+				privilegeReturn = privi;
+			}
+		}
+		return privilegeReturn;
 	}
 
 	@Override

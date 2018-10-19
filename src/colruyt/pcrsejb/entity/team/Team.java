@@ -26,14 +26,34 @@ public class Team {
 	 */
 	public Team(String name, User teamManager) {
 		setName(name);
+		
 		teamMembersMap = new HashMap<>();
-		teamMembersMap.put(teamManager, new TeamManagerPrivilege());
+		teamMembersMap.put(teamManager, teamManager.hasPrivilege(new TeamManagerPrivilege()));
 	}
+
+//	/**
+//	 * Methode die controleert ofdat de User wel 
+//	 * het privilege TeamManager heeft
+//	 * @param teamManager
+//	 * @return privilege
+//	 */
+//	public Privilege checkLeader(User teamManager) {
+//		if (teamManager.getPrivileges().contains(new TeamManagerPrivilege())) {
+//			for (Privilege privi : teamManager.getPrivileges()) {
+//				if (privi instanceof TeamManagerPrivilege) {
+//					return privi;
+//				}
+//
+//			}
+//
+//		}
+//		throw new IllegalAccessError("User heeft niet de juiste privileges");
+//	}
 
 	/**
 	 * Methode die de naam van het team retourneert
 	 * 
-	 * @return naam van het team
+	 * @return name van het team
 	 */
 	public String getName() {
 		return name;
@@ -42,7 +62,7 @@ public class Team {
 	/**
 	 * Methode voor het instellen van de teamnaam
 	 * 
-	 * @param name
+	 * @param name van het team
 	 */
 	public void setName(String name) {
 		this.name = name;

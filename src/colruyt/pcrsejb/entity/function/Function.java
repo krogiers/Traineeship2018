@@ -11,7 +11,17 @@ public class Function {
     private String title;
     private Set<Role> roleSet;
     private Set<FunctionCompetence> functionCompetenceSet;
-    
+
+
+	public Function() {
+	}
+
+	public Function(String title) {
+		this.setTitle(title);
+		this.roleSet = new HashSet<>();
+		this.functionCompetenceSet = new HashSet<>();
+	}
+
 	public Function(String title, HashSet<Role> roleSet, HashSet<FunctionCompetence> functionCompetenceSet) {
 		super();
 		this.setTitle(title);

@@ -1,6 +1,6 @@
 package colruyt.pcrsejb.service.dl.privilege;
 
-import colruyt.pcrsejb.entity.user.privileges.Privilege;
+import colruyt.pcrsejb.entity.privileges.Privilege;
 
 import java.util.ArrayList;
 import java.util.Collection;

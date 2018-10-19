@@ -3,10 +3,12 @@ package colruyt.pcrsejb.test;
 
 import colruyt.pcrsejb.entity.competence.*;
 import colruyt.pcrsejb.entity.function.Function;
+import colruyt.pcrsejb.entity.privileges.FunctionHoldingPrivilege;
+import colruyt.pcrsejb.entity.privileges.Privilege;
+import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.role.Role;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.entity.user.privileges.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

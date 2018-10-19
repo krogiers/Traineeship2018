@@ -1,10 +1,10 @@
 package colruyt.pcrsejb.service.dl.privilege;
 
-import colruyt.pcrsejb.entity.user.privileges.Privilege;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import colruyt.pcrsejb.entity.privileges.Privilege;
 
 public class MemoryPrivilegeService implements AbstractPrivilegeService {
 

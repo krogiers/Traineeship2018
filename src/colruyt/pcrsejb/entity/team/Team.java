@@ -10,6 +10,7 @@ import colruyt.pcrsejb.entity.user.privileges.TeamMemberPrivilege;
 
 /**
  * Klasse voor het aanmaken van een Team.
+ * 
  * @author jda1mbw
  */
 public class Team {
@@ -19,6 +20,7 @@ public class Team {
 
 	/**
 	 * Constructor voor het aanmaken van een Team
+	 * 
 	 * @param name
 	 * @param teamManager
 	 */
@@ -30,6 +32,7 @@ public class Team {
 
 	/**
 	 * Methode die de naam van het team retourneert
+	 * 
 	 * @return naam van het team
 	 */
 	public String getName() {
@@ -65,12 +68,12 @@ public class Team {
 
 	/**
 	 * Methode voor het toevoegen van een teamMember
+	 * 
 	 * @param teamMember
 	 */
 	public void addTeamMember(User teamMember) {
 		teamMembersMap.put(teamMember, new TeamMemberPrivilege());
 	}
-	
 
 	/**
 	 * Methode die de owner van de groep retourneert

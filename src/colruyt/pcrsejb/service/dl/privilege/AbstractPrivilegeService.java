@@ -6,4 +6,5 @@ import colruyt.pcrsejb.service.dl.GenericCrudService;
 public interface AbstractPrivilegeService extends GenericCrudService<Privilege,Long> {
 
 
+
 }

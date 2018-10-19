@@ -3,6 +3,7 @@ package colruyt.pcrsejb.entity.function;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 import colruyt.pcrsejb.entity.role.Role;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Function {
@@ -11,11 +12,11 @@ public class Function {
     private Set<Role> roleSet;
     private Set<FunctionCompetence> functionCompetenceSet;
     
-	public Function(String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
+	public Function(String title, HashSet<Role> roleSet, HashSet<FunctionCompetence> functionCompetenceSet) {
 		super();
-		this.title = title;
-		this.roleSet = roleSet;
-		this.functionCompetenceSet = functionCompetenceSet;
+		this.setTitle(title);
+		this.setRoleSet(roleSet);
+		this.setFunctionCompetenceSet(functionCompetenceSet);
 	}
 
 	public String getTitle() {
@@ -30,7 +31,7 @@ public class Function {
 		return roleSet;
 	}
 
-	public void setRoleSet(Set<Role> roleSet) {
+	public void setRoleSet(HashSet<Role> roleSet) {
 		this.roleSet = roleSet;
 	}
 
@@ -38,7 +39,7 @@ public class Function {
 		return functionCompetenceSet;
 	}
 
-	public void setFunctionCompetenceSet(Set<FunctionCompetence> functionCompetenceSet) {
+	public void setFunctionCompetenceSet(HashSet<FunctionCompetence> functionCompetenceSet) {
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 

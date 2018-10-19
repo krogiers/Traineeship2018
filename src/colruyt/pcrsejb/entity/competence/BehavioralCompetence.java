@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.entity.competence;
 
 import java.util.LinkedHashSet;
+import java.util.Map;
 
 import colruyt.pcrsejb.entity.competence.exception.CompetenceException;
 
@@ -8,7 +9,7 @@ public class BehavioralCompetence extends Competence implements FunctionCompeten
 
 	
 	private int minLevel;
-    private LinkedHashSet<String> possibilityLinkedHashSet;
+    private Map<Integer,String> possibilityMap;
 
 
 
@@ -18,10 +19,10 @@ public class BehavioralCompetence extends Competence implements FunctionCompeten
 
 
 	public BehavioralCompetence(String name, String description, int minLevel,
-			LinkedHashSet<String> possibilityLinkedHashSet){
+			Map<Integer,String> possibilityMap){
 		super(name, description);
 		this.setMinLevel(minLevel);
-		this.setPossibilityLinkedHashSet(possibilityLinkedHashSet);
+		this.setPossibilityMap(possibilityMap);
 	}
 
 
@@ -38,16 +39,16 @@ public class BehavioralCompetence extends Competence implements FunctionCompeten
 	}
 
 
-	public LinkedHashSet<String> getPossibilityLinkedHashSet() {
-		return possibilityLinkedHashSet;
+	public Map<Integer,String> getPossibilityMap() {
+		return possibilityMap;
 	}
 
 
-	public void setPossibilityLinkedHashSet(LinkedHashSet<String> possibilityLinkedHashSet){
-//		if (possibilityLinkedHashSet == null){
-//			throw new CompetenceException("possibilityLinkedHashSet is null");
+	public void setPossibilityMap(Map<Integer,String> possibilityMap){
+//		if (possibilityMap == null){
+//			throw new CompetenceException("possibilityMap is null");
 //		}
-		this.possibilityLinkedHashSet = possibilityLinkedHashSet;
+		this.possibilityMap = possibilityMap;
 	}
     
     

@@ -3,6 +3,7 @@ package colruyt.pcrsejb.entity.user.privileges;
 import colruyt.pcrsejb.entity.survey.SurveySet;
 
 import java.time.LocalDate;
+import java.util.Set;
 import java.util.TreeSet;
 
 public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
@@ -12,14 +13,14 @@ public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
     
     public TeamMemberPrivilege() {
 		super();
-		this.startDateInCurrentFunction = null;
-		this.surveySetTreeSet = new TreeSet<SurveySet>();
+		this.setStartDateInCurrentFunction(null);;
+		this.setSurveySetTreeSet(new TreeSet<SurveySet>());
 	}
 	
 	public TeamMemberPrivilege(LocalDate startDateInCurrentFunction) {
 		super();
-		this.startDateInCurrentFunction = startDateInCurrentFunction;
-		this.surveySetTreeSet = new TreeSet<SurveySet>();
+		this.setStartDateInCurrentFunction(startDateInCurrentFunction);;
+		this.setSurveySetTreeSet(new TreeSet<SurveySet>());;
 	}
 
 	
@@ -31,7 +32,7 @@ public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
 		this.startDateInCurrentFunction = startDateInCurrentFunction;
 	}
 
-	public TreeSet<SurveySet> getSurveySetTreeSet() {
+	public Set<SurveySet> getSurveySetTreeSet() {
 		return surveySetTreeSet;
 	}
 	

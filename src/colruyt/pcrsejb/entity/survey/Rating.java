@@ -2,6 +2,8 @@ package colruyt.pcrsejb.entity.survey;
 
 import colruyt.pcrsejb.entity.competence.Competence;
 
+import java.util.*;
+
 public class Rating {
 
     private int level;
@@ -40,5 +42,25 @@ public class Rating {
     
     public void setCompetence(Competence competence){
         this.competence = competence;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(!(o instanceof Rating))
+            return false;
+        Rating rating = (Rating) o;
+        return getLevel() == rating.getLevel() && isEnergy() == rating.isEnergy() && Objects.equals(getCompetence(), rating.getCompetence());
+    }
+    
+    @Override
+    public int hashCode(){
+        return Objects.hash(getLevel(), isEnergy(), getCompetence());
+    }
+    
+    @Override
+    public String toString(){
+        return "Rating{" + "level=" + level + ", energy=" + energy + ", competence=" + competence + '}';
     }
 }

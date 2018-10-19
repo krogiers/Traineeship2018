@@ -9,8 +9,6 @@ public class FunctionResponsiblePrivilege extends FunctionHoldingPrivilege {
 
 	@Override
 	public String toString() {
-		return "FunctionResponsiblePrivilege [function=" + function + "]";
+		return "FunctionResponsiblePrivilege [function=" + this.getFunction() + "]";
 	}
-
-	
 }

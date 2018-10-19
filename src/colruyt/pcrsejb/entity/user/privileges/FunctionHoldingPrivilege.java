@@ -5,7 +5,7 @@ import colruyt.pcrsejb.entity.function.Function;
 public abstract class FunctionHoldingPrivilege implements Privilege{
 
 	
-    protected Function function;
+    private Function function;
 
     
 	public Function getFunction() {
@@ -20,8 +20,4 @@ public abstract class FunctionHoldingPrivilege implements Privilege{
 	public String toString() {
 		return "FunctionHoldingPrivilege [function=" + function + "]";
 	}
-    
-	
-	
-    
 }

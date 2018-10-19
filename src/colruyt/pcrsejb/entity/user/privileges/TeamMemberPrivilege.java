@@ -1,6 +1,5 @@
 package colruyt.pcrsejb.entity.user.privileges;
 
-import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveySet;
 
 import java.time.LocalDate;
@@ -49,7 +48,6 @@ public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
 	
 	@Override
 	public String toString() {
-		return "TeamMemberPrivilege [function=" + function + ", startDateInCurrentFunction=" + startDateInCurrentFunction + "]";
+		return "TeamMemberPrivilege [function=" + this.getFunction() + ", startDateInCurrentFunction=" + startDateInCurrentFunction + "]";
 	}
-
 }

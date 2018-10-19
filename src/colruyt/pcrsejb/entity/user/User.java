@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Klasse voor het aanmaken van een User
+ * Klasse voor het aanmaken van een User.
  * @author jda1mbw
  */
 public class User {

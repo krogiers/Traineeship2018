@@ -3,7 +3,6 @@ package colruyt.pcrsejb.entity.function;
 /**
  * Klasse voor het aanmaken van een OperatingUnit
  * @author jda1mbw
- *
  */
 public class OperatingUnit {
 

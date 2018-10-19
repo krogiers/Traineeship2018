@@ -9,7 +9,6 @@ import java.util.Map;
 /**
  * Klasse voor het aanmaken van een Team
  * @author jda1mbw
- *
  */
 public class Team {
 

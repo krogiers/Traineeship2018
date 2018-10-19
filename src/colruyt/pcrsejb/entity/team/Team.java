@@ -31,8 +31,8 @@ public class Team {
 	}
 
 	/**
-	 * Methode die controleert ofdat de User 
-	 * wel het privilege TeamManager heeft
+	 * Methode die controleert ofdat de User wel 
+	 * het privilege TeamManager heeft
 	 * @param teamManager
 	 * @return privilege
 	 */

@@ -31,9 +31,7 @@ public class UserServiceBL{
        return true;
     }
     
-    public boolean hasPrivilege(){
-    
-    }
+
     
    
     

@@ -26,7 +26,7 @@ public class Main {
         Team team = new Team("TEST", user);
         tsbl.addTeamMemberToTeam(user2, team);
         
-        team.getEnrollments().forEach(e-> System.out.println(e.getUser().getEmail()));
+        team.getEnrollments().forEach(e-> System.out.println(e.getPrivilege().getClass().getSimpleName()));
         
         
     }

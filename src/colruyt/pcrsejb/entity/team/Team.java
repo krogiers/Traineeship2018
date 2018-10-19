@@ -13,7 +13,6 @@ public class Team {
 
 	/**
 	 * Constructor voor het aanmaken van een Team
-	 * 
 	 * @param name
 	 * @param teamMembersMap
 	 */

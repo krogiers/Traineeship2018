@@ -23,7 +23,6 @@ public class Team {
 
 	/**
 	 * Methode die de naam van het team retourneert
-	 * 
 	 * @return naam van het team
 	 */
 	public String getName() {

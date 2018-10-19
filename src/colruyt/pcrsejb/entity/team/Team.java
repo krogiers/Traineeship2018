@@ -1,10 +1,12 @@
 package colruyt.pcrsejb.entity.team;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.user.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.privileges.TeamManagerPrivilege;
-
-import java.util.Map;
+import colruyt.pcrsejb.entity.user.privileges.TeamMemberPrivilege;
 
 /**
  * Klasse voor het aanmaken van een Team
@@ -13,16 +15,17 @@ import java.util.Map;
 public class Team {
 
 	private String name;
-	private Map<User, Privilege> teamMembersMap;
+	private HashMap<User, Privilege> teamMembersMap;
 
 	/**
 	 * Constructor voor het aanmaken van een Team
 	 * @param name
-	 * @param teamMembersMap
+	 * @param teamManager
 	 */
-	public Team(String name, Map<User, Privilege> teamMembersMap) {
+	public Team(String name, User teamManager) {
 		setName(name);
-		setTeamMembersMap(teamMembersMap);
+		teamMembersMap = new HashMap<>();
+		teamMembersMap.put(teamManager, new TeamManagerPrivilege());
 	}
 
 	/**
@@ -56,9 +59,18 @@ public class Team {
 	 * 
 	 * @param teamMembersMap
 	 */
-	public void setTeamMembersMap(Map<User, Privilege> teamMembersMap) {
+	public void setTeamMembersMap(HashMap<User, Privilege> teamMembersMap) {
 		this.teamMembersMap = teamMembersMap;
 	}
+
+	/**
+	 * Methode voor het toevoegen van een teamMember
+	 * @param teamMember
+	 */
+	public void addTeamMember(User teamMember) {
+		teamMembersMap.put(teamMember, new TeamMemberPrivilege());
+	}
+	
 
 	/**
 	 * Methode die de owner van de groep retourneert

@@ -8,6 +8,8 @@ import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.TeamServiceBL;
+import colruyt.pcrsejb.entity.competence.Competence;
+
 
 public class Main {
 

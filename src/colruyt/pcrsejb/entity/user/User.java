@@ -3,15 +3,20 @@ package colruyt.pcrsejb.entity.user;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.privileges.Privilege;
 
+import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Klasse voor het aanmaken van een User.
+ * @author jda1mbw
+ */
 public class User {
 
     private String firstName;
     private String lastName;
     private String email;
     private String password;
-    private Set<Privilege> privileges;
+    private HashSet<Privilege> privileges;
     private Team team;
 	
     /**
@@ -22,7 +27,7 @@ public class User {
      * @param password
      * @param privileges
      */
-    public User(String firstName, String lastName, String email, String password, Set<Privilege> privileges) {
+    public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
@@ -106,7 +111,7 @@ public class User {
 	 * Methode voor het instellen van 1 of meer privileges
 	 * @param privileges
 	 */
-	public void setPrivileges(Set<Privilege> privileges) {
+	public void setPrivileges(HashSet<Privilege> privileges) {
 		this.privileges = privileges;
 	}
 	

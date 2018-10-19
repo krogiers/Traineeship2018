@@ -6,6 +6,10 @@ import colruyt.pcrsejb.entity.user.privileges.TeamManagerPrivilege;
 
 import java.util.Map;
 
+/**
+ * Klasse voor het aanmaken van een Team
+ * @author jda1mbw
+ */
 public class Team {
 
 	private String name;

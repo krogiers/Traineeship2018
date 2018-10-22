@@ -1,4 +1,4 @@
-package colruyt.pcrsejb.entity.user.privileges;
+package colruyt.pcrsejb.entity.privileges;
 
 public class FunctionResponsiblePrivilege extends FunctionHoldingPrivilege {
 

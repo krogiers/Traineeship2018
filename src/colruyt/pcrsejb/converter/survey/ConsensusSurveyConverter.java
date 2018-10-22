@@ -7,6 +7,7 @@ import colruyt.pcrsejb.entity.survey.Survey;
 
 public class ConsensusSurveyConverter implements SurveyConverter<ConsensusSurvey> {
 
+    //RatingBoConverter Nodig !!!!!!!!!
 
     @Override
     public SurveyBo convertTo(ConsensusSurvey from) {

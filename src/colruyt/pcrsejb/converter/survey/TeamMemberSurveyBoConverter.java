@@ -5,11 +5,11 @@ import colruyt.pcrsejb.bo.survey.TeamMemberSurveyBo;
 import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.TeamMemberSurvey;
 
-public class TeamMemberSurveyBoConverter implements SurveyBoConverter<TeamMemberSurveyBo> {
+public class TeamMemberSurveyBoConverter extends SurveyBoConverter<TeamMemberSurveyBo> {
 
-    //RatingBoConverter Nodig !!!!!!!!!
+
     @Override
     public Survey convertTo(TeamMemberSurveyBo from) {
-        return new TeamMemberSurvey();
+        return new TeamMemberSurvey(from.getDateCompleted(),this.convertRatings(from.getRatingBoList()));
     }
 }

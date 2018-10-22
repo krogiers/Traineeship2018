@@ -1,4 +1,4 @@
-package colruyt.pcrsejb.service.dl.rol;
+package colruyt.pcrsejb.service.dl.role;
 
 import colruyt.pcrsejb.entity.role.Role;
 import colruyt.pcrsejb.service.dl.GenericCrudService;

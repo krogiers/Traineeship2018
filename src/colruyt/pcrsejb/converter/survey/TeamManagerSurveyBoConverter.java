@@ -5,6 +5,9 @@ import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.TeamManagerSurvey;
 
 public class TeamManagerSurveyBoConverter implements SurveyBoConverter<TeamManagerSurveyBo> {
+
+    //RatingBoConverter Nodig !!!!!!!!!
+
     @Override
     public Survey convertTo(TeamManagerSurveyBo from) {
         return new TeamManagerSurvey();

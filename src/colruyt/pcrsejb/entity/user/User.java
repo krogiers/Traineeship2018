@@ -1,11 +1,10 @@
 package colruyt.pcrsejb.entity.user;
 
-import colruyt.pcrsejb.entity.team.Team;
-import colruyt.pcrsejb.entity.user.privileges.Privilege;
-import colruyt.pcrsejb.entity.user.privileges.TeamManagerPrivilege;
-
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+
+import colruyt.pcrsejb.entity.privileges.Privilege;
 
 /**
  * Klasse voor het aanmaken van een User.
@@ -19,16 +18,15 @@ public class User {
 	private String email;
 	private String password;
 	private HashSet<Privilege> privileges;
-	private Team team;
 
 	/**
 	 * Constructor voor het aanmaken van een User
 	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param password
-	 * @param privileges
+	 * @param firstName String
+	 * @param lastName String
+	 * @param email String
+	 * @param password String
+	 * @param privileges HashSet
 	 */
 	public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
 		setFirstName(firstName);
@@ -63,23 +61,6 @@ public class User {
 	 */
 	public String getLastName() {
 		return lastName;
-	}
-	
-	/**
-	 * Methode voor het aanvragen van privilege
-	 * @return the instance of the asked Class or null if the user doesn't have this privilege
-	 */
-	public Privilege hasPrivilege(Class privilege) {
-			for (Privilege privi : this.getPrivileges()) {
-				if (privilege.isInstance(privi)) {
-					return privi;
-				}
-			}
-			return null;
-	}
-	
-	public Privilege hasPrivilege(Privilege privilege) {
-		return hasPrivilege(privilege.getClass());
 	}
 
 	/**
@@ -132,7 +113,7 @@ public class User {
 	 * 
 	 * @return privileges
 	 */
-	public Set<Privilege> getPrivileges() {
+	public HashSet<Privilege> getPrivileges() {
 		return privileges;
 	}
 
@@ -145,28 +126,22 @@ public class User {
 		this.privileges = privileges;
 	}
 
-	/**
-	 * Methode voor het opvragen van het huidige team
-	 * 
-	 * @return team
-	 */
-	public Team getTeam() {
-		return team;
-	}
-
-	/**
-	 * Methode voor het instellen van het team
-	 * 
-	 * @param team
-	 */
-	public void setTeam(Team team) {
-		this.team = team;
-	}
-
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
-				+ privileges + ", team=" + team + "]";
+				+ privileges + "]";
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		User user = (User) o;
+		return Objects.equals(email, user.email);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email);
+	}
 }

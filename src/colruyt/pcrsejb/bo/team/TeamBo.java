@@ -1,33 +1,29 @@
-package colruyt.pcrsejb.entity.team;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.stream.Stream;
+package colruyt.pcrsejb.bo.team;
 
 import colruyt.pcrsejb.entity.enrollment.Enrollment;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.user.User;
+
+import java.util.HashSet;
 
 /**
  * Klasse voor het aanmaken van een Team.
  * 
  * @author jda1mbw
  */
-public class Team {
+public class TeamBo {
 
 	private String name;
 	private HashSet<Enrollment> enrollments;
 
-	public Team() {};
+	public TeamBo() {};
 	/**
 	 * Constructor voor het aanmaken van een Team
-	 * 
+	 *
 	 * @param name
 	 * @param teamManager
 	 */
-	public Team(String name, User teamManager) {
+	public TeamBo(String name, User teamManager) {
 		setName(name);
 		Enrollment enrollment = new Enrollment(teamManager, new TeamManagerPrivilege(), true);
 		enrollments = new HashSet<>();

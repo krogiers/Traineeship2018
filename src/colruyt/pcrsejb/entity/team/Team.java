@@ -1,13 +1,8 @@
 package colruyt.pcrsejb.entity.team;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.stream.Stream;
-
 import colruyt.pcrsejb.entity.enrollment.Enrollment;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.user.User;
 
 /**

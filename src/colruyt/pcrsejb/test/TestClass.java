@@ -36,7 +36,7 @@ class TestClass {
         teamMemberPrivilige.setFunction(softwareEngineer);
         lauraLynn = new User("Laura", "Lynn", "LauraLynn@gmail.com", "LauraLynn", null);
         jos = new User("Jos", "Bond", "jos.bond@gmail.com", "JosBond", null );
-        wouter = new User("Wouter", "Mosselmans", "wouter.mosselsmans@gmail.com", "WouterMosselsmans", null);
+        wouter = new User("Wouter", "Mosselmans", "wouter.mosselmans@gmail.com", "WouterMosselmans", null);
         teamMemberPriviligeSet = new HashSet<>();
         developer = new Role();
         leadDeveloper = new Role();

@@ -1,6 +1,6 @@
 package colruyt.pcrsejb.bo.user;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
+import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,7 +17,7 @@ public class UserBo {
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<Privilege> privileges;
+	private HashSet<PrivilegeBo> privileges;
 
 	/**
 	 * Constructor voor het aanmaken van een User
@@ -28,7 +28,7 @@ public class UserBo {
 	 * @param password String
 	 * @param privileges HashSet
 	 */
-	public UserBo(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
+	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privileges) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
@@ -113,7 +113,7 @@ public class UserBo {
 	 * 
 	 * @return privileges
 	 */
-	public Set<Privilege> getPrivileges() {
+	public Set<PrivilegeBo> getPrivileges() {
 		return privileges;
 	}
 
@@ -122,23 +122,8 @@ public class UserBo {
 	 * 
 	 * @param privileges
 	 */
-	public void setPrivileges(HashSet<Privilege> privileges) {
+	public void setPrivileges(HashSet<PrivilegeBo> privileges) {
 		this.privileges = privileges;
-	}
-
-	/**
-	 * Methode voor het aanvragen van privilege
-	 * 
-	 * @return privilegeReturn
-	 */
-	public Privilege hasPrivilege(Privilege privilege) {
-		Privilege privilegeReturn = null;
-		for (Privilege privi : this.getPrivileges()) {
-			if (privilege.getClass().isInstance(privi)) {
-				privilegeReturn = privi;
-			}
-		}
-		return privilegeReturn;
 	}
 
 	@Override

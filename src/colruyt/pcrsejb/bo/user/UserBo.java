@@ -36,6 +36,9 @@ public class UserBo {
 		setPrivileges(privileges);
 	}
 
+	public UserBo() {
+	}
+
 	/**
 	 * Methode voor het opvragen van de voornaam
 	 * 

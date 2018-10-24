@@ -1,4 +1,4 @@
-package colruyt.pcrsejb.facade.user;
+package colruyt.pcrsejb.facade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,5 +29,14 @@ public class UserFacade {
 	
 	public void givePrivilegeToUser(UserBo user, UserBo currentUser, PrivilegeBo privilege) {
 		//TODO
+	}
+
+	public List<UserBo> searchUsers(String shortString) {
+		//TODO
+		return null;
+	}
+
+	public void removeUser(UserBo user) {
+		// TODO
 	}
 }

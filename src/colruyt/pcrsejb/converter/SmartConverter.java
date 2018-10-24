@@ -21,18 +21,20 @@ public class SmartConverter<T,E> implements GenericConverter<E,T>{
 
     private void dataCopy(T p , E t) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
-        for(Method g : this.getGetters(p)) {
+        for(Method getter : this.getGetters(p)) {
 
-            for(Method s : this.getSetters(t)) {
+            for(Method setter : this.getSetters(t)) {
 
-                String set = s.getName().substring(3, s.getName().length());
-                String get = g.getName().substring(3, g.getName().length());
+
+                //Cut get and Set from method name
+                String set = setter.getName().substring(3, setter.getName().length());
+                String get = getter.getName().substring(3, getter.getName().length());
 
                 if(get.equals(set)) {
 
 
-                    Object o =  g.invoke(p, null);
-                    s.invoke(t,o);
+                    Object o =  getter.invoke(p, null);
+                    setter.invoke(t,o);
                 }
             }
 
@@ -44,8 +46,9 @@ public class SmartConverter<T,E> implements GenericConverter<E,T>{
 
     private E createInstance(T p) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
 
+        //Add Bo to object name
         String target = p.getClass().getName() + "Bo";
-
+        //Invoke default constructor
         return (E) Class.forName(target).newInstance();
 
 

@@ -6,38 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SmartBoConverter<T,E> {
+public class SmartBoConverter<T,E> implements GenericConverter<E,T> {
 
 
-    public E convert(T p) {
-        E result = null;
 
-        try {
-
-            result = this.createInstance(p);
-            this.dataCopy(p, result);
-
-
-        } catch (IllegalAccessException e) {
-
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-
-            e.printStackTrace();
-        } catch (IllegalArgumentException e) {
-
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-
-            e.printStackTrace();
-        }
-
-        return result;
-
-    }
 
 
     private List<Method> getGetters(T p) {
@@ -79,6 +51,37 @@ public class SmartBoConverter<T,E> {
 
         return (E) Class.forName(target).newInstance();
 
+
+    }
+
+    @Override
+    public E convertTo(T from) {
+        E result = null;
+
+        try {
+
+            result = this.createInstance(from);
+            this.dataCopy(from, result);
+
+
+        } catch (IllegalAccessException e) {
+
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+
+            e.printStackTrace();
+        }
+
+        return result;
 
     }
 }

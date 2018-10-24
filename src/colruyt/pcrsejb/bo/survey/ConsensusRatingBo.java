@@ -6,21 +6,21 @@ import java.util.Objects;
 
 /**
  The type Consensus rating. */
-public class ConsensusRatingBo extends RatingBo {
+public class ConsensusRatingBoBo extends RatingBo {
 
     private String comment;
     
     /**
      Instantiates a new Consensus rating.
      */
-    public ConsensusRatingBo(){
+    public ConsensusRatingBoBo(){
     }
     
     /**
      Instantiates a new Consensus rating.
      @param comment the comment
      */
-    public ConsensusRatingBo(String comment){
+    public ConsensusRatingBoBo(String comment){
         this.comment = comment;
     }
     
@@ -31,7 +31,7 @@ public class ConsensusRatingBo extends RatingBo {
      @param competence the competence
      @param comment the comment
      */
-    public ConsensusRatingBo(int level, boolean energy, Competence competence, String comment){
+    public ConsensusRatingBoBo(int level, boolean energy, Competence competence, String comment){
         super(level, energy, competence);
         this.comment = comment;
     }
@@ -56,11 +56,11 @@ public class ConsensusRatingBo extends RatingBo {
     public boolean equals(Object o){
         if(this == o)
             return true;
-        if(!(o instanceof ConsensusRatingBo))
+        if(!(o instanceof ConsensusRatingBoBo))
             return false;
         if(!super.equals(o))
             return false;
-        ConsensusRatingBo that = (ConsensusRatingBo) o;
+        ConsensusRatingBoBo that = (ConsensusRatingBoBo) o;
         return Objects.equals(getComment(), that.getComment());
     }
     

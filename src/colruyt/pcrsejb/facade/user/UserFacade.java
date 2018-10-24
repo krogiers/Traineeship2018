@@ -30,4 +30,13 @@ public class UserFacade {
 	public void givePrivilegeToUser(UserBo user, UserBo currentUser, PrivilegeBo privilege) {
 		//TODO
 	}
+
+	public List<UserBo> searchUsers(String shortString) {
+		//TODO
+		return null;
+	}
+
+	public void removeUser(UserBo user) {
+		// TODO
+	}
 }

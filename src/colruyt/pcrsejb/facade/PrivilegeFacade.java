@@ -1,4 +1,4 @@
-package colruyt.pcrsejb.facade.user;
+package colruyt.pcrsejb.facade;
 
 import java.util.List;
 

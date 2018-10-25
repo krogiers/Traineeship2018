@@ -1,13 +1,11 @@
 package colruyt.pcrsejb.service.dl.User;
 
-import colruyt.pcrsejb.entity.competence.Competence;
-import colruyt.pcrsejb.entity.competence.CraftCompetence;
-import colruyt.pcrsejb.entity.competence.FunctionCompetence;
-import colruyt.pcrsejb.entity.user.User;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import colruyt.pcrsejb.entity.privileges.Privilege;
+import colruyt.pcrsejb.entity.user.User;
 
 public class MemoryUserService implements AbstractUserService {
 
@@ -16,6 +14,7 @@ public class MemoryUserService implements AbstractUserService {
     @Override
     public void addElement(User user) {
         db.add(user);
+
     }
 
     @Override
@@ -25,6 +24,7 @@ public class MemoryUserService implements AbstractUserService {
 
     @Override
     public List<User> getAllElements() {
+
         return this.db;
     }
 
@@ -32,5 +32,15 @@ public class MemoryUserService implements AbstractUserService {
     public void deleteElement(User user) {
         this.db.remove(user);
 
+    }
+
+    @Override
+    public List<User> findUsersByPrivilege(Privilege privilege){
+        return this.db.stream().filter(x -> x.getPrivileges().contains(privilege)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findUsersByFirstName(String name) {
+        return this.db.stream().filter(x-> x.getFirstName().equals(name)).collect(Collectors.toList());
     }
 }

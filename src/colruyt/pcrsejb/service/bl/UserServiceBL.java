@@ -31,7 +31,7 @@ public class UserServiceBL{
 	}
 
 	public Collection<User> getAllUsers() {
-		return userdb.findAllUsers();
+		return userdb.getAllElements();
 	}
 	
 	

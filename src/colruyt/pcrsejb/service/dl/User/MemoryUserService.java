@@ -16,7 +16,6 @@ public class MemoryUserService implements AbstractUserService {
     @Override
     public void addElement(User user) {
         db.add(user);
-
     }
 
     @Override
@@ -26,7 +25,6 @@ public class MemoryUserService implements AbstractUserService {
 
     @Override
     public List<User> getAllElements() {
-
         return this.db;
     }
 
@@ -35,11 +33,4 @@ public class MemoryUserService implements AbstractUserService {
         this.db.remove(user);
 
     }
-
-    public Collection<User> findAllUsers() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-
 }

@@ -15,8 +15,8 @@ public class UserFacade {
 	private UserBoConverter userBoConverter = new UserBoConverter();
 	private UserConverter userConverter = new UserConverter();
 
-	public void addUser(UserBo newUser, UserBo CurrentUser) {
-		userServiceBL.addUser(userBoConverter.convertTo(newUser), userBoConverter.convertTo(CurrentUser));
+	public void addUser(UserBo newUser) {
+		userServiceBL.addUser(userBoConverter.convertTo(newUser));
 	}
 
 	public List<UserBo> getAllUsers() {
@@ -38,5 +38,10 @@ public class UserFacade {
 
 	public void removeUser(UserBo user) {
 		// TODO
+	}
+
+	public void saveUser(UserBo user) {
+		// TODO Auto-generated method stub
+		
 	}
 }

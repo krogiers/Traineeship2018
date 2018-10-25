@@ -26,10 +26,8 @@ public class UserServiceBL{
 		return hasPrivilege;
 	}
 
-	public void addUser(User newUser, User loggedInUser) {
-		if (userHasPrivilege(loggedInUser, new AdminPrivilege())) {
-			userdb.addElement(newUser);
-		}
+	public void addUser(User newUser) {
+		userdb.addElement(newUser);
 	}
 
 	public Collection<User> getAllUsers() {

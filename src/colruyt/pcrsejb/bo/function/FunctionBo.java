@@ -1,5 +1,7 @@
 package colruyt.pcrsejb.bo.function;
 
+import colruyt.pcrsejb.bo.competence.FunctionCompetenceBo;
+import colruyt.pcrsejb.bo.role.RoleBo;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 import colruyt.pcrsejb.entity.role.Role;
 
@@ -9,8 +11,8 @@ import java.util.Set;
 public class FunctionBo {
 
     private String title;
-    private Set<Role> roleSet;
-    private Set<FunctionCompetence> functionCompetenceSet;
+    private Set<RoleBo> roleSet;
+    private Set<FunctionCompetenceBo> functionCompetenceSet;
 
 
 	public FunctionBo() {
@@ -22,7 +24,7 @@ public class FunctionBo {
 		this.functionCompetenceSet = new HashSet<>();
 	}
 
-	public FunctionBo(String title, HashSet<Role> roleSet, HashSet<FunctionCompetence> functionCompetenceSet) {
+	public FunctionBo(String title, HashSet<RoleBo> roleSet, HashSet<FunctionCompetenceBo> functionCompetenceSet) {
 		super();
 		this.setTitle(title);
 		this.setRoleSet(roleSet);
@@ -37,19 +39,19 @@ public class FunctionBo {
 		this.title = title;
 	}
 
-	public Set<Role> getRoleSet() {
+	public Set<RoleBo> getRoleSet() {
 		return roleSet;
 	}
 
-	public void setRoleSet(HashSet<Role> roleSet) {
+	public void setRoleSet(HashSet<RoleBo> roleSet) {
 		this.roleSet = roleSet;
 	}
 
-	public Set<FunctionCompetence> getFunctionCompetenceSet() {
+	public Set<FunctionCompetenceBo> getFunctionCompetenceSet() {
 		return functionCompetenceSet;
 	}
 
-	public void setFunctionCompetenceSet(HashSet<FunctionCompetence> functionCompetenceSet) {
+	public void setFunctionCompetenceSet(HashSet<FunctionCompetenceBo> functionCompetenceSet) {
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 

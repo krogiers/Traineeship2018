@@ -1,8 +1,8 @@
 package colruyt.pcrsejb.bo.team;
 
-import colruyt.pcrsejb.entity.enrollment.Enrollment;
-import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.bo.enrolment.EnrolmentBo;
+import colruyt.pcrsejb.bo.privileges.TeamManagerPrivilegeBo;
+import colruyt.pcrsejb.bo.user.UserBo;
 
 import java.util.HashSet;
 
@@ -14,18 +14,20 @@ import java.util.HashSet;
 public class TeamBo {
 
 	private String name;
-	private HashSet<Enrollment> enrollments;
+	private HashSet<EnrolmentBo> enrollments;
 
-	public TeamBo() {};
+	public TeamBo() 
+	{
+	};
 	/**
 	 * Constructor voor het aanmaken van een Team
 	 *
 	 * @param name
 	 * @param teamManager
 	 */
-	public TeamBo(String name, User teamManager) {
+	public TeamBo(String name, UserBo teamManager) {
 		setName(name);
-		Enrollment enrollment = new Enrollment(teamManager, new TeamManagerPrivilege(), true);
+		EnrolmentBo enrollment = new EnrolmentBo(teamManager, new TeamManagerPrivilegeBo(), true);
 		enrollments = new HashSet<>();
 		enrollments.add(enrollment);
 	}
@@ -51,19 +53,16 @@ public class TeamBo {
 	/**
 	 * Methode voor terugkrijgen van de Enrollments
 	 * 
-	 * @param teamMember
 	 */
-	public HashSet<Enrollment> getEnrollments() {
+	public HashSet<EnrolmentBo> getEnrollments() {
 		return enrollments;
 	}
 	
 	/**
 	 * Methode voor het zetten van de enrollments
 	 * 
-	 * @param teamMember
 	 */
-	public void setEnrollments(HashSet<Enrollment> enrollments) {
+	public void setEnrollments(HashSet<EnrolmentBo> enrollments) {
 		this.enrollments = enrollments;
-	}
-
+	}	
 }

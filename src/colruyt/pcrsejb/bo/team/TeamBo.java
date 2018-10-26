@@ -1,6 +1,6 @@
 package colruyt.pcrsejb.bo.team;
 
-import colruyt.pcrsejb.bo.enrollment.EnrollmentBo;
+import colruyt.pcrsejb.bo.enrolment.EnrolmentBo;
 import colruyt.pcrsejb.bo.privileges.TeamManagerPrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 
@@ -14,7 +14,7 @@ import java.util.HashSet;
 public class TeamBo {
 
 	private String name;
-	private HashSet<EnrollmentBo> enrollments;
+	private HashSet<EnrolmentBo> enrollments;
 
 	public TeamBo() 
 	{
@@ -27,7 +27,7 @@ public class TeamBo {
 	 */
 	public TeamBo(String name, UserBo teamManager) {
 		setName(name);
-		EnrollmentBo enrollment = new EnrollmentBo(teamManager, new TeamManagerPrivilegeBo(), true);
+		EnrolmentBo enrollment = new EnrolmentBo(teamManager, new TeamManagerPrivilegeBo(), true);
 		enrollments = new HashSet<>();
 		enrollments.add(enrollment);
 	}
@@ -53,18 +53,16 @@ public class TeamBo {
 	/**
 	 * Methode voor terugkrijgen van de Enrollments
 	 * 
-	 * @param teamMember
 	 */
-	public HashSet<EnrollmentBo> getEnrollments() {
+	public HashSet<EnrolmentBo> getEnrollments() {
 		return enrollments;
 	}
 	
 	/**
 	 * Methode voor het zetten van de enrollments
 	 * 
-	 * @param teamMember
 	 */
-	public void setEnrollments(HashSet<EnrollmentBo> enrollments) {
+	public void setEnrollments(HashSet<EnrolmentBo> enrollments) {
 		this.enrollments = enrollments;
 	}	
 }

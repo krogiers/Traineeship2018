@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.converter.function;
 
+import colruyt.pcrsejb.bo.competence.BehavioralCompetenceBo;
 import colruyt.pcrsejb.bo.competence.FunctionCompetenceBo;
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.role.RoleBo;
@@ -38,7 +39,7 @@ public class FunctionConverter implements GenericConverter<FunctionBo,Function> 
         for (FunctionCompetence functionCompetence : competences){
             if (functionCompetence instanceof BehavioralCompetence){
                 BehavioralCompetenceConverter conv = new BehavioralCompetenceConverter();
-                // functionCompetenceBoHashSet.add(conv.convertTo((BehavioralCompetence) functionCompetence));
+                functionCompetenceBoHashSet.add((FunctionCompetenceBo) conv.convertTo((BehavioralCompetence) functionCompetence));
             } else if (functionCompetence instanceof DomainCompetence) {
                 // not implemented yet
             } else if (functionCompetence instanceof OperatingUnitCompetence) {

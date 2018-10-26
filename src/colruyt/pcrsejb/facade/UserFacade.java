@@ -16,7 +16,8 @@ public class UserFacade {
 	private UserConverter userConverter = new UserConverter();
 
 	public void addUser(UserBo newUser) {
-		userServiceBL.addUser(userBoConverter.convertTo(newUser));
+		User user = userBoConverter.convertTo(newUser);
+		userServiceBL.addUser(user);
 	}
 
 	public List<UserBo> getAllUsers() {

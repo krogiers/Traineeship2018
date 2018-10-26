@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 public abstract class SurveyConverter<T extends Survey> implements GenericConverter<SurveyBo,T> {
 
+
     private RatingConverter conv = new RatingConverter();
 
     protected List<RatingBo> convertRatings(List<Rating> ratings){

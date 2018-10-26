@@ -6,7 +6,7 @@ import colruyt.pcrsejb.service.dl.GenericCrudService;
 
 import java.util.List;
 
-public interface AbstractUserService extends GenericCrudService<User,Long>{
+public interface UserService extends GenericCrudService<User,Long>{
 
     List<User> findUsersByPrivilege(Privilege privilege);
     List<User> findUsersByFirstName(String name);

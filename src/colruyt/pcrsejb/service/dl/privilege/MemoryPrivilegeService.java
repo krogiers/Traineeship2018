@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MemoryPrivilegeService implements AbstractPrivilegeService {
+public class MemoryPrivilegeService implements PrivilegeService {
 
 
     private List<Privilege> privilegeList = new ArrayList<>();

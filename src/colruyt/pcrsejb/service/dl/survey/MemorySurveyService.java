@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MemorySurveyService implements AbstractSurveySetService {
+public class MemorySurveyService implements SurveySetService {
 
     private List<SurveySet> surveylist = new ArrayList<>();
 

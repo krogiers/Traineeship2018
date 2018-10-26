@@ -71,6 +71,6 @@ public class ConsensusRatingBo extends RatingBo {
     
     @Override
     public String toString(){
-        return "ConsensusRatingBoBo{" + "comment='" + comment + '\'' + "} " + super.toString();
+        return "ConsensusRatingBo{" + "comment='" + comment + '\'' + "} " + super.toString();
     }
 }

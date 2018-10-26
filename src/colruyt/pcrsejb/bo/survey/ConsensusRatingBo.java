@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.bo.survey;
 
+import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.entity.competence.Competence;
 
 import java.util.Objects;
@@ -28,11 +29,11 @@ public class ConsensusRatingBo extends RatingBo {
      Instantiates a new Consensus rating.
      @param level the level
      @param energy the energy
-     @param competence the competence
+     @param competenceBo the competence
      @param comment the comment
      */
-    public ConsensusRatingBo(int level, boolean energy, Competence competence, String comment){
-        super(level, energy, competence);
+    public ConsensusRatingBo(int level, boolean energy, CompetenceBo competenceBo, String comment){
+        super(level, energy, competenceBo);
         this.comment = comment;
     }
     

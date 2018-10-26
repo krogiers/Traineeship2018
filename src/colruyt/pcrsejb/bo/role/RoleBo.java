@@ -8,15 +8,16 @@ import java.util.List;
 public class RoleBo {
 
 	private String name;
-    private List<RoleCompetenceBo> roleCompetenceList;
+    private List<RoleCompetenceBo> roleCompetenceBoList;
 
     public RoleBo() {
 		super();
 	}
-	public RoleBo(String name, List<RoleCompetenceBo> roleCompetenceList) {
+
+	public RoleBo(String name, List<RoleCompetenceBo> roleCompetenceBoList) {
 		super();
 		this.name = name;
-		this.roleCompetenceList = roleCompetenceList;
+		this.roleCompetenceBoList = roleCompetenceBoList;
 	}
 	public String getName() {
 		return name;
@@ -26,12 +27,12 @@ public class RoleBo {
 		this.name = name;
 	}
 
-	public List<RoleCompetenceBo> getRoleCompetenceList() {
-		return roleCompetenceList;
+	public List<RoleCompetenceBo> getRoleCompetenceBoList() {
+		return roleCompetenceBoList;
 	}
 
-	public void setRoleCompetenceList(List<RoleCompetenceBo> roleCompetenceList) {
-		this.roleCompetenceList = roleCompetenceList;
+	public void setRoleCompetenceBoList(List<RoleCompetenceBo> roleCompetenceBoList) {
+		this.roleCompetenceBoList = roleCompetenceBoList;
 	}
 
 

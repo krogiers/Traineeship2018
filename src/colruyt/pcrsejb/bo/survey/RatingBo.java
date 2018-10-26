@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.bo.survey;
 
+import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.entity.competence.Competence;
 
 import java.util.Objects;
@@ -10,7 +11,7 @@ public class RatingBo {
 
     private int level;
     private boolean energy;
-    private Competence competence;
+    private CompetenceBo competenceBo;
     
     
     /**
@@ -24,12 +25,12 @@ public class RatingBo {
      Instantiates a new RatingBo.
      @param level the level
      @param energy the energy
-     @param competence the competence
+     @param competenceBo the competence
      */
-    public RatingBo(int level, boolean energy, Competence competence){
+    public RatingBo(int level, boolean energy, CompetenceBo competenceBo){
         setLevel(level);
         setEnergy(energy);
-        setCompetence(competence);
+        setCompetenceBo(competenceBo);
     }
     
     /**
@@ -68,16 +69,16 @@ public class RatingBo {
      Getter for property 'competence'.
      @return Value for property 'competence'.
      */
-    public Competence getCompetence(){
-        return competence;
+    public CompetenceBo getCompetenceBo(){
+        return competenceBo;
     }
     
     /**
      Setter for property 'competence'.
-     @param competence Value to set for property 'competence'.
+     @param competenceBo Value to set for property 'competence'.
      */
-    public void setCompetence(Competence competence){
-        this.competence = competence;
+    public void setCompetenceBo(CompetenceBo competenceBo){
+        this.competenceBo = competenceBo;
     }
     
     /** {@inheritDoc} */
@@ -88,18 +89,19 @@ public class RatingBo {
         if(!(o instanceof RatingBo))
             return false;
         RatingBo ratingBo = (RatingBo) o;
-        return getLevel() == ratingBo.getLevel() && isEnergy() == ratingBo.isEnergy() && Objects.equals(getCompetence(), ratingBo.getCompetence());
+        return getLevel() == ratingBo.getLevel() && isEnergy() == ratingBo.isEnergy() && Objects.equals(getCompetenceBo(),
+                ratingBo.getCompetenceBo());
     }
     
     /** {@inheritDoc} */
     @Override
     public int hashCode(){
-        return Objects.hash(getLevel(), isEnergy(), getCompetence());
+        return Objects.hash(getLevel(), isEnergy(), getCompetenceBo());
     }
     
     /** {@inheritDoc} */
     @Override
     public String toString(){
-        return "RatingBo{" + "level=" + level + ", energy=" + energy + ", competence=" + competence + '}';
+        return "RatingBo{" + "level=" + level + ", energy=" + energy + ", competence=" + competenceBo + '}';
     }
 }

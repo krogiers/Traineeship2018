@@ -20,12 +20,15 @@ public class Role {
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public List<RoleCompetence> getRoleCompetenceList() {
 		return roleCompetenceList;
 	}
+
 	public void setRoleCompetenceList(List<RoleCompetence> roleCompetenceList) {
 		this.roleCompetenceList = roleCompetenceList;
 	}

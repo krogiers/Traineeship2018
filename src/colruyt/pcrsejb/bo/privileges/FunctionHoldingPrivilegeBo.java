@@ -10,11 +10,11 @@ public abstract class FunctionHoldingPrivilegeBo implements PrivilegeBo {
 
 
     
-	public FunctionBo getFunction() {
+	public FunctionBo getFunctionBo() {
 		return functionBo;
 	}
 
-	public void setFunction(FunctionBo functionBo) {
+	public void setFunctionBo(FunctionBo functionBo) {
 		this.functionBo = functionBo;
 	}
 

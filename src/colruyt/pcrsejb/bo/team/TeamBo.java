@@ -14,7 +14,7 @@ import java.util.HashSet;
 public class TeamBo {
 
 	private String name;
-	private HashSet<EnrolmentBo> enrollments;
+	private HashSet<EnrolmentBo> enrolmentsBoHashSet;
 
 	public TeamBo() 
 	{
@@ -27,9 +27,9 @@ public class TeamBo {
 	 */
 	public TeamBo(String name, UserBo teamManager) {
 		setName(name);
-		EnrolmentBo enrollment = new EnrolmentBo(teamManager, new TeamManagerPrivilegeBo(), true);
-		enrollments = new HashSet<>();
-		enrollments.add(enrollment);
+		EnrolmentBo enrolment = new EnrolmentBo(teamManager, new TeamManagerPrivilegeBo(), true);
+		enrolmentsBoHashSet = new HashSet<>();
+		enrolmentsBoHashSet.add(enrolment);
 	}
 
 	/**
@@ -54,15 +54,15 @@ public class TeamBo {
 	 * Methode voor terugkrijgen van de Enrollments
 	 * 
 	 */
-	public HashSet<EnrolmentBo> getEnrollments() {
-		return enrollments;
+	public HashSet<EnrolmentBo> getEnrolmentsBoHashSet() {
+		return enrolmentsBoHashSet;
 	}
 	
 	/**
 	 * Methode voor het zetten van de enrollments
 	 * 
 	 */
-	public void setEnrollments(HashSet<EnrolmentBo> enrollments) {
-		this.enrollments = enrollments;
+	public void setEnrolmentsBoHashSet(HashSet<EnrolmentBo> enrolmentsBoHashSet) {
+		this.enrolmentsBoHashSet = enrolmentsBoHashSet;
 	}	
 }

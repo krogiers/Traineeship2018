@@ -13,6 +13,6 @@ public class FunctionBoConverter implements GenericConverter<Function,FunctionBo
 
     @Override
     public Function convertTo(FunctionBo from) {
-        return new Function(from.getTitle(),(HashSet<Role>)from.getRoleSet(),(HashSet<FunctionCompetence>)from.getFunctionCompetenceSet());
+        return new Function(from.getTitle(),(HashSet<Role>)from.getRoleBoSet(),(HashSet<FunctionCompetence>)from.getFunctionCompetenceBoSet());
     }
 }

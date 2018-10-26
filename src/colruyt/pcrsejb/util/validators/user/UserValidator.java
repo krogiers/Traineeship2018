@@ -31,6 +31,7 @@ public class UserValidator implements GenericValidator<User> {
     }
 
     private void validateEmail(String email) throws InvalidEmailException {
+        String regExp = "[a-zA-Z.]+@[a-zA-Z]+.[a-zA-Z]+";
         if(email == null || email.isEmpty()){
             throw new InvalidEmailException();
         }

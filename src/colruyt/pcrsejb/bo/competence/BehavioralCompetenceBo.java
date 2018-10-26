@@ -29,9 +29,6 @@ public class BehavioralCompetenceBo extends CompetenceBo implements FunctionComp
 
 
 	public void setMinLevel(int minLevel) {
-//		if (minLevel < 0){
-//			throw new CompetenceException("minLevel is lower than 0");
-//		}
 		this.minLevel = minLevel;
 	}
 
@@ -42,9 +39,6 @@ public class BehavioralCompetenceBo extends CompetenceBo implements FunctionComp
 
 
 	public void setPossibilityMap(Map<Integer,String> possibilityMap){
-//		if (possibilityMap == null){
-//			throw new CompetenceException("possibilityMap is null");
-//		}
 		this.possibilityMap = possibilityMap;
 	}
     

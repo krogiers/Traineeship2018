@@ -10,18 +10,18 @@ import java.util.TreeSet;
 public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {
 
     private LocalDate startDateInCurrentFunction; 
-    private TreeSet<SurveySetBo> surveySetTreeSet;
+    private TreeSet<SurveySetBo> surveySetBoTreeSet;
     
     public TeamMemberPrivilegeBo() {
 		super();
 		this.setStartDateInCurrentFunction(null);;
-		this.setSurveySetTreeSet(new TreeSet<SurveySetBo>());
+		this.setSurveySetBoTreeSet(new TreeSet<>());
 	}
 	
 	public TeamMemberPrivilegeBo(LocalDate startDateInCurrentFunction) {
 		super();
-		this.setStartDateInCurrentFunction(startDateInCurrentFunction);;
-		this.setSurveySetTreeSet(new TreeSet<SurveySetBo>());;
+		this.setStartDateInCurrentFunction(startDateInCurrentFunction);
+		this.setSurveySetBoTreeSet(new TreeSet<>());
 	}
 
 	
@@ -33,23 +33,23 @@ public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {
 		this.startDateInCurrentFunction = startDateInCurrentFunction;
 	}
 
-	public Set<SurveySetBo> getSurveySetTreeSet() {
-		return surveySetTreeSet;
+	public Set<SurveySetBo> getSurveySetBoTreeSet() {
+		return surveySetBoTreeSet;
 	}
 	
-	public void setSurveySetTreeSet(TreeSet<SurveySetBo> surveySetTreeSet) {
-		this.surveySetTreeSet = surveySetTreeSet;
+	public void setSurveySetBoTreeSet(TreeSet<SurveySetBo> surveySetBoTreeSet) {
+		this.surveySetBoTreeSet = surveySetBoTreeSet;
 	}
 
 	public void addSurveySet()
 	{
 		//TO DO: argumenten van de constructor aanvullen
-		surveySetTreeSet.add(new SurveySetBo());
+		surveySetBoTreeSet.add(new SurveySetBo());
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "TeamMemberPrivilegeBo [function=" + this.getFunction() + ", startDateInCurrentFunction=" + startDateInCurrentFunction + "]";
+		return "TeamMemberPrivilegeBo [function=" + this.getFunctionBo() + ", startDateInCurrentFunction=" + startDateInCurrentFunction + "]";
 	}
 }

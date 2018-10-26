@@ -16,19 +16,19 @@ public class EnrolmentBo {
 		this.privilegeBo = privilegeBo;
 		this.active = active;
 	}
-	public UserBo getUser() {
+	public UserBo getUserBO() {
 		return userBo;
 	}
 
-	public void setUser(UserBo userBo) {
+	public void setUserBo(UserBo userBo) {
 		this.userBo = userBo;
 	}
 
-	public PrivilegeBo getPrivilege() {
+	public PrivilegeBo getPrivilegeBo() {
 		return privilegeBo;
 	}
 
-	public void setPrivilege(PrivilegeBo privilegeBo) {
+	public void setPrivilegeBo(PrivilegeBo privilegeBo) {
 		this.privilegeBo = privilegeBo;
 	}
 

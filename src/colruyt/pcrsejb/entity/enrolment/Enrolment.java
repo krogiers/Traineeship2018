@@ -5,7 +5,7 @@ import colruyt.pcrsejb.entity.user.User;
 
 public class Enrolment {
 
-	private Long EnrolmentID;
+	private long EnrolmentID;
 	private User user;
 	private Privilege privilege;
 	private boolean active;
@@ -17,7 +17,7 @@ public class Enrolment {
 		this.active = active;
 	}
 
-	public Enrolment(Long enrolmentID, colruyt.pcrsejb.entity.user.User user, colruyt.pcrsejb.entity.privileges.Privilege privilege, boolean active) {
+	public Enrolment(long enrolmentID, colruyt.pcrsejb.entity.user.User user, colruyt.pcrsejb.entity.privileges.Privilege privilege, boolean active) {
 		EnrolmentID = enrolmentID;
 		this.user = user;
 		this.privilege = privilege;

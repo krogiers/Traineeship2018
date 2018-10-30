@@ -46,6 +46,7 @@ public class MemoryUserService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
+
         return this.db.stream().filter(x -> (x.getFirstName().substring(0,2)
                 + x.getLastName().substring(0,3)).equals(shortName)).collect(Collectors.toList());
     }

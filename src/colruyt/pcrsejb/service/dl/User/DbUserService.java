@@ -27,10 +27,10 @@ public class DbUserService implements UserService {
         List<User> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join UserPrivileges up on u.id = up.id  where up.id = ?");
+            PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.id = ?");
           statement.setInt(1,privilege.getId());
-            ResultSet rs =  statement.executeQuery();
-            users = convertToUserList(rs);
+          ResultSet rs =  statement.executeQuery();
+          users = convertToUserList(rs);
 
 
         } catch (SQLException e) {
@@ -92,6 +92,7 @@ public class DbUserService implements UserService {
 
             //TODO: Privilege toevoegne (Inner join ?)
             u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>());
+
         }
         return u;
     }
@@ -119,12 +120,12 @@ public class DbUserService implements UserService {
     }
 
     @Override
-    public User getElement(Long index) {
+    public User getElement(Integer index) {
         User user = null;
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("Select * from Users where id = ?");
-            statement.setLong(1,index);
+            statement.setInt(1,index);
 
 
             ResultSet rs =  statement.executeQuery();

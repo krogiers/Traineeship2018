@@ -18,8 +18,8 @@ public class MemoryUserService implements UserService {
     }
 
     @Override
-    public User getElement(Long index) {
-        return this.db.get((index.intValue()));
+    public User getElement(Integer index) {
+        return this.db.get(index);
     }
 
     @Override

@@ -49,4 +49,9 @@ public class UserFacade {
     public void addFunctionResponsible() {
 		// TODO
     }
+
+	public void updatePassword(UserBo user) {
+		// TODO Auto-generated method stub
+		
+	}
 }

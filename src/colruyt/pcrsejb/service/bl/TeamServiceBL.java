@@ -9,7 +9,7 @@ import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.service.dl.User.AbstractUserService;
+import colruyt.pcrsejb.service.dl.User.UserService;
 import colruyt.pcrsejb.service.dl.User.MemoryUserService;
 import colruyt.pcrsejb.service.dl.team.AbstractTeamService;
 import colruyt.pcrsejb.service.dl.team.MemoryTeamService;

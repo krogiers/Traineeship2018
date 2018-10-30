@@ -13,6 +13,7 @@ import java.util.Set;
  */
 public class UserBo {
 
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -28,12 +29,21 @@ public class UserBo {
 	 * @param password String
 	 * @param privilegeBoHashSet HashSet
 	 */
-	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
+	public UserBo(long id,String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
 		setPassword(password);
 		setPrivilegeBoHashSet(privilegeBoHashSet);
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public UserBo() {

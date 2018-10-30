@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MemoryFunctionService implements AbstractFunctionService {
+public class MemoryFunctionService implements FunctionService {
 
        private List<Function> functionList = new ArrayList<>();
 

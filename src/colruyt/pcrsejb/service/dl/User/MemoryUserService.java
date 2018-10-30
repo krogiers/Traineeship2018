@@ -1,13 +1,13 @@
 package colruyt.pcrsejb.service.dl.User;
 
+import colruyt.pcrsejb.entity.privileges.Privilege;
+import colruyt.pcrsejb.entity.user.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
-import colruyt.pcrsejb.entity.user.User;
-
-public class MemoryUserService implements AbstractUserService {
+public class MemoryUserService implements UserService {
 
     private List<User> db = new ArrayList<>();
 
@@ -43,4 +43,6 @@ public class MemoryUserService implements AbstractUserService {
     public List<User> findUsersByFirstName(String name) {
         return this.db.stream().filter(x-> x.getFirstName().equals(name)).collect(Collectors.toList());
     }
+
+
 }

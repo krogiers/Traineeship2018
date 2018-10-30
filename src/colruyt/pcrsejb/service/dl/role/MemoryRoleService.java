@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MemoryRoleService implements AbstractRoleService {
+public class MemoryRoleService implements RoleService {
 
     private List<Role> roleList = new ArrayList<>();
 

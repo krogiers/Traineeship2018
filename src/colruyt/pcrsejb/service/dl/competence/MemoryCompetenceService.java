@@ -8,7 +8,7 @@ import colruyt.pcrsejb.entity.competence.Competence;
 import colruyt.pcrsejb.entity.competence.CraftCompetence;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 
-public class MemoryCompetenceService implements AbstractCompetenceService {
+public class MemoryCompetenceService implements CompetenceService {
 
 	private List<Competence> db = new ArrayList<>();
 	

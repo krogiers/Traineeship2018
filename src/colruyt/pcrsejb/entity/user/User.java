@@ -36,6 +36,10 @@ public class User {
 		setPrivileges(privileges);
 	}
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Methode voor het opvragen van de voornaam
 	 * 

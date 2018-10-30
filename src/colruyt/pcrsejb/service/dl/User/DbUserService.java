@@ -2,6 +2,7 @@ package colruyt.pcrsejb.service.dl.User;
 
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.privilege.DbPrivilegeService;
 import colruyt.pcrsejb.service.dl.privilege.PrivilegeService;
 import colruyt.pcrsejb.util.factories.ConnectionFactory;
@@ -16,14 +17,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class DbUserService implements UserService {
+public class DbUserService extends DbService implements UserService {
 
 
     private PrivilegeService service = new DbPrivilegeService();
 
-    private Connection createConnection() throws SQLException {
-      return ConnectionFactory.createFactory(ConnectionType.BASIC).createConnection();
-    }
+
 
     @Override
     public List<User> findUsersByPrivilege(Privilege privilege) {

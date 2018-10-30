@@ -13,8 +13,9 @@ public class MemoryCompetenceService implements CompetenceService {
 	private List<Competence> db = new ArrayList<>();
 	
 	@Override
-	public void addElement(Competence element) {
+	public Competence addElement(Competence element) {
 		db.add(element);
+		return element;
 		
 	}
 

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 public class BasicConnectionFactory extends ConnectionFactory {
 	
     // fill in the correct connection info instead of XXX
-	private static String userId="OPLJA09ONTW";
-	private static String passwd="OPLJA09ONTW";
-	private static String url="jdbc:oracle:thin:@dbsrvoractib0:1521:oractib1";
+	private static String userId="XXX";
+	private static String passwd="XXX";
+	private static String url="XXX";
 
 
 	private static BasicConnectionFactory instance;

@@ -11,8 +11,9 @@ public class MemoryFunctionService implements FunctionService {
        private List<Function> functionList = new ArrayList<>();
 
     @Override
-    public void addElement(Function element) {
+    public Function addElement(Function element) {
         this.functionList.add(element);
+        return element;
     }
 
     @Override

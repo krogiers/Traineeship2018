@@ -12,9 +12,9 @@ public class MemoryUserService implements UserService {
     private List<User> db = new ArrayList<>();
 
     @Override
-    public void addElement(User user) {
+    public User addElement(User user) {
         db.add(user);
-
+        return user;
     }
 
     @Override

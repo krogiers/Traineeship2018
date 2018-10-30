@@ -11,8 +11,9 @@ public class MemoryRoleService implements RoleService {
     private List<Role> roleList = new ArrayList<>();
 
     @Override
-    public void addElement(Role element) {
+    public Role addElement(Role element) {
         this.roleList.add(element);
+        return element;
     }
 
     @Override

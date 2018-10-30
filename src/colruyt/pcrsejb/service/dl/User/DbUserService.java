@@ -122,24 +122,35 @@ public class DbUserService implements UserService {
 
 
     @Override
-    public void addElement(User element) {
+    public User addElement(User element) {
+
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (?,?,?,?,?)");
-            statement.setInt(1,element.getId());
+
             statement.setString(2,element.getFirstName());
             statement.setString(3,element.getLastName());
             statement.setString(4,element.getEmail());
             statement.setString(5,element.getPassword());
 
             statement.setLong(1,element.getId());
-            ResultSet rs =  statement.executeQuery();
+            statement.executeQuery();
+            ResultSet rs =  statement.getGeneratedKeys();
+
+            if(rs.next())
+            element.setId((int) rs.getLong(1));
+            else
+            throw new IllegalArgumentException();
+
+            return element;
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
+            //TODO: Maak BEter
+            return null;
     }
 
     @Override

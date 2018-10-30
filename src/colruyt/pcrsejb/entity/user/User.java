@@ -13,7 +13,7 @@ import colruyt.pcrsejb.entity.privileges.Privilege;
  */
 public class User {
 
-	private long id;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -29,7 +29,7 @@ public class User {
 	 * @param password String
 	 * @param privileges HashSet
 	 */
-	public User(long id,String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
+	public User(int id,String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
@@ -37,11 +37,11 @@ public class User {
 		setPrivileges(privileges);
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

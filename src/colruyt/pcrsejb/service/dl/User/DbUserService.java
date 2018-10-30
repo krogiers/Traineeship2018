@@ -24,7 +24,19 @@ public class DbUserService implements UserService {
 
     @Override
     public List<User> findUsersByPrivilege(Privilege privilege) {
-        return null;
+        List<User> users = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join UserPrivileges up on u.id = up.id  where up.id = ?");
+          statement.setInt(1,privilege.getId());
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     @Override
@@ -49,8 +61,8 @@ public class DbUserService implements UserService {
 
         List<User> user = new ArrayList<User>();
         while(rs.next()){
-            long id = rs.getLong("id");
-           String firstname = rs.getString("firstname");
+            int id = rs.getInt("id");
+            String firstname = rs.getString("firstname");
             String lastname = rs.getString("lastname");
             String password = rs.getString("password");
             String email = rs.getString("email");
@@ -66,7 +78,7 @@ public class DbUserService implements UserService {
 
         User u =  null;
         if(rs.next()){
-            long id = rs.getLong("id");
+            int id = rs.getInt("id");
             String firstname = rs.getString("firstname");
             String lastname = rs.getString("lastname");
             String password = rs.getString("password");
@@ -84,7 +96,7 @@ public class DbUserService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (?,?,?,?,?)");
-            statement.setLong(1,element.getId());
+            statement.setInt(1,element.getId());
             statement.setString(2,element.getFirstName());
             statement.setString(3,element.getLastName());
             statement.setString(4,element.getEmail());

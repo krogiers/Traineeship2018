@@ -45,6 +45,12 @@ public class DbUserService implements UserService {
         return users;
     }
 
+    @Override
+    public List<User> findUsersByShortName(String shortName) {
+        // TODO Implementation needed
+        return null;
+    }
+
     private List<User> convertToUserList(ResultSet rs) throws SQLException {
 
         List<User> user = new ArrayList<User>();

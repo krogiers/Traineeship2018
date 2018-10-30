@@ -45,4 +45,8 @@ public class UserFacade {
 		// TODO Auto-generated method stub
 		
 	}
+
+    public void addFunctionResponsible() {
+
+    }
 }

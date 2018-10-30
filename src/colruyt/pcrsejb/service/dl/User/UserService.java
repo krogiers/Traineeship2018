@@ -10,5 +10,6 @@ public interface UserService extends GenericCrudService<User,Long>{
 
     List<User> findUsersByPrivilege(Privilege privilege);
     List<User> findUsersByFirstName(String name);
+    List<User> findUsersByShortName(String shortName);
 
 }

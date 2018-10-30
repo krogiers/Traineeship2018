@@ -16,8 +16,8 @@ public class MemoryFunctionService implements FunctionService {
     }
 
     @Override
-    public Function getElement(Long index) {
-        return this.functionList.get(index.intValue());
+    public Function getElement(Integer index) {
+        return this.functionList.get(index);
     }
 
     @Override

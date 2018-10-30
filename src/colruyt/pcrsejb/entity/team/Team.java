@@ -1,12 +1,10 @@
+
 package colruyt.pcrsejb.entity.team;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
-import java.util.stream.Stream;
+
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.user.User;
 
 /**
@@ -16,6 +14,7 @@ import colruyt.pcrsejb.entity.user.User;
  */
 public class Team {
 
+	private long teamID;
 	private String name;
 	private HashSet<Enrolment> enrolmentsHashSet;
 
@@ -31,6 +30,20 @@ public class Team {
 		Enrolment enrollment = new Enrolment(teamManager, new TeamManagerPrivilege(), true);
 		enrolmentsHashSet = new HashSet<>();
 		enrolmentsHashSet.add(enrollment);
+	}
+
+	public Team(long teamID, String name, HashSet<Enrolment> enrolmentsHashSet) {
+		this.teamID = teamID;
+		this.name = name;
+		this.enrolmentsHashSet = enrolmentsHashSet;
+	}
+
+	public long getTeamID() {
+		return teamID;
+	}
+
+	public void setTeamID(long teamID) {
+		this.teamID = teamID;
 	}
 
 	/**

@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import colruyt.pcrsejb.entity.team.Team;
 
-public class MemoryTeamService implements AbstractTeamService {
+public class MemoryTeamService implements TeamService {
 
 	private ArrayList<Team> db = new ArrayList<>();
 	

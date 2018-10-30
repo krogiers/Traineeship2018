@@ -26,11 +26,14 @@ public class DbPrivilegeService implements PrivilegeService  {
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (?,?,?,?,?)");
+            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege) values (?,?)");
 
 
 
             statement.setLong(1,element.getId());
+            statement.setString(2,this.reverseTypeing(element) + "");
+
+
             statement.executeQuery();
             ResultSet rs = statement.getGeneratedKeys();
 
@@ -49,11 +52,32 @@ public class DbPrivilegeService implements PrivilegeService  {
 
     }
 
+    public void addPrivilegesToUser(Privilege privi, User user){
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege,user_id) values (?,?,?)");
+
+
+
+            statement.setLong(1,privi.getId());
+            statement.setString(2,this.reverseTypeing(privi) + "");
+            statement.setInt(3,user.getId());
+
+            statement.executeQuery();
+            ResultSet rs = statement.getGeneratedKeys();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     private char reverseTypeing(Privilege privi){
 
-        //TODO. Implements
 
-        return 'T';
+        return privi.getClass().getSimpleName().toUpperCase().charAt(0);
     }
 
     @Override

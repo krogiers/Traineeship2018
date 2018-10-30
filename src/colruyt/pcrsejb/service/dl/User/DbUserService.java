@@ -1,7 +1,10 @@
 package colruyt.pcrsejb.service.dl.User;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
+import colruyt.pcrsejb.entity.privileges.*;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.service.dl.DbService;
+import colruyt.pcrsejb.service.dl.privilege.DbPrivilegeService;
+import colruyt.pcrsejb.service.dl.privilege.PrivilegeService;
 import colruyt.pcrsejb.util.factories.ConnectionFactory;
 import colruyt.pcrsejb.util.factories.ConnectionType;
 
@@ -14,13 +17,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class DbUserService implements UserService {
+public class DbUserService extends DbService implements UserService {
 
 
-
-    private Connection createConnection() throws SQLException {
-      return ConnectionFactory.createFactory(ConnectionType.BASIC).createConnection();
-    }
 
     @Override
     public List<User> findUsersByPrivilege(Privilege privilege) {
@@ -81,6 +80,38 @@ public class DbUserService implements UserService {
         return lijst;
     }
 
+
+
+    @Override
+    public void addPrivilegesToUser(Privilege privi, User user){
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege,user_id) values (?,?,?)");
+
+
+
+            statement.setLong(1,privi.getId());
+            statement.setString(2,this.reverseTypeing(privi) + "");
+            statement.setInt(3,user.getId());
+
+            statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private char reverseTypeing(Privilege privi){
+
+
+        return privi.getClass().getSimpleName().toUpperCase().charAt(0);
+    }
+
+
     private List<User> convertToUserList(ResultSet rs) throws SQLException {
 
         List<User> user = new ArrayList<User>();
@@ -92,7 +123,10 @@ public class DbUserService implements UserService {
             String email = rs.getString("email");
 
 
-            user.add(new User(id,firstname,lastname,password,email,new HashSet<Privilege>()));
+            User u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>());
+            u.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
+
+            user.add(u);
         }
         return user;
     }
@@ -108,33 +142,51 @@ public class DbUserService implements UserService {
             String password = rs.getString("password");
             String email = rs.getString("email");
 
-            //TODO: Privilege toevoegne (Inner join ?)
             u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>());
-
+            u.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
         }
         return u;
     }
 
 
     @Override
-    public void addElement(User element) {
+    public User addElement(User element) {
+
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (?,?,?,?,?)");
-            statement.setInt(1,element.getId());
+            PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (((select max(id) from users)+1),?,?,?,?)");
+
             statement.setString(2,element.getFirstName());
             statement.setString(3,element.getLastName());
             statement.setString(4,element.getEmail());
             statement.setString(5,element.getPassword());
 
             statement.setLong(1,element.getId());
-            ResultSet rs =  statement.executeQuery();
+            statement.executeUpdate();
+
+            ResultSet rs =  statement.getGeneratedKeys();
+
+            if(rs.next()) {
+                element.setId((int) rs.getLong(1));
+
+                for(Privilege e: element.getPrivileges()){
+
+                    this.addPrivilegesToUser(e,element);
+
+                }
+            }
+            else
+            throw new IllegalArgumentException();
+
+            return element;
+
+
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
+            //TODO: Maak BEter
+            return null;
     }
 
     @Override
@@ -173,6 +225,72 @@ public class DbUserService implements UserService {
         return users;
     }
 
+
+
+    private List<Privilege> findPrivilegesForUser(User u) {
+        List<Privilege> privi = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges where user_id = ?");
+            statement.setInt(1,u.getId());
+
+
+            ResultSet rs =  statement.executeQuery();
+            privi = convertToPrivilegeList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return privi;
+
+    }
+
+    private List<Privilege> convertToPrivilegeList(ResultSet set) throws SQLException {
+
+        List<Privilege> privileges = new ArrayList<>();
+        while(set.next()){
+            Privilege p;
+            char privilege = set.getString("Privilege").charAt(0);
+            p = determineInstance(privilege);
+            p.setId(set.getInt("ID"));
+
+            privileges.add(p);
+        }
+        return privileges;
+
+    }
+
+    private Privilege determineInstance(char type){
+
+        Privilege p = null;
+        switch(type){
+            case 'T' : p = new TeamManagerPrivilege();break;
+            case 'M' : p= new TeamMemberPrivilege();break;
+            case 'A' : p = new AdminPrivilege();break;
+            case 'F' : p = new FunctionResponsiblePrivilege(); break;
+            case 'D' : p = new DirectorPrivilege(); break;
+        }
+
+        return p;
+
+    }
+
+
+    private Privilege convertToSinglePrivilege(ResultSet set) throws SQLException {
+
+        Privilege p = null;
+        if(set.next()){
+
+            char privilege = set.getString("Privilege").charAt(0);
+            p = determineInstance(privilege);
+            p.setId(set.getInt("ID"));
+        }
+
+        return p;
+    }
+
+
     @Override
     public void deleteElement(User element) {
 
@@ -190,4 +308,5 @@ public class DbUserService implements UserService {
 
 
     }
+
 }

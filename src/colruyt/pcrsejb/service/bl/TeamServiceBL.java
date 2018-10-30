@@ -9,12 +9,12 @@ import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.service.dl.team.AbstractTeamService;
 import colruyt.pcrsejb.service.dl.team.MemoryTeamService;
+import colruyt.pcrsejb.service.dl.team.TeamService;
 
 public class TeamServiceBL {
 	
-	private AbstractTeamService teamdb = new MemoryTeamService();
+	private TeamService teamdb = new MemoryTeamService();
 	/**
 	 * Methode voor het toevoegen van een teamMember
 	 * 

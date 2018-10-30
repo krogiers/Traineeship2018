@@ -1,7 +1,8 @@
 package colruyt.pcrsejb.service.dl.role;
 
-public class DbRoleService {
+import colruyt.pcrsejb.service.dl.DbService;
 
-//TODO:
+public class DbRoleService  extends DbService {
+
 
 }

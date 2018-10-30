@@ -5,14 +5,15 @@ import java.util.Collection;
 
 import colruyt.pcrsejb.entity.team.Team;
 
-public class MemoryTeamService implements AbstractTeamService {
+public class MemoryTeamService implements TeamService {
 
 	private ArrayList<Team> db = new ArrayList<>();
 	
 	
 	@Override
-	public void addElement(Team team) {
+	public Team addElement(Team team) {
 		db.add(team);
+		return team;
 	}
 
 	@Override

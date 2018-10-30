@@ -12,9 +12,9 @@ public class MemoryUserService implements UserService {
     private List<User> db = new ArrayList<>();
 
     @Override
-    public void addElement(User user) {
+    public User addElement(User user) {
         db.add(user);
-
+        return user;
     }
 
     @Override
@@ -46,9 +46,11 @@ public class MemoryUserService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
-
-        return this.db.stream().filter(x -> (x.getFirstName().substring(0,2)
-                + x.getLastName().substring(0,3)).equals(shortName)).collect(Collectors.toList());
+        System.out.println(this.db);
+        return this.db.stream().filter(x ->
+            (x.getFirstName().toLowerCase().substring(0,2)
+                    + x.getLastName().toLowerCase().substring(0,3)).equals(shortName)
+            ).collect(Collectors.toList());
     }
 
 

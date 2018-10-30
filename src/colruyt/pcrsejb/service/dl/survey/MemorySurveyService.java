@@ -11,8 +11,8 @@ public class MemorySurveyService implements SurveySetService {
     private List<SurveySet> surveylist = new ArrayList<>();
 
     @Override
-    public void addElement(SurveySet element) {
-        surveylist.add(element);
+    public SurveySet addElement(SurveySet element) {
+        surveylist.add(element); return element;
     }
 
     @Override

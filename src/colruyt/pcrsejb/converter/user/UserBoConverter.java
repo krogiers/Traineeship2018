@@ -24,7 +24,8 @@ public class UserBoConverter implements GenericConverter<User,UserBo> {
 
     @Override
     public User convertTo(UserBo from) {
-        return new User(from.getFirstName(), from.getLastName(), from.getEmail(), from.getPassword(), getPrivileges((HashSet<PrivilegeBo>) from.getPrivileges()));
+        return new User(from.getFirstName(), from.getLastName(), from.getEmail(), from.getPassword(),
+				getPrivileges((HashSet<PrivilegeBo>) from.getPrivilegeBoHashSet()));
     }
     
     private HashSet<Privilege> getPrivileges(HashSet<PrivilegeBo> privs) {

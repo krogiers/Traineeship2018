@@ -4,7 +4,7 @@ import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
 import colruyt.pcrsejb.entity.competence.Competence;
 import colruyt.pcrsejb.entity.competence.CraftCompetence;
 
-public class CraftConpetenceBoConverter implements CompetenceBoConverter<CraftCompetenceBo> {
+public class CraftCompetenceBoConverter implements CompetenceBoConverter<CraftCompetenceBo> {
 
 
     @Override

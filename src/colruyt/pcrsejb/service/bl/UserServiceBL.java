@@ -1,16 +1,18 @@
 package colruyt.pcrsejb.service.bl;
 
 import java.util.Collection;
+import java.util.List;
 
+import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.service.dl.User.UserService;
+import colruyt.pcrsejb.service.dl.User.AbstractUserService;
 import colruyt.pcrsejb.service.dl.User.MemoryUserService;
 
 public class UserServiceBL{
 
 	// Altijd op Abstract werken.
-	private UserService userdb = new MemoryUserService();
+	private AbstractUserService userdb = new MemoryUserService();
     
 	/**
 	 * Methode voor het navragen van privilege

@@ -10,7 +10,9 @@ public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
 
     private LocalDate startDateInCurrentFunction; 
     private TreeSet<SurveySet> surveySetTreeSet;
-    
+
+
+
     public TeamMemberPrivilege() {
 		super();
 		this.setStartDateInCurrentFunction(null);;

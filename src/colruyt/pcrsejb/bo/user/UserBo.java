@@ -13,11 +13,12 @@ import java.util.Set;
  */
 public class UserBo {
 
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<PrivilegeBo> privileges;
+	private HashSet<PrivilegeBo> privilegeBoHashSet;
 
 	/**
 	 * Constructor voor het aanmaken van een User
@@ -26,14 +27,35 @@ public class UserBo {
 	 * @param lastName String
 	 * @param email String
 	 * @param password String
-	 * @param privileges HashSet
+	 * @param privilegeBoHashSet HashSet
 	 */
-	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privileges) {
+	public UserBo(int id,String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
 		setPassword(password);
-		setPrivileges(privileges);
+		setId(id);
+		setPrivilegeBoHashSet(privilegeBoHashSet);
+	}
+	
+	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setEmail(email);
+		setPassword(password);
+		setPrivilegeBoHashSet(privilegeBoHashSet);
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public UserBo() {
 	}
 
 	/**
@@ -113,23 +135,23 @@ public class UserBo {
 	 * 
 	 * @return privileges
 	 */
-	public Set<PrivilegeBo> getPrivileges() {
-		return privileges;
+	public Set<PrivilegeBo> getPrivilegeBoHashSet() {
+		return privilegeBoHashSet;
 	}
 
 	/**
 	 * Methode voor het instellen van 1 of meer privileges
 	 * 
-	 * @param privileges
+	 * @param privilegeBoHashSet
 	 */
-	public void setPrivileges(HashSet<PrivilegeBo> privileges) {
-		this.privileges = privileges;
+	public void setPrivilegeBoHashSet(HashSet<PrivilegeBo> privilegeBoHashSet) {
+		this.privilegeBoHashSet = privilegeBoHashSet;
 	}
 
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
-				+ privileges + "]";
+				+ privilegeBoHashSet + "]";
 	}
 
 	@Override

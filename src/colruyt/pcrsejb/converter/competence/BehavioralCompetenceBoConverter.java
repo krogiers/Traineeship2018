@@ -7,6 +7,6 @@ import colruyt.pcrsejb.entity.competence.Competence;
 public class BehavioralCompetenceBoConverter implements CompetenceBoConverter<BehavioralCompetenceBo>{
     @Override
     public Competence convertTo(BehavioralCompetenceBo from) {
-        return new BehavioralCompetence(from.getName(),from.getDescription(),from.getMinLevel(),from.getPossibilityMap());
+        return new BehavioralCompetence(from.getCompetenceID(),from.getName(),from.getDescription(),from.getMinLevel(),from.getPossibilityMap());
     }
 }

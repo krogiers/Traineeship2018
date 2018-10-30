@@ -22,6 +22,11 @@ public class BehavioralCompetenceBo extends CompetenceBo implements FunctionComp
 		this.setPossibilityMap(possibilityMap);
 	}
 
+	public BehavioralCompetenceBo(long competenceID, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
+		super(competenceID, name, description);
+		this.minLevel = minLevel;
+		this.possibilityMap = possibilityMap;
+	}
 
 	public int getMinLevel() {
 		return minLevel;
@@ -29,9 +34,6 @@ public class BehavioralCompetenceBo extends CompetenceBo implements FunctionComp
 
 
 	public void setMinLevel(int minLevel) {
-//		if (minLevel < 0){
-//			throw new CompetenceException("minLevel is lower than 0");
-//		}
 		this.minLevel = minLevel;
 	}
 
@@ -42,9 +44,6 @@ public class BehavioralCompetenceBo extends CompetenceBo implements FunctionComp
 
 
 	public void setPossibilityMap(Map<Integer,String> possibilityMap){
-//		if (possibilityMap == null){
-//			throw new CompetenceException("possibilityMap is null");
-//		}
 		this.possibilityMap = possibilityMap;
 	}
     

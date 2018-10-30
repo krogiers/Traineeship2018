@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MemoryFunctionService implements AbstractFunctionService {
+public class MemoryFunctionService implements FunctionService {
 
        private List<Function> functionList = new ArrayList<>();
 
@@ -16,8 +16,8 @@ public class MemoryFunctionService implements AbstractFunctionService {
     }
 
     @Override
-    public Function getElement(Long index) {
-        return this.functionList.get(index.intValue());
+    public Function getElement(Integer index) {
+        return this.functionList.get(index);
     }
 
     @Override

@@ -8,7 +8,7 @@ import colruyt.pcrsejb.entity.competence.Competence;
 import colruyt.pcrsejb.entity.competence.CraftCompetence;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 
-public class MemoryCompetenceService implements AbstractCompetenceService {
+public class MemoryCompetenceService implements CompetenceService {
 
 	private List<Competence> db = new ArrayList<>();
 	
@@ -19,8 +19,8 @@ public class MemoryCompetenceService implements AbstractCompetenceService {
 	}
 
 	@Override
-	public Competence getElement(Long index) {
-		return this.db.get((index.intValue()));
+	public Competence getElement(Integer index) {
+		return this.db.get((index));
 	}
 
 	@Override

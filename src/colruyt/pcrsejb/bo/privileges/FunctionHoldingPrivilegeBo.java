@@ -1,23 +1,25 @@
 package colruyt.pcrsejb.bo.privileges;
 
+import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.entity.function.Function;
 
 public abstract class FunctionHoldingPrivilegeBo implements PrivilegeBo {
 
 	
-    private Function function;
+    private FunctionBo functionBo;
+
 
     
-	public Function getFunction() {
-		return function;
+	public FunctionBo getFunctionBo() {
+		return functionBo;
 	}
 
-	public void setFunction(Function function) {
-		this.function = function;
+	public void setFunctionBo(FunctionBo functionBo) {
+		this.functionBo = functionBo;
 	}
 
 	@Override
 	public String toString() {
-		return "FunctionHoldingPrivilegeBo [function=" + function + "]";
+		return "FunctionHoldingPrivilegeBo [function=" + functionBo + "]";
 	}
 }

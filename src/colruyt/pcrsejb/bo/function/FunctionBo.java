@@ -1,5 +1,7 @@
 package colruyt.pcrsejb.bo.function;
 
+import colruyt.pcrsejb.bo.competence.FunctionCompetenceBo;
+import colruyt.pcrsejb.bo.role.RoleBo;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 import colruyt.pcrsejb.entity.role.Role;
 
@@ -9,8 +11,8 @@ import java.util.Set;
 public class FunctionBo {
 
     private String title;
-    private Set<Role> roleSet;
-    private Set<FunctionCompetence> functionCompetenceSet;
+    private Set<RoleBo> roleBoSet;
+    private Set<FunctionCompetenceBo> functionCompetenceBoSet;
 
 
 	public FunctionBo() {
@@ -18,15 +20,15 @@ public class FunctionBo {
 
 	public FunctionBo(String title) {
 		this.setTitle(title);
-		this.roleSet = new HashSet<>();
-		this.functionCompetenceSet = new HashSet<>();
+		this.roleBoSet = new HashSet<>();
+		this.functionCompetenceBoSet = new HashSet<>();
 	}
 
-	public FunctionBo(String title, HashSet<Role> roleSet, HashSet<FunctionCompetence> functionCompetenceSet) {
+	public FunctionBo(String title, HashSet<RoleBo> roleBoSet, HashSet<FunctionCompetenceBo> functionCompetenceBoSet) {
 		super();
 		this.setTitle(title);
-		this.setRoleSet(roleSet);
-		this.setFunctionCompetenceSet(functionCompetenceSet);
+		this.setRoleBoSet(roleBoSet);
+		this.setFunctionCompetenceBoSet(functionCompetenceBoSet);
 	}
 
 	public String getTitle() {
@@ -37,25 +39,25 @@ public class FunctionBo {
 		this.title = title;
 	}
 
-	public Set<Role> getRoleSet() {
-		return roleSet;
+	public Set<RoleBo> getRoleBoSet() {
+		return roleBoSet;
 	}
 
-	public void setRoleSet(HashSet<Role> roleSet) {
-		this.roleSet = roleSet;
+	public void setRoleBoSet(HashSet<RoleBo> roleSet) {
+		this.roleBoSet = roleSet;
 	}
 
-	public Set<FunctionCompetence> getFunctionCompetenceSet() {
-		return functionCompetenceSet;
+	public Set<FunctionCompetenceBo> getFunctionCompetenceBoSet() {
+		return functionCompetenceBoSet;
 	}
 
-	public void setFunctionCompetenceSet(HashSet<FunctionCompetence> functionCompetenceSet) {
-		this.functionCompetenceSet = functionCompetenceSet;
+	public void setFunctionCompetenceBoSet(HashSet<FunctionCompetenceBo> functionCompetenceBoSet) {
+		this.functionCompetenceBoSet = functionCompetenceBoSet;
 	}
 
 	@Override
 	public String toString() {
-		return "FunctionBo [title=" + title + ", roleSet=" + roleSet + ", functionCompetenceSet=" + functionCompetenceSet
+		return "FunctionBo [title=" + title + ", roleSet=" + roleBoSet + ", functionCompetenceSet=" + functionCompetenceBoSet
 				+ "]";
 	}
     

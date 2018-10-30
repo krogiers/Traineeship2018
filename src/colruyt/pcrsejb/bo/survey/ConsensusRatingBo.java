@@ -1,26 +1,27 @@
 package colruyt.pcrsejb.bo.survey;
 
+import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.entity.competence.Competence;
 
 import java.util.Objects;
 
 /**
  The type Consensus rating. */
-public class ConsensusRatingBoBo extends RatingBo {
+public class ConsensusRatingBo extends RatingBo {
 
     private String comment;
     
     /**
      Instantiates a new Consensus rating.
      */
-    public ConsensusRatingBoBo(){
+    public ConsensusRatingBo(){
     }
     
     /**
      Instantiates a new Consensus rating.
      @param comment the comment
      */
-    public ConsensusRatingBoBo(String comment){
+    public ConsensusRatingBo(String comment){
         this.comment = comment;
     }
     
@@ -28,11 +29,11 @@ public class ConsensusRatingBoBo extends RatingBo {
      Instantiates a new Consensus rating.
      @param level the level
      @param energy the energy
-     @param competence the competence
+     @param competenceBo the competence
      @param comment the comment
      */
-    public ConsensusRatingBoBo(int level, boolean energy, Competence competence, String comment){
-        super(level, energy, competence);
+    public ConsensusRatingBo(int level, boolean energy, CompetenceBo competenceBo, String comment){
+        super(level, energy, competenceBo);
         this.comment = comment;
     }
     
@@ -56,11 +57,11 @@ public class ConsensusRatingBoBo extends RatingBo {
     public boolean equals(Object o){
         if(this == o)
             return true;
-        if(!(o instanceof ConsensusRatingBoBo))
+        if(!(o instanceof ConsensusRatingBo))
             return false;
         if(!super.equals(o))
             return false;
-        ConsensusRatingBoBo that = (ConsensusRatingBoBo) o;
+        ConsensusRatingBo that = (ConsensusRatingBo) o;
         return Objects.equals(getComment(), that.getComment());
     }
     
@@ -71,6 +72,6 @@ public class ConsensusRatingBoBo extends RatingBo {
     
     @Override
     public String toString(){
-        return "ConsensusRatingBoBo{" + "comment='" + comment + '\'' + "} " + super.toString();
+        return "ConsensusRatingBo{" + "comment='" + comment + '\'' + "} " + super.toString();
     }
 }

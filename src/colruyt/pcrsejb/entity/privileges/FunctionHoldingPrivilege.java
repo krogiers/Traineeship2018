@@ -2,9 +2,9 @@ package colruyt.pcrsejb.entity.privileges;
 
 import colruyt.pcrsejb.entity.function.Function;
 
-public abstract class FunctionHoldingPrivilege implements Privilege{
+public abstract class FunctionHoldingPrivilege extends Privilege{
 
-	
+
     private Function function;
 
     

@@ -1,7 +1,8 @@
 package colruyt.pcrsejb.entity.privileges;
 
-public class DirectorPrivilege implements Privilege {
+public class DirectorPrivilege extends Privilege {
 
+	private int id;
 
 	public DirectorPrivilege() {
 		super();

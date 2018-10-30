@@ -1,6 +1,8 @@
 package colruyt.pcrsejb.entity.privileges;
 
-public class AdminPrivilege implements Privilege {
+public class AdminPrivilege extends Privilege {
+
+
 
 
 	public AdminPrivilege() {

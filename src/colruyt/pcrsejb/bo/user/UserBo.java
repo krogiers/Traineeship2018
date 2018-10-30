@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public class UserBo {
 
-	private long id;
+	private int id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -38,11 +38,11 @@ public class UserBo {
 	}
 
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

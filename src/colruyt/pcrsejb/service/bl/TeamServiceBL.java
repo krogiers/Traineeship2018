@@ -2,7 +2,7 @@ package colruyt.pcrsejb.service.bl;
 
 import java.util.HashSet;
 
-import colruyt.pcrsejb.entity.enrollment.Enrollment;
+import colruyt.pcrsejb.entity.enrollment.Enrolment;
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
@@ -29,9 +29,9 @@ public class TeamServiceBL {
 	}
 	
 	private void addMemberToTeam(User teamMember, Team team, Privilege privilege) {
-		Enrollment enrollment = null;
-		HashSet<Enrollment> enrollments = team.getEnrollments();
-		for (Enrollment en : enrollments) {
+		Enrolment enrollment = null;
+		HashSet<Enrolment> enrollments = team.getEnrollments();
+		for (Enrolment en : enrollments) {
 			if (en.getUser().equals(teamMember)) {
 				enrollment = en;
 				enrollment.setPrivilege(privilege);
@@ -39,7 +39,7 @@ public class TeamServiceBL {
 			}
 		}
 		if (enrollment == null) {
-			enrollment = new Enrollment(teamMember, privilege, true);
+			enrollment = new Enrolment(teamMember, privilege, true);
 			enrollments.add(enrollment);
 		}
 		team.setEnrollments(enrollments);
@@ -51,7 +51,7 @@ public class TeamServiceBL {
 	 * @param teamMember
 	 */
 	public void removeTeamMemberFromTeam(User teamMember, Team team) {
-		HashSet<Enrollment> enrollments = team.getEnrollments();
+		HashSet<Enrolment> enrollments = team.getEnrollments();
 		enrollments.forEach(e -> {
 			if (e.getUser().equals(teamMember)) {
 				e.setActive(false);
@@ -67,7 +67,7 @@ public class TeamServiceBL {
 	 * @param teammanager
 	 */
 	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) {
-		HashSet<Enrollment> enrollments = team.getEnrollments();
+		HashSet<Enrolment> enrollments = team.getEnrollments();
 		enrollments.forEach(e -> {
 			if (e.getUser().equals(teamMember)) {
 				e.setPrivilege(new TeamManagerPrivilege());
@@ -82,9 +82,9 @@ public class TeamServiceBL {
 	 * @return User
 	 */
 	public User getOwnerOfTeam(Team team) {
-		HashSet<Enrollment> enrollments = team.getEnrollments();
+		HashSet<Enrolment> enrollments = team.getEnrollments();
 		User ownerReturn = null;
-		for (Enrollment enrollment : enrollments) {
+		for (Enrolment enrollment : enrollments) {
 			if (enrollment.isActive() && enrollment.getPrivilege() instanceof TeamManagerPrivilege) {
 				ownerReturn = enrollment.getUser();
 			}

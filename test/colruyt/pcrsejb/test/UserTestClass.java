@@ -38,9 +38,9 @@ class UserTestClass {
         softwareEngineer = new Function("Software Engineer", null,null);
         teamMemberPrivilige = new TeamMemberPrivilege();
         teamMemberPrivilige.setFunction(softwareEngineer);
-        lauraLynn = new User("Laura", "Lynn", "LauraLynn@gmail.com", "LauraLynn", null);
-        jos = new User("Jos", "Bond", "jos.bond@gmail.com", "JosBond", null );
-        wouter = new User("Wouter", "Mosselmans", "wouter.mosselsmans@gmail.com", "WouterMosselsmans", null);
+        lauraLynn = new User(1,"Laura", "Lynn", "LauraLynn@gmail.com", "LauraLynn", null);
+        jos = new User(2, "Jos", "Bond", "jos.bond@gmail.com", "JosBond", null );
+        wouter = new User(3,"Wouter", "Mosselmans", "wouter.mosselsmans@gmail.com", "WouterMosselsmans", null);
         teamMemberPriviligeSet = new HashSet<>();
         developer = new Role();
         leadDeveloper = new Role();

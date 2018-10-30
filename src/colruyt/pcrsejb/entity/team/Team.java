@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import colruyt.pcrsejb.entity.enrollment.Enrollment;
+import colruyt.pcrsejb.entity.enrollment.Enrolment;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.user.User;
@@ -18,7 +18,7 @@ import colruyt.pcrsejb.entity.user.User;
 public class Team {
 
 	private String name;
-	private HashSet<Enrollment> enrollments;
+	private HashSet<Enrolment> enrollments;
 
 	public Team() {};
 	/**
@@ -29,7 +29,7 @@ public class Team {
 	 */
 	public Team(String name, User teamManager) {
 		setName(name);
-		Enrollment enrollment = new Enrollment(teamManager, new TeamManagerPrivilege(), true);
+		Enrolment enrollment = new Enrolment(teamManager, new TeamManagerPrivilege(), true);
 		enrollments = new HashSet<>();
 		enrollments.add(enrollment);
 	}
@@ -57,7 +57,7 @@ public class Team {
 	 * 
 	 * @param teamMember
 	 */
-	public HashSet<Enrollment> getEnrollments() {
+	public HashSet<Enrolment> getEnrollments() {
 		return enrollments;
 	}
 	
@@ -66,7 +66,7 @@ public class Team {
 	 * 
 	 * @param teamMember
 	 */
-	public void setEnrollments(HashSet<Enrollment> enrollments) {
+	public void setEnrollments(HashSet<Enrolment> enrollments) {
 		this.enrollments = enrollments;
 	}
 

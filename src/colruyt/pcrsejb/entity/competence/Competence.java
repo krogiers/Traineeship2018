@@ -1,9 +1,8 @@
 package colruyt.pcrsejb.entity.competence;
 
-import colruyt.pcrsejb.entity.competence.exception.CompetenceException;
-
 public abstract class Competence {
 
+	private long competenceID;
     private String name;
     private String description;
     
@@ -15,6 +14,31 @@ public abstract class Competence {
 		this.setName(name);
 		this.setDescription(description);
 	}
+
+	public Competence(long competenceID, String name, String description) {
+		this.competenceID = competenceID;
+		this.name = name;
+		this.description = description;
+	}
+
+	/**
+	 * Getter for property 'competenceID'.
+	 *
+	 * @return Value for property 'competenceID'.
+	 */
+	public long getCompetenceID() {
+		return competenceID;
+	}
+
+	/**
+	 * Setter for property 'competenceID'.
+	 *
+	 * @param competenceID Value to set for property 'competenceID'.
+	 */
+	public void setCompetenceID(long competenceID) {
+		this.competenceID = competenceID;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -59,8 +59,26 @@ public class DbUserService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
-        // TODO Implementation needed
-        return null;
+
+       List<User> lijst = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Select * from Users where Firstname like ? and Lastname like ?");
+
+            String firstname = shortName.substring(0,2);
+            String lastname = shortName.substring(2);
+            statement.setString(1,firstname + "%");
+            statement.setString(2,lastname + "%");
+
+
+            ResultSet rs =  statement.executeQuery();
+            lijst = convertToUserList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lijst;
     }
 
     private List<User> convertToUserList(ResultSet rs) throws SQLException {
@@ -107,7 +125,7 @@ public class DbUserService implements UserService {
             statement.setString(2,element.getFirstName());
             statement.setString(3,element.getLastName());
             statement.setString(4,element.getEmail());
-            statement.setString(5,element.getEmail());
+            statement.setString(5,element.getPassword());
 
             statement.setLong(1,element.getId());
             ResultSet rs =  statement.executeQuery();

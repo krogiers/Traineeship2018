@@ -6,6 +6,7 @@ import colruyt.pcrsejb.util.factories.ConnectionFactory;
 import colruyt.pcrsejb.util.factories.ConnectionType;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,26 +24,45 @@ public class DbPrivilegeService implements PrivilegeService  {
     @Override
     public void addElement(Privilege element) {
 
+        //TODO:
     }
 
     @Override
     public Privilege getElement(Integer index) {
         return null;
+        //TODO:
     }
 
     @Override
     public Collection<Privilege> getAllElements() {
         return null;
+        //TODO:
     }
 
     @Override
     public void deleteElement(Privilege element) {
 
+        //TODO:
     }
 
 
     @Override
     public List<Privilege> findPrivilegesForUser(User u) {
+        List<Privilege> privi = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges where user_id = ?");
+            statement.setInt(1,u.getId());
+
+
+            ResultSet rs =  statement.executeQuery();
+            privi = convertToPrivilegeList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return privi;
 
     }
 
@@ -52,10 +72,9 @@ public class DbPrivilegeService implements PrivilegeService  {
         List<Privilege> privileges = new ArrayList<>();
         while(set.next()){
             Privilege p;
-             char privilege = set.getString("Privilege").charAt(0);
+            char privilege = set.getString("Privilege").charAt(0);
             p = determineInstance(privilege);
             p.setId(set.getInt("ID"));
-
 
             privileges.add(p);
         }
@@ -80,10 +99,15 @@ public class DbPrivilegeService implements PrivilegeService  {
 
 
     private Privilege convertToSinglePrivilege(ResultSet set) throws SQLException {
+
+        Privilege p = null;
         if(set.next()){
-            return null;
+
+            char privilege = set.getString("Privilege").charAt(0);
+            p = determineInstance(privilege);
+            p.setId(set.getInt("ID"));
         }
 
-        return null;
+        return p;
     }
 }

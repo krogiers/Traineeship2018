@@ -1,4 +1,4 @@
 package colruyt.pcrsejb.service.dl.competence;
 
-public class DbCompetenceSerrvice  {
+public class DbCompetenceService  {
 }

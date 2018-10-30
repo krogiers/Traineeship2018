@@ -1,10 +1,9 @@
 package colruyt.pcrsejb.entity.user;
 
+import colruyt.pcrsejb.entity.privileges.Privilege;
+
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-
-import colruyt.pcrsejb.entity.privileges.Privilege;
 
 /**
  * Klasse voor het aanmaken van een User.
@@ -30,6 +29,7 @@ public class User {
 	 * @param privileges HashSet
 	 */
 	public User(int id,String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
+		setId(id);
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);

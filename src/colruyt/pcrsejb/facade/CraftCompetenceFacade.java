@@ -18,7 +18,8 @@ public class CraftCompetenceFacade{
     private CraftCompetenceConverter CraftCompetenceConverter = new CraftCompetenceConverter();
     
     public void addCraftCompetence(CraftCompetenceBo newCraftCompetence) {
-        CraftCompetenceServiceBL.addCraftCompetence(CraftCompetenceBoConverter.convertTo(newCraftCompetence));
+        CraftCompetenceServiceBL.addCraftCompetence(CraftCompetenceBoConverter
+                .convertTo(newCraftCompetence));
     }
     
     public List<CraftCompetenceBo> getAllCraftCompetences() {
@@ -28,5 +29,13 @@ public class CraftCompetenceFacade{
         }
         return CraftCompetences;
     }
-    
+
+    public void removeCraftCompetenceByName(String user) {
+        List<CraftCompetenceBo> CraftCompetences = getAllCraftCompetences();
+        for(CraftCompetenceBo ccbo : CraftCompetences){
+            if(ccbo.getName().equals(user)){
+                CraftCompetences.remove(ccbo);
+            }
+        }
+    }
 }

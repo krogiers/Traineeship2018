@@ -22,27 +22,86 @@ public class DbPrivilegeService implements PrivilegeService  {
 
 
     @Override
-    public void addElement(Privilege element) {
+    public Privilege addElement(Privilege element) {
 
-        //TODO:
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (?,?,?,?,?)");
+
+
+
+            statement.setLong(1,element.getId());
+            statement.executeQuery();
+            ResultSet rs = statement.getGeneratedKeys();
+
+            if(rs.next()) {
+                element.setId((int) rs.getLong(1));
+                return element;
+            }
+            else {
+                throw new IllegalArgumentException();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //TODO: Standaarden
+        return null;
+
+    }
+
+    private char reverseTypeing(Privilege privi){
+
+        //TODO. Implements
+
+        return 'T';
     }
 
     @Override
     public Privilege getElement(Integer index) {
-        return null;
-        //TODO:
+        Privilege privilege = null;
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges where id = ?");
+            statement.setInt(1,index);
+            ResultSet rs =  statement.executeQuery();
+            privilege = convertToSinglePrivilege(rs);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return privilege;
     }
 
     @Override
     public Collection<Privilege> getAllElements() {
-        return null;
-        //TODO:
+        List<Privilege> privileges = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Select * from UserPrivileges");
+
+            ResultSet rs =  statement.executeQuery();
+            privileges = convertToPrivilegeList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return privileges;
     }
 
     @Override
     public void deleteElement(Privilege element) {
 
-        //TODO:
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Delete from userprivileges where id = ?");
+            statement.setLong(1,element.getId());
+            ResultSet rs =  statement.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

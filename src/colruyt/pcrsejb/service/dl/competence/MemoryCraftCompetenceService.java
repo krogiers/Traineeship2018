@@ -8,8 +8,9 @@ public class MemoryCraftCompetenceService implements AbstractCraftCompetenceServ
     
     
     @Override
-    public void addElement(CraftCompetence element){
-        //TODO
+    public CraftCompetence addElement(CraftCompetence element){
+        return null;
+        //TODO:Implement
     }
     
     @Override

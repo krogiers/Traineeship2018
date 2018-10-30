@@ -1,14 +1,14 @@
 package colruyt.pcrsejb.facade;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.UserServiceBL;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserFacade {
 	private UserServiceBL userServiceBL = new UserServiceBL();

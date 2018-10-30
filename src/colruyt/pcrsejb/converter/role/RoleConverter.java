@@ -24,7 +24,7 @@ public class RoleConverter implements GenericConverter<RoleBo,Role> {
         for (RoleCompetence roleCompetence : competences) {
             if (roleCompetence instanceof CraftCompetence) {
                 CraftCompetenceConverter conv = new CraftCompetenceConverter();
-                roleCompetenceBos.add((RoleCompetenceBo) conv.convertTo( (CraftCompetence) roleCompetence ));
+                roleCompetenceBos.add( conv.convertTo( (CraftCompetence) roleCompetence ));
             }
         }
         return roleCompetenceBos;

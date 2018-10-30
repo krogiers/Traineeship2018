@@ -2,6 +2,8 @@ package colruyt.pcrsejb.service.dl.User;
 
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.service.dl.privilege.DbPrivilegeService;
+import colruyt.pcrsejb.service.dl.privilege.PrivilegeService;
 import colruyt.pcrsejb.util.factories.ConnectionFactory;
 import colruyt.pcrsejb.util.factories.ConnectionType;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class DbUserService implements UserService {
 
 
+    private PrivilegeService service = new DbPrivilegeService();
 
     private Connection createConnection() throws SQLException {
       return ConnectionFactory.createFactory(ConnectionType.BASIC).createConnection();
@@ -92,7 +95,10 @@ public class DbUserService implements UserService {
             String email = rs.getString("email");
 
 
-            user.add(new User(id,firstname,lastname,password,email,new HashSet<Privilege>()));
+            User u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>());
+            u.setPrivileges(new HashSet<>(service.findPrivilegesForUser(u)));
+
+            user.add(u);
         }
         return user;
     }
@@ -108,9 +114,8 @@ public class DbUserService implements UserService {
             String password = rs.getString("password");
             String email = rs.getString("email");
 
-            //TODO: Privilege toevoegne (Inner join ?)
             u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>());
-
+            u.setPrivileges(new HashSet<>(service.findPrivilegesForUser(u)));
         }
         return u;
     }

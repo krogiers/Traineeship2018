@@ -37,7 +37,10 @@ public class User {
 		setPrivileges(privileges);
 	}
 
-	public int getId() {
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+		public int getId() {
 		return id;
 	}
 

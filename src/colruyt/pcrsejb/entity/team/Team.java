@@ -18,7 +18,7 @@ import colruyt.pcrsejb.entity.user.User;
 public class Team {
 
 	private String name;
-	private HashSet<Enrollment> enrollments;
+	private HashSet<Enrollment> enrolmentsHashSet;
 
 	public Team() {};
 	/**
@@ -30,8 +30,8 @@ public class Team {
 	public Team(String name, User teamManager) {
 		setName(name);
 		Enrollment enrollment = new Enrollment(teamManager, new TeamManagerPrivilege(), true);
-		enrollments = new HashSet<>();
-		enrollments.add(enrollment);
+		enrolmentsHashSet = new HashSet<>();
+		enrolmentsHashSet.add(enrollment);
 	}
 
 	/**
@@ -57,8 +57,8 @@ public class Team {
 	 * 
 	 * @param teamMember
 	 */
-	public HashSet<Enrollment> getEnrollments() {
-		return enrollments;
+	public HashSet<Enrollment> getEnrolmentsHashSet() {
+		return enrolmentsHashSet;
 	}
 	
 	/**
@@ -66,8 +66,8 @@ public class Team {
 	 * 
 	 * @param teamMember
 	 */
-	public void setEnrollments(HashSet<Enrollment> enrollments) {
-		this.enrollments = enrollments;
+	public void setEnrolmentsHashSet(HashSet<Enrollment> enrollments) {
+		this.enrolmentsHashSet = enrollments;
 	}
 
 }

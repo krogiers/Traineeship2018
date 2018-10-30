@@ -7,6 +7,6 @@ public class CraftCompetenceConverter implements CompetenceConverter<CraftCompet
 
     @Override
     public CraftCompetenceBo convertTo(CraftCompetence from) {
-        return new CraftCompetenceBo(from.getName(),from.getDescription());
+        return new CraftCompetenceBo(from.getCompetenceID(),from.getName(),from.getDescription());
     }
 }

@@ -1,9 +1,6 @@
 package colruyt.pcrsejb.entity.competence;
 
-import java.util.LinkedHashSet;
 import java.util.Map;
-
-import colruyt.pcrsejb.entity.competence.exception.CompetenceException;
 
 public class BehavioralCompetence extends Competence implements FunctionCompetence {
 
@@ -25,6 +22,11 @@ public class BehavioralCompetence extends Competence implements FunctionCompeten
 		this.setPossibilityMap(possibilityMap);
 	}
 
+	public BehavioralCompetence(long competenceID, String name, String description, int minLevel, java.util.Map<Integer, String> possibilityMap) {
+		super(competenceID, name, description);
+		this.minLevel = minLevel;
+		this.possibilityMap = possibilityMap;
+	}
 
 	public int getMinLevel() {
 		return minLevel;

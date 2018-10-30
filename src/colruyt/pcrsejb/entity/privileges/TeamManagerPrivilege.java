@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.entity.privileges;
 
-public class TeamManagerPrivilege implements Privilege {
+public class TeamManagerPrivilege extends Privilege {
+
 
 
 	public TeamManagerPrivilege() {

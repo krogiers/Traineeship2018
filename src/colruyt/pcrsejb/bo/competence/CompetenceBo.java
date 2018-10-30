@@ -2,6 +2,8 @@ package colruyt.pcrsejb.bo.competence;
 
 public abstract class CompetenceBo {
 
+	private long competenceID;
+
     private String name;
     private String description;
     
@@ -15,6 +17,19 @@ public abstract class CompetenceBo {
 		this.setDescription(description);
 	}
 
+	public CompetenceBo(long competenceID, String name, String description) {
+		this.competenceID = competenceID;
+		this.name = name;
+		this.description = description;
+	}
+
+	public Long getCompetenceID() {
+		return competenceID;
+	}
+
+	public void setCompetenceID(long competenceID) {
+		this.competenceID = competenceID;
+	}
 
 	public String getName() {
 		return name;

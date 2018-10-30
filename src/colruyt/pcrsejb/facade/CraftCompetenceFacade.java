@@ -28,4 +28,7 @@ public class CraftCompetenceFacade{
         }
         return CraftCompetences;
     }
+
+    public void removeCraftCompetence(CraftCompetenceBo user) {
+    }
 }

@@ -9,6 +9,7 @@ public interface GenericCrudService<E,T> {
 	public E getElement(T index);
 	public Collection<E> getAllElements();
 	public void deleteElement(E element);
+	//public void updateElement(E element);
 	
 	
 	

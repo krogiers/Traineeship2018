@@ -33,8 +33,11 @@ public class UserFacade {
 	}
 
 	public List<UserBo> searchUsers(String shortString) {
-		//TODO
-		return null;
+		List<UserBo> matchingUsers = new ArrayList<>();
+		for (User u : userServiceBL.getUserByShortName(shortString)){
+			matchingUsers.add(userConverter.convertTo(u));
+		}
+		return matchingUsers;
 	}
 
 	public void removeUser(UserBo user) {

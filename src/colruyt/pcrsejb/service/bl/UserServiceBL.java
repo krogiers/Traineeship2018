@@ -37,7 +37,10 @@ public class UserServiceBL{
 	public Collection<User> getAllUsers() {
 		return userdb.getAllElements();
 	}
-	
+
+	public List<User> getUserByShortName(String shortName){
+		return userdb.findUsersByShortName(shortName);
+	}
 	
 
 }

@@ -29,7 +29,16 @@ public class UserBo {
 	 * @param password String
 	 * @param privilegeBoHashSet HashSet
 	 */
-	public UserBo(long id,String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
+	public UserBo(int id,String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setEmail(email);
+		setPassword(password);
+		setId(id);
+		setPrivilegeBoHashSet(privilegeBoHashSet);
+	}
+	
+	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);

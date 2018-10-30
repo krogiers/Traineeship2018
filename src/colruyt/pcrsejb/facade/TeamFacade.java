@@ -3,6 +3,7 @@ package colruyt.pcrsejb.facade;
 import java.util.ArrayList;
 
 import colruyt.pcrsejb.bo.team.TeamBo;
+import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.team.TeamBoConverter;
 import colruyt.pcrsejb.converter.team.TeamConverter;
 import colruyt.pcrsejb.entity.team.Team;
@@ -33,6 +34,14 @@ public class TeamFacade {
 			teams.add(teamConverter.convertTo(t));
 		}
 		return teams;
+	}
+
+	public void removeUserFromTeam(TeamBo team, UserBo user) {
+		// TODO		
+	}
+
+	public void addUserToTeam(TeamBo team, UserBo user) {
+		// TODO 
 	}
 	
 }

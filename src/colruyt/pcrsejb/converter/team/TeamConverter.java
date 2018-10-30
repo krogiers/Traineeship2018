@@ -6,7 +6,7 @@ import colruyt.pcrsejb.bo.enrolment.EnrolmentBo;
 import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.enrolment.EnrolmentConverter;
-import colruyt.pcrsejb.entity.enrollment.Enrollment;
+import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.team.Team;
 
 public class TeamConverter implements GenericConverter<TeamBo, Team>{
@@ -19,7 +19,7 @@ public class TeamConverter implements GenericConverter<TeamBo, Team>{
 		TeamBo teamBo = new TeamBo();
 		teamBo.setName(from.getName());
 		HashSet<EnrolmentBo> enrolmentsBoHashSet = new HashSet<>();
-		for (Enrollment e : from.getEnrolmentsHashSet())
+		for (Enrolment e : from.getEnrolmentsHashSet())
 		{
 			enrolmentsBoHashSet.add(enrolmentConverter.convertTo(e));
 		}

@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Function {
 
-	private Long functionID;
+	private long functionID;
     private String title;
     private Set<Role> roleSet;
     private Set<FunctionCompetence> functionCompetenceSet;
@@ -30,7 +30,7 @@ public class Function {
 		this.setFunctionCompetenceSet(functionCompetenceSet);
 	}
 
-	public Function(Long functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
+	public Function(long functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
 		this.functionID = functionID;
 		this.title = title;
 		this.roleSet = roleSet;

@@ -7,7 +7,7 @@ package colruyt.pcrsejb.entity.function;
  */
 public class OperatingUnit {
 
-	private Long OperatingID;
+	private long OperatingID;
 
 	private String name;
 
@@ -20,16 +20,16 @@ public class OperatingUnit {
 		setName(name);
 	}
 
-	public OperatingUnit(Long operatingID, String name) {
+	public OperatingUnit(long operatingID, String name) {
 		OperatingID = operatingID;
 		this.name = name;
 	}
 
-	public Long getOperatingID() {
+	public long getOperatingID() {
 		return OperatingID;
 	}
 
-	public void setOperatingID(Long operatingID) {
+	public void setOperatingID(long operatingID) {
 		OperatingID = operatingID;
 	}
 

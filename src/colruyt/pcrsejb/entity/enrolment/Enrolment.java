@@ -1,23 +1,23 @@
-package colruyt.pcrsejb.entity.enrollment;
+package colruyt.pcrsejb.entity.enrolment;
 
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
 
-public class Enrollment {
+public class Enrolment {
 
-	private Long EnrolmentID;
+	private long EnrolmentID;
 	private User user;
 	private Privilege privilege;
 	private boolean active;
 	
-	public Enrollment() {};
-	public Enrollment(User user, Privilege privilege, boolean active) {
+	public Enrolment() {};
+	public Enrolment(User user, Privilege privilege, boolean active) {
 		this.user = user;
 		this.privilege = privilege;
 		this.active = active;
 	}
 
-	public Enrollment(Long enrolmentID, colruyt.pcrsejb.entity.user.User user, colruyt.pcrsejb.entity.privileges.Privilege privilege, boolean active) {
+	public Enrolment(long enrolmentID, colruyt.pcrsejb.entity.user.User user, colruyt.pcrsejb.entity.privileges.Privilege privilege, boolean active) {
 		EnrolmentID = enrolmentID;
 		this.user = user;
 		this.privilege = privilege;

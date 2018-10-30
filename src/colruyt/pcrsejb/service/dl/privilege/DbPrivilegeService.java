@@ -2,6 +2,7 @@ package colruyt.pcrsejb.service.dl.privilege;
 
 import colruyt.pcrsejb.entity.privileges.*;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.util.factories.ConnectionFactory;
 import colruyt.pcrsejb.util.factories.ConnectionType;
 
@@ -13,12 +14,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DbPrivilegeService implements PrivilegeService  {
 
-
-    private Connection createConnection() throws SQLException {
-        return ConnectionFactory.createFactory(ConnectionType.BASIC).createConnection();
-    }
+//TODO: DELETE DEZE KLASSSEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+public class DbPrivilegeService  extends DbService implements PrivilegeService  {
 
 
     @Override
@@ -26,12 +24,15 @@ public class DbPrivilegeService implements PrivilegeService  {
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (?,?,?,?,?)");
+            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege) values ((select max(id) from users)+1),?)");
 
 
 
             statement.setLong(1,element.getId());
-            statement.executeQuery();
+            statement.setString(2,this.reverseTypeing(element) + "");
+
+
+            statement.executeUpdate();
             ResultSet rs = statement.getGeneratedKeys();
 
             if(rs.next()) {
@@ -49,11 +50,38 @@ public class DbPrivilegeService implements PrivilegeService  {
 
     }
 
+    @Override
+    public List<Privilege> findPrivilegesForUser(User u) {
+        return null;
+    }
+
+    @Override
+    public void addPrivilegesToUser(Privilege privi, User user){
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege,user_id) values (?,?,?)");
+
+
+
+            statement.setLong(1,privi.getId());
+            statement.setString(2,this.reverseTypeing(privi) + "");
+            statement.setInt(3,user.getId());
+
+            statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     private char reverseTypeing(Privilege privi){
 
-        //TODO. Implements
 
-        return 'T';
+        return privi.getClass().getSimpleName().toUpperCase().charAt(0);
     }
 
     @Override
@@ -105,25 +133,7 @@ public class DbPrivilegeService implements PrivilegeService  {
     }
 
 
-    @Override
-    public List<Privilege> findPrivilegesForUser(User u) {
-        List<Privilege> privi = new ArrayList<>();
-        try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges where user_id = ?");
-            statement.setInt(1,u.getId());
-
-
-            ResultSet rs =  statement.executeQuery();
-            privi = convertToPrivilegeList(rs);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return privi;
-
-    }
 
 
     private List<Privilege> convertToPrivilegeList(ResultSet set) throws SQLException {

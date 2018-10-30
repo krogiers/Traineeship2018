@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+
+
+//TODO: DELETE DEZE KLASSSEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class MemoryPrivilegeService implements PrivilegeService {
 
 
@@ -36,5 +39,10 @@ public class MemoryPrivilegeService implements PrivilegeService {
     @Override
     public List<Privilege> findPrivilegesForUser(User u) {
         return null;
+    }
+
+    @Override
+    public void addPrivilegesToUser(Privilege privi, User user) {
+
     }
 }

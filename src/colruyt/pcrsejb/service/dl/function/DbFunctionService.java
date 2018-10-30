@@ -1,10 +1,11 @@
 package colruyt.pcrsejb.service.dl.function;
 
 import colruyt.pcrsejb.entity.function.Function;
+import colruyt.pcrsejb.service.dl.DbService;
 
 import java.util.Collection;
 
-public class DbFunctionService implements FunctionService {
+public class DbFunctionService extends DbService implements FunctionService {
 
 
     @Override
@@ -17,6 +18,7 @@ public class DbFunctionService implements FunctionService {
 
     @Override
     public Function getElement(Integer index) {
+
         return null;
     }
 

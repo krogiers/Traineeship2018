@@ -2,6 +2,7 @@ package colruyt.pcrsejb.service.dl.privilege;
 
 import colruyt.pcrsejb.entity.privileges.*;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.util.factories.ConnectionFactory;
 import colruyt.pcrsejb.util.factories.ConnectionType;
 
@@ -13,12 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DbPrivilegeService implements PrivilegeService  {
-
-
-    private Connection createConnection() throws SQLException {
-        return ConnectionFactory.createFactory(ConnectionType.BASIC).createConnection();
-    }
+public class DbPrivilegeService  extends DbService implements PrivilegeService  {
 
 
     @Override

@@ -13,7 +13,7 @@ import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.enrolment.EnrolmentBoConverter;
 import colruyt.pcrsejb.converter.enrolment.EnrolmentConverter;
-import colruyt.pcrsejb.entity.enrollment.Enrollment;
+import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
 import colruyt.pcrsejb.entity.privileges.DirectorPrivilege;
 import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
@@ -29,7 +29,7 @@ public class TeamBoConverter implements GenericConverter<Team, TeamBo>{
 	@Override
 	public Team convertTo(TeamBo from) {
 		Team team = new Team();
-		HashSet<Enrollment> enrolmentsHashSet = new HashSet<>();
+		HashSet<Enrolment> enrolmentsHashSet = new HashSet<>();
 		for (EnrolmentBo e : from.getEnrolmentsBoHashSet())
 		{
 			enrolmentsHashSet.add(enrolmentBoConverter.convertTo(e));

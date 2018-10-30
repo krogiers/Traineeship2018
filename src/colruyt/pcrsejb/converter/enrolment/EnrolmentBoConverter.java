@@ -10,7 +10,7 @@ import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
 import colruyt.pcrsejb.bo.privileges.TeamManagerPrivilegeBo;
 import colruyt.pcrsejb.bo.privileges.TeamMemberPrivilegeBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.entity.enrollment.Enrollment;
+import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
 import colruyt.pcrsejb.entity.privileges.DirectorPrivilege;
 import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
@@ -18,10 +18,10 @@ import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 
-public class EnrolmentBoConverter implements GenericConverter<Enrollment, EnrolmentBo>{
+public class EnrolmentBoConverter implements GenericConverter<Enrolment, EnrolmentBo>{
 
 	@Override
-	public Enrollment convertTo(EnrolmentBo from) {
+	public Enrolment convertTo(EnrolmentBo from) {
 		// TODO Auto-generated method stub
 		return null;
 	}

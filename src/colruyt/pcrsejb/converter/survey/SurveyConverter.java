@@ -20,4 +20,7 @@ public abstract class SurveyConverter<T extends Survey> implements GenericConver
         return ratings.stream().map(x -> conv.convertTo(x)).collect(Collectors.toList());
     }
 
+
+
+
 }

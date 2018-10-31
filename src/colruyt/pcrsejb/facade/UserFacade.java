@@ -2,6 +2,7 @@ package colruyt.pcrsejb.facade;
 
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
+import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;

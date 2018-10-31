@@ -3,7 +3,9 @@ package colruyt.pcrsejb.service.dl.team;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.team.Team;
+import colruyt.pcrsejb.entity.user.User;
 
 public class MemoryTeamService implements TeamService {
 
@@ -31,6 +33,44 @@ public class MemoryTeamService implements TeamService {
 	@Override
 	public void deleteElement(Team team) {
 		this.db.remove(team);
+	}
+
+	@Override
+	public Team findTeamOfUser(User user) {
+		Team returning = null;
+		for (Team team : getAllElements()) {
+			for (Enrolment enrolment : team.getEnrolmentsHashSet()) {
+				if (enrolment.getUser() == user && enrolment.isActive()) {
+					returning = team;
+				}
+			}
+		}
+		return returning;
+		/*
+		  try (Connection conn = this.createConnection();){
+		
+			String sql = "Select USERS.FIRSTNAME, USERS.LASTNAME\r\n" + 
+	        		"from teamenrolments te\r\n" + 
+	        		"join userprivileges u on te.userprivileges_id = u.ID\r\n" + 
+	        		"join users on u.User_ID = users.ID\r\n" + 
+	        		"where Privilege = 'T'\r\n" + 
+	        		"AND te.team_id =  (     select team_id\r\n" + 
+	        		"                        from teamenrolments t\r\n" + 
+	        		"                        Join users on t.ID = users.ID\r\n" + 
+	        		"                        where users.ID = ?)";
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        ps.setInt(1, AppStarter.currentUser.getId());
+	        ResultSet rs = ps.executeQuery();
+	        System.out.println(rs);
+	        if(rs.next()) {
+	        	String fname = rs.getString(1);
+	        	String lname = rs.getString(2);
+	        	System.out.println(fname + " " + lname);
+	        }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		*/
 	}
 
 }

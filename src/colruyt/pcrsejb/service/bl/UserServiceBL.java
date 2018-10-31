@@ -52,4 +52,7 @@ public class UserServiceBL{
 	}
 
 
+    public void addPrivilegeForUser(Privilege privilege, User user) {
+		//this.userdb.
+    }
 }

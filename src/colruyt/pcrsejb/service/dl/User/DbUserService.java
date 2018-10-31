@@ -28,7 +28,7 @@ public class DbUserService extends DbService implements UserService {
 
             PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join " +
                     "UserPrivileges up on u.id = up.user_id  where up.id = ?");
-          statement.setInt(1,privilege.getId());
+          statement.setInt(1, privilege.getId());
           ResultSet rs =  statement.executeQuery();
           users = convertToUserList(rs);
 
@@ -89,32 +89,31 @@ public class DbUserService extends DbService implements UserService {
     @Override
     public void addPrivilegesToUser(Privilege privi, User user){
         try(Connection conn = this.createConnection()){
+            Integer functionId = null;
+            String country = null;
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege,user_id) values (?,?,?)");
+            if (privi instanceof FunctionHoldingPrivilege) {
+                functionId = ((FunctionHoldingPrivilege) privi).getFunction().getFunctionID();
+                if (privi instanceof FunctionResponsiblePrivilege){
+                    country = ((FunctionResponsiblePrivilege) privi).getCountry();
+                }
+            }
 
+            String sql = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
+            PreparedStatement statement =  conn.prepareStatement(sql);
 
-
-            statement.setLong(1,privi.getId());
-            statement.setString(2,this.reverseTypeing(privi) + "");
-            statement.setInt(3,user.getId());
+            statement.setInt(1, user.getId());
+            statement.setInt(2, functionId);
+            statement.setInt(3, 1);
+            statement.setString(4, country);
+            statement.setInt(5, privi.getId());
 
             statement.executeUpdate();
-            ResultSet rs = statement.getGeneratedKeys();
-
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
     }
-
-    private char reverseTypeing(Privilege privi){
-
-
-        return privi.getClass().getSimpleName().toUpperCase().charAt(0);
-    }
-
 
     private List<User> convertToUserList(ResultSet rs) throws SQLException {
 

@@ -29,8 +29,17 @@ public class User {
 	 * @param password String
 	 * @param privileges HashSet
 	 */
+
 	public User(int id,String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
 		setId(id);
+		setFirstName(firstName);
+		setLastName(lastName);
+		setEmail(email);
+		setPassword(password);
+		setPrivileges(privileges);
+	}
+	public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
+
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);

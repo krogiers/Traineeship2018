@@ -22,7 +22,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
             PreparedStatement state = conn.prepareStatement("INSERT INTO SurveySet ");
 
-            //TODO: Implemenet;
+
 
 
         } catch (SQLException e) {
@@ -36,9 +36,8 @@ public class DbSurveySetService extends DbService implements SurveySetService {
     public SurveySet getElement(Integer index) {
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement state = conn.prepareStatement("Select * from SurveySet");
+            PreparedStatement state = conn.prepareStatement("select * from surveysets ss inner join surveys sy on ss.managersurvey = sy.id or ss.membersurvey = sy.id or ss.consensussurvey = sy.id");
 
-            //TODO: Implement;
 
 
         } catch (SQLException e) {

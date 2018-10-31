@@ -19,6 +19,7 @@ public class UserBo {
 	private String email;
 	private String password;
 	private HashSet<PrivilegeBo> privilegeBoHashSet;
+	private String country;
 
 
 	/**
@@ -30,21 +31,25 @@ public class UserBo {
 	 * @param password String
 	 * @param privilegeBoHashSet HashSet
 	 */
-	public UserBo(int id,String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
+	public UserBo(int id,String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet,
+				  String country) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
 		setPassword(password);
 		setId(id);
 		setPrivilegeBoHashSet(privilegeBoHashSet);
+		setCountry(country);
 	}
 	
-	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet) {
+	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet,
+				  String country) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
 		setPassword(password);
 		setPrivilegeBoHashSet(privilegeBoHashSet);
+		setCountry(country);
 	}
 
 
@@ -57,6 +62,14 @@ public class UserBo {
 	}
 
 	public UserBo() {
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	/**
@@ -152,7 +165,7 @@ public class UserBo {
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
-				+ privilegeBoHashSet + "]";
+				+ privilegeBoHashSet + " country=" + country + "]";
 	}
 
 	@Override

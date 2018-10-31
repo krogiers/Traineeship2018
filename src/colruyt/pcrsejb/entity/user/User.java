@@ -19,6 +19,7 @@ public class User {
 	private String email;
 	private String password;
 	private HashSet<Privilege> privileges;
+	private String country;
 
 	/**
 	 * Constructor voor het aanmaken van een User
@@ -30,21 +31,26 @@ public class User {
 	 * @param privileges HashSet
 	 */
 
-	public User(int id,String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
+	public User(int id,String firstName, String lastName, String email, String password, HashSet<Privilege> privileges,
+				String country) {
 		setId(id);
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
 		setPassword(password);
 		setPrivileges(privileges);
+		setCountry(country);
 	}
-	public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges) {
 
+
+
+	public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges, String country) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
 		setPassword(password);
 		setPrivileges(privileges);
+		setCountry(country);
 	}
 
 	public User() {
@@ -81,6 +87,16 @@ public class User {
 	 * 
 	 * @return lastName
 	 */
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -151,7 +167,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
-				+ privileges + "]";
+				+ privileges + ", country=" + country + "]";
 	}
 
 	@Override

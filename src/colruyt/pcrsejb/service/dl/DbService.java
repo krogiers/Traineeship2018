@@ -6,7 +6,7 @@ import colruyt.pcrsejb.util.factories.ConnectionType;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class DbService {
+public abstract class DbService {
 
     public Connection createConnection() throws SQLException {
         return ConnectionFactory.createFactory(ConnectionType.BASIC).createConnection();

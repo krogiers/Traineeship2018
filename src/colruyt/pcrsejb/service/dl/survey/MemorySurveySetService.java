@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class MemorySurveyService implements SurveySetService {
+public class MemorySurveySetService implements SurveySetService {
 
-    private List<SurveySet> surveylist = new ArrayList<>();
+    private static List<SurveySet> surveylist = new ArrayList<>();
 
     @Override
     public SurveySet addElement(SurveySet element) {
-        surveylist.add(element); return element;
+
+        element.setId(surveylist.size() + 1);
+        surveylist.add(element);
+
+        return element;
     }
 
     @Override

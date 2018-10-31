@@ -9,16 +9,22 @@ import java.util.stream.Collectors;
 
 public class MemoryUserService implements UserService {
 
-    private List<User> db = new ArrayList<>();
+    private static List<User> db = new ArrayList<>();
+
 
     @Override
     public User addElement(User user) {
+
+
+        user.setId(db.size() + 1);
         db.add(user);
         return user;
     }
 
     @Override
     public User getElement(Integer index) {
+
+
         return this.db.get(index);
     }
 
@@ -46,6 +52,7 @@ public class MemoryUserService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
+        System.out.println(this.db);
         return this.db.stream().filter(x ->
             (x.getFirstName().toLowerCase().substring(0,2)
                     + x.getLastName().toLowerCase().substring(0,3)).equals(shortName)
@@ -54,7 +61,7 @@ public class MemoryUserService implements UserService {
 
     @Override
     public void addPrivilegesToUser(Privilege privi, User user) {
-        // TODO
+
     }
 
 

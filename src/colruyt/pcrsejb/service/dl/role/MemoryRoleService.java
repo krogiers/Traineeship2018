@@ -8,10 +8,12 @@ import java.util.List;
 
 public class MemoryRoleService implements RoleService {
 
-    private List<Role> roleList = new ArrayList<>();
+    private static List<Role> roleList = new ArrayList<>();
 
     @Override
     public Role addElement(Role element) {
+
+        element.setId(roleList.size() + 1);
         this.roleList.add(element);
         return element;
     }

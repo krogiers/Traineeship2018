@@ -71,6 +71,19 @@ public class DbFunctionService extends DbService implements FunctionService {
         return functionList;
     }
 
+    @Override
+    public List<Function> getAllFunctionNames(){
+        List<Function> functionList = new ArrayList<>();
+        try (Connection conn = this.createConnection()) {
+            String sql = "SELECT * FROM Functions";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            functionList = convertToFunctions(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return functionList;
+    }
 
 
     @Override
@@ -90,9 +103,12 @@ public class DbFunctionService extends DbService implements FunctionService {
         return function;
     }
 
-    private List<Function> convertToFunctions(ResultSet rs) {
+    private List<Function> convertToFunctions(ResultSet rs) throws SQLException {
         List<Function> functionList = new ArrayList<>();
-        // TODO
+
+        while (rs.next()) {
+            functionList.add(new Function(rs.getString("TITLE")));
+        }
         return functionList;
     }
 

@@ -1,5 +1,14 @@
 package colruyt.pcrsejb.bo.privileges;
 
-public interface PrivilegeBo {
+public abstract class PrivilegeBo {
 
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

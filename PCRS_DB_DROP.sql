@@ -1,8 +1,8 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-10-30 16:13:07.082
+-- Last modification date: 2018-10-31 11:11:07.793
 
 -- foreign keys
-ALTER TABLE BehavioralCompetenceLevels
+ALTER TABLE CompetenceLevels
     DROP CONSTRAINT Behavioral_Competences;
 
 ALTER TABLE Competences
@@ -57,12 +57,15 @@ ALTER TABLE UserPrivileges
     DROP CONSTRAINT UserPrivileges_Functions;
 
 ALTER TABLE UserPrivileges
+    DROP CONSTRAINT UserPrivileges_Privileges;
+
+ALTER TABLE UserPrivileges
     DROP CONSTRAINT UserPrivileges_User;
 
 -- tables
-DROP TABLE BehavioralCompetenceLevels;
-
 DROP TABLE CompetenceDescriptions;
+
+DROP TABLE CompetenceLevels;
 
 DROP TABLE Competences;
 
@@ -71,6 +74,8 @@ DROP TABLE FunctionRoles;
 DROP TABLE Functions;
 
 DROP TABLE OperatingUnits;
+
+DROP TABLE "PRIVILEGES";
 
 DROP TABLE Ratings;
 

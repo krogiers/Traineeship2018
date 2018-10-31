@@ -53,41 +53,59 @@ INSERT INTO FUNCTIONS (ID, TITLE, OPERATINGUNITS_ID)
 VALUES ((SELECT MAX(ID) FROM FUNCTIONS)+1, 'Software Analyst', 2);
 
 
+--Creating Privileges
+-----------------------------------------------------------------------
+INSERT INTO "PRIVILEGES" (ID, FULLNAME, SHORTNAME) 
+VALUES (1, 'TeamMember', 'M');
+
+INSERT INTO "PRIVILEGES" (ID, FULLNAME, SHORTNAME) 
+VALUES ((SELECT MAX(ID) FROM "PRIVILEGES")+1, 'TeamManager', 'T');
+
+INSERT INTO "PRIVILEGES" (ID, FULLNAME, SHORTNAME) 
+VALUES ((SELECT MAX(ID) FROM "PRIVILEGES")+1, 'FunctionHolder', 'F');
+
+INSERT INTO "PRIVILEGES" (ID, FULLNAME, SHORTNAME) 
+VALUES ((SELECT MAX(ID) FROM "PRIVILEGES")+1, 'Director', 'D');
+
+INSERT INTO "PRIVILEGES" (ID, FULLNAME, SHORTNAME) 
+VALUES ((SELECT MAX(ID) FROM "PRIVILEGES")+1, 'Administrator', 'A');
+
+
 --Creating User privileges
 -----------------------------------------------------------------------
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES (1, 'M', 1, 1, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES (1, 1, 1, 1, 1);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'M', 7, 1, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 7, 1, 1, 1);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'T', 2, NULL, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 2, NULL, 1, 2);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE, COUNTRY) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'F', 3, 1, 1, 'BE');
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, COUNTRY, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 3, 1, 1, 'BE', 3);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'D', 4, NULL, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 4, NULL, 1, 4);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'A', 5, NULL, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 5, NULL, 1, 5);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'M', 6, 1, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 6, 1, 1, 1);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'T', 6, NULL, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 6, NULL, 1, 2);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, COUNTRY, ACTIVE)  
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'F', 6, 1, 'FR', 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, COUNTRY, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 6, 1, 'FR', 1, 3);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'D', 6, NULL, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 6, NULL, 1, 4);
 
-INSERT INTO USERPRIVILEGES (ID, PRIVILEGE, USER_ID, FUNCTIONS_ID, ACTIVE) 
-VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 'A', 6, NULL, 1);
+INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVILEGES_ID) 
+VALUES ((SELECT MAX(ID) FROM USERPRIVILEGES)+1, 6, NULL, 1, 5);
 
 
 --CReating teams
@@ -102,10 +120,10 @@ VALUES ((SELECT MAX(ID) FROM TEAMS)+1, 'BCOM');
 
 --creating roles
 -----------------------------------------------------------------------
-INSERT INTO ROLES (ID, Name) 
+INSERT INTO ROLES (ID, NAME) 
 VALUES (1, 'Developer');
 
-INSERT INTO ROLES (ID, Name) 
+INSERT INTO ROLES (ID, NAME) 
 VALUES ((SELECT MAX(ID) FROM ROLES)+1, 'Lead Developer');
 
 
@@ -119,67 +137,67 @@ INSERT INTO TEAMENROLMENTS  (ID, TEAM_ID, USERPRIVILEGES_ID, ACTIVE, ROLES_ID)
 VALUES ((SELECT MAX(ID) FROM TEAMENROLMENTS)+1, 1, 2, 1, 2);
 
 INSERT INTO TEAMENROLMENTS  (ID, TEAM_ID, USERPRIVILEGES_ID, ACTIVE, ROLES_ID) 
-VALUES ((SELECT MAX(ID) FROM TEAMENROLMENTS)+1, 1, 3, 1, null);
+VALUES ((SELECT MAX(ID) FROM TEAMENROLMENTS)+1, 1, 3, 1, NULL);
 
 
 --creating functionroles
 -----------------------------------------------------------------------
 
-INSERT INTO Functionroles (ID, ROLES_ID, Functions_ID) 
+INSERT INTO FUNCTIONROLES (ID, ROLES_ID, FUNCTIONS_ID) 
 VALUES (1, 1, 1);
 
-INSERT INTO Functionroles  (ID, ROLES_ID, Functions_ID) 
-VALUES ((SELECT MAX(ID) FROM Functionroles)+1, 1, 2);
+INSERT INTO FUNCTIONROLES  (ID, ROLES_ID, FUNCTIONS_ID) 
+VALUES ((SELECT MAX(ID) FROM FUNCTIONROLES)+1, 1, 2);
 
-INSERT INTO Functionroles  (ID, ROLES_ID, Functions_ID) 
-VALUES ((SELECT MAX(ID) FROM Functionroles)+1, 2, 1);
+INSERT INTO FUNCTIONROLES  (ID, ROLES_ID, FUNCTIONS_ID) 
+VALUES ((SELECT MAX(ID) FROM FUNCTIONROLES)+1, 2, 1);
 
 
 --creating competences
 -----------------------------------------------------------------------
 
-INSERT INTO competences (ID, Functions_ID, FunctionRoles_Id, OperatingUnits_ID, Name) 
-VALUES (1, null, 1 , null, 'Deliver Online Application MF CICS/PL1');
+INSERT INTO COMPETENCES (ID, FUNCTIONS_ID, FUNCTIONROLES_ID, OPERATINGUNITS_ID, NAME) 
+VALUES (1, NULL, 1 , NULL, 'Deliver Online Application MF CICS/PL1');
 
-INSERT INTO competences  (ID, Functions_ID, FunctionRoles_Id, OperatingUnits_ID, Name) 
-VALUES ((SELECT MAX(ID) FROM competences)+1, null, 1, null, 'Deliver IMSL Service MF');
+INSERT INTO COMPETENCES  (ID, FUNCTIONS_ID, FUNCTIONROLES_ID, OPERATINGUNITS_ID, NAME) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCES)+1, NULL, 1, NULL, 'Deliver IMSL Service MF');
 
-INSERT INTO competences  (ID, Functions_ID, FunctionRoles_Id, OperatingUnits_ID, Name) 
-VALUES ((SELECT MAX(ID) FROM competences)+1, 1, null, null, 'Company Involvement');
+INSERT INTO COMPETENCES  (ID, FUNCTIONS_ID, FUNCTIONROLES_ID, OPERATINGUNITS_ID, NAME) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCES)+1, 1, NULL, NULL, 'Company Involvement');
 
-INSERT INTO competences  (ID, Functions_ID, FunctionRoles_Id, OperatingUnits_ID, Name) 
-VALUES ((SELECT MAX(ID) FROM competences)+1, null, null, 1, 'BPS');
+INSERT INTO COMPETENCES  (ID, FUNCTIONS_ID, FUNCTIONROLES_ID, OPERATINGUNITS_ID, NAME) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCES)+1, NULL, NULL, 1, 'BPS');
 
 
 --creating competenceDescriptions
 -----------------------------------------------------------------------
 
-INSERT INTO CompetenceDescriptions (ID, Description, Competences_ID) 
+INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) 
 VALUES (1, 'I can design, develop, test and deploy a CICS-application (CICS handling + PL1 + ACF2 API) on either an IDMS or DB2 database, using the standard development tooling (ADMI, TSO, TLNK, AbendAid, chainings) in line with the company standards.', 1);
 
-INSERT INTO CompetenceDescriptions (ID, Description, Competences_ID) 
-VALUES ((SELECT MAX(ID) FROM CompetenceDescriptions)+1, 'I can design, develop, test and deploy a CICS-application as an IMSL service provider/requester (CICS handling + PL1 + IMSL procedures) on either an IDMS or DB2 database, using the standard software development tool(s), ADMI, Debug and testing tools, Database query tools.', 2);
+INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCEDESCRIPTIONS)+1, 'I can design, develop, test and deploy a CICS-application as an IMSL service provider/requester (CICS handling + PL1 + IMSL procedures) on either an IDMS or DB2 database, using the standard software development tool(s), ADMI, Debug and testing tools, Database query tools.', 2);
 
-INSERT INTO CompetenceDescriptions (ID, Description, Competences_ID) 
-VALUES ((SELECT MAX(ID) FROM CompetenceDescriptions)+1, 'To show yourself connected with the mission and values of the company, to create a connection with other people and to make sure that all behaviour corresponds with this. ', 3);
+INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCEDESCRIPTIONS)+1, 'To show yourself connected with the mission and values of the company, to create a connection with other people and to make sure that all behaviour corresponds with this. ', 3);
 
 
 --creating behavioralCompetencesLevels
 -----------------------------------------------------------------------
 
-INSERT INTO behavioralcompetencelevels (ID, Competences_id, Description, orderlevel, Active) 
+INSERT INTO COMPETENCELEVELS (ID, COMPETENCES_ID, DESCRIPTION, ORDERLEVEL, ACTIVE) 
 VALUES (1, 3, 'Knows the values and mission', 1, 0);
 
-INSERT INTO behavioralcompetencelevels (ID, Competences_id, Description, orderlevel, Active) 
-VALUES ((SELECT MAX(ID) FROM behavioralcompetencelevels)+1, 3, 'Works in conformity with the values and mission', 2, 1);
+INSERT INTO COMPETENCELEVELS (ID, COMPETENCES_ID, DESCRIPTION, ORDERLEVEL, ACTIVE) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCELEVELS)+1, 3, 'Works in conformity with the values and mission', 2, 1);
 
-INSERT INTO behavioralcompetencelevels (ID, Competences_id, Description, orderlevel, Active) 
-VALUES ((SELECT MAX(ID) FROM behavioralcompetencelevels)+1, 3, 'Follows up on behaviour of other people that does not correspond with the values and mission', 3, 0);
+INSERT INTO COMPETENCELEVELS (ID, COMPETENCES_ID, DESCRIPTION, ORDERLEVEL, ACTIVE) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCELEVELS)+1, 3, 'Follows up on behaviour of other people that does not correspond with the values and mission', 3, 0);
 
-INSERT INTO behavioralcompetencelevels (ID, Competences_id, Description, orderlevel, Active) 
-VALUES ((SELECT MAX(ID) FROM behavioralcompetencelevels)+1, 3, 'Guards and illustrates the application of the values and mission', 4, 0);
+INSERT INTO COMPETENCELEVELS (ID, COMPETENCES_ID, DESCRIPTION, ORDERLEVEL, ACTIVE) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCELEVELS)+1, 3, 'Guards and illustrates the application of the values and mission', 4, 0);
 
-INSERT INTO behavioralcompetencelevels (ID, Competences_id, Description, orderlevel, Active) 
-VALUES ((SELECT MAX(ID) FROM behavioralcompetencelevels)+1, 3, 'Links the company values and mission to each message and decision', 5, 0);
+INSERT INTO COMPETENCELEVELS (ID, COMPETENCES_ID, DESCRIPTION, ORDERLEVEL, ACTIVE) 
+VALUES ((SELECT MAX(ID) FROM COMPETENCELEVELS)+1, 3, 'Links the company values and mission to each message and decision', 5, 0);
 
 COMMIT;

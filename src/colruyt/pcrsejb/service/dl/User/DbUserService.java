@@ -59,14 +59,17 @@ public class DbUserService extends DbService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
-
+        System.out.println("Searching on short name " + shortName);
        List<User> lijst = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from Users where Firstname like ? and Lastname like ?");
+            PreparedStatement statement =  conn.prepareStatement("Select * from Users where " +
+                    "UPPER(Firstname) like ? and UPPER(Lastname) like ?");
 
             String firstname = shortName.substring(0,2).toUpperCase();
             String lastname = shortName.substring(2).toUpperCase();
+            System.out.println(firstname);
+            System.out.println(lastname);
             statement.setString(1,firstname + "%");
             statement.setString(2,lastname + "%");
 

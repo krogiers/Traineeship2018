@@ -42,6 +42,14 @@ public class UserServiceBL{
 	public List<User> getUserByShortName(String shortName){
 		return userdb.findUsersByShortName(shortName);
 	}
-	
+
+	public List<User> findUsersByPrivilege(Privilege privilege){
+		return this.userdb.findUsersByPrivilege(privilege);
+	}
+
+	public List<User> findUsersByFirstName(String name){
+		return this.userdb.findUsersByFirstName(name);
+	}
+
 
 }

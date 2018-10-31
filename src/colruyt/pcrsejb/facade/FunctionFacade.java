@@ -18,10 +18,10 @@ public class FunctionFacade {
     private FunctionBoConverter functionBoConverter = new FunctionBoConverter();
 
 
-    public List<FunctionBo> getFunctions() {
+    public List<FunctionBo> getFunctionNames() {
         List<FunctionBo> functionBoList = new ArrayList<>();
 
-        for(Function function : functionServiceBL.getFunctions()) {
+        for(Function function : functionServiceBL.getAllFunctionNames()) {
             functionBoList.add(functionConverter.convertTo(function));
         }
         return functionBoList;

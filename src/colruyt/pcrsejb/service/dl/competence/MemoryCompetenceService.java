@@ -10,10 +10,11 @@ import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 
 public class MemoryCompetenceService implements CompetenceService {
 
-	private List<Competence> db = new ArrayList<>();
+	private static List<Competence> db = new ArrayList<>();
 	
 	@Override
 	public Competence addElement(Competence element) {
+		element.setCompetenceID(db.size() + 1);
 		db.add(element);
 		return element;
 		

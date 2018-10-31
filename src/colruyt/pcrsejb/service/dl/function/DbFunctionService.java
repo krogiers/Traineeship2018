@@ -22,7 +22,7 @@ public class DbFunctionService extends DbService implements FunctionService {
 
         try(Connection conn = this.createConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) " +
-                    "VALUES( SELECT MAX(ID) FROM FUNCTIONS, ?, ?)", new String[] {"ID"});
+                    "VALUES( (SELECT MAX(ID) FROM FUNCTIONS), ?, ?)", new String[] {"ID"});
             preparedStatement.setString(1, element.getTitle());
             preparedStatement.setString(2, element.getOperatingUnitId());
             preparedStatement.executeUpdate();
@@ -38,7 +38,7 @@ public class DbFunctionService extends DbService implements FunctionService {
     }
 
     @Override
-    public Function getElement(Integer index) {
+    public Function getElement(int index) {
         Function function = null;
         try (Connection conn = this.createConnection()){
             String sql = "SELECT * FROM Functions f WHERE ID=? INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID" +
@@ -71,6 +71,19 @@ public class DbFunctionService extends DbService implements FunctionService {
         return functionList;
     }
 
+    @Override
+    public List<Function> getAllFunctionNames(){
+        List<Function> functionList = new ArrayList<>();
+        try (Connection conn = this.createConnection()) {
+            String sql = "SELECT * FROM Functions";
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            ResultSet rs = preparedStatement.executeQuery();
+            functionList = convertToFunctions(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return functionList;
+    }
 
 
     @Override
@@ -90,9 +103,12 @@ public class DbFunctionService extends DbService implements FunctionService {
         return function;
     }
 
-    private List<Function> convertToFunctions(ResultSet rs) {
+    private List<Function> convertToFunctions(ResultSet rs) throws SQLException {
         List<Function> functionList = new ArrayList<>();
-        // TODO
+
+        while (rs.next()) {
+            functionList.add(new Function(rs.getString("TITLE")));
+        }
         return functionList;
     }
 

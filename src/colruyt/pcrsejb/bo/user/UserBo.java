@@ -21,6 +21,7 @@ public class UserBo {
 	private HashSet<PrivilegeBo> privilegeBoHashSet;
 	private String country;
 
+
 	/**
 	 * Constructor voor het aanmaken van een User
 	 *

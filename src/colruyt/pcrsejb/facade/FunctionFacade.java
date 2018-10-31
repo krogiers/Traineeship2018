@@ -19,10 +19,9 @@ public class FunctionFacade {
 
 
     public List<FunctionBo> getFunctions() {
-        List<Function> functionList = functionServiceBL.getFunctions();
         List<FunctionBo> functionBoList = new ArrayList<>();
 
-        for(Function function : functionList) {
+        for(Function function : functionServiceBL.getFunctions()) {
             functionBoList.add(functionConverter.convertTo(function));
         }
         return functionBoList;

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The type Db competence service.
+ */
 public class DbCompetenceService extends DbService implements CompetenceService{
 
 
@@ -63,7 +66,7 @@ public class DbCompetenceService extends DbService implements CompetenceService{
             String function = rs.getString("FUNCTIONS_ID");
             String operatingunit = rs.getString("OPERATINGUNITS_ID");
             String functionrol = rs.getString("FUNCTIONROLES_ID");
-            Competence u = null;
+            Competence u;
             if(operatingunit != null){
                 u = new OperatingUnitCompetence(id, name);
             }else if(function != null){

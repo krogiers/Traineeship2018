@@ -78,6 +78,6 @@ public class DbTeamService extends DbService implements TeamService {
             ResultSet rs = preparedStatement.executeQuery();
         } catch (SQLException e1) {
             e1.printStackTrace();
-        }//
+        }
     }
 }

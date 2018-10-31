@@ -9,10 +9,6 @@ import colruyt.pcrsejb.service.dl.DbService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,21 +40,6 @@ public class DbCompetenceService extends DbService implements CompetenceService{
 
     @Override
     public Collection<Competence> getAllElements() {
-<<<<<<< HEAD
-        //TODO: afwerken
-    	List<Competence> competences = new ArrayList<>(); 
-        try(Connection conn = this.createConnection())
-        {
-        	PreparedStatement statement = conn.prepareStatement("Select * from competences");
-        	ResultSet rs = statement.executeQuery();
-        	//competences = rs.convertToCompetenceList();
-        }
-        catch(SQLException e)
-        {
-        	e.printStackTrace();
-        }
-        return null;
-=======
         List<Competence> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
@@ -92,16 +73,8 @@ public class DbCompetenceService extends DbService implements CompetenceService{
             user.add(u);
         }
         return user;
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
     }
 
-    
-    private List<Competence> convertToCompetenceList(ResultSet rs)
-    {
-    	//TODO
-    	return null;
-    	
-    }
     @Override
     public void deleteElement(Competence element) {
 

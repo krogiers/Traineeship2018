@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Traineeship2018FrontEndConsole/Traineeship2018FrontEndConsole.iml" filepath="$PROJECT_DIR$/../Traineeship2018FrontEndConsole/Traineeship2018FrontEndConsole.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Traineeship2018FrontEndConsole2/Traineeship2018FrontEndConsole2.iml" filepath="$PROJECT_DIR$/../Traineeship2018FrontEndConsole2/Traineeship2018FrontEndConsole2.iml" />
       <module fileurl="file://$PROJECT_DIR$/pcrs.iml" filepath="$PROJECT_DIR$/pcrs.iml" />
     </modules>

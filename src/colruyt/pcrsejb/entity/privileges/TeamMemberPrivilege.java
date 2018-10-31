@@ -17,12 +17,14 @@ public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
 		super();
 		this.setStartDateInCurrentFunction(null);;
 		this.setSurveySetTreeSet(new TreeSet<SurveySet>());
+		this.setId(1);
 	}
 	
 	public TeamMemberPrivilege(LocalDate startDateInCurrentFunction) {
 		super();
 		this.setStartDateInCurrentFunction(startDateInCurrentFunction);;
 		this.setSurveySetTreeSet(new TreeSet<SurveySet>());;
+		this.setId(1);
 	}
 
 	

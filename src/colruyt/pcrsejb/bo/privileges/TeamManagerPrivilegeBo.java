@@ -1,11 +1,11 @@
 package colruyt.pcrsejb.bo.privileges;
 
-public class TeamManagerPrivilegeBo implements PrivilegeBo {
+public class TeamManagerPrivilegeBo extends PrivilegeBo {
 
 
 	public TeamManagerPrivilegeBo() {
 		super();
-		// TODO Auto-generated constructor stub
+		setId(2);
 	}
 
 	@Override

@@ -105,7 +105,7 @@ public class DbFunctionService extends DbService implements FunctionService {
         List<Function> functionList = new ArrayList<>();
 
         while (rs.next()) {
-            functionList.add(new Function(rs.getString("TITLE")));
+            functionList.add(new Function(rs.getInt("ID"), rs.getString("TITLE")));
         }
         return functionList;
     }

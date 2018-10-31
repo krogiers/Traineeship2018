@@ -5,15 +5,17 @@ import colruyt.pcrsejb.bo.function.FunctionBo;
 public class FunctionResponsiblePrivilegeBo extends FunctionHoldingPrivilegeBo {
 
 	private String country;
+
 	public FunctionResponsiblePrivilegeBo() {
 		super();
-		// TODO Auto-generated constructor stub
+		setId(3);
 	}
 
     public FunctionResponsiblePrivilegeBo(String country, FunctionBo functionBo) {
         super();
         setCountry(country);
         setFunctionBo(functionBo);
+		setId(3);
     }
 
 	public String getCountry() {

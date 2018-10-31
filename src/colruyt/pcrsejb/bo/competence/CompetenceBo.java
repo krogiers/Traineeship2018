@@ -3,24 +3,20 @@ package colruyt.pcrsejb.bo.competence;
 public abstract class CompetenceBo {
 
 	private int competenceID;
-
     private String name;
-    private String description;
     
 	public CompetenceBo() {
 		super();
 	}
 
-	public CompetenceBo(String name, String description)  {
+	public CompetenceBo(String name)  {
 		super();
 		this.setName(name);
-		this.setDescription(description);
 	}
 
-	public CompetenceBo(int competenceID, String name, String description) {
-		this.competenceID = competenceID;
-		this.name = name;
-		this.description = description;
+	public CompetenceBo(int competenceID, String name) {
+		this.setCompetenceID(competenceID);
+		this.setName(name);
 	}
 
 	public int getCompetenceID() {
@@ -39,20 +35,11 @@ public abstract class CompetenceBo {
 		this.name = name;
 	}
 
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + competenceID;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -66,10 +53,7 @@ public abstract class CompetenceBo {
 		if (getClass() != obj.getClass())
 			return false;
 		CompetenceBo other = (CompetenceBo) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
+		if (competenceID != other.competenceID)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -78,8 +62,6 @@ public abstract class CompetenceBo {
 			return false;
 		return true;
 	}
-	
-	
 
 
 }

@@ -4,7 +4,7 @@ import colruyt.pcrsejb.entity.competence.*;
 
 import java.util.*;
 
-public class MemoryCraftCompetenceService implements AbstractCraftCompetenceService{
+public class MemoryCraftCompetenceService implements CraftCompetenceService {
     
     
     @Override

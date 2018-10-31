@@ -44,7 +44,7 @@ public class TeamMemberPrivilege extends FunctionHoldingPrivilege {
 
 	public void addSurveySet()
 	{
-		//TO DO: argumenten van de constructor aanvullen
+		//TODO: argumenten van de constructor aanvullen
 		surveySetTreeSet.add(new SurveySet());
 	}
 	

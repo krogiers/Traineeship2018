@@ -13,7 +13,7 @@ public class MemorySurveySetService implements SurveySetService {
     @Override
     public SurveySet addElement(SurveySet element) {
 
-        element.setId(surveylist.size() + 1);
+        element.setSurveySetID(surveylist.size() + 1);
         surveylist.add(element);
 
         return element;

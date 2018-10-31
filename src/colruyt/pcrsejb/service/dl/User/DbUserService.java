@@ -26,7 +26,8 @@ public class DbUserService extends DbService implements UserService {
         List<User> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.id = ?");
+            PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join " +
+                    "UserPrivileges up on u.id = up.user_id  where up.id = ?");
           statement.setInt(1,privilege.getId());
           ResultSet rs =  statement.executeQuery();
           users = convertToUserList(rs);
@@ -121,9 +122,9 @@ public class DbUserService extends DbService implements UserService {
             String lastname = rs.getString("lastname");
             String password = rs.getString("password");
             String email = rs.getString("email");
+            String country = rs.getString("homecountry");
 
-
-            User u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>());
+            User u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>(), country);
             u.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
 
             user.add(u);
@@ -141,8 +142,9 @@ public class DbUserService extends DbService implements UserService {
             String lastname = rs.getString("lastname");
             String password = rs.getString("password");
             String email = rs.getString("email");
+            String country = rs.getString("homecountry");
 
-            u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>());
+            u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>(), country);
             u.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
         }
         return u;
@@ -154,14 +156,16 @@ public class DbUserService extends DbService implements UserService {
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into user (id,firstname,lastname,password,email) values (((select max(id) from users)+1),?,?,?,?)");
+            PreparedStatement statement =  conn.prepareStatement("INSERT into Users " +
+                    "(id,firstname,lastname,password,email) values (((select max(id) from users)+1),?,?,?,?,?)");
 
-            statement.setString(2,element.getFirstName());
-            statement.setString(3,element.getLastName());
-            statement.setString(4,element.getEmail());
-            statement.setString(5,element.getPassword());
+            statement.setString(1,element.getFirstName());
+            statement.setString(2,element.getLastName());
+            statement.setString(3,element.getEmail());
+            statement.setString(4,element.getPassword());
+            statement.setString(5, element.getCountry());
 
-            statement.setLong(1,element.getId());
+            //statement.setLong(1,element.getId());
             statement.executeUpdate();
 
             ResultSet rs =  statement.getGeneratedKeys();

@@ -7,19 +7,30 @@ import java.util.Set;
 
 public class SurveySet implements Comparable<SurveySet>{
 
-    private int id;
+    private long surveySetID;
     private LocalDate surveyYear;
     private Set<Survey> surveySet;
+
+    public SurveySet(long surveySetID, LocalDate surveyYear, Set<Survey> surveySet) {
+        this.surveySetID = surveySetID;
+        this.surveyYear = surveyYear;
+        this.surveySet = surveySet;
+    }
 
     public SurveySet() {
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public int compareTo(SurveySet o) {
+        throw new NotImplementedException();
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public long getSurveySetID() {
+        return surveySetID;
+    }
+
+    public void setSurveySetID(long surveySetID) {
+        this.surveySetID = surveySetID;
     }
 
     public LocalDate getSurveyYear() {
@@ -36,13 +47,5 @@ public class SurveySet implements Comparable<SurveySet>{
 
     public void setSurveySet(Set<Survey> surveySet) {
         this.surveySet = surveySet;
-    }
-
-    @Override
-    public int compareTo(SurveySet o){
-
-       return this.getSurveyYear().compareTo(o.getSurveyYear());
-
-
     }
 }

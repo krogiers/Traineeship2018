@@ -23,19 +23,19 @@ public class CraftCompetenceFacade{
     }
     
     public List<CraftCompetenceBo> getAllCraftCompetences() {
-        List<CraftCompetenceBo> CraftCompetences = new ArrayList<>();
+        ArrayList<CraftCompetenceBo> CraftCompetences = new ArrayList<>();
         for (CraftCompetence c : CraftCompetenceServiceBL.getAllCraftCompetences()) {
             CraftCompetences.add(CraftCompetenceConverter.convertTo(c));
         }
         return CraftCompetences;
     }
 
-    public void removeCraftCompetenceByName(String user) {
-        List<CraftCompetenceBo> CraftCompetences = getAllCraftCompetences();
-        for(CraftCompetenceBo ccbo : CraftCompetences){
-            if(ccbo.getName().equals(user)){
-                CraftCompetences.remove(ccbo);
-            }
-        }
+    public void removeCraftCompetenceByName(CraftCompetenceBo craftCompetence) {
+        CraftCompetenceServiceBL.removeCraftCompetence(CraftCompetenceBoConverter.convertTo(craftCompetence));
+
+    }
+
+    public void updateCraftCompetence(CraftCompetenceBo craftCompetence){
+        CraftCompetenceServiceBL.updateCraftCompetence(CraftCompetenceBoConverter.convertTo(craftCompetence));
     }
 }

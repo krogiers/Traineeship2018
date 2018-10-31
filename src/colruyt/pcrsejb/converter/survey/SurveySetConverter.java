@@ -11,8 +11,6 @@ import java.util.Set;
 
 public class SurveySetConverter implements GenericConverter<SurveySetBo, SurveySet> {
 
-
-
         @Override
         public SurveySetBo convertTo(SurveySet from) {
             Set<SurveyBo> surveys = new HashSet<>();

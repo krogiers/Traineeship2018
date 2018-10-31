@@ -9,7 +9,10 @@ import colruyt.pcrsejb.service.dl.DbService;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,6 +44,7 @@ public class DbCompetenceService extends DbService implements CompetenceService{
 
     @Override
     public Collection<Competence> getAllElements() {
+<<<<<<< HEAD
         //TODO: afwerken
     	List<Competence> competences = new ArrayList<>(); 
         try(Connection conn = this.createConnection())
@@ -54,6 +58,41 @@ public class DbCompetenceService extends DbService implements CompetenceService{
         	e.printStackTrace();
         }
         return null;
+=======
+        List<Competence> users = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("Select * from COMPETENCES");
+
+            ResultSet rs =  statement.executeQuery();
+            users = convertToCompetenceList(rs);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+
+    }
+
+    private List<Competence> convertToCompetenceList(ResultSet rs) throws SQLException {
+
+        List<Competence> user = new ArrayList<Competence>();
+        while(rs.next()){
+            int id = rs.getInt("ID");
+            String firstname = rs.getString("NAME");
+            String lastname = rs.getString("lastname");
+            String password = rs.getString("password");
+            String email = rs.getString("email");
+            String country = rs.getString("homecountry");
+
+            Competence u = null;
+
+
+            user.add(u);
+        }
+        return user;
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
     }
 
     

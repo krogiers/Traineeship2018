@@ -1,6 +1,8 @@
 package colruyt.pcrsejb.entity.competence;
 
-public class CraftCompetence extends Competence implements RoleCompetence{
+import java.util.Map;
+
+public class CraftCompetence extends CompetenceLevel implements RoleCompetence{
 
 
 
@@ -17,4 +19,13 @@ public class CraftCompetence extends Competence implements RoleCompetence{
 	public CraftCompetence(long competenceID, String name, String description) {
 		super(competenceID, name, description);
 	}
+
+	public CraftCompetence(String name, int minLevel, Map<Integer, String> possibilityMap) {
+		super(name, minLevel, possibilityMap);
+	}
+
+	public CraftCompetence(long competenceID, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
+		super(competenceID, name, description, minLevel, possibilityMap);
+	}
+
 }

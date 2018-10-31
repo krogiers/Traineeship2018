@@ -14,8 +14,7 @@ public class SurveyFacade {
 
     public ArrayList<SurveySet> getHistory() {
         // TODO
+        ArrayList<SurveySet> surveys = new ArrayList<>();
         return null;
-
     }
-
 }

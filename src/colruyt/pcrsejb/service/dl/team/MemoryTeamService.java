@@ -12,6 +12,8 @@ public class MemoryTeamService implements TeamService {
 	
 	@Override
 	public Team addElement(Team team) {
+
+		team.setTeamID(db.size() + 1);
 		db.add(team);
 		return team;
 	}

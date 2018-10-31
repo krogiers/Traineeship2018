@@ -9,11 +9,10 @@ import java.util.List;
 
 
 
-//TODO: DELETE DEZE KLASSSEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class MemoryPrivilegeService implements PrivilegeService {
 
 
-    private List<Privilege> privilegeList = new ArrayList<>();
+    private static List<Privilege> privilegeList = new ArrayList<>();
 
     @Override
     public Privilege addElement(Privilege element) {

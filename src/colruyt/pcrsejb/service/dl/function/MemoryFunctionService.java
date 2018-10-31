@@ -8,10 +8,12 @@ import java.util.List;
 
 public class MemoryFunctionService implements FunctionService {
 
-       private List<Function> functionList = new ArrayList<>();
+       private static List<Function> functionList = new ArrayList<>();
 
     @Override
     public Function addElement(Function element) {
+
+        element.setFunctionID(element.getFunctionID());
         this.functionList.add(element);
         return element;
     }

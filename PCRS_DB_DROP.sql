@@ -1,9 +1,12 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-10-30 14:03:27.441
+-- Last modification date: 2018-10-30 16:13:07.082
 
--- CONSTRAINTs
+-- foreign keys
 ALTER TABLE BehavioralCompetenceLevels
     DROP CONSTRAINT Behavioral_Competences;
+
+ALTER TABLE Competences
+    DROP CONSTRAINT Competences_FunctionRoles;
 
 ALTER TABLE Competences
     DROP CONSTRAINT Competences_Functions;
@@ -11,8 +14,8 @@ ALTER TABLE Competences
 ALTER TABLE Competences
     DROP CONSTRAINT Competences_OperatingUnits;
 
-ALTER TABLE Competences
-    DROP CONSTRAINT Competences_Roles;
+ALTER TABLE CompetenceDescriptions
+    DROP CONSTRAINT Descriptions_Competences;
 
 ALTER TABLE TeamEnrolments
     DROP CONSTRAINT Enrolment_Team;
@@ -36,9 +39,6 @@ ALTER TABLE Ratings
     DROP CONSTRAINT Ratings_Surveys;
 
 ALTER TABLE SurveySets
-    DROP CONSTRAINT SurveySets_Enrolments;
-
-ALTER TABLE SurveySets
     DROP CONSTRAINT SurveySets_ConsensusSurvey;
 
 ALTER TABLE SurveySets
@@ -46,6 +46,9 @@ ALTER TABLE SurveySets
 
 ALTER TABLE SurveySets
     DROP CONSTRAINT SurveySets_MemberSurvey;
+
+ALTER TABLE SurveySets
+    DROP CONSTRAINT SurveySets_UserPrivileges;
 
 ALTER TABLE TeamEnrolments
     DROP CONSTRAINT TeamEnrolments_Roles;
@@ -58,6 +61,8 @@ ALTER TABLE UserPrivileges
 
 -- tables
 DROP TABLE BehavioralCompetenceLevels;
+
+DROP TABLE CompetenceDescriptions;
 
 DROP TABLE Competences;
 

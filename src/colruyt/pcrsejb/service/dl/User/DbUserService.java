@@ -64,8 +64,8 @@ public class DbUserService extends DbService implements UserService {
 
             PreparedStatement statement =  conn.prepareStatement("Select * from Users where Firstname like ? and Lastname like ?");
 
-            String firstname = shortName.substring(0,2);
-            String lastname = shortName.substring(2);
+            String firstname = shortName.substring(0,2).toUpperCase();
+            String lastname = shortName.substring(2).toUpperCase();
             statement.setString(1,firstname + "%");
             statement.setString(2,lastname + "%");
 

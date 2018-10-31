@@ -12,16 +12,16 @@ public abstract class DescriptionCompetenceBo extends CompetenceBo {
     }
 
     public DescriptionCompetenceBo(String name, String description) {
-        super(name);
+        //super(name);
         this.description = description;
     }
 
     public DescriptionCompetenceBo(int competenceID, String name) {
-        super(competenceID, name);
+        //super(competenceID, name);
     }
 
     public DescriptionCompetenceBo(int competenceID, String name, String description) {
-        super(competenceID, name);
+       // super(competenceID, name);
         this.description = description;
     }
 

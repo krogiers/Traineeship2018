@@ -20,6 +20,7 @@ public class UserBo {
 	private String password;
 	private HashSet<PrivilegeBo> privilegeBoHashSet;
 
+
 	/**
 	 * Constructor voor het aanmaken van een User
 	 *

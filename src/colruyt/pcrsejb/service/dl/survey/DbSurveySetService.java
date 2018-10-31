@@ -1,11 +1,13 @@
 package colruyt.pcrsejb.service.dl.survey;
 
+import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveySet;
 import colruyt.pcrsejb.service.dl.DbService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -16,6 +18,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
     @Override
     public SurveySet addElement(SurveySet element) {
         try(Connection conn = this.createConnection()){
+
 
             PreparedStatement state = conn.prepareStatement("INSERT INTO SurveySet ");
 
@@ -33,9 +36,9 @@ public class DbSurveySetService extends DbService implements SurveySetService {
     public SurveySet getElement(Integer index) {
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement state = conn.prepareStatement("Select * from SurveySet ");
+            PreparedStatement state = conn.prepareStatement("Select * from SurveySet");
 
-            //TODO: Implemenet;
+            //TODO: Implement;
 
 
         } catch (SQLException e) {
@@ -52,5 +55,11 @@ public class DbSurveySetService extends DbService implements SurveySetService {
     @Override
     public void deleteElement(SurveySet element) {
 
+    }
+
+
+
+    public SurveySet convertSingleSurveySet(ResultSet rs){
+        throw new IllegalArgumentException();
     }
 }

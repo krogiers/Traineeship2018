@@ -36,9 +36,9 @@ public class BasicConnectionFactory extends ConnectionFactory {
 				prop.load(input);
 
 				// get the property value and print it out
-				prop.getProperty("userId");
-				prop.getProperty("passwd");
-				prop.getProperty("url");
+				userId = prop.getProperty("userId");
+				passwd = prop.getProperty("passwd");
+				url = prop.getProperty("url");
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} finally {

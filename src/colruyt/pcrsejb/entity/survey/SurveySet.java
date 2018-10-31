@@ -17,6 +17,9 @@ public class SurveySet implements Comparable<SurveySet>{
         this.surveySet = surveySet;
     }
 
+    public SurveySet() {
+    }
+
     @Override
     public int compareTo(SurveySet o) {
         throw new NotImplementedException();

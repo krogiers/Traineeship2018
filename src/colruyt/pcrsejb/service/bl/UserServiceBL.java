@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
+import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.User.DbUserService;
@@ -53,6 +54,23 @@ public class UserServiceBL{
 
 
     public void addPrivilegeForUser(Privilege privilege, User user) {
+		if (privilege instanceof FunctionResponsiblePrivilege) {
+			// find active users with this privilege
+			for (User u :this.userdb.findUsersByPrivilege(privilege)){
+				for (Privilege p : u.getPrivileges()) {
+					if (p instanceof FunctionResponsiblePrivilege) {
+						FunctionResponsiblePrivilege frp = (FunctionResponsiblePrivilege) p;
+
+						if (frp.getFunction().equals(((FunctionResponsiblePrivilege) privilege).getFunction())
+						&& frp.getCountry().equals(((FunctionResponsiblePrivilege) privilege).getCountry())){
+							throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");
+						}
+
+					}
+				}
+			}
+
+		}
 		this.userdb.addPrivilegesToUser(privilege, user);
     }
 }

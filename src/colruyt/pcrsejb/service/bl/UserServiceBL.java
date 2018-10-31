@@ -6,13 +6,14 @@ import java.util.List;
 import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.service.dl.User.DbUserService;
 import colruyt.pcrsejb.service.dl.User.MemoryUserService;
 import colruyt.pcrsejb.service.dl.User.UserService;
 
 public class UserServiceBL{
 
 	// Altijd op Abstract werken.
-	private UserService userdb = new MemoryUserService();
+	private UserService userdb = new DbUserService();
     
 	/**
 	 * Methode voor het navragen van privilege

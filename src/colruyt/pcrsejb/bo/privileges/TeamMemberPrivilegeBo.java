@@ -33,7 +33,7 @@ public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {
 		this.startDateInCurrentFunction = startDateInCurrentFunction;
 	}
 
-	public Set<SurveySetBo> getSurveySetBoTreeSet() {
+	public TreeSet<SurveySetBo> getSurveySetBoTreeSet() {
 		return surveySetBoTreeSet;
 	}
 	

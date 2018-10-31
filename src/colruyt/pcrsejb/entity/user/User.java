@@ -45,6 +45,7 @@ public class User {
 		setEmail(email);
 		setPassword(password);
 		setPrivileges(privileges);
+
 	}
 
 	public User() {

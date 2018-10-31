@@ -1,27 +1,27 @@
-package colruyt.pcrsejb.entity.competence;
+package colruyt.pcrsejb.bo.competence;
 
-public abstract class DescriptionCompetence extends Competence {
+public abstract class DescriptionCompetenceBo extends CompetenceBo {
 
     private String description;
 
-    public DescriptionCompetence() {
+    public DescriptionCompetenceBo() {
     }
 
-    public DescriptionCompetence(String description) {
+    public DescriptionCompetenceBo(String description) {
         this.description = description;
     }
 
-    public DescriptionCompetence(String name, String description) {
-        super(name);
+    public DescriptionCompetenceBo(String name, String description) {
+        //super(name);
         this.description = description;
     }
 
-    public DescriptionCompetence(int competenceID, String name) {
-        super(competenceID, name);
+    public DescriptionCompetenceBo(int competenceID, String name) {
+        //super(competenceID, name);
     }
 
-    public DescriptionCompetence(int competenceID, String name, String description) {
-        super(competenceID, name);
+    public DescriptionCompetenceBo(int competenceID, String name, String description) {
+       // super(competenceID, name);
         this.description = description;
     }
 

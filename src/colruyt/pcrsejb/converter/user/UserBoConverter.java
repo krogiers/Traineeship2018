@@ -10,6 +10,8 @@ import colruyt.pcrsejb.bo.privileges.TeamManagerPrivilegeBo;
 import colruyt.pcrsejb.bo.privileges.TeamMemberPrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.GenericConverter;
+import colruyt.pcrsejb.converter.privilege.PrivilegeBoConverter;
+import colruyt.pcrsejb.converter.privilege.PrivilegeConverter;
 import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
 import colruyt.pcrsejb.entity.privileges.DirectorPrivilege;
 import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
@@ -30,24 +32,11 @@ public class UserBoConverter implements GenericConverter<User,UserBo> {
     }
     
     private HashSet<Privilege> getPrivileges(HashSet<PrivilegeBo> privs) {
-    	HashSet<Privilege> privileges = new HashSet<>();
-    	for (PrivilegeBo pr : privs) {
-    		if (pr instanceof AdminPrivilegeBo) {
-    			privileges.add(new AdminPrivilege());
-    		}
-    		if (pr instanceof DirectorPrivilegeBo) {
-    			privileges.add(new DirectorPrivilege());
-    		}
-    		if (pr instanceof FunctionResponsiblePrivilegeBo) {
-    			privileges.add(new FunctionResponsiblePrivilege());
-    		}
-    		if (pr instanceof TeamManagerPrivilegeBo) {
-    			privileges.add(new TeamManagerPrivilege());
-    		}
-    		if (pr instanceof TeamMemberPrivilegeBo) {
-    			privileges.add(new TeamMemberPrivilege());
-    		}
-    	}
-    	return privileges;
+		HashSet<Privilege> privileges = new HashSet<>();
+		PrivilegeBoConverter conv = new PrivilegeBoConverter();
+		for (PrivilegeBo pr : privs) {
+			privileges.add(conv.convertTo(pr));
+		}
+		return privileges;
     }
 }

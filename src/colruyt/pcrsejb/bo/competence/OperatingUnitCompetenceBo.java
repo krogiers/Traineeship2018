@@ -2,19 +2,17 @@ package colruyt.pcrsejb.bo.competence;
 
 public class OperatingUnitCompetenceBo extends CompetenceBo implements FunctionCompetenceBo {
 
-	public OperatingUnitCompetenceBo(String name, String description)  {
-		super(name, description);
-		// TODO Auto-generated constructor stub
-		
-		
-	}
+    public OperatingUnitCompetenceBo() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
-	public OperatingUnitCompetenceBo() {
-		super();
+	public OperatingUnitCompetenceBo(String name)  {
+		super(name);
 		// TODO Auto-generated constructor stub
 	}
 
-	public OperatingUnitCompetenceBo(int competenceID, String name, String description) {
-		super(competenceID, name, description);
+	public OperatingUnitCompetenceBo(int competenceID, String name) {
+		super(competenceID, name);
 	}
 }

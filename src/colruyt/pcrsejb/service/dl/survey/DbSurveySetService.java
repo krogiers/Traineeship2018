@@ -1,6 +1,5 @@
 package colruyt.pcrsejb.service.dl.survey;
 
-import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveySet;
 import colruyt.pcrsejb.service.dl.DbService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -21,9 +20,6 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
 
             PreparedStatement state = conn.prepareStatement("INSERT INTO SurveySet ");
-
-
-
 
         } catch (SQLException e) {
             e.printStackTrace();

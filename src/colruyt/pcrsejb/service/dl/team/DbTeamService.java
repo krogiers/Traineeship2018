@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.service.dl.team;
 
 import colruyt.pcrsejb.entity.team.Team;
+import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.DbService;
 
 import java.sql.Connection;
@@ -16,6 +17,7 @@ public class DbTeamService extends DbService implements TeamService {
     private static final String GET_ELEMENT = "SELECT * FROM TEAMS WHERE ID=?";
     private static final String GET_ALL_ELEMENTS = "SELECT * FROM Teams";
     private static final String DELETE_ELEMENT = "DELETE FROM Teams WHERE ID = ? ";
+    private static final String GET_TEAM_OF_USER = "SELECT * FROM Teamenrolments Join userprivileges up ON Userprivileges_ID = up.ID Join users on up.user_ID = users.ID where users.ID = ?";
 
     @Override
     public Team addElement(Team element) {
@@ -79,5 +81,23 @@ public class DbTeamService extends DbService implements TeamService {
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
+    }
+
+    @Override
+    public Team findTeamOfUser(User user) {
+        Team team = null;
+        try (Connection conn = this.createConnection()){
+            PreparedStatement preparedStatement = conn.prepareStatement(GET_TEAM_OF_USER);
+            preparedStatement.setInt(1, user.getId());
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                team = new Team();
+                team.setTeamID(rs.getInt("ID"));
+                team.setName(rs.getString("Name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return team;
     }
 }

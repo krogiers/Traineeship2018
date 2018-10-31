@@ -3,6 +3,7 @@ package colruyt.pcrsejb.facade;
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.privileges.FunctionResponsiblePrivilegeBo;
 import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
+import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.privilege.PrivilegeBoConverter;
 import colruyt.pcrsejb.converter.privilege.PrivilegeConverter;

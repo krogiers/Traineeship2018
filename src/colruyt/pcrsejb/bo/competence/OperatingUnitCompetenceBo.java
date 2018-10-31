@@ -14,7 +14,7 @@ public class OperatingUnitCompetenceBo extends CompetenceBo implements FunctionC
 		// TODO Auto-generated constructor stub
 	}
 
-	public OperatingUnitCompetenceBo(long competenceID, String name, String description) {
+	public OperatingUnitCompetenceBo(int competenceID, String name, String description) {
 		super(competenceID, name, description);
 	}
 }

@@ -2,23 +2,22 @@ package colruyt.pcrsejb.entity.competence;
 
 public abstract class Competence {
 
-	private long competenceID;
+	private int competenceID;
     private String name;
-    private String description;
+
     
 	public Competence() {
 		super();
 	}
-	public Competence(String name, String description)  {
+	public Competence(String name)  {
 		super();
 		this.setName(name);
-		this.setDescription(description);
 	}
 
-	public Competence(long competenceID, String name, String description) {
+	public Competence(int competenceID, String name) {
 		this.competenceID = competenceID;
 		this.name = name;
-		this.description = description;
+
 	}
 
 	/**
@@ -26,7 +25,7 @@ public abstract class Competence {
 	 *
 	 * @return Value for property 'competenceID'.
 	 */
-	public long getCompetenceID() {
+	public int getCompetenceID() {
 		return competenceID;
 	}
 
@@ -35,7 +34,7 @@ public abstract class Competence {
 	 *
 	 * @param competenceID Value to set for property 'competenceID'.
 	 */
-	public void setCompetenceID(long competenceID) {
+	public void setCompetenceID(int competenceID) {
 		this.competenceID = competenceID;
 	}
 
@@ -52,25 +51,12 @@ public abstract class Competence {
 		
 		this.name = name;
 	}
-	public String getDescription() {
-		
-		return description;
-	}
-	public void setDescription(String description) {
-//		if(description == null){
-//			throw new CompetenceException("description is null");
-//		}
-//		if(description.isEmpty()){
-//			throw new CompetenceException("description is empty");
-//		}
-		
-		this.description = description;
-	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -83,11 +69,7 @@ public abstract class Competence {
 		if (getClass() != obj.getClass())
 			return false;
 		Competence other = (Competence) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
+
 		if (name == null) {
 			if (other.name != null)
 				return false;

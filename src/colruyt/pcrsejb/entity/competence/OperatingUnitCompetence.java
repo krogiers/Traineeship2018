@@ -9,14 +9,14 @@ public class OperatingUnitCompetence extends Competence implements FunctionCompe
 		// TODO Auto-generated constructor stub
 	}
 
-	public OperatingUnitCompetence(String name, String description)  {
-		super(name, description);
+	public OperatingUnitCompetence(String name)  {
+		super(name);
 		// TODO Auto-generated constructor stub
 
 
 	}
 
-	public OperatingUnitCompetence(long competenceID, String name, String description) {
-		super(competenceID, name, description);
+	public OperatingUnitCompetence(long competenceID, String name) {
+		super(competenceID, name);
 	}
 }

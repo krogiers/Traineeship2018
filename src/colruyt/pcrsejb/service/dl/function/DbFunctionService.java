@@ -37,8 +37,9 @@ public class DbFunctionService extends DbService implements FunctionService {
         return element;
     }
 
+
     @Override
-    public Function getElement(int index) {
+    public Function getElement(Integer index) {
         Function function = null;
         try (Connection conn = this.createConnection()){
             String sql = "SELECT * FROM Functions f WHERE ID=? INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID" +

@@ -29,6 +29,8 @@ public class BasicConnectionFactory extends ConnectionFactory {
 			Properties prop = new Properties();
 			InputStream input = null;
 			try {
+				
+				System.out.println(System.getProperty("user.dir"));
 
 				input = new FileInputStream("config.properties");
 

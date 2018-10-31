@@ -12,7 +12,7 @@ public class DomainCompetenceBo extends CompetenceBo implements FunctionCompeten
 		// TODO Auto-generated constructor stub
 	}
 
-	public DomainCompetenceBo(long competenceID, String name, String description) {
+	public DomainCompetenceBo(int competenceID, String name, String description) {
 		super(competenceID, name, description);
 	}
 }

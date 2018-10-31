@@ -106,4 +106,8 @@ public class TeamServiceBL {
 	{
 		return teamdb.getAllElements();
 	}
+
+	public Team getTeam(User user) {
+		return teamdb.findTeamOfUser(user);
+	}
 }

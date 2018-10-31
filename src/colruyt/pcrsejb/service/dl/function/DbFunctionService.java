@@ -16,13 +16,16 @@ import java.util.Set;
 
 public class DbFunctionService extends DbService implements FunctionService {
 
+    private static final String ADD_ELEMENT = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES( (SELECT MAX(ID) FROM FUNCTIONS), ?, ?)";
+    private static final String GET_ELEMENT = "SELECT * FROM Functions f WHERE ID=? INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID INNER JOIN Competences c ON c.Functions_ID = f.ID";
+    private static final String GET_ALL_ELEMENTS = "SELECT * FROM Functions f INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID INNER JOIN Competences c ON c.Functions_ID = f.ID";
+    private static final String GET_ALL_FUNCTIONS = "SELECT * FROM Functions";
 
     @Override
     public Function addElement(Function element) {
 
         try(Connection conn = this.createConnection()) {
-            PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) " +
-                    "VALUES( (SELECT MAX(ID) FROM FUNCTIONS), ?, ?)", new String[] {"ID"});
+            PreparedStatement preparedStatement = conn.prepareStatement(ADD_ELEMENT, new String[] {"ID"});
             preparedStatement.setString(1, element.getTitle());
             preparedStatement.setString(2, element.getOperatingUnitId());
             preparedStatement.executeUpdate();
@@ -37,13 +40,12 @@ public class DbFunctionService extends DbService implements FunctionService {
         return element;
     }
 
+
     @Override
     public Function getElement(Integer index) {
         Function function = null;
         try (Connection conn = this.createConnection()){
-            String sql = "SELECT * FROM Functions f WHERE ID=? INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID" +
-                    " INNER JOIN Competences c ON c.Functions_ID = f.ID";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = conn.prepareStatement(GET_ELEMENT);
             preparedStatement.setInt(1, index);
             ResultSet rs = preparedStatement.executeQuery();
             function = convertToSingleFunction(rs);
@@ -55,14 +57,11 @@ public class DbFunctionService extends DbService implements FunctionService {
     }
 
 
-
     @Override
     public Collection<Function> getAllElements() {
         List<Function> functionList = new ArrayList<>();
         try (Connection conn = this.createConnection()) {
-            String sql = "SELECT * FROM Functions f INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID" +
-                    " INNER JOIN Competences c ON c.Functions_ID = f.ID";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ELEMENTS);
             ResultSet rs = preparedStatement.getResultSet();
             functionList = convertToFunctions(rs);
         } catch (SQLException e) {
@@ -71,6 +70,18 @@ public class DbFunctionService extends DbService implements FunctionService {
         return functionList;
     }
 
+    @Override
+    public List<Function> getAllFunctionNames(){
+        List<Function> functionList = new ArrayList<>();
+        try (Connection conn = this.createConnection()) {
+            PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_FUNCTIONS);
+            ResultSet rs = preparedStatement.executeQuery();
+            functionList = convertToFunctions(rs);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return functionList;
+    }
 
 
     @Override
@@ -90,9 +101,12 @@ public class DbFunctionService extends DbService implements FunctionService {
         return function;
     }
 
-    private List<Function> convertToFunctions(ResultSet rs) {
+    private List<Function> convertToFunctions(ResultSet rs) throws SQLException {
         List<Function> functionList = new ArrayList<>();
-        // TODO
+
+        while (rs.next()) {
+            functionList.add(new Function(rs.getString("TITLE")));
+        }
         return functionList;
     }
 

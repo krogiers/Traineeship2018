@@ -32,4 +32,10 @@ public class MemoryFunctionService implements FunctionService {
     public void deleteElement(Function element) {
         this.functionList.remove(element);
     }
+
+    @Override
+    public Collection<Function> getAllFunctionNames() {
+        // TODO
+        return null;
+    }
 }

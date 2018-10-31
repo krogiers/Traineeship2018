@@ -1,23 +1,23 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2018-10-30 16:13:07.082
+-- Last modification date: 2018-10-31 11:11:07.793
 
 -- tables
--- Table: BehavioralCompetenceLevels
-CREATE TABLE BehavioralCompetenceLevels (
-    ID int  NOT NULL,
-    Competences_ID int  NOT NULL,
-    Description varchar2(100)  NOT NULL,
-    orderlevel int NOT NULL,
-    Active numeric(1,0)  NOT NULL,
-    CONSTRAINT BehavioralCompetenceLevels_pk PRIMARY KEY (ID)
-) ;
-
 -- Table: CompetenceDescriptions
 CREATE TABLE CompetenceDescriptions (
     ID integer  NOT NULL,
-    Description VARCHAR2(500) NOT NULL,
     Competences_ID int  NOT NULL,
+    Description varchar2(500)  NOT NULL,
     CONSTRAINT CompetenceDescriptions_pk PRIMARY KEY (ID)
+) ;
+
+-- Table: CompetenceLevels
+CREATE TABLE CompetenceLevels (
+    ID int  NOT NULL,
+    Competences_ID int  NOT NULL,
+    Description varchar2(100)  NOT NULL,
+    Active numeric(1,0)  NOT NULL,
+    OrderLevel int  NOT NULL,
+    CONSTRAINT BehavioralCompetenceLevels_pk PRIMARY KEY (ID)
 ) ;
 
 -- Table: Competences
@@ -51,6 +51,14 @@ CREATE TABLE OperatingUnits (
     ID int  NOT NULL,
     Title varchar2(50)  NOT NULL,
     CONSTRAINT OperatingUnits_pk PRIMARY KEY (ID)
+) ;
+
+-- Table: Privileges
+CREATE TABLE "PRIVILEGES" (
+    ID int  NOT NULL,
+    FullName varchar2(100)  NOT NULL,
+    ShortName char(1)  NOT NULL,
+    CONSTRAINT Privileges_pk PRIMARY KEY (ID)
 ) ;
 
 -- Table: Ratings
@@ -107,11 +115,11 @@ CREATE TABLE Teams (
 -- Table: UserPrivileges
 CREATE TABLE UserPrivileges (
     ID int  NOT NULL,
-    Privilege char(1)  NOT NULL,
     User_ID int  NOT NULL,
     Functions_id int  NULL,
     Active number(1,0)  NOT NULL,
     Country char(2)  NULL,
+    Privileges_ID int  NOT NULL,
     CONSTRAINT UserPrivileges_pk PRIMARY KEY (ID)
 ) ;
 
@@ -127,8 +135,8 @@ CREATE TABLE Users (
 ) ;
 
 -- foreign keys
--- Reference: Behavioral_Competences (table: BehavioralCompetenceLevels)
-ALTER TABLE BehavioralCompetenceLevels ADD CONSTRAINT Behavioral_Competences
+-- Reference: Behavioral_Competences (table: CompetenceLevels)
+ALTER TABLE CompetenceLevels ADD CONSTRAINT Behavioral_Competences
     FOREIGN KEY (Competences_ID)
     REFERENCES Competences (ID);
 
@@ -216,6 +224,11 @@ ALTER TABLE TeamEnrolments ADD CONSTRAINT TeamEnrolments_Roles
 ALTER TABLE UserPrivileges ADD CONSTRAINT UserPrivileges_Functions
     FOREIGN KEY (Functions_id)
     REFERENCES Functions (ID);
+
+-- Reference: UserPrivileges_Privileges (table: UserPrivileges)
+ALTER TABLE UserPrivileges ADD CONSTRAINT UserPrivileges_Privileges
+    FOREIGN KEY (Privileges_ID)
+    REFERENCES "PRIVILEGES" (ID);
 
 -- Reference: UserPrivileges_User (table: UserPrivileges)
 ALTER TABLE UserPrivileges ADD CONSTRAINT UserPrivileges_User

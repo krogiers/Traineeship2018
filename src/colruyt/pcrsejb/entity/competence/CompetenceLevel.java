@@ -13,6 +13,10 @@ public abstract class CompetenceLevel extends DescriptionCompetence{
         super();
     }
 
+    public CompetenceLevel(int id, String name){
+        super(id, name);
+    }
+
     public CompetenceLevel(String name, String description) {
         super(name, description);
     }

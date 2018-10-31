@@ -16,7 +16,9 @@ public abstract class DescriptionCompetence extends Competence {
         this.description = description;
     }
 
-
+    public DescriptionCompetence(int competenceID, String name) {
+        super(competenceID, name);
+    }
 
     public DescriptionCompetence(int competenceID, String name, String description) {
         super(competenceID, name);

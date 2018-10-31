@@ -1,9 +1,7 @@
 package colruyt.pcrsejb.service.dl.competence;
 
-import colruyt.pcrsejb.entity.competence.Competence;
+import colruyt.pcrsejb.entity.competence.*;
 
-import colruyt.pcrsejb.entity.competence.CraftCompetence;
-import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 import colruyt.pcrsejb.service.dl.DbService;
 
 import java.sql.Connection;
@@ -61,14 +59,20 @@ public class DbCompetenceService extends DbService implements CompetenceService{
         List<Competence> user = new ArrayList<Competence>();
         while(rs.next()){
             int id = rs.getInt("ID");
-            String firstname = rs.getString("NAME");
-            String lastname = rs.getString("lastname");
-            String password = rs.getString("password");
-            String email = rs.getString("email");
-            String country = rs.getString("homecountry");
-
+            String name = rs.getString("NAME");
+            String function = rs.getString("FUNCTIONS_ID");
+            String operatingunit = rs.getString("OPERATINGUNITS_ID");
+            String functionrol = rs.getString("FUNCTIONROLES_ID");
             Competence u = null;
-
+            if(operatingunit != null){
+                u = new OperatingUnitCompetence(id, name);
+            }else if(function != null){
+                u = new CraftCompetence(id, name);
+            }else  if(functionrol != null){
+                u = new BehavioralCompetence(id, name);
+            }else{
+                u = new DomainCompetence(id, name);
+            }
 
             user.add(u);
         }

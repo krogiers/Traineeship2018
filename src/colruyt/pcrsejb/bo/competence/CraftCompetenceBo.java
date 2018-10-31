@@ -12,7 +12,7 @@ public class CraftCompetenceBo extends CompetenceBo implements RoleCompetenceBo 
 		// TODO Auto-generated constructor stub
 	}
 
-	public CraftCompetenceBo(long competenceID, String name, String description) {
+	public CraftCompetenceBo(int competenceID, String name, String description) {
 		super(competenceID, name, description);
 	}
 }

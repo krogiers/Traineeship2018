@@ -2,7 +2,7 @@ package colruyt.pcrsejb.entity.competence;
 
 public abstract class Competence {
 
-	private long competenceID;
+	private int competenceID;
     private String name;
 
     
@@ -14,7 +14,7 @@ public abstract class Competence {
 		this.setName(name);
 	}
 
-	public Competence(long competenceID, String name) {
+	public Competence(int competenceID, String name) {
 		this.competenceID = competenceID;
 		this.name = name;
 
@@ -25,7 +25,7 @@ public abstract class Competence {
 	 *
 	 * @return Value for property 'competenceID'.
 	 */
-	public long getCompetenceID() {
+	public int getCompetenceID() {
 		return competenceID;
 	}
 
@@ -34,7 +34,7 @@ public abstract class Competence {
 	 *
 	 * @param competenceID Value to set for property 'competenceID'.
 	 */
-	public void setCompetenceID(long competenceID) {
+	public void setCompetenceID(int competenceID) {
 		this.competenceID = competenceID;
 	}
 

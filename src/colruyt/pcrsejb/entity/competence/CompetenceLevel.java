@@ -17,7 +17,7 @@ public abstract class CompetenceLevel extends DescriptionCompetence{
         super(name, description);
     }
 
-    public CompetenceLevel(long competenceID, String name, String description) {
+    public CompetenceLevel(int competenceID, String name, String description) {
         super(competenceID, name, description);
     }
 
@@ -30,7 +30,7 @@ public abstract class CompetenceLevel extends DescriptionCompetence{
 
 
 
-    public CompetenceLevel(long competenceID, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
+    public CompetenceLevel(int competenceID, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
         super(competenceID, name, description);
         this.minLevel = minLevel;
         this.possibilityMap = possibilityMap;

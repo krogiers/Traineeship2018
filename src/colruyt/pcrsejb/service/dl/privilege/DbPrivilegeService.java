@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-//TODO: DELETE DEZE KLASSSEEEEEEEE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 public class DbPrivilegeService  extends DbService implements PrivilegeService  {
 
 
@@ -24,12 +24,13 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege) values ((select max(id) from users)+1),?)");
+            PreparedStatement statement =  conn.prepareStatement("INSERT into privis (id,shortname,fullname) values ((select max(id) from users)+1),?,?)");
 
 
 
             statement.setLong(1,element.getId());
             statement.setString(2,this.reverseTypeing(element) + "");
+            statement.setString(3,element.getClass().getSimpleName());
 
 
             statement.executeUpdate();
@@ -50,46 +51,33 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
 
     }
 
-    @Override
-    public List<Privilege> findPrivilegesForUser(User u) {
-        return null;
-    }
-
-    @Override
-    public void addPrivilegesToUser(Privilege privi, User user){
-        try(Connection conn = this.createConnection()){
-
-            PreparedStatement statement =  conn.prepareStatement("INSERT into UserPrivilege (id,privilege,user_id) values (?,?,?)");
 
 
-
-            statement.setLong(1,privi.getId());
-            statement.setString(2,this.reverseTypeing(privi) + "");
-            statement.setInt(3,user.getId());
-
-            statement.executeUpdate();
-            ResultSet rs = statement.getGeneratedKeys();
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     private char reverseTypeing(Privilege privi){
 
+            char e = 'V';
+            switch(privi.getClass().getSimpleName()){
 
-        return privi.getClass().getSimpleName().toUpperCase().charAt(0);
+                case "TeamManagerPrivilege" : e = 'M';break;
+                case "TeamMemberPrivilege" : e = 'T';break;
+                case "AdminPrivilege" : e = 'A';break;
+                case "FunctionResponsiblePrivilege" : e='F'; break;
+                case  "DirectorPrivilege" : e = 'D'; break;
+            }
+
+            return e;
+
+
     }
 
     @Override
+    //TODO: Fix --> moet Index E werden (Char van privilege)
     public Privilege getElement(Integer index) {
         Privilege privilege = null;
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges where id = ?");
+            PreparedStatement statement =  conn.prepareStatement("Select  * from privis where id = ?");
             statement.setInt(1,index);
             ResultSet rs =  statement.executeQuery();
             privilege = convertToSinglePrivilege(rs);
@@ -106,7 +94,7 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
         List<Privilege> privileges = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from UserPrivileges");
+            PreparedStatement statement =  conn.prepareStatement("Select * from privis");
 
             ResultSet rs =  statement.executeQuery();
             privileges = convertToPrivilegeList(rs);
@@ -122,7 +110,7 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Delete from userprivileges where id = ?");
+            PreparedStatement statement =  conn.prepareStatement("Delete from privis where id = ?");
             statement.setLong(1,element.getId());
             ResultSet rs =  statement.executeQuery();
 
@@ -141,7 +129,7 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
         List<Privilege> privileges = new ArrayList<>();
         while(set.next()){
             Privilege p;
-            char privilege = set.getString("Privilege").charAt(0);
+            char privilege = set.getString("shortname").charAt(0);
             p = determineInstance(privilege);
             p.setId(set.getInt("ID"));
 
@@ -172,9 +160,10 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
         Privilege p = null;
         if(set.next()){
 
-            char privilege = set.getString("Privilege").charAt(0);
+            char privilege = set.getString("shortname").charAt(0);
             p = determineInstance(privilege);
             p.setId(set.getInt("ID"));
+
         }
 
         return p;

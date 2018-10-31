@@ -4,15 +4,13 @@ public class DomainCompetenceBo extends CompetenceBo implements FunctionCompeten
 
 	public DomainCompetenceBo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public DomainCompetenceBo(String name, String description)  {
-		super(name, description);
-		// TODO Auto-generated constructor stub
+	public DomainCompetenceBo(String name)  {
+		super(name);
 	}
 
-	public DomainCompetenceBo(int competenceID, String name, String description) {
-		super(competenceID, name, description);
+	public DomainCompetenceBo(int competenceID, String name) {
+		super(competenceID, name);
 	}
 }

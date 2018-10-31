@@ -12,6 +12,10 @@ public class BehavioralCompetence extends CompetenceLevel implements FunctionCom
 		super(name, description);
 	}
 
+	public BehavioralCompetence(int id, String name) {
+		super(id, name);
+	}
+
 	public BehavioralCompetence(int competenceID, String name, String description) {
 		super(competenceID, name, description);
 	}

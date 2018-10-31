@@ -16,6 +16,10 @@ public class CraftCompetence extends CompetenceLevel implements RoleCompetence{
 		// TODO Auto-generated constructor stub
 	}
 
+	public CraftCompetence(int ID, String name){
+		super(ID, name);
+	}
+
 	public CraftCompetence(int competenceID, String name, String description) {
 		super(competenceID, name, description);
 	}

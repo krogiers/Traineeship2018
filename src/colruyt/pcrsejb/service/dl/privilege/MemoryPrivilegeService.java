@@ -35,13 +35,5 @@ public class MemoryPrivilegeService implements PrivilegeService {
         this.privilegeList.remove(element);
     }
 
-    @Override
-    public List<Privilege> findPrivilegesForUser(User u) {
-        return null;
-    }
 
-    @Override
-    public void addPrivilegesToUser(Privilege privi, User user) {
-
-    }
 }

@@ -26,7 +26,7 @@ public class PrivilegeBoConverter implements GenericConverter<Privilege,Privileg
         } else if (from instanceof TeamMemberPrivilegeBo) {
             privilege = new TeamMemberPrivilege(((TeamMemberPrivilegeBo) from).getStartDateInCurrentFunction());
         }
-
+        System.out.println("------" + privilege.getId());
         return privilege;
     }
 }

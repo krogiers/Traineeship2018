@@ -1,3 +1,4 @@
+
 package colruyt.pcrsejb.util.factories;
 
 import java.io.FileInputStream;
@@ -7,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
 
 public class BasicConnectionFactory extends ConnectionFactory {
 	
@@ -29,15 +29,12 @@ public class BasicConnectionFactory extends ConnectionFactory {
 			Properties prop = new Properties();
 			InputStream input = null;
 			try {
-				
-				System.out.println(System.getProperty("user.dir"));
-
 				input = new FileInputStream("config.properties");
 
 				// load a properties file
 				prop.load(input);
 
-				// get the property value and print it out
+				// get the property value
 				userId = prop.getProperty("userId");
 				passwd = prop.getProperty("passwd");
 				url = prop.getProperty("url");
@@ -62,7 +59,4 @@ public class BasicConnectionFactory extends ConnectionFactory {
 		//System.out.println("connection via DriverManager");
 		return conn;
 	}
-
-	
-
 }

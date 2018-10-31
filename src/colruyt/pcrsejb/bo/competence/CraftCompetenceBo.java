@@ -1,6 +1,6 @@
 package colruyt.pcrsejb.bo.competence;
 
-public class CraftCompetenceBo extends CompetenceBo implements RoleCompetenceBo {
+public class CraftCompetenceBo extends CompetenceLevelBo implements RoleCompetenceBo {
 
 	public CraftCompetenceBo(String name, String description)  {
 		super(name, description);

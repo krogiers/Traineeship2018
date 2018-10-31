@@ -29,13 +29,12 @@ public class BasicConnectionFactory extends ConnectionFactory {
 			Properties prop = new Properties();
 			InputStream input = null;
 			try {
-
 				input = new FileInputStream("config.properties");
 
 				// load a properties file
 				prop.load(input);
 
-				// get the property value and print it out
+				// get the property value
 				userId = prop.getProperty("userId");
 				passwd = prop.getProperty("passwd");
 				url = prop.getProperty("url");

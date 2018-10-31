@@ -7,6 +7,7 @@ public abstract class Survey {
 
     private LocalDate dateCompleted;
     private List<Rating> ratingList;
+    private int id;
 
     public Survey() {
     }
@@ -30,5 +31,13 @@ public abstract class Survey {
 
     public void setRatingList(List<Rating> ratingList) {
         this.ratingList = ratingList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

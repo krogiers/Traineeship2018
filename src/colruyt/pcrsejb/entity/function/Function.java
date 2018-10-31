@@ -8,10 +8,11 @@ import java.util.Set;
 
 public class Function {
 
-	private long functionID;
+	private int functionID;
     private String title;
     private Set<Role> roleSet;
     private Set<FunctionCompetence> functionCompetenceSet;
+    private String operatingUnitId;
 
 
 	public Function() {
@@ -30,18 +31,26 @@ public class Function {
 		this.setFunctionCompetenceSet(functionCompetenceSet);
 	}
 
-	public Function(long functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
+	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
 		this.functionID = functionID;
 		this.title = title;
 		this.roleSet = roleSet;
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 
-	public Long getFunctionID() {
+	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet, String operatingUnitId) {
+		this.functionID = functionID;
+		this.title = title;
+		this.roleSet = roleSet;
+		this.functionCompetenceSet = functionCompetenceSet;
+		this.operatingUnitId = operatingUnitId;
+	}
+
+	public int getFunctionID() {
 		return functionID;
 	}
 
-	public void setFunctionID(Long functionID) {
+	public void setFunctionID(int functionID) {
 		this.functionID = functionID;
 	}
 
@@ -67,6 +76,14 @@ public class Function {
 
 	public void setFunctionCompetenceSet(HashSet<FunctionCompetence> functionCompetenceSet) {
 		this.functionCompetenceSet = functionCompetenceSet;
+	}
+
+	public String getOperatingUnitId() {
+		return operatingUnitId;
+	}
+
+	public void setOperatingUnitId(String operatingUnitId) {
+		this.operatingUnitId = operatingUnitId;
 	}
 
 	@Override

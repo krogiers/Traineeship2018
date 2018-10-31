@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.facade;
 
+import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
@@ -49,7 +50,7 @@ public class UserFacade {
 		
 	}
 
-    public void addFunctionResponsible() {
+	public void addFunctionResponsible(UserBo userBo, FunctionBo functionBo, String country) {
 		// TODO
-    }
+	}
 }

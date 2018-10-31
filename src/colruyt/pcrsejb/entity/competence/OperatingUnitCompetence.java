@@ -2,8 +2,6 @@ package colruyt.pcrsejb.entity.competence;
 
 public class OperatingUnitCompetence extends Competence implements FunctionCompetence {
 
-
-
 	public OperatingUnitCompetence() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -12,8 +10,6 @@ public class OperatingUnitCompetence extends Competence implements FunctionCompe
 	public OperatingUnitCompetence(String name)  {
 		super(name);
 		// TODO Auto-generated constructor stub
-
-
 	}
 
 	public OperatingUnitCompetence(int competenceID, String name) {

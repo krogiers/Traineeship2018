@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.service.dl.User;
 
+import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.privileges.*;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.DbService;
@@ -27,11 +28,10 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join " +
-                    "UserPrivileges up on u.id = up.user_id  where up.id = ?");
+                    "UserPrivileges up on u.id = up.user_id  where up.privileges_id = ? and active=1");
           statement.setInt(1, privilege.getId());
           ResultSet rs =  statement.executeQuery();
           users = convertToUserList(rs);
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -239,7 +239,9 @@ public class DbUserService extends DbService implements UserService {
         List<Privilege> privi = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges up inner join privis ps on up.privileges_id = ps.id  where user_id = ?");
+            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges up inner join privis ps " +
+                    "on up.privileges_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ?");
+
             statement.setInt(1,u.getId());
 
 
@@ -261,8 +263,14 @@ public class DbUserService extends DbService implements UserService {
             Privilege p;
             char privilege = set.getString("shortname").charAt(0);
             p = determineInstance(privilege);
-            p.setId(set.getInt("ID"));
+            p.setId(set.getInt("PRIVILEGES_ID"));
 
+
+            if (set.getString("COUNTRY") != null) {
+                ((FunctionResponsiblePrivilege) p).setFunction(
+                        new Function(set.getInt("Functions_id"), set.getString("title"))
+                );
+            }
             privileges.add(p);
         }
         return privileges;

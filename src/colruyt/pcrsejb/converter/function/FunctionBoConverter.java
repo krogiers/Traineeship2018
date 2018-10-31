@@ -25,7 +25,7 @@ public class FunctionBoConverter implements GenericConverter<Function,FunctionBo
 
     @Override
     public Function convertTo(FunctionBo from) {
-        return new Function(from.getTitle(), getRoleSet(from.getRoleBoSet()),getFunctionCompetenceSet(from.getFunctionCompetenceBoSet()));
+        return new Function(from.getID(), from.getTitle(), getRoleSet(from.getRoleBoSet()),getFunctionCompetenceSet(from.getFunctionCompetenceBoSet()));
     }
 
     private HashSet<Role> getRoleSet(Set<RoleBo> roleBoSet){

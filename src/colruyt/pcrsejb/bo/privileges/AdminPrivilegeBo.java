@@ -1,11 +1,11 @@
 package colruyt.pcrsejb.bo.privileges;
 
-public class AdminPrivilegeBo implements PrivilegeBo {
+public class AdminPrivilegeBo extends PrivilegeBo {
 
 
 	public AdminPrivilegeBo() {
 		super();
-		// TODO Auto-generated constructor stub
+		setId(5);
 	}
 
 }

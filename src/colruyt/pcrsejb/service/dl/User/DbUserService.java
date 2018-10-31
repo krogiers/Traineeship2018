@@ -99,6 +99,8 @@ public class DbUserService extends DbService implements UserService {
                 }
             }
 
+            System.out.println(user.getId() + " " + functionId + " " + country + " " + privi.getId());
+
             String sql = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
             PreparedStatement statement =  conn.prepareStatement(sql);
 
@@ -237,7 +239,7 @@ public class DbUserService extends DbService implements UserService {
         List<Privilege> privi = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges where user_id = ?");
+            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges up inner join privis ps on up.privileges_id = ps.id  where user_id = ?");
             statement.setInt(1,u.getId());
 
 
@@ -257,7 +259,7 @@ public class DbUserService extends DbService implements UserService {
         List<Privilege> privileges = new ArrayList<>();
         while(set.next()){
             Privilege p;
-            char privilege = set.getString("Privilege").charAt(0);
+            char privilege = set.getString("shortname").charAt(0);
             p = determineInstance(privilege);
             p.setId(set.getInt("ID"));
 

@@ -8,17 +8,20 @@ public class FunctionResponsiblePrivilege extends FunctionHoldingPrivilege {
 
 	public FunctionResponsiblePrivilege() {
 		super();
+		this.setId(3);
 	}
 
 	public FunctionResponsiblePrivilege(String country) {
 		super();
 		setCountry(country);
+		this.setId(3);
 	}
 
 	public FunctionResponsiblePrivilege(String country, Function function) {
 		super();
 		setCountry(country);
 		setFunction(function);
+		this.setId(3);
 	}
 
 

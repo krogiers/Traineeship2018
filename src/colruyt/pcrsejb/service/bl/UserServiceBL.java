@@ -53,6 +53,6 @@ public class UserServiceBL{
 
 
     public void addPrivilegeForUser(Privilege privilege, User user) {
-		//this.userdb.
+		this.userdb.addPrivilegesToUser(privilege, user);
     }
 }

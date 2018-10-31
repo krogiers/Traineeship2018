@@ -10,6 +10,7 @@ import java.util.Set;
 
 public class FunctionBo {
 
+	private int ID;
     private String title;
     private Set<RoleBo> roleBoSet;
     private Set<FunctionCompetenceBo> functionCompetenceBoSet;
@@ -29,6 +30,21 @@ public class FunctionBo {
 		this.setTitle(title);
 		this.setRoleBoSet(roleBoSet);
 		this.setFunctionCompetenceBoSet(functionCompetenceBoSet);
+	}
+
+	public FunctionBo(int ID, String title, Set<RoleBo> roleBoSet, Set<FunctionCompetenceBo> functionCompetenceBoSet) {
+		this.ID = ID;
+		this.title = title;
+		this.roleBoSet = roleBoSet;
+		this.functionCompetenceBoSet = functionCompetenceBoSet;
+	}
+
+	public int getID() {
+		return ID;
+	}
+
+	public void setID(int ID) {
+		this.ID = ID;
 	}
 
 	public String getTitle() {

@@ -16,12 +16,14 @@ public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {
 		super();
 		this.setStartDateInCurrentFunction(null);;
 		this.setSurveySetBoTreeSet(new TreeSet<>());
+		setId(1);
 	}
 	
 	public TeamMemberPrivilegeBo(LocalDate startDateInCurrentFunction) {
 		super();
 		this.setStartDateInCurrentFunction(startDateInCurrentFunction);
 		this.setSurveySetBoTreeSet(new TreeSet<>());
+		setId(1);
 	}
 
 	

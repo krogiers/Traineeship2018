@@ -40,6 +40,7 @@ public class DbFunctionService extends DbService implements FunctionService {
         return element;
     }
 
+
     @Override
     public Function getElement(Integer index) {
         Function function = null;

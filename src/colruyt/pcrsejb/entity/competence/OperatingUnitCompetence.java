@@ -16,7 +16,7 @@ public class OperatingUnitCompetence extends Competence implements FunctionCompe
 
 	}
 
-	public OperatingUnitCompetence(long competenceID, String name) {
+	public OperatingUnitCompetence(int competenceID, String name) {
 		super(competenceID, name);
 	}
 }

@@ -12,7 +12,7 @@ public class BehavioralCompetence extends CompetenceLevel implements FunctionCom
 		super(name, description);
 	}
 
-	public BehavioralCompetence(long competenceID, String name, String description) {
+	public BehavioralCompetence(int competenceID, String name, String description) {
 		super(competenceID, name, description);
 	}
 
@@ -20,7 +20,7 @@ public class BehavioralCompetence extends CompetenceLevel implements FunctionCom
 		super(name, minLevel, possibilityMap);
 	}
 
-	public BehavioralCompetence(long competenceID, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
+	public BehavioralCompetence(int competenceID, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
 		super(competenceID, name, description, minLevel, possibilityMap);
 	}
 }

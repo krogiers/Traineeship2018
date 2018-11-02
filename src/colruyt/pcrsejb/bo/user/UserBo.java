@@ -22,9 +22,14 @@ public class UserBo {
 	private HashSet<UserPrivilegeBo> privilegeBoHashSet;
 	private String country;
 
+	/**
+	 * Default constructor
+	 */
+	public UserBo() {
+	}
 
 	/**
-	 * Constructor voor het aanmaken van een User
+	 * Constructor voor het aanmaken van een User met id
 	 *
 	 * @param firstName String
 	 * @param lastName String
@@ -43,7 +48,20 @@ public class UserBo {
 		setCountry(country);
 	}
 	
+<<<<<<< HEAD
 	public UserBo(String firstName, String lastName, String email, String password, HashSet<UserPrivilegeBo> privilegeBoHashSet,
+=======
+	/**
+	 * Constructor voor het aanmaken van een User
+	 * @param firstName
+	 * @param lastName
+	 * @param email
+	 * @param password
+	 * @param privilegeBoHashSet
+	 * @param country
+	 */
+	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet,
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 				  String country) {
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -53,22 +71,38 @@ public class UserBo {
 		setCountry(country);
 	}
 
-
+	/**
+	 * Methode die de ID van een user retourneert
+	 * 
+	 * @return id (int)
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Methode voor het instellen van een id van een user
+	 * 
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public UserBo() {
-	}
-
+	/**
+	 * Methode die het land van de user retourneert
+	 * 
+	 * @return country (String)
+	 */
 	public String getCountry() {
 		return country;
 	}
 
+	/**
+	 * Methode voor het instellen van een land van een user
+	 * 
+	 * @param country (String)
+	 */
 	public void setCountry(String country) {
 		this.country = country;
 	}
@@ -112,7 +146,7 @@ public class UserBo {
 	/**
 	 * Methode voor het opvragen van het e-mailadres
 	 * 
-	 * @return email
+	 * @return email (String)
 	 */
 	public String getEmail() {
 		return email;
@@ -121,7 +155,7 @@ public class UserBo {
 	/**
 	 * Methode voor het instellen van het e-mailadres
 	 * 
-	 * @param email
+	 * @param email (String)
 	 */
 	public void setEmail(String email) {
 		this.email = email;
@@ -130,7 +164,7 @@ public class UserBo {
 	/**
 	 * Methode voor opvragen van het paswoord
 	 * 
-	 * @return password
+	 * @return password (String)
 	 */
 	public String getPassword() {
 		return password;
@@ -139,7 +173,7 @@ public class UserBo {
 	/**
 	 * Methode voor het instellen van het paswoord
 	 * 
-	 * @param password
+	 * @param password (String)
 	 */
 	public void setPassword(String password) {
 		this.password = password;

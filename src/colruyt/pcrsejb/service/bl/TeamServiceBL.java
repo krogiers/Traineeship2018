@@ -17,11 +17,19 @@ import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
 import colruyt.pcrsejb.service.dl.team.MemoryTeamService;
 import colruyt.pcrsejb.service.dl.team.TeamService;
+import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
+import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
+import colruyt.pcrsejb.util.validators.team.TeamValidator;
+import org.apache.xpath.operations.Bool;
 
 public class TeamServiceBL {
 	
 	private TeamService teamdb = new MemoryTeamService();
+<<<<<<< HEAD
 	private FunctionService functiondb = new DbFunctionService();
+=======
+	private TeamValidator validator = new TeamValidator();
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	/**
 	 * Methode voor het toevoegen van een teamMember
 	 * 
@@ -41,12 +49,17 @@ public class TeamServiceBL {
 	 * @param teammanager
 	 */
 	public void addManagerToTeam(User teamMember, Team team) {
+<<<<<<< HEAD
 		//TODO CHECK IF CURRENT MANAGER NOT EXISTING in team or in users privileges
 		UserPrivilege privilege = new UserPrivilege(PrivilegeType.TEAMMANAGER, true);
 		HashSet<UserPrivilege> privileges = teamMember.getPrivileges();
 		privileges.add(privilege);
 		teamMember.setPrivileges(privileges);
 		addMemberToTeam(teamMember, team, privilege);
+=======
+		this.removeLeader(team);
+		addMemberToTeam(teamMember, team, new TeamManagerPrivilege());
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	}
 	
 	private void addMemberToTeam(User teamMember, Team team, UserPrivilege privilege) {
@@ -70,14 +83,21 @@ public class TeamServiceBL {
 	 * 
 	 * @param teamMember
 	 */
-	public void removeTeamMemberFromTeam(User teamMember, Team team) {
+	public void removeTeamMemberFromTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
 		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();
-		enrollments.forEach(e -> {
-			if (e.getUser().equals(teamMember)) {
-				e.setActive(false);
-			}
-		});
-		team.setEnrolmentsHashSet(enrollments);
+		if(enrollments.contains(teamMember)) {
+
+			enrollments.forEach(e -> {
+				if (e.getUser().equals(teamMember)) {
+					e.setActive(false);
+				}
+			});
+			team.setEnrolmentsHashSet(enrollments);
+		}
+		else{
+			throw new UserIsNotMemberOfTeamException();
+
+		}
 	}
 	
 	/**
@@ -86,6 +106,7 @@ public class TeamServiceBL {
 	 * 
 	 * @param teammanager
 	 */
+<<<<<<< HEAD
 	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) {
 		HashSet<Enrolment> enrolments = team.getEnrolmentsHashSet();
 		enrolments.forEach(enrolment -> {
@@ -95,7 +116,36 @@ public class TeamServiceBL {
 			}
 		});
 		team.setEnrolmentsHashSet(enrolments);
+=======
+	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
+		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();
+		if(team.getEnrolmentsHashSet().contains(teamMember)) {
+			removeLeader(team);
+
+			enrollments.forEach(e -> {
+				if (e.getUser().equals(teamMember)) {
+					e.setPrivilege(new TeamManagerPrivilege());
+				}
+			});
+			team.setEnrolmentsHashSet(enrollments);
+		}
+		else{
+
+			throw new UserIsNotMemberOfTeamException();
+
+		}
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	}
+
+	private void removeLeader(Team team) {
+		team.getEnrolmentsHashSet()
+				.stream().filter(x -> x.getPrivilege() instanceof TeamManagerPrivilege && x.isActive())
+				.forEach(x -> x.setActive(false));
+		}
+
+
+
+
 
 	/**
 	 * Methode die de owner van de groep retourneert
@@ -113,8 +163,8 @@ public class TeamServiceBL {
 		return ownerReturn;
 	}
 	
-	public void addTeam(Team team)
-	{
+	public void addTeam(Team team) throws ValidationException {
+		validator.validate(team);
 		teamdb.save(team);
 	}
 	
@@ -125,5 +175,10 @@ public class TeamServiceBL {
 
 	public Team getTeam(User user) {
 		return teamdb.findTeamOfUser(user);
+	}
+
+	public void removeTeam(Team team) {
+		// TODO Auto-generated method stub
+		
 	}
 }

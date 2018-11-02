@@ -17,7 +17,12 @@ import java.util.List;
  */
 public class DbCompetenceService extends DbService implements CompetenceService{
 
-
+	private static final String FIND_GENERAL_COMPETENCES_FOR_FUNCTION = "";
+	private static final String FIND_ROLE_COMPETENCES_FOR_FUNCTION = "";
+	private static final String FIND_COMPETENCES_FOR_OPERATING_UNIT = "";
+	private static final String FIND_BEHAVIORAL_COMPETENCES = "";
+	
+	
     @Override
     public Collection<FunctionCompetence> findAllFunctionCompetences()
     {

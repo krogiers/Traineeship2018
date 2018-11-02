@@ -1,16 +1,13 @@
 package colruyt.pcrsejb.converter.function;
 
-import colruyt.pcrsejb.bo.competence.BehavioralCompetenceBo;
 import colruyt.pcrsejb.bo.competence.FunctionCompetenceBo;
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.role.RoleBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.converter.competence.BehavioralCompetenceConverter;
+import colruyt.pcrsejb.converter.competence.CompetenceConverter;
 import colruyt.pcrsejb.converter.role.RoleConverter;
-import colruyt.pcrsejb.entity.competence.BehavioralCompetence;
-import colruyt.pcrsejb.entity.competence.DomainCompetence;
+import colruyt.pcrsejb.entity.competence.Competence;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
-import colruyt.pcrsejb.entity.competence.OperatingUnitCompetence;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.role.Role;
 
@@ -38,16 +35,10 @@ public class FunctionConverter implements GenericConverter<FunctionBo,Function> 
 
     private HashSet<FunctionCompetenceBo> getFunctionCompetenceBoHashSet(Set<FunctionCompetence> competences){
         HashSet<FunctionCompetenceBo> functionCompetenceBoHashSet = new HashSet<>();
+        CompetenceConverter conv = new CompetenceConverter();
         for (FunctionCompetence functionCompetence : competences){
-            if (functionCompetence instanceof BehavioralCompetence){
-                BehavioralCompetenceConverter conv = new BehavioralCompetenceConverter();
-                functionCompetenceBoHashSet.add((FunctionCompetenceBo) conv.convertTo((BehavioralCompetence) functionCompetence));
-            } else if (functionCompetence instanceof DomainCompetence) {
-                // not implemented yet
-            } else if (functionCompetence instanceof OperatingUnitCompetence) {
-                // not  implemented yet
+            functionCompetenceBoHashSet.add((FunctionCompetenceBo) conv.convertTo((Competence) functionCompetence));
             }
-        }
         return functionCompetenceBoHashSet;
     }
 }

@@ -29,16 +29,23 @@ public class UserFacade {
 
 	public List<UserBo> searchUsers(String shortString) {
 		List<UserBo> matchingUsers = new ArrayList<>();
-		for (User u : userServiceBL.getUserByShortName(shortString)){
+		for (User u : userServiceBL.getUserByShortName(shortString)) {
 			matchingUsers.add(userConverter.convertTo(u));
 		}
 		return matchingUsers;
 	}
 
+	/**
+	 * Methode die een userBo object ontvangt en een user object doorgeeft zodat
+	 * deze kan verwijderd worden
+	 * 
+	 * @param user
+	 */
 	public void removeUser(UserBo user) {
 		userServiceBL.delete(userBoConverter.convertTo(user));
 	}
 
+<<<<<<< HEAD
 	public void saveUser(UserBo user) {
 		userServiceBL.saveUser(userBoConverter.convertTo(user));
 	}
@@ -49,9 +56,28 @@ public class UserFacade {
 
 	public void addPrivilegeForUser(UserPrivilegeBo privilegeBo, UserBo userBo) {
 		userServiceBL.addPrivilegeForUser(userPrivilegeBoConverter.convertTo(privilegeBo), userBoConverter.convertTo(userBo));
+=======
+	/**
+	 * Methode die een userBo object ontvangt en een user object doorgeeft zodat
+	 * deze gesaved kan worden
+	 * 
+	 * @param user
+	 */
+	public void saveUser(UserBo user) {
+		userServiceBL.saveUser(userBoConverter.convertTo(user));
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	}
 
-    public UserBo getUser(UserBo userBo) {
+	public List<UserBo> getFunctionResponsibles() {
+		return null;
+	}
+
+	public void addPrivilegeForUser(PrivilegeBo privilegeBo, UserBo userBo) {
+		userServiceBL.addPrivilegeForUser(privilegeBoConverter.convertTo(privilegeBo),
+				userBoConverter.convertTo(userBo));
+	}
+
+	public UserBo getUser(UserBo userBo) {
 		return userConverter.convertTo(userServiceBL.getUser(userBoConverter.convertTo(userBo)));
-    }
+	}
 }

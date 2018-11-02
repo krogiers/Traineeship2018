@@ -3,8 +3,6 @@ package colruyt.pcrsejb.converter.competence;
 import colruyt.pcrsejb.bo.competence.BehavioralCompetenceBo;
 import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
-import colruyt.pcrsejb.bo.competence.DomainCompetenceBo;
-import colruyt.pcrsejb.bo.competence.OperatingUnitCompetenceBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.entity.competence.BehavioralCompetence;
 import colruyt.pcrsejb.entity.competence.Competence;
@@ -12,10 +10,10 @@ import colruyt.pcrsejb.entity.competence.CraftCompetence;
 import colruyt.pcrsejb.entity.competence.DomainCompetence;
 import colruyt.pcrsejb.entity.competence.OperatingUnitCompetence;
 
-public class CompetenceBoConverter<T extends CompetenceBo> implements GenericConverter<Competence,T> {
+public class CompetenceBoConverter implements GenericConverter<Competence,CompetenceBo> {
 
 	@Override
-	public Competence convertTo(T from) {
+	public Competence convertTo(CompetenceBo from) {
 		
 		Competence competence = null;
         switch(determineInstance(from)){
@@ -27,7 +25,7 @@ public class CompetenceBoConverter<T extends CompetenceBo> implements GenericCon
         return competence;   
 	}
 
-	private String determineInstance(T from) {
+	private String determineInstance(CompetenceBo from) {
 		return from.getClass().getSimpleName();
 	}
 

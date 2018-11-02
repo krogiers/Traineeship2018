@@ -1,10 +1,7 @@
 package colruyt.pcrsejb.service.dl.privilege;
 
 import colruyt.pcrsejb.entity.privileges.*;
-import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.DbService;
-import colruyt.pcrsejb.util.factories.ConnectionFactory;
-import colruyt.pcrsejb.util.factories.ConnectionType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,15 +15,15 @@ import java.util.List;
 
 public class DbPrivilegeService  extends DbService implements PrivilegeService  {
 
+    private static final String ADD_PRIVILEGE = "INSERT into privis (id,shortname,fullname) values ((select max(id) from privis)+1),?,?)";
+
 
     @Override
     public Privilege save(Privilege element) {
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into privis (id,shortname,fullname) values ((select max(id) from users)+1),?,?)");
-
-
+            PreparedStatement statement =  conn.prepareStatement(ADD_PRIVILEGE);
 
             statement.setLong(1,element.getId());
             statement.setString(2,this.reverseTypeing(element) + "");

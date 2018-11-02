@@ -13,25 +13,31 @@ import java.util.List;
 
 public class DbFunctionService extends DbService implements FunctionService {
 
-    private static final String ADD_ELEMENT = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES( (SELECT MAX(ID) FROM FUNCTIONS), ?, ?)";
+    private static final String ADD_FUNCTION = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?, ?)";
     private static final String GET_ELEMENT = "SELECT * FROM Functions f WHERE ID=?";
     private static final String GET_ALL_ELEMENTS = "SELECT * FROM Functions f INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID INNER JOIN Competences c ON c.Functions_ID = f.ID";
     private static final String GET_ALL_FUNCTIONS = "SELECT * FROM Functions";
     private static final String DELETE_FUNCTION = "Delete from Functions where id = ?";
+    private static final String UPDATE_FUNCTION = "INSERT into Functions (id,title,OperatingUnits_ID) values (((select max(id) from FUNCTIONS)+1), ?, ?)";
 
     @Override
     public Function save(Function element) {
 
         try(Connection conn = this.createConnection()) {
-            PreparedStatement preparedStatement = conn.prepareStatement(ADD_ELEMENT, new String[] {"ID"});
-            preparedStatement.setString(1, element.getTitle());
-            preparedStatement.setInt(2, element.getOperatingUnitId());
-            preparedStatement.executeUpdate();
-            ResultSet rs = preparedStatement.getResultSet();
+            PreparedStatement statement;
+
+            if(element.getFunctionID() != null){
+                statement = conn.prepareStatement(UPDATE_FUNCTION, new String[] {"ID"});
+            }
+            else{
+                statement = conn.prepareStatement(ADD_FUNCTION, new String[] {"ID"});
+            }
+            statement.setString(1, element.getTitle());
+            statement.setInt(2, element.getOperatingUnitId());
+            ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 element.setFunctionID(rs.getInt("ID"));
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

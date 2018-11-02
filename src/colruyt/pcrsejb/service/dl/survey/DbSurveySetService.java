@@ -39,15 +39,12 @@ public class DbSurveySetService extends DbService implements SurveySetService {
             PreparedStatement state = conn.prepareStatement("select * from surveysets ss where ss.id = ?");
             ResultSet set = state.executeQuery();
 
-          SurveySet surveySet =  this.convertSingleSurveySet(set);
+          SurveySet surveySet1 =  this.convertSingleSurveySet(set);
           // Add surveys + Ratings
-         surveySet =  this.upgradeSurveySet(surveySet);
+            surveySet1 =  this.upgradeSurveySet(surveySet);
 
 
-            return surveySet;
-
-
-
+            return surveySet1;
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -55,7 +55,7 @@ public class UserServiceBL{
 		if (privilege instanceof FunctionResponsiblePrivilege) {
 			checkFunctionResponsible((FunctionResponsiblePrivilege) privilege, user);
 		}
-		this.userdb.addPrivilegesToUser(privilege, user);
+		userdb.save(user);
     }
 
     public void checkFunctionResponsible(FunctionResponsiblePrivilege privilege, User user){

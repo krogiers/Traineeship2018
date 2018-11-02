@@ -11,8 +11,16 @@ public class Rating {
     private int level;
     private boolean energy;
     private Competence competence;
-    
-    
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     /**
      Constructs a new Rating.
      */

@@ -15,4 +15,5 @@ public interface PrivilegeService extends GenericCrudService<Privilege,Integer> 
 
 
 
+
 }

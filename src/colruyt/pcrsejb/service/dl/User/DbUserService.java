@@ -286,6 +286,9 @@ public class DbUserService extends DbService implements UserService {
         return p;
     }
 
+    /**
+     * Methode om een User te verwijderen uit de database
+     */
     @Override
     public void deleteElement(User element) {
         try(Connection conn = this.createConnection()){

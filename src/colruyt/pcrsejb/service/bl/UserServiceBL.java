@@ -83,6 +83,10 @@ public class UserServiceBL{
 		}
 	}
 
+    /**
+     * Methode voor het verwijderen van een User
+     * @param user
+     */
 	public void delete(User user) {
 		userdb.deleteElement(user);
 	}

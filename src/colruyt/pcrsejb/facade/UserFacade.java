@@ -36,12 +36,19 @@ public class UserFacade {
 	/**
 	 * Methode die een userBo object ontvangt
 	 * en een user object doorgeeft
+	 * zodat deze kan verwijderd worden
 	 * @param user
 	 */
 	public void removeUser(UserBo user) {
 		userServiceBL.delete(userBoConverter.convertTo(user));
 	}
 
+	/**
+	 * Methode die een userBo object ontvangt
+	 * en een user object doorgeeft
+	 * zodat deze gesaved kan worden
+	 * @param user
+	 */
 	public void saveUser(UserBo user) {
 		userServiceBL.saveUser(userBoConverter.convertTo(user));
 	}

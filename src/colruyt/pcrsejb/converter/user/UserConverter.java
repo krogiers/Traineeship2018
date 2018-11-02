@@ -8,6 +8,7 @@ import colruyt.pcrsejb.bo.privileges.TeamManagerPrivilegeBo;
 import colruyt.pcrsejb.bo.privileges.TeamMemberPrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.GenericConverter;
+import colruyt.pcrsejb.converter.privilege.PrivilegeConverter;
 import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
 import colruyt.pcrsejb.entity.privileges.DirectorPrivilege;
 import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
@@ -32,22 +33,9 @@ public class UserConverter implements GenericConverter<UserBo,User> {
     
     private HashSet<PrivilegeBo> getPrivileges(HashSet<Privilege> privs) {
     	HashSet<PrivilegeBo> privileges = new HashSet<>();
+		PrivilegeConverter conv = new PrivilegeConverter();
     	for (Privilege pr : privs) {
-    		if (pr instanceof AdminPrivilege) {
-    			privileges.add(new AdminPrivilegeBo());
-    		}
-    		if (pr instanceof DirectorPrivilege) {
-    			privileges.add(new DirectorPrivilegeBo());
-    		}
-    		if (pr instanceof FunctionResponsiblePrivilege) {
-    			privileges.add(new FunctionResponsiblePrivilegeBo());
-    		}
-    		if (pr instanceof TeamManagerPrivilege) {
-    			privileges.add(new TeamManagerPrivilegeBo());
-    		}
-    		if (pr instanceof TeamMemberPrivilege) {
-    			privileges.add(new TeamMemberPrivilegeBo());
-    		}
+    		privileges.add(conv.convertTo(pr));
     	}
     	return privileges;
     }

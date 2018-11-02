@@ -55,22 +55,33 @@ public class UserServiceBL{
 
     public void addPrivilegeForUser(Privilege privilege, User user) {
 		if (privilege instanceof FunctionResponsiblePrivilege) {
-			// find active users with this privilege
-			for (User u :this.userdb.findUsersByPrivilege(privilege)){
-				for (Privilege p : u.getPrivileges()) {
-					if (p instanceof FunctionResponsiblePrivilege) {
-						FunctionResponsiblePrivilege frp = (FunctionResponsiblePrivilege) p;
-
-						if (frp.getFunction().equals(((FunctionResponsiblePrivilege) privilege).getFunction())
-						&& frp.getCountry().equals(((FunctionResponsiblePrivilege) privilege).getCountry())){
-							throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");
-						}
-
-					}
-				}
-			}
-
+			checkFunctionResponsible((FunctionResponsiblePrivilege) privilege, user);
 		}
 		this.userdb.addPrivilegesToUser(privilege, user);
     }
+
+    public void checkFunctionResponsible(FunctionResponsiblePrivilege privilege, User user){
+		System.out.println("1");
+		for (User u :this.userdb.findUsersByPrivilege(privilege)){
+			System.out.println("2");
+			for (Privilege p : u.getPrivileges()) {
+				System.out.println("3");
+				if (p instanceof FunctionResponsiblePrivilege) {
+					System.out.println("4");
+					FunctionResponsiblePrivilege frp = (FunctionResponsiblePrivilege) p;
+					System.out.println(frp.getFunction().getFunctionID());
+					System.out.println(frp.getCountry());
+					System.out.println(privilege.getFunction().getFunctionID());
+					System.out.println(privilege.getCountry());
+
+					if (frp.getFunction().getFunctionID() == privilege.getFunction().getFunctionID() &&
+							frp.getCountry().equals(privilege.getCountry())) {
+						System.out.println("5");
+						throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");
+					}
+
+				}
+			}
+		}
+	}
 }

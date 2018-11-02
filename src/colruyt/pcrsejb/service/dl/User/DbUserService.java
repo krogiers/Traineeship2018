@@ -28,7 +28,7 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join " +
-                    "UserPrivileges up on u.id = up.user_id  where up.privileges_id = ? and active=1");
+                    "UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1");
           statement.setInt(1, privilege.getId());
           ResultSet rs =  statement.executeQuery();
           users = convertToUserList(rs);
@@ -59,7 +59,6 @@ public class DbUserService extends DbService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
-        System.out.println("Searching on short name " + shortName);
        List<User> lijst = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
@@ -68,8 +67,6 @@ public class DbUserService extends DbService implements UserService {
 
             String firstname = shortName.substring(0,2).toUpperCase();
             String lastname = shortName.substring(2).toUpperCase();
-            System.out.println(firstname);
-            System.out.println(lastname);
             statement.setString(1,firstname + "%");
             statement.setString(2,lastname + "%");
 
@@ -99,7 +96,6 @@ public class DbUserService extends DbService implements UserService {
                 }
             }
 
-            System.out.println(user.getId() + " " + functionId + " " + country + " " + privi.getId());
 
             String sql = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
             PreparedStatement statement =  conn.prepareStatement(sql);
@@ -240,7 +236,7 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges up inner join privis ps " +
-                    "on up.privileges_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ?");
+                    "on up.privis_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ?");
 
             statement.setInt(1,u.getId());
 
@@ -263,8 +259,7 @@ public class DbUserService extends DbService implements UserService {
             Privilege p;
             char privilege = set.getString("shortname").charAt(0);
             p = determineInstance(privilege);
-            p.setId(set.getInt("PRIVILEGES_ID"));
-
+            p.setId(set.getInt("PRIVIS_ID"));
 
             if (set.getString("COUNTRY") != null) {
                 ((FunctionResponsiblePrivilege) p).setFunction(

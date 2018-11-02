@@ -1,28 +1,27 @@
 package colruyt.pcrsejb.entity.survey;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.HashMap;
 
 public class SurveySet implements Comparable<SurveySet>{
 
     private long surveySetID;
     private LocalDate surveyYear;
-    private Set<Survey> surveySet;
+    private HashMap<SurveyKind,Survey> surveySet;
 
-    public SurveySet(long surveySetID, LocalDate surveyYear, Set<Survey> surveySet) {
+    public SurveySet(long surveySetID, LocalDate surveyYear, HashMap<SurveyKind,Survey> surveySet) {
         this.surveySetID = surveySetID;
         this.surveyYear = surveyYear;
         this.surveySet = surveySet;
     }
 
     public SurveySet() {
+    	
     }
 
     @Override
     public int compareTo(SurveySet o) {
-        throw new NotImplementedException();
+        return this.surveyYear.compareTo(o.getSurveyYear());
     }
 
     public long getSurveySetID() {
@@ -41,11 +40,11 @@ public class SurveySet implements Comparable<SurveySet>{
         this.surveyYear = surveyYear;
     }
 
-    public Set<Survey> getSurveySet() {
+    public HashMap<SurveyKind, Survey> getSurveySet() {
         return surveySet;
     }
 
-    public void setSurveySet(Set<Survey> surveySet) {
+    public void setSurveySet(HashMap<SurveyKind, Survey> surveySet) {
         this.surveySet = surveySet;
     }
 }

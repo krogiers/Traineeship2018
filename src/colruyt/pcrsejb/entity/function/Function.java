@@ -98,8 +98,6 @@ public class Function {
 		return "Function [title=" + title + ", roleSet=" + roleSet + ", functionCompetenceSet=" + functionCompetenceSet
 				+ "]";
 	}
-    
-    
-    
-    
+
+
 }

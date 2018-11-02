@@ -110,4 +110,9 @@ public class TeamServiceBL {
 	public Team getTeam(User user) {
 		return teamdb.findTeamOfUser(user);
 	}
+
+	public void removeTeam(Team team) {
+		// TODO Auto-generated method stub
+		
+	}
 }

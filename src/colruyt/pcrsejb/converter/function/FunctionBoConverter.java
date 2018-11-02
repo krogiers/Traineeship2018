@@ -1,19 +1,13 @@
 package colruyt.pcrsejb.converter.function;
 
-import colruyt.pcrsejb.bo.competence.BehavioralCompetenceBo;
-import colruyt.pcrsejb.bo.competence.DomainCompetenceBo;
+import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.bo.competence.FunctionCompetenceBo;
-import colruyt.pcrsejb.bo.competence.OperatingUnitCompetenceBo;
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.role.RoleBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.converter.competence.BehavioralCompetenceBoConverter;
-import colruyt.pcrsejb.converter.competence.BehavioralCompetenceConverter;
+import colruyt.pcrsejb.converter.competence.CompetenceBoConverter;
 import colruyt.pcrsejb.converter.role.RoleBoConverter;
-import colruyt.pcrsejb.entity.competence.BehavioralCompetence;
-import colruyt.pcrsejb.entity.competence.DomainCompetence;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
-import colruyt.pcrsejb.entity.competence.OperatingUnitCompetence;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.role.Role;
 
@@ -40,16 +34,9 @@ public class FunctionBoConverter implements GenericConverter<Function,FunctionBo
 
     private HashSet<FunctionCompetence> getFunctionCompetenceSet(Set<FunctionCompetenceBo> functionCompetenceBoSet){
         HashSet<FunctionCompetence> functionCompetenceHashSet = new HashSet<>();
-
+		CompetenceBoConverter competenceBoConverter = new CompetenceBoConverter(); 
         for(FunctionCompetenceBo functionCompetenceBo: functionCompetenceBoSet) {
-            if (functionCompetenceBo instanceof BehavioralCompetenceBo){
-                BehavioralCompetenceBoConverter conv = new BehavioralCompetenceBoConverter();
-                functionCompetenceHashSet.add((FunctionCompetence) conv.convertTo((BehavioralCompetenceBo) functionCompetenceBo));
-            } else if (functionCompetenceBo instanceof DomainCompetenceBo) {
-                // not implemented yet
-            } else if (functionCompetenceBo instanceof OperatingUnitCompetenceBo) {
-                // not  implemented yet
-            }
+            functionCompetenceHashSet.add((FunctionCompetence) competenceBoConverter.convertTo((CompetenceBo) functionCompetenceBo));
         }
 
         return functionCompetenceHashSet;

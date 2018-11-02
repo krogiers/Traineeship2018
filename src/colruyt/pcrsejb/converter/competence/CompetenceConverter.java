@@ -5,18 +5,15 @@ import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
 import colruyt.pcrsejb.bo.competence.DomainCompetenceBo;
 import colruyt.pcrsejb.bo.competence.OperatingUnitCompetenceBo;
-import colruyt.pcrsejb.bo.survey.ConsensusSurveyBo;
-import colruyt.pcrsejb.bo.survey.TeamManagerSurveyBo;
-import colruyt.pcrsejb.bo.survey.TeamMemberSurveyBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.entity.competence.BehavioralCompetence;
 import colruyt.pcrsejb.entity.competence.Competence;
 import colruyt.pcrsejb.entity.competence.CraftCompetence;
 
-public class CompetenceConverter<T extends Competence> implements GenericConverter<CompetenceBo,T> {
+public class CompetenceConverter implements GenericConverter<CompetenceBo,Competence> {
 
 	@Override
-	public CompetenceBo convertTo(T from) {
+	public CompetenceBo convertTo(Competence from) {
 		
 		CompetenceBo competenceBo = null;
         switch(determineInstance(from)){
@@ -28,7 +25,7 @@ public class CompetenceConverter<T extends Competence> implements GenericConvert
         return competenceBo;   
 	}
 
-	private String determineInstance(T from) {
+	private String determineInstance(Competence from) {
 		return from.getClass().getSimpleName();
 	}
 

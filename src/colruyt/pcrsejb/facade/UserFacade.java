@@ -24,10 +24,6 @@ public class UserFacade {
 		}
 		return users;
 	}
-	
-	public void givePrivilegeToUser(UserBo user, UserBo currentUser, PrivilegeBo privilege) {
-		//TODO
-	}
 
 	public List<UserBo> searchUsers(String shortString) {
 		List<UserBo> matchingUsers = new ArrayList<>();

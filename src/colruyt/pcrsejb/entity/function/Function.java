@@ -12,7 +12,7 @@ public class Function {
     private String title;
     private Set<Role> roleSet;
     private Set<FunctionCompetence> functionCompetenceSet;
-    private String operatingUnitId;
+    private int operatingUnitId;
 
 
 	public Function() {
@@ -45,7 +45,7 @@ public class Function {
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 
-	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet, String operatingUnitId) {
+	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet, int operatingUnitId) {
 		this.functionID = functionID;
 		this.title = title;
 		this.roleSet = roleSet;
@@ -85,11 +85,11 @@ public class Function {
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 
-	public String getOperatingUnitId() {
+	public int getOperatingUnitId() {
 		return operatingUnitId;
 	}
 
-	public void setOperatingUnitId(String operatingUnitId) {
+	public void setOperatingUnitId(int operatingUnitId) {
 		this.operatingUnitId = operatingUnitId;
 	}
 

@@ -288,7 +288,6 @@ public class DbUserService extends DbService implements UserService {
 
     @Override
     public void deleteElement(User element) {
-
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement(DELETE_USER);
@@ -298,10 +297,6 @@ public class DbUserService extends DbService implements UserService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
-
     }
 
 }

@@ -5,6 +5,8 @@ import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.User.DbUserService;
 import colruyt.pcrsejb.service.dl.User.UserService;
+import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
+import colruyt.pcrsejb.util.validators.user.UserValidator;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +15,8 @@ public class UserServiceBL{
 
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
+
+	private UserValidator userValidator = new UserValidator();
     
 	/**
 	 * Methode voor het navragen van privilege
@@ -30,8 +34,9 @@ public class UserServiceBL{
 		return hasPrivilege;
 	}
 
-	public void saveUser(User newUser) {
-		userdb.save(newUser);
+	public void saveUser(User user) throws ValidationException {
+		userValidator.validate(user);
+		userdb.save(user);
 	}
 
 	public Collection<User> getAllUsers() {
@@ -67,10 +72,7 @@ public class UserServiceBL{
 				if (p instanceof FunctionResponsiblePrivilege) {
 					System.out.println("4");
 					FunctionResponsiblePrivilege frp = (FunctionResponsiblePrivilege) p;
-					System.out.println(frp.getFunction().getFunctionID());
-					System.out.println(frp.getCountry());
-					System.out.println(privilege.getFunction().getFunctionID());
-					System.out.println(privilege.getCountry());
+
 
 					if (frp.getFunction().getFunctionID() == privilege.getFunction().getFunctionID() &&
 							frp.getCountry().equals(privilege.getCountry())) {

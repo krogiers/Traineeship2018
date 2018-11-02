@@ -52,4 +52,7 @@ public class UserFacade {
     public UserBo getUser(UserBo userBo) {
 		return userConverter.convertTo(userServiceBL.getUser(userBoConverter.convertTo(userBo)));
     }
+
+
+
 }

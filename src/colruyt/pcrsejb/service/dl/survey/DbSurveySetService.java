@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.service.dl.survey;
 
 import colruyt.pcrsejb.entity.survey.*;
+import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.DbService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -37,9 +38,10 @@ public class DbSurveySetService extends DbService implements SurveySetService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement state = conn.prepareStatement("select * from surveysets ss where ss.id = ?");
+            state.setInt(1,surveySet.getSurveySetID());
             ResultSet set = state.executeQuery();
 
-          SurveySet surveySet =  this.convertSingleSurveySet(set);
+          surveySet =  this.convertSingleSurveySet(set);
           // Add surveys + Ratings
          surveySet =  this.upgradeSurveySet(surveySet);
 
@@ -170,6 +172,13 @@ public class DbSurveySetService extends DbService implements SurveySetService {
     }
 
 
+    @Override
+    public List<SurveySet> findSurveySetsByUser(User u) {
+        return null;
+    }
 
-
+    @Override
+    public SurveySet findSurveySetsByUserAndDate(User u, LocalDate year) {
+        return null;
+    }
 }

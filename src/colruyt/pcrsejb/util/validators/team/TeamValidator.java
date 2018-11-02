@@ -2,6 +2,7 @@ package colruyt.pcrsejb.util.validators.team;
 
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.team.Team;
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.exceptions.validation.team.TeamHasMoreThanOneManagerException;
 import colruyt.pcrsejb.util.exceptions.validation.team.TeamHasNoCurrentManagerException;
@@ -25,7 +26,7 @@ public class TeamValidator implements GenericValidator<Team> {
 
     public void CheckTeamManagerCount(Team team) throws TeamHasMoreThanOneManagerException, TeamHasNoCurrentManagerException {
 
-        long amount = team.getEnrolmentsHashSet().stream().filter(x-> x.getPrivilege() instanceof TeamManagerPrivilege && x.isActive()).count();
+        long amount = team.getEnrolmentsHashSet().stream().filter(x-> x.getPrivilege().getPrivilegeType() == PrivilegeType.TEAMMANAGER && x.isActive()).count();
 
         if(amount > 1){
             throw new TeamHasMoreThanOneManagerException();

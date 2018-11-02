@@ -5,9 +5,6 @@ import java.util.HashSet;
 
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.function.Function;
-import colruyt.pcrsejb.entity.privileges.Privilege;
-import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionUserPrivilege;
@@ -20,16 +17,12 @@ import colruyt.pcrsejb.service.dl.team.TeamService;
 import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.team.TeamValidator;
-import org.apache.xpath.operations.Bool;
 
 public class TeamServiceBL {
 	
 	private TeamService teamdb = new MemoryTeamService();
-<<<<<<< HEAD
 	private FunctionService functiondb = new DbFunctionService();
-=======
 	private TeamValidator validator = new TeamValidator();
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	/**
 	 * Methode voor het toevoegen van een teamMember
 	 * 
@@ -49,17 +42,13 @@ public class TeamServiceBL {
 	 * @param teammanager
 	 */
 	public void addManagerToTeam(User teamMember, Team team) {
-<<<<<<< HEAD
 		//TODO CHECK IF CURRENT MANAGER NOT EXISTING in team or in users privileges
+		this.removeLeader(team);
 		UserPrivilege privilege = new UserPrivilege(PrivilegeType.TEAMMANAGER, true);
 		HashSet<UserPrivilege> privileges = teamMember.getPrivileges();
 		privileges.add(privilege);
 		teamMember.setPrivileges(privileges);
 		addMemberToTeam(teamMember, team, privilege);
-=======
-		this.removeLeader(team);
-		addMemberToTeam(teamMember, team, new TeamManagerPrivilege());
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	}
 	
 	private void addMemberToTeam(User teamMember, Team team, UserPrivilege privilege) {
@@ -85,9 +74,9 @@ public class TeamServiceBL {
 	 */
 	public void removeTeamMemberFromTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
 		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();
-		if(enrollments.contains(teamMember)) {
-
-			enrollments.forEach(e -> {
+		if(team.contains(teamMember)) {
+			HashSet<Enrolment> enrolments = team.getEnrolmentsHashSet();
+			enrolments.forEach(e -> {
 				if (e.getUser().equals(teamMember)) {
 					e.setActive(false);
 				}
@@ -105,41 +94,31 @@ public class TeamServiceBL {
 	 * USER MUST EXIST in the team
 	 * 
 	 * @param teammanager
+	 * @throws UserIsNotMemberOfTeamException 
 	 */
-<<<<<<< HEAD
-	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) {
+	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
 		HashSet<Enrolment> enrolments = team.getEnrolmentsHashSet();
-		enrolments.forEach(enrolment -> {
-			if (enrolment.getUser().equals(teamMember)) {
+		if(team.contains(teamMember)) {
+			removeLeader(team);
+
+			enrolments.forEach(enrolment -> {
+				if (enrolment.getUser().equals(teamMember)) {
 				enrolment.setActive(false);
 				addManagerToTeam(teamMember, team);
 			}
-		});
-		team.setEnrolmentsHashSet(enrolments);
-=======
-	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
-		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();
-		if(team.getEnrolmentsHashSet().contains(teamMember)) {
-			removeLeader(team);
-
-			enrollments.forEach(e -> {
-				if (e.getUser().equals(teamMember)) {
-					e.setPrivilege(new TeamManagerPrivilege());
-				}
 			});
-			team.setEnrolmentsHashSet(enrollments);
+			team.setEnrolmentsHashSet(enrolments);
 		}
 		else{
 
 			throw new UserIsNotMemberOfTeamException();
 
 		}
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	}
 
 	private void removeLeader(Team team) {
 		team.getEnrolmentsHashSet()
-				.stream().filter(x -> x.getPrivilege() instanceof TeamManagerPrivilege && x.isActive())
+				.stream().filter(x -> x.getPrivilege().getPrivilegeType() == PrivilegeType.TEAMMANAGER && x.isActive())
 				.forEach(x -> x.setActive(false));
 		}
 
@@ -178,7 +157,6 @@ public class TeamServiceBL {
 	}
 
 	public void removeTeam(Team team) {
-		// TODO Auto-generated method stub
-		
+		teamdb.deleteElement(team);
 	}
 }

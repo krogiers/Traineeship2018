@@ -19,7 +19,7 @@ public class FunctionConverter implements GenericConverter<FunctionBo,Function> 
 
     @Override
     public FunctionBo convertTo(Function from) {
-        return new FunctionBo(from.getFunctionID(),from.getTitle(),
+        return new FunctionBo(from.getId(),from.getTitle(),
                 getRoleBoHashSet(from.getRoleSet()),
                 getFunctionCompetenceBoHashSet(from.getFunctionCompetenceSet()));
     }

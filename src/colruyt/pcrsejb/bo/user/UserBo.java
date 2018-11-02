@@ -48,20 +48,7 @@ public class UserBo {
 		setCountry(country);
 	}
 	
-<<<<<<< HEAD
 	public UserBo(String firstName, String lastName, String email, String password, HashSet<UserPrivilegeBo> privilegeBoHashSet,
-=======
-	/**
-	 * Constructor voor het aanmaken van een User
-	 * @param firstName
-	 * @param lastName
-	 * @param email
-	 * @param password
-	 * @param privilegeBoHashSet
-	 * @param country
-	 */
-	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet,
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 				  String country) {
 		setFirstName(firstName);
 		setLastName(lastName);

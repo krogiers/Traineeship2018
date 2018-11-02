@@ -11,6 +11,7 @@ import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.TeamServiceBL;
+import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
 public class TeamFacade {
 	private TeamServiceBL teamServiceBL = new TeamServiceBL();
@@ -19,10 +20,15 @@ public class TeamFacade {
 	private UserBoConverter userBoConverter = new UserBoConverter();
 	private UserConverter userConverter = new UserConverter();
 	
-	public void addTeam(TeamBo newTeam)
+	public void addTeam(TeamBo newTeam) 
 	{
 		Team team = teamBoConverter.convertTo(newTeam);
-		teamServiceBL.addTeam(team);
+		try {
+			teamServiceBL.addTeam(team);
+		} catch (ValidationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void removeTeam(TeamBo oldTeam)

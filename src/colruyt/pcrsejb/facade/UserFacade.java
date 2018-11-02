@@ -38,7 +38,7 @@ public class UserFacade {
 	}
 
 	public void removeUser(UserBo user) {
-		// TODO
+		userServiceBL.delete(userBoConverter.convertTo(user));
 	}
 
 	public void saveUser(UserBo user) {

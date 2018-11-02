@@ -84,4 +84,8 @@ public class UserServiceBL{
 			}
 		}
 	}
+
+	public void delete(User user) {
+		userdb.deleteElement(user);
+	}
 }

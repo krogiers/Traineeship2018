@@ -33,6 +33,11 @@ public class UserFacade {
 		return matchingUsers;
 	}
 
+	/**
+	 * Methode die een userBo object ontvangt
+	 * en een user object doorgeeft
+	 * @param user
+	 */
 	public void removeUser(UserBo user) {
 		userServiceBL.delete(userBoConverter.convertTo(user));
 	}

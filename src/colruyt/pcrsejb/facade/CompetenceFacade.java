@@ -9,5 +9,7 @@ public class CompetenceFacade {
 	private CompetenceServiceBL competenceServiceBL= new CompetenceServiceBL();
 	private CompetenceBoConverter competenceBoConverter = new CompetenceBoConverter();
 	private CompetenceConverter competenceConverter = new CompetenceConverter();
+	
+	
 
 }

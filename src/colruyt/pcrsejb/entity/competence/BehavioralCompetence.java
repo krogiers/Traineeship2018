@@ -2,29 +2,34 @@ package colruyt.pcrsejb.entity.competence;
 
 import java.util.Map;
 
-public class BehavioralCompetence extends CompetenceLevel implements FunctionCompetence {
+public class BehavioralCompetence extends LeveledCompetence implements FunctionCompetence {
 
 
 	public BehavioralCompetence() {
+		super();
 	}
 
-	public BehavioralCompetence(String name, String description) {
+	public BehavioralCompetence(String name, String description){
 		super(name, description);
 	}
 
-	public BehavioralCompetence(int id, String name) {
-		super(id, name);
+	public BehavioralCompetence(int id, String name, String description) {
+		super(id, name, description);
 	}
-
-	public BehavioralCompetence(int competenceID, String name, String description) {
-		super(competenceID, name, description);
+	
+	public BehavioralCompetence(String name, String description, Map<Integer, String> possibilityMap){
+		super(name, description, possibilityMap);
 	}
-
-	public BehavioralCompetence(String name, int minLevel, Map<Integer, String> possibilityMap) {
-		super(name, minLevel, possibilityMap);
+	
+	public BehavioralCompetence(int id, String name, String description, Map<Integer, String> possibilityMap){
+		super(id, name, description, possibilityMap);
 	}
-
-	public BehavioralCompetence(int competenceID, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
-		super(competenceID, name, description, minLevel, possibilityMap);
+	
+	public BehavioralCompetence(String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
+		super(name, description, minLevel, possibilityMap);
+	}
+	
+	public BehavioralCompetence(int id, String name, String description, int minLevel, Map<Integer, String> possibilityMap) {
+		super(id, name, description, minLevel, possibilityMap);
 	}
 }

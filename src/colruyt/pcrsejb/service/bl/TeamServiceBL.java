@@ -11,10 +11,15 @@ import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.team.MemoryTeamService;
 import colruyt.pcrsejb.service.dl.team.TeamService;
+import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
+import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
+import colruyt.pcrsejb.util.validators.team.TeamValidator;
+import org.apache.xpath.operations.Bool;
 
 public class TeamServiceBL {
 	
 	private TeamService teamdb = new MemoryTeamService();
+	private TeamValidator validator = new TeamValidator();
 	/**
 	 * Methode voor het toevoegen van een teamMember
 	 * 
@@ -30,6 +35,7 @@ public class TeamServiceBL {
 	 * @param teammanager
 	 */
 	public void addManagerToTeam(User teamMember, Team team) {
+		this.removeLeader(team);
 		addMemberToTeam(teamMember, team, new TeamManagerPrivilege());
 	}
 	
@@ -55,14 +61,21 @@ public class TeamServiceBL {
 	 * 
 	 * @param teamMember
 	 */
-	public void removeTeamMemberFromTeam(User teamMember, Team team) {
+	public void removeTeamMemberFromTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
 		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();
-		enrollments.forEach(e -> {
-			if (e.getUser().equals(teamMember)) {
-				e.setActive(false);
-			}
-		});
-		team.setEnrolmentsHashSet(enrollments);
+		if(enrollments.contains(teamMember)) {
+
+			enrollments.forEach(e -> {
+				if (e.getUser().equals(teamMember)) {
+					e.setActive(false);
+				}
+			});
+			team.setEnrolmentsHashSet(enrollments);
+		}
+		else{
+			throw new UserIsNotMemberOfTeamException();
+
+		}
 	}
 	
 	/**
@@ -71,15 +84,34 @@ public class TeamServiceBL {
 	 * 
 	 * @param teammanager
 	 */
-	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) {
+	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
 		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();
-		enrollments.forEach(e -> {
-			if (e.getUser().equals(teamMember)) {
-				e.setPrivilege(new TeamManagerPrivilege());
-			}
-		});
-		team.setEnrolmentsHashSet(enrollments);
+		if(team.getEnrolmentsHashSet().contains(teamMember)) {
+			removeLeader(team);
+
+			enrollments.forEach(e -> {
+				if (e.getUser().equals(teamMember)) {
+					e.setPrivilege(new TeamManagerPrivilege());
+				}
+			});
+			team.setEnrolmentsHashSet(enrollments);
+		}
+		else{
+
+			throw new UserIsNotMemberOfTeamException();
+
+		}
 	}
+
+	private void removeLeader(Team team) {
+		team.getEnrolmentsHashSet()
+				.stream().filter(x -> x.getPrivilege() instanceof TeamManagerPrivilege && x.isActive())
+				.forEach(x -> x.setActive(false));
+		}
+
+
+
+
 
 	/**
 	 * Methode die de owner van de groep retourneert
@@ -97,8 +129,8 @@ public class TeamServiceBL {
 		return ownerReturn;
 	}
 	
-	public void addTeam(Team team)
-	{
+	public void addTeam(Team team) throws ValidationException {
+		validator.validate(team);
 		teamdb.save(team);
 	}
 	

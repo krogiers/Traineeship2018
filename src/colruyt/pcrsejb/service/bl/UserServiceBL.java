@@ -1,8 +1,10 @@
 package colruyt.pcrsejb.service.bl;
 
-import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
+import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.User.DbUserService;
 import colruyt.pcrsejb.service.dl.User.UserService;
 
@@ -19,11 +21,11 @@ public class UserServiceBL{
 	 * 
 	 * @return hasPrivilege
 	 */
-	public boolean userHasPrivilege(User user, Privilege privilege) {
+	public boolean userHasPrivilege(User user, PrivilegeType privilege) {
 
 		boolean hasPrivilege = false;
-		for (Privilege privi : user.getPrivileges()) {
-			if (privilege.getClass().isInstance(privi)) {
+		for (UserPrivilege privi : user.getPrivileges()) {
+			if (privi.getPrivilegeType() == privilege) {
 				hasPrivilege = true;
 			}
 		}
@@ -42,7 +44,7 @@ public class UserServiceBL{
 		return userdb.findUsersByShortName(shortName);
 	}
 
-	public List<User> findUsersByPrivilege(Privilege privilege){
+	public List<User> findUsersByPrivilege(UserPrivilege privilege){
 		return this.userdb.findUsersByPrivilege(privilege);
 	}
 
@@ -51,28 +53,29 @@ public class UserServiceBL{
 	}
 
 
-    public void addPrivilegeForUser(Privilege privilege, User user) {
-		if (privilege instanceof FunctionResponsiblePrivilege) {
-			checkFunctionResponsible((FunctionResponsiblePrivilege) privilege, user);
+    public void addPrivilegeForUser(UserPrivilege privilege, User user) {
+		if (privilege.getPrivilegeType() == PrivilegeType.FUNCTIONRESPONSIBLE) {
+			checkFunctionResponsible((FunctionResponsibleUserPrivilege) privilege, user);
 		}
 		userdb.save(user);
     }
 
-    public void checkFunctionResponsible(FunctionResponsiblePrivilege privilege, User user){
+    public void checkFunctionResponsible(FunctionResponsibleUserPrivilege privilege, User user){
 		System.out.println("1");
 		for (User u :this.userdb.findUsersByPrivilege(privilege)){
 			System.out.println("2");
-			for (Privilege p : u.getPrivileges()) {
+			for (UserPrivilege p : u.getPrivileges()) {
 				System.out.println("3");
-				if (p instanceof FunctionResponsiblePrivilege) {
+				if (p.getPrivilegeType() == PrivilegeType.FUNCTIONRESPONSIBLE) {
 					System.out.println("4");
-					FunctionResponsiblePrivilege frp = (FunctionResponsiblePrivilege) p;
-					System.out.println(frp.getFunction().getFunctionID());
+					
+					FunctionResponsibleUserPrivilege frp = (FunctionResponsibleUserPrivilege) p;
+					System.out.println(frp.getFunction().getId());
 					System.out.println(frp.getCountry());
-					System.out.println(privilege.getFunction().getFunctionID());
+					System.out.println(privilege.getFunction().getId());
 					System.out.println(privilege.getCountry());
 
-					if (frp.getFunction().getFunctionID() == privilege.getFunction().getFunctionID() &&
+					if (frp.getFunction().getId() == privilege.getFunction().getId() &&
 							frp.getCountry().equals(privilege.getCountry())) {
 						System.out.println("5");
 						throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");

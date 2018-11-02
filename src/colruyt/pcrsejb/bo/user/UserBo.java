@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.bo.user;
 
 import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
+import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class UserBo {
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<PrivilegeBo> privilegeBoHashSet;
+	private HashSet<UserPrivilegeBo> privilegeBoHashSet;
 	private String country;
 
 
@@ -31,7 +32,7 @@ public class UserBo {
 	 * @param password String
 	 * @param privilegeBoHashSet HashSet
 	 */
-	public UserBo(int id,String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet,
+	public UserBo(int id,String firstName, String lastName, String email, String password, HashSet<UserPrivilegeBo> privilegeBoHashSet,
 				  String country) {
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -42,7 +43,7 @@ public class UserBo {
 		setCountry(country);
 	}
 	
-	public UserBo(String firstName, String lastName, String email, String password, HashSet<PrivilegeBo> privilegeBoHashSet,
+	public UserBo(String firstName, String lastName, String email, String password, HashSet<UserPrivilegeBo> privilegeBoHashSet,
 				  String country) {
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -149,7 +150,7 @@ public class UserBo {
 	 * 
 	 * @return privileges
 	 */
-	public Set<PrivilegeBo> getPrivilegeBoHashSet() {
+	public Set<UserPrivilegeBo> getPrivilegeBoHashSet() {
 		return privilegeBoHashSet;
 	}
 
@@ -158,7 +159,7 @@ public class UserBo {
 	 * 
 	 * @param privilegeBoHashSet
 	 */
-	public void setPrivilegeBoHashSet(HashSet<PrivilegeBo> privilegeBoHashSet) {
+	public void setPrivilegeBoHashSet(HashSet<UserPrivilegeBo> privilegeBoHashSet) {
 		this.privilegeBoHashSet = privilegeBoHashSet;
 	}
 

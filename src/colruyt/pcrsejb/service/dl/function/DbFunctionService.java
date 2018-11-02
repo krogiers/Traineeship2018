@@ -29,7 +29,7 @@ public class DbFunctionService extends DbService implements FunctionService {
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getResultSet();
             if (rs.next()) {
-                element.setFunctionID(rs.getInt("ID"));
+                element.setId(rs.getInt("ID"));
             }
 
         } catch (SQLException e) {
@@ -43,7 +43,7 @@ public class DbFunctionService extends DbService implements FunctionService {
     public Function getElement(Function function) {
         try (Connection conn = this.createConnection()){
             PreparedStatement preparedStatement = conn.prepareStatement(GET_ELEMENT);
-            preparedStatement.setInt(1, function.getFunctionID());
+            preparedStatement.setInt(1, function.getId());
             ResultSet rs = preparedStatement.executeQuery();
             function = convertToSingleFunction(rs);
 
@@ -86,7 +86,7 @@ public class DbFunctionService extends DbService implements FunctionService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement(DELETE_FUNCTION);
-            statement.setLong(1,element.getFunctionID());
+            statement.setLong(1,element.getId());
             ResultSet rs =  statement.executeQuery();
 
         } catch (SQLException e) {
@@ -98,7 +98,7 @@ public class DbFunctionService extends DbService implements FunctionService {
     private Function convertToSingleFunction(ResultSet rs) throws SQLException {
         Function function = null;
         while (rs.next()){
-            function.setFunctionID(rs.getInt("ID"));
+            function.setId(rs.getInt("ID"));
             function.setTitle(rs.getString("TITLE"));
             function.setOperatingUnitId(rs.getInt("OPERATINGUNITS_ID"));
         }

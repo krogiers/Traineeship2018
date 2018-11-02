@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Function {
 
-	private int functionID;
+	private Integer id;
     private String title;
     private Set<Role> roleSet;
     private Set<FunctionCompetence> functionCompetenceSet;
@@ -19,7 +19,7 @@ public class Function {
 	}
 
 	public Function(int functionID, String title) {
-		setFunctionID(functionID);
+		setId(functionID);
 		setTitle(title);
 		this.roleSet = new HashSet<>();
 		this.functionCompetenceSet = new HashSet<>();
@@ -39,26 +39,30 @@ public class Function {
 	}
 
 	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
-		this.functionID = functionID;
+		this.id = functionID;
 		this.title = title;
 		this.roleSet = roleSet;
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 
 	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet, int operatingUnitId) {
-		this.functionID = functionID;
+		this.id = functionID;
 		this.title = title;
 		this.roleSet = roleSet;
 		this.functionCompetenceSet = functionCompetenceSet;
 		this.operatingUnitId = operatingUnitId;
 	}
 
-	public int getFunctionID() {
-		return functionID;
+	public Function(Integer id) {
+		setId(id);
 	}
 
-	public void setFunctionID(int functionID) {
-		this.functionID = functionID;
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer functionID) {
+		this.id = functionID;
 	}
 
 	public String getTitle() {

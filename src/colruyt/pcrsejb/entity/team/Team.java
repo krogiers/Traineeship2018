@@ -4,6 +4,8 @@ package colruyt.pcrsejb.entity.team;
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 import java.util.HashSet;
 
@@ -27,7 +29,19 @@ public class Team {
 	 */
 	public Team(String name, User teamManager) {
 		setName(name);
-		Enrolment enrollment = new Enrolment(teamManager, new TeamManagerPrivilege(), true);
+		UserPrivilege privilege = null;
+		for (UserPrivilege priv : teamManager.getPrivileges()) {
+			if (priv.getPrivilegeType() == PrivilegeType.TEAMMANAGER) {
+				privilege = priv;
+			}
+		}
+		if (privilege == null) {
+			privilege = new UserPrivilege(PrivilegeType.TEAMMANAGER, true);
+			HashSet<UserPrivilege> privileges = teamManager.getPrivileges();
+			privileges.add(privilege);
+			teamManager.setPrivileges(privileges);
+		}
+		Enrolment enrollment = new Enrolment(teamManager, privilege, true);
 		enrolmentsHashSet = new HashSet<>();
 		enrolmentsHashSet.add(enrollment);
 	}

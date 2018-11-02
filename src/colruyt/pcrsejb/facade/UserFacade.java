@@ -2,9 +2,11 @@ package colruyt.pcrsejb.facade;
 
 import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
+import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.privilege.PrivilegeBoConverter;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
+import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.UserServiceBL;
 
@@ -15,7 +17,7 @@ public class UserFacade {
 	private UserServiceBL userServiceBL = new UserServiceBL();
 	private UserBoConverter userBoConverter = new UserBoConverter();
 	private UserConverter userConverter = new UserConverter();
-	private PrivilegeBoConverter privilegeBoConverter = new PrivilegeBoConverter();
+	private UserPrivilegeBoConverter userPrivilegeBoConverter = new UserPrivilegeBoConverter();
 
 	public List<UserBo> getAllUsers() {
 		List<UserBo> users = new ArrayList<>();
@@ -37,16 +39,16 @@ public class UserFacade {
 		userServiceBL.delete(userBoConverter.convertTo(user));
 	}
 
-	//public void saveUser(UserBo user) {
-		//userServiceBL.saveUser(userBoConverter.convertTo(user));
-	//}
+	public void saveUser(UserBo user) {
+		userServiceBL.saveUser(userBoConverter.convertTo(user));
+	}
 
     public List<UserBo> getFunctionResponsibles() {
 		return null;
     }
 
-	public void addPrivilegeForUser(PrivilegeBo privilegeBo, UserBo userBo) {
-		userServiceBL.addPrivilegeForUser(privilegeBoConverter.convertTo(privilegeBo), userBoConverter.convertTo(userBo));
+	public void addPrivilegeForUser(UserPrivilegeBo privilegeBo, UserBo userBo) {
+		userServiceBL.addPrivilegeForUser(userPrivilegeBoConverter.convertTo(privilegeBo), userBoConverter.convertTo(userBo));
 	}
 
     public UserBo getUser(UserBo userBo) {

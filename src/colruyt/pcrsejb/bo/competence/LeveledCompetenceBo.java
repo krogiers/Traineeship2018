@@ -3,7 +3,6 @@ package colruyt.pcrsejb.bo.competence;
 
 import java.util.Map;
 
-import colruyt.pcrsejb.entity.competence.Competence;
 
 public abstract class LeveledCompetenceBo extends CompetenceBo {
 

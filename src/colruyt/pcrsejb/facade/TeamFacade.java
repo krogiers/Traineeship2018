@@ -25,9 +25,10 @@ public class TeamFacade {
 		teamServiceBL.addTeam(team);
 	}
 	
-	public void removeTeam(TeamBo team)
+	public void removeTeam(TeamBo oldTeam)
 	{
-		//TO DO
+		Team team = teamBoConverter.convertTo(oldTeam);
+		teamServiceBL.removeTeam(team);
 	}
 	
 	public ArrayList<TeamBo> getAllTeams()

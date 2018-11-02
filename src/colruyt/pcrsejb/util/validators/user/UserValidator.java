@@ -27,22 +27,18 @@ public class UserValidator implements GenericValidator<User> {
         if(firstName == null || firstName.isEmpty()){
             throw new InvalidFirstNameException();
         }
-
-    }
-
-    private void validateEmail(String email) throws InvalidEmailException {
-        String regExp = "[a-zA-Z.]+@[a-zA-Z]+.[a-zA-Z]+";
-        if(email == null || email.isEmpty()){
-            throw new InvalidEmailException();
-        }
-
-
     }
 
     private void validateLastName(String lastName) throws InvalidLastNameException {
         if(lastName == null || lastName.isEmpty()){
             throw new InvalidLastNameException();
         }
-
     }
+    
+    private void validateEmail(String email) throws InvalidEmailException {
+        String regExp = "[a-zA-Z.]+@[a-zA-Z]+.[a-zA-Z]+";
+        if(email == null || email.isEmpty()){
+            throw new InvalidEmailException();
+        }
+    }    
 }

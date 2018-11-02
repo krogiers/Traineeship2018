@@ -3,7 +3,6 @@ package colruyt.pcrsejb.converter.role;
 import colruyt.pcrsejb.bo.competence.RoleCompetenceBo;
 import colruyt.pcrsejb.bo.role.RoleBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.converter.competence.CraftCompetenceConverter;
 import colruyt.pcrsejb.entity.competence.CraftCompetence;
 import colruyt.pcrsejb.entity.competence.RoleCompetence;
 import colruyt.pcrsejb.entity.role.Role;
@@ -23,8 +22,8 @@ public class RoleConverter implements GenericConverter<RoleBo,Role> {
         List<RoleCompetenceBo> roleCompetenceBos = new ArrayList<>();
         for (RoleCompetence roleCompetence : competences) {
             if (roleCompetence instanceof CraftCompetence) {
-                CraftCompetenceConverter conv = new CraftCompetenceConverter();
-                roleCompetenceBos.add( conv.convertTo( (CraftCompetence) roleCompetence ));
+                //CraftCompetenceConverter conv = new CraftCompetenceConverter();
+                //oleCompetenceBos.add( conv.convertTo( (CraftCompetence) roleCompetence ));
             }
         }
         return roleCompetenceBos;

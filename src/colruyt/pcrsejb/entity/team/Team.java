@@ -38,10 +38,18 @@ public class Team {
 		this.enrolmentsHashSet = enrolmentsHashSet;
 	}
 
+	/**
+	 * Methode die het teamID retourneert
+	 * @return teamID
+	 */
 	public int getTeamID() {
 		return teamID;
 	}
 
+	/**
+	 * Methode voor het instellen van het teamID
+	 * @param teamID
+	 */
 	public void setTeamID(int teamID) {
 		this.teamID = teamID;
 	}

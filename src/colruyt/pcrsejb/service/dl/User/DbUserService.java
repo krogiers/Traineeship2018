@@ -291,7 +291,7 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement(DELETE_USER);
-            statement.setLong(1,element.getId());
+            statement.setInt(1,element.getId());
             ResultSet rs =  statement.executeQuery();
 
         } catch (SQLException e) {

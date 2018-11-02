@@ -37,9 +37,9 @@ public class UserFacade {
 		userServiceBL.delete(userBoConverter.convertTo(user));
 	}
 
-	//public void saveUser(UserBo user) {
-		//userServiceBL.saveUser(userBoConverter.convertTo(user));
-	//}
+	public void saveUser(UserBo user) {
+		userServiceBL.saveUser(userBoConverter.convertTo(user));
+	}
 
     public List<UserBo> getFunctionResponsibles() {
 		return null;

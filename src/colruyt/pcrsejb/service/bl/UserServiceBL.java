@@ -32,7 +32,7 @@ public class UserServiceBL{
 		return hasPrivilege;
 	}
 
-	public void addUser(User newUser) {
+	public void saveUser(User newUser) {
 		userdb.addElement(newUser);
 	}
 

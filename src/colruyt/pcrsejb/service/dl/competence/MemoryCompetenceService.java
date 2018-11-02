@@ -21,8 +21,8 @@ public class MemoryCompetenceService implements CompetenceService {
 	}
 
 	@Override
-	public Competence getElement(Integer index) {
-		return db.get((index));
+	public Competence getElement(Competence competence) {
+		return db.get((competence.getCompetenceID()));
 	}
 
 	@Override

@@ -36,11 +36,10 @@ public class DbTeamService extends DbService implements TeamService {
     }
 
     @Override
-    public Team getElement(Long index) {
-        Team team = null;
+    public Team getElement(Team team) {
         try (Connection conn = this.createConnection()){
             PreparedStatement preparedStatement = conn.prepareStatement(GET_ELEMENT);
-            preparedStatement.setInt(1, index.intValue());
+            preparedStatement.setInt(1, team.getTeamID());
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 team = new Team();

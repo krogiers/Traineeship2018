@@ -8,4 +8,8 @@ public class AdminPrivilegeBo extends PrivilegeBo {
 		setId(5);
 	}
 
+	public AdminPrivilegeBo(int id, boolean active) {
+		super(id, active);
+		setId(id);
+	}
 }

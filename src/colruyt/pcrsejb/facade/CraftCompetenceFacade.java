@@ -13,29 +13,29 @@ import java.util.*;
 public class CraftCompetenceFacade{
     //TODO
     
-    private CraftCompetenceServiceBL CraftCompetenceServiceBL = new CraftCompetenceServiceBL();
-    private CraftCompetenceBoConverter CraftCompetenceBoConverter = new CraftCompetenceBoConverter();
-    private CraftCompetenceConverter CraftCompetenceConverter = new CraftCompetenceConverter();
+    private CraftCompetenceServiceBL craftCompetenceServiceBL = new CraftCompetenceServiceBL();
+    private CraftCompetenceBoConverter craftCompetenceBoConverter = new CraftCompetenceBoConverter();
+    private CraftCompetenceConverter craftCompetenceConverter = new CraftCompetenceConverter();
     
     public void addCraftCompetence(CraftCompetenceBo newCraftCompetence) {
-        CraftCompetenceServiceBL.addCraftCompetence(CraftCompetenceBoConverter
+        craftCompetenceServiceBL.addCraftCompetence(craftCompetenceBoConverter
                 .convertTo(newCraftCompetence));
     }
     
-    public List<CraftCompetenceBo> getAllCraftCompetences() {
-        ArrayList<CraftCompetenceBo> CraftCompetences = new ArrayList<>();
-        for (CraftCompetence c : CraftCompetenceServiceBL.getAllCraftCompetences()) {
-            CraftCompetences.add(CraftCompetenceConverter.convertTo(c));
+    public List<CompetenceBo> getAllCraftCompetences() {
+        ArrayList<CompetenceBo> craftCompetences = new ArrayList<>();
+        for (CraftCompetence c : craftCompetenceServiceBL.getAllCraftCompetences()) {
+            craftCompetences.add(craftCompetenceConverter.convertTo(c));
         }
-        return CraftCompetences;
+        return craftCompetences;
     }
 
     public void removeCraftCompetenceByName(CraftCompetenceBo craftCompetence) {
-        CraftCompetenceServiceBL.removeCraftCompetence(CraftCompetenceBoConverter.convertTo(craftCompetence));
+        craftCompetenceServiceBL.removeCraftCompetence(craftCompetenceBoConverter.convertTo(craftCompetence));
 
     }
 
     public void updateCraftCompetence(CraftCompetenceBo craftCompetence){
-        CraftCompetenceServiceBL.updateCraftCompetence(CraftCompetenceBoConverter.convertTo(craftCompetence));
+        craftCompetenceServiceBL.updateCraftCompetence(craftCompetenceBoConverter.convertTo(craftCompetence));
     }
 }

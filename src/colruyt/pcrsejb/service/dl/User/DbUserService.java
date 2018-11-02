@@ -16,13 +16,17 @@ import java.util.List;
 
 public class DbUserService extends DbService implements UserService {
 
+    private static final String FIND_USER_BY_ID = "Select * from Users where id = ?";
     private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
     private static final String FIND_USERS_BY_FIRSTNAME = "Select * from Users where firstname = ?";
     private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER(?) and UPPER(Lastname) like UPPER(?)";
-    private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
+    private static final String FIND_ALL_USERS = "Select * from Users";
     private static final String INSERT_USER = "INSERT into Users (id,firstname,lastname,password,email, homecountry) values (((select max(id) from users)+1),?,?,?,?,?)";
     private static final String UPDATE_USER = "UPDATE Users SET firstname = ?, lastname = ?, password = ?, email = ?, homecountry = ? WHERE ID = ?";
-    private static final String UPDATE_PRIVILIGE_TO_USER = "" ;
+    private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
+    private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?" ;
+    private static final String FIND_PRIVILEGES_OF_USER = "Select ps.* from userprivileges up inner join privis ps on up.privis_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ? ";
+    private static final String DELETE_USER = "Delete from Users where id = ?" ;
 
 
     @Override
@@ -199,9 +203,8 @@ public class DbUserService extends DbService implements UserService {
     public User getElement(User user) {
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from Users where id = ?");
+            PreparedStatement statement =  conn.prepareStatement(FIND_USER_BY_ID);
             statement.setInt(1,user.getId());
-
 
             ResultSet rs =  statement.executeQuery();
             user = convertToSingleUser(rs);
@@ -218,11 +221,10 @@ public class DbUserService extends DbService implements UserService {
         List<User> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from Users");
+            PreparedStatement statement =  conn.prepareStatement(FIND_ALL_USERS);
 
             ResultSet rs =  statement.executeQuery();
             users = convertToUserList(rs);
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -236,11 +238,9 @@ public class DbUserService extends DbService implements UserService {
         List<Privilege> privi = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges up inner join privis ps " +
-                    "on up.privis_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ? ");
+            PreparedStatement statement =  conn.prepareStatement(FIND_PRIVILEGES_OF_USER);
 
             statement.setInt(1,u.getId());
-
 
             ResultSet rs =  statement.executeQuery();
             privi = convertToPrivilegeList(rs);
@@ -278,37 +278,20 @@ public class DbUserService extends DbService implements UserService {
         Privilege p = null;
         switch(type){
             case 'T' : p = new TeamManagerPrivilege();break;
-            case 'M' : p= new TeamMemberPrivilege();break;
+            case 'M' : p = new TeamMemberPrivilege();break;
             case 'A' : p = new AdminPrivilege();break;
             case 'F' : p = new FunctionResponsiblePrivilege(); break;
             case 'D' : p = new DirectorPrivilege(); break;
         }
-
-        return p;
-
-    }
-
-
-    private Privilege convertToSinglePrivilege(ResultSet set) throws SQLException {
-
-        Privilege p = null;
-        if(set.next()){
-
-            char privilege = set.getString("Privilege").charAt(0);
-            p = determineInstance(privilege);
-            p.setId(set.getInt("ID"));
-        }
-
         return p;
     }
-
 
     @Override
     public void deleteElement(User element) {
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Delete from Users where id = ?");
+            PreparedStatement statement =  conn.prepareStatement(DELETE_USER);
             statement.setLong(1,element.getId());
             ResultSet rs =  statement.executeQuery();
 

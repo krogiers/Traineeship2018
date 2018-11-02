@@ -5,7 +5,7 @@ import java.util.Map;
 
 import colruyt.pcrsejb.entity.competence.Competence;
 
-public abstract class LeveledCompetenceBo extends Competence {
+public abstract class LeveledCompetenceBo extends CompetenceBo {
 
 	private String description;
     private int minLevel;

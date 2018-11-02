@@ -14,7 +14,7 @@ public class MemoryCraftCompetenceService implements CraftCompetenceService {
     }
     
     @Override
-    public CraftCompetence getElement(Long index){
+    public CraftCompetence getElement(CraftCompetence craftCompetence){
         //TODO
         return null;
     }

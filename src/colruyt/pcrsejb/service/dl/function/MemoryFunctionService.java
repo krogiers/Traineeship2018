@@ -19,8 +19,8 @@ public class MemoryFunctionService implements FunctionService {
     }
 
     @Override
-    public Function getElement(Integer index) {
-        return this.functionList.get(index);
+    public Function getElement(Function function) {
+        return this.functionList.get(function.getFunctionID());
     }
 
     @Override

@@ -22,10 +22,10 @@ public class MemoryUserService implements UserService {
     }
 
     @Override
-    public User getElement(Integer index) {
+    public User getElement(User user) {
 
 
-        return this.db.get(index);
+        return this.db.get(user.getId());
     }
 
     @Override
@@ -57,11 +57,6 @@ public class MemoryUserService implements UserService {
             (x.getFirstName().toLowerCase().substring(0,2)
                     + x.getLastName().toLowerCase().substring(0,3)).equals(shortName)
             ).collect(Collectors.toList());
-    }
-
-    @Override
-    public void addPrivilegesToUser(Privilege privi, User user) {
-
     }
 
 

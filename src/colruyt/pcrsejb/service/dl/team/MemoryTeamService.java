@@ -1,11 +1,11 @@
 package colruyt.pcrsejb.service.dl.team;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class MemoryTeamService implements TeamService {
 
@@ -21,8 +21,8 @@ public class MemoryTeamService implements TeamService {
 	}
 
 	@Override
-	public Team getElement(Long index) {
-		return this.db.get(index.intValue());
+	public Team getElement(Team team) {
+		return this.db.get(team.getTeamID());
 	}
 
 	@Override

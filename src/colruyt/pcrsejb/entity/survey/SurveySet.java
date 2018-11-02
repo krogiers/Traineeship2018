@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 public class SurveySet implements Comparable<SurveySet>{
 
-    private long surveySetID;
+    private int surveySetID;
     private LocalDate surveyYear;
     private HashMap<SurveyKind,Survey> surveySet;
 
-    public SurveySet(long surveySetID, LocalDate surveyYear, HashMap<SurveyKind,Survey> surveySet) {
+    public SurveySet(int surveySetID, LocalDate surveyYear, HashMap<SurveyKind,Survey> surveySet) {
         this.surveySetID = surveySetID;
         this.surveyYear = surveyYear;
         this.surveySet = surveySet;
@@ -24,11 +24,11 @@ public class SurveySet implements Comparable<SurveySet>{
         return this.surveyYear.compareTo(o.getSurveyYear());
     }
 
-    public long getSurveySetID() {
+    public int getSurveySetID() {
         return surveySetID;
     }
 
-    public void setSurveySetID(long surveySetID) {
+    public void setSurveySetID(int surveySetID) {
         this.surveySetID = surveySetID;
     }
 

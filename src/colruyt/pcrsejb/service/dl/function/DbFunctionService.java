@@ -42,11 +42,10 @@ public class DbFunctionService extends DbService implements FunctionService {
 
 
     @Override
-    public Function getElement(Integer index) {
-        Function function = null;
+    public Function getElement(Function function) {
         try (Connection conn = this.createConnection()){
             PreparedStatement preparedStatement = conn.prepareStatement(GET_ELEMENT);
-            preparedStatement.setInt(1, index);
+            preparedStatement.setInt(1, function.getFunctionID());
             ResultSet rs = preparedStatement.executeQuery();
             function = convertToSingleFunction(rs);
 

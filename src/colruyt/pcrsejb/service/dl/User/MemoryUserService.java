@@ -13,7 +13,7 @@ public class MemoryUserService implements UserService {
 
 
     @Override
-    public User addElement(User user) {
+    public User save(User user) {
 
 
         user.setId(db.size() + 1);

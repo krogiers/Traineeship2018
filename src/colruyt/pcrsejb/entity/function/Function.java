@@ -18,6 +18,13 @@ public class Function {
 	public Function() {
 	}
 
+	public Function(int functionID, String title) {
+		setFunctionID(functionID);
+		setTitle(title);
+		this.roleSet = new HashSet<>();
+		this.functionCompetenceSet = new HashSet<>();
+	}
+
 	public Function(String title) {
 		this.setTitle(title);
 		this.roleSet = new HashSet<>();
@@ -91,8 +98,6 @@ public class Function {
 		return "Function [title=" + title + ", roleSet=" + roleSet + ", functionCompetenceSet=" + functionCompetenceSet
 				+ "]";
 	}
-    
-    
-    
-    
+
+
 }

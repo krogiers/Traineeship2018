@@ -1,12 +1,9 @@
 package colruyt.pcrsejb.service.dl.User;
 
+import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.privileges.*;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.DbService;
-import colruyt.pcrsejb.service.dl.privilege.DbPrivilegeService;
-import colruyt.pcrsejb.service.dl.privilege.PrivilegeService;
-import colruyt.pcrsejb.util.factories.ConnectionFactory;
-import colruyt.pcrsejb.util.factories.ConnectionType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +16,12 @@ import java.util.List;
 
 public class DbUserService extends DbService implements UserService {
 
+    private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
+    private static final String FIND_USERS_BY_FIRSTNAME = "Select * from Users where firstname = ?";
+    private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER('?') and UPPER(Lastname) like UPPER('?')";
+    private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
+    private static final String SAVE_USER = "INSERT into Users (id,firstname,lastname,password,email) values (((select max(id) from users)+1),?,?,?,?,?)";
+
 
 
     @Override
@@ -26,12 +29,10 @@ public class DbUserService extends DbService implements UserService {
         List<User> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from Users u inner join " +
-                    "UserPrivileges up on u.id = up.user_id  where up.id = ?");
+            PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_PRIVILIGE);
           statement.setInt(1, privilege.getId());
           ResultSet rs =  statement.executeQuery();
           users = convertToUserList(rs);
-
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +46,7 @@ public class DbUserService extends DbService implements UserService {
         List<User> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-           PreparedStatement statement =  conn.prepareStatement("Select * from Users where fname = ?");
+           PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_FIRSTNAME);
            statement.setString(1,name);
            ResultSet rs =  statement.executeQuery();
            users = convertToUserList(rs);
@@ -59,29 +60,25 @@ public class DbUserService extends DbService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
-        System.out.println("Searching on short name " + shortName);
-       List<User> lijst = new ArrayList<>();
+       List<User> userList = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from Users where " +
-                    "UPPER(Firstname) like ? and UPPER(Lastname) like ?");
+            PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_SHORTNAME);
 
             String firstname = shortName.substring(0,2).toUpperCase();
             String lastname = shortName.substring(2).toUpperCase();
-            System.out.println(firstname);
-            System.out.println(lastname);
             statement.setString(1,firstname + "%");
             statement.setString(2,lastname + "%");
 
 
             ResultSet rs =  statement.executeQuery();
-            lijst = convertToUserList(rs);
+            userList = convertToUserList(rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return lijst;
+        return userList;
     }
 
 
@@ -99,8 +96,7 @@ public class DbUserService extends DbService implements UserService {
                 }
             }
 
-            String sql = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
-            PreparedStatement statement =  conn.prepareStatement(sql);
+            PreparedStatement statement =  conn.prepareStatement(ADD_PRIVILIGE_TO_USER);
 
             statement.setInt(1, user.getId());
             statement.setInt(2, functionId);
@@ -117,7 +113,8 @@ public class DbUserService extends DbService implements UserService {
 
     private List<User> convertToUserList(ResultSet rs) throws SQLException {
 
-        List<User> user = new ArrayList<User>();
+        List<User> userList = new ArrayList<User>();
+
         while(rs.next()){
             int id = rs.getInt("id");
             String firstname = rs.getString("firstname");
@@ -126,18 +123,18 @@ public class DbUserService extends DbService implements UserService {
             String email = rs.getString("email");
             String country = rs.getString("homecountry");
 
-            User u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>(), country);
-            u.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
+            User user = new User(id,firstname,lastname,password,email,new HashSet<Privilege>(), country);
+            user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
 
-            user.add(u);
+            userList.add(user);
         }
-        return user;
+        return userList;
     }
 
 
     private User convertToSingleUser(ResultSet rs) throws SQLException {
 
-        User u =  null;
+        User user =  null;
         if(rs.next()){
             int id = rs.getInt("id");
             String firstname = rs.getString("firstname");
@@ -146,20 +143,19 @@ public class DbUserService extends DbService implements UserService {
             String email = rs.getString("email");
             String country = rs.getString("homecountry");
 
-            u = new User(id,firstname,lastname,password,email,new HashSet<Privilege>(), country);
-            u.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
+            user = new User(id,firstname,lastname,password,email,new HashSet<Privilege>(), country);
+            user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
         }
-        return u;
+        return user;
     }
 
 
     @Override
-    public User addElement(User element) {
+    public User save(User element) {
 
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("INSERT into Users " +
-                    "(id,firstname,lastname,password,email) values (((select max(id) from users)+1),?,?,?,?,?)");
+            PreparedStatement statement =  conn.prepareStatement("");
 
             statement.setString(1,element.getFirstName());
             statement.setString(2,element.getLastName());
@@ -237,7 +233,9 @@ public class DbUserService extends DbService implements UserService {
         List<Privilege> privi = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges where user_id = ?");
+            PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges up inner join privis ps " +
+                    "on up.privis_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ?");
+
             statement.setInt(1,u.getId());
 
 
@@ -257,10 +255,15 @@ public class DbUserService extends DbService implements UserService {
         List<Privilege> privileges = new ArrayList<>();
         while(set.next()){
             Privilege p;
-            char privilege = set.getString("Privilege").charAt(0);
+            char privilege = set.getString("shortname").charAt(0);
             p = determineInstance(privilege);
-            p.setId(set.getInt("ID"));
+            p.setId(set.getInt("PRIVIS_ID"));
 
+            if (set.getString("COUNTRY") != null) {
+                ((FunctionResponsiblePrivilege) p).setFunction(
+                        new Function(set.getInt("Functions_id"), set.getString("title"))
+                );
+            }
             privileges.add(p);
         }
         return privileges;

@@ -11,7 +11,7 @@ public class MemoryFunctionService implements FunctionService {
        private static List<Function> functionList = new ArrayList<>();
 
     @Override
-    public Function addElement(Function element) {
+    public Function save(Function element) {
 
         element.setFunctionID(element.getFunctionID());
         this.functionList.add(element);

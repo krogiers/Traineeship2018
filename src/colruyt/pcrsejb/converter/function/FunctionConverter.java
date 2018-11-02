@@ -22,7 +22,9 @@ public class FunctionConverter implements GenericConverter<FunctionBo,Function> 
 
     @Override
     public FunctionBo convertTo(Function from) {
-        return new FunctionBo(from.getTitle(),getRoleBoHashSet(from.getRoleSet()),getFunctionCompetenceBoHashSet(from.getFunctionCompetenceSet()));
+        return new FunctionBo(from.getFunctionID(),from.getTitle(),
+                getRoleBoHashSet(from.getRoleSet()),
+                getFunctionCompetenceBoHashSet(from.getFunctionCompetenceSet()));
     }
 
     private HashSet<RoleBo> getRoleBoHashSet(Set<Role> roles){

@@ -1,27 +1,27 @@
 package colruyt.pcrsejb.bo.survey;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.HashMap;
+
+import colruyt.pcrsejb.entity.survey.SurveyKind;
 
 public class SurveySetBo implements Comparable<SurveySetBo>{
 
 
     private long surveySetID;
     private LocalDate surveyYear;
-    private Set<SurveyBo> surveyBoSet;
+    private HashMap<SurveyKind, SurveyBo> surveyBoSet;
 
 
     public SurveySetBo() {
     }
 
-    public SurveySetBo(LocalDate surveyYear, Set<SurveyBo> surveyBoSet) {
+    public SurveySetBo(LocalDate surveyYear, HashMap<SurveyKind, SurveyBo> surveyBoSet) {
         this.surveyYear = surveyYear;
         this.surveyBoSet = surveyBoSet;
     }
 
-    public SurveySetBo(long surveySetID, LocalDate surveyYear, Set<SurveyBo> surveyBoSet) {
+    public SurveySetBo(long surveySetID, LocalDate surveyYear, HashMap<SurveyKind, SurveyBo> surveyBoSet) {
         this.surveySetID = surveySetID;
         this.surveyYear = surveyYear;
         this.surveyBoSet = surveyBoSet;
@@ -69,7 +69,7 @@ public class SurveySetBo implements Comparable<SurveySetBo>{
      *
      * @return Value for property 'surveyBoSet'.
      */
-    public Set<SurveyBo> getSurveyBoSet() {
+    public HashMap<SurveyKind, SurveyBo> getSurveyBoSet() {
         return surveyBoSet;
     }
 
@@ -78,12 +78,12 @@ public class SurveySetBo implements Comparable<SurveySetBo>{
      *
      * @param surveyBoSet Value to set for property 'surveyBoSet'.
      */
-    public void setSurveyBoSet(Set<SurveyBo> surveyBoSet) {
+    public void setSurveyBoSet(HashMap<SurveyKind, SurveyBo> surveyBoSet) {
         this.surveyBoSet = surveyBoSet;
     }
 
     @Override
     public int compareTo(SurveySetBo o) {
-        throw new NotImplementedException();
+        return this.surveyYear.compareTo(o.getSurveyYear());
     }
 }

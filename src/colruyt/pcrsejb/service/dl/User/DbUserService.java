@@ -60,7 +60,7 @@ public class DbUserService extends DbService implements UserService {
 
     @Override
     public List<User> findUsersByShortName(String shortName) {
-       List<User> lijst = new ArrayList<>();
+       List<User> userList = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_SHORTNAME);
@@ -72,13 +72,13 @@ public class DbUserService extends DbService implements UserService {
 
 
             ResultSet rs =  statement.executeQuery();
-            lijst = convertToUserList(rs);
+            userList = convertToUserList(rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return lijst;
+        return userList;
     }
 
 

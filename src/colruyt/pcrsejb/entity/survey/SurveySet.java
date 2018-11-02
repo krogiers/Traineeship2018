@@ -9,8 +9,8 @@ public class SurveySet implements Comparable<SurveySet>{
     private LocalDate surveyYear;
     private HashMap<SurveyKind,Survey> surveySet;
 
-    public SurveySet(int surveySetID, LocalDate surveyYear, HashMap<SurveyKind,Survey> surveySet) {
-        this.surveySetID = surveySetID;
+    public SurveySet(int l, LocalDate surveyYear, HashMap<SurveyKind,Survey> surveySet) {
+        this.surveySetID = l;
         this.surveyYear = surveyYear;
         this.surveySet = surveySet;
     }

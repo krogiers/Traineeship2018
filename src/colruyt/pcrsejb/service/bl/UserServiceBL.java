@@ -1,17 +1,16 @@
 package colruyt.pcrsejb.service.bl;
 
-import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
-import colruyt.pcrsejb.entity.privileges.Privilege;
+import java.util.Collection;
+import java.util.List;
+
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.User.DbUserService;
 import colruyt.pcrsejb.service.dl.User.UserService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
-
-import java.util.Collection;
-import java.util.List;
 
 public class UserServiceBL{
 

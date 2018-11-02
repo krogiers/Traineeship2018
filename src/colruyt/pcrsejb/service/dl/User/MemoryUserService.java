@@ -1,12 +1,11 @@
 package colruyt.pcrsejb.service.dl.User;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
-import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 public class MemoryUserService implements UserService {
 

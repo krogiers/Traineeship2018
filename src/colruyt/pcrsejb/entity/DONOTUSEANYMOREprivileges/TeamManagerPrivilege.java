@@ -1,4 +1,4 @@
-package colruyt.pcrsejb.entity.privileges;
+package colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges;
 
 public class TeamManagerPrivilege extends Privilege {
 

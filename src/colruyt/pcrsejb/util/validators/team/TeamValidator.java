@@ -1,6 +1,5 @@
 package colruyt.pcrsejb.util.validators.team;
 
-import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;

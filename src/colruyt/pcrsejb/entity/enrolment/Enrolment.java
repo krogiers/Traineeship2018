@@ -1,6 +1,5 @@
 package colruyt.pcrsejb.entity.enrolment;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 

@@ -1,26 +1,13 @@
 package colruyt.pcrsejb.converter.user;
 
-import colruyt.pcrsejb.bo.privileges.AdminPrivilegeBo;
-import colruyt.pcrsejb.bo.privileges.DirectorPrivilegeBo;
-import colruyt.pcrsejb.bo.privileges.FunctionResponsiblePrivilegeBo;
-import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
-import colruyt.pcrsejb.bo.privileges.TeamManagerPrivilegeBo;
-import colruyt.pcrsejb.bo.privileges.TeamMemberPrivilegeBo;
+import java.util.HashSet;
+
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.converter.privilege.PrivilegeConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeConverter;
-import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
-import colruyt.pcrsejb.entity.privileges.DirectorPrivilege;
-import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
-import colruyt.pcrsejb.entity.privileges.Privilege;
-import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
-
-import java.util.HashSet;
 
 /**
  * Class for converting a User Entity into a User BO

@@ -72,7 +72,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
             vey.setRatingList(getRatings( memberratings.executeQuery()));
 
 
-            set.getSurveySet().add(vey);
+            set.getSurveySet().put(SurveyKind.TeamMember,vey);
 
             //Get manager Survey Data
             PreparedStatement managerSurvey = conn.prepareStatement("select * from surveysets ss inner join surveys sy on ss.managersurvey = sy.id  where ss.id= ?");
@@ -86,7 +86,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
             manvey.setRatingList(getRatings( managerratings.executeQuery()));
 
-            set.getSurveySet().add(manvey);
+            set.getSurveySet().put(SurveyKind.TeamManager,manvey);
 
 
             //Get Consensus Survey Data
@@ -100,7 +100,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
             convey.setRatingList(getRatings(consensusRating.executeQuery()));
 
-            set.getSurveySet().add(convey);
+            set.getSurveySet().put(SurveyKind.Consensus,convey);
         }
         return set;
     }

@@ -54,20 +54,22 @@ CREATE TABLE OperatingUnits (
 ) ;
 
 -- Table: Privileges
-CREATE TABLE "PRIVILEGES" (
+CREATE TABLE Privis (
     ID int  NOT NULL,
     FullName varchar2(100)  NOT NULL,
     ShortName char(1)  NOT NULL,
-    CONSTRAINT Privileges_pk PRIMARY KEY (ID)
+    CONSTRAINT Privis_pk PRIMARY KEY (ID)
 ) ;
 
 -- Table: Ratings
 CREATE TABLE Ratings (
+    ID int NOT NULL,
     Surveys_ID int  NOT NULL,
     Energy numeric(1,0)  NOT NULL,
     Commentary varchar2(255)  NULL,
     Competences_ID int  NOT NULL,
-    CONSTRAINT Ratings_pk PRIMARY KEY (Surveys_ID)
+    Rated int NULL,
+    CONSTRAINT Ratings_pk PRIMARY KEY (ID)
 ) ;
 
 -- Table: Roles
@@ -119,7 +121,7 @@ CREATE TABLE UserPrivileges (
     Functions_id int  NULL,
     Active number(1,0)  NOT NULL,
     Country char(2)  NULL,
-    Privileges_ID int  NOT NULL,
+    Privis_ID int  NOT NULL,
     CONSTRAINT UserPrivileges_pk PRIMARY KEY (ID)
 ) ;
 
@@ -226,9 +228,9 @@ ALTER TABLE UserPrivileges ADD CONSTRAINT UserPrivileges_Functions
     REFERENCES Functions (ID);
 
 -- Reference: UserPrivileges_Privileges (table: UserPrivileges)
-ALTER TABLE UserPrivileges ADD CONSTRAINT UserPrivileges_Privileges
-    FOREIGN KEY (Privileges_ID)
-    REFERENCES "PRIVILEGES" (ID);
+ALTER TABLE UserPrivileges ADD CONSTRAINT UserPrivileges_Privis
+    FOREIGN KEY (Privis_ID)
+    REFERENCES Privis (ID);
 
 -- Reference: UserPrivileges_User (table: UserPrivileges)
 ALTER TABLE UserPrivileges ADD CONSTRAINT UserPrivileges_User

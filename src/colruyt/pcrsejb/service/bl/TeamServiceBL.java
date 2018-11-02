@@ -99,7 +99,7 @@ public class TeamServiceBL {
 	
 	public void addTeam(Team team)
 	{
-		teamdb.addElement(team);
+		teamdb.save(team);
 	}
 	
 	public Collection<Team> getAllTeams()

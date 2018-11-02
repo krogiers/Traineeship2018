@@ -8,7 +8,7 @@ public class MemoryCraftCompetenceService implements CraftCompetenceService {
     
     
     @Override
-    public CraftCompetence addElement(CraftCompetence element){
+    public CraftCompetence save(CraftCompetence element){
         return null;
         //TODO:Implement
     }

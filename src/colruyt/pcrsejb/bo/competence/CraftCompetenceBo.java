@@ -1,18 +1,27 @@
 package colruyt.pcrsejb.bo.competence;
 
-public class CraftCompetenceBo extends CompetenceLevelBo implements RoleCompetenceBo {
+import java.util.Map;
 
-	public CraftCompetenceBo(String name, String description)  {
-		super(name, description);
-		// TODO Auto-generated constructor stub
-	}
+public class CraftCompetenceBo extends LeveledCompetenceBo implements RoleCompetenceBo {
 
 	public CraftCompetenceBo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public CraftCompetenceBo(int competenceID, String name, String description) {
-		super(competenceID, name, description);
+	public CraftCompetenceBo(String name, String description){
+		super(name, description);
 	}
+
+	public CraftCompetenceBo(int id, String name, String description) {
+		super(id, name, description);
+	}
+	
+	public CraftCompetenceBo(String name, String description, Map<Integer, String> possibilityMap){
+		super(name, description, possibilityMap);
+	}
+	
+	public CraftCompetenceBo(int id, String name, String description, Map<Integer, String> possibilityMap){
+		super(id, name, description, possibilityMap);
+	}
+
 }

@@ -5,7 +5,7 @@ import java.util.Collection;
 public interface GenericCrudService<E,T> {
 	
 	
-	public  E addElement(E element);
+	public  E save(E element);
 	public E getElement(T index);
 	public Collection<E> getAllElements();
 	public void deleteElement(E element);

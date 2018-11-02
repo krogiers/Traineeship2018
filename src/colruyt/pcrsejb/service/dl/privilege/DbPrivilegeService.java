@@ -20,7 +20,7 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
 
 
     @Override
-    public Privilege addElement(Privilege element) {
+    public Privilege save(Privilege element) {
 
         try(Connection conn = this.createConnection()){
 

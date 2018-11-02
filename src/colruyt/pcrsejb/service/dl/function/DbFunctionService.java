@@ -22,7 +22,7 @@ public class DbFunctionService extends DbService implements FunctionService {
     private static final String GET_ALL_FUNCTIONS = "SELECT * FROM Functions";
 
     @Override
-    public Function addElement(Function element) {
+    public Function save(Function element) {
 
         try(Connection conn = this.createConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement(ADD_ELEMENT, new String[] {"ID"});

@@ -35,7 +35,7 @@ public class DbCompetenceService extends DbService implements CompetenceService{
     }
 
     @Override
-    public Competence getElement(Integer index) {
+    public Competence getElement(Competence competence) {
         return null;
     }
 
@@ -44,7 +44,7 @@ public class DbCompetenceService extends DbService implements CompetenceService{
         List<Competence> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement("Select * from COMPETENCES");
+            PreparedStatement statement =  conn.prepareStatement("Select * from COMPETENCES c join competencedescriptions cd on c.ID = cd.Competences_ID");
 
             ResultSet rs =  statement.executeQuery();
             users = convertToCompetenceList(rs);
@@ -66,13 +66,14 @@ public class DbCompetenceService extends DbService implements CompetenceService{
             String function = rs.getString("FUNCTIONS_ID");
             String operatingunit = rs.getString("OPERATINGUNITS_ID");
             String functionrol = rs.getString("FUNCTIONROLES_ID");
+            String description = rs.getString("DESCRIPTION");
             Competence u;
             if(operatingunit != null){
                 u = new OperatingUnitCompetence(id, name);
             }else if(function != null){
-                u = new CraftCompetence(id, name);
+                u = new CraftCompetence(id, name, description);
             }else  if(functionrol != null){
-                u = new BehavioralCompetence(id, name);
+                u = new BehavioralCompetence(id, name, description);
             }else{
                 u = new DomainCompetence(id, name);
             }

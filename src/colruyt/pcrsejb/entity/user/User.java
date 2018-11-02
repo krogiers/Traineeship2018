@@ -1,9 +1,9 @@
 package colruyt.pcrsejb.entity.user;
 
+import colruyt.pcrsejb.entity.privileges.Privilege;
+
 import java.util.HashSet;
 import java.util.Objects;
-
-import colruyt.pcrsejb.entity.privileges.Privilege;
 
 
 /**
@@ -13,7 +13,7 @@ import colruyt.pcrsejb.entity.privileges.Privilege;
  */
 public class User {
 
-	private int id;
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -56,7 +56,8 @@ public class User {
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-		public int getId() {
+
+	public Integer getId() {
 		return id;
 	}
 

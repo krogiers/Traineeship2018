@@ -33,7 +33,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
     }
 
     @Override
-    public SurveySet getElement(Integer index) {
+    public SurveySet getElement(SurveySet surveySet) {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement state = conn.prepareStatement("select * from surveysets ss where ss.id = ?");

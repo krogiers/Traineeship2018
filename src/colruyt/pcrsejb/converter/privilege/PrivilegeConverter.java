@@ -2,7 +2,6 @@ package colruyt.pcrsejb.converter.privilege;
 
 import colruyt.pcrsejb.bo.privileges.*;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.converter.function.FunctionBoConverter;
 import colruyt.pcrsejb.converter.function.FunctionConverter;
 import colruyt.pcrsejb.entity.privileges.*;
 
@@ -13,7 +12,7 @@ public class PrivilegeConverter implements GenericConverter<PrivilegeBo, Privile
     public PrivilegeBo convertTo(Privilege from) {
         PrivilegeBo privilegeBo = null;
         if (from instanceof AdminPrivilege) {
-            privilegeBo = new AdminPrivilegeBo();
+            privilegeBo = new AdminPrivilegeBo(from.getId(),from.isActive());
         } else if (from instanceof DirectorPrivilege) {
             privilegeBo = new DirectorPrivilegeBo();
         } else if (from instanceof FunctionResponsiblePrivilege) {

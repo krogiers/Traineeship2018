@@ -1,11 +1,11 @@
 
 package colruyt.pcrsejb.entity.team;
 
-import java.util.HashSet;
-
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
 import colruyt.pcrsejb.entity.user.User;
+
+import java.util.HashSet;
 
 /**
  * Klasse voor het aanmaken van een Team.
@@ -14,7 +14,7 @@ import colruyt.pcrsejb.entity.user.User;
  */
 public class Team {
 
-	private long teamID;
+	private int teamID;
 	private String name;
 	private HashSet<Enrolment> enrolmentsHashSet;
 
@@ -32,17 +32,17 @@ public class Team {
 		enrolmentsHashSet.add(enrollment);
 	}
 
-	public Team(long teamID, String name, HashSet<Enrolment> enrolmentsHashSet) {
+	public Team(int teamID, String name, HashSet<Enrolment> enrolmentsHashSet) {
 		this.teamID = teamID;
 		this.name = name;
 		this.enrolmentsHashSet = enrolmentsHashSet;
 	}
 
-	public long getTeamID() {
+	public int getTeamID() {
 		return teamID;
 	}
 
-	public void setTeamID(long teamID) {
+	public void setTeamID(int teamID) {
 		this.teamID = teamID;
 	}
 
@@ -66,17 +66,16 @@ public class Team {
 
 	/**
 	 * Methode voor terugkrijgen van de Enrollments
-	 * 
-	 * @param teamMember
+	 *
 	 */
 	public HashSet<Enrolment> getEnrolmentsHashSet() {
 		return enrolmentsHashSet;
 	}
-	
+
 	/**
 	 * Methode voor het zetten van de enrollments
-	 * 
-	 * @param teamMember
+	 *
+	 * @param enrollments
 	 */
 	public void setEnrolmentsHashSet(HashSet<Enrolment> enrollments) {
 		this.enrolmentsHashSet = enrollments;

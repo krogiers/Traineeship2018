@@ -12,16 +12,16 @@ import java.util.*;
  The type Craft competence facade. */
 public class CraftCompetenceFacade{
     //TODO
-    
+
     private CraftCompetenceServiceBL craftCompetenceServiceBL = new CraftCompetenceServiceBL();
     private CraftCompetenceBoConverter craftCompetenceBoConverter = new CraftCompetenceBoConverter();
     private CraftCompetenceConverter craftCompetenceConverter = new CraftCompetenceConverter();
-    
+
     public void addCraftCompetence(CraftCompetenceBo newCraftCompetence) {
         craftCompetenceServiceBL.addCraftCompetence(craftCompetenceBoConverter
                 .convertTo(newCraftCompetence));
     }
-    
+
     public List<CompetenceBo> getAllCraftCompetences() {
         ArrayList<CompetenceBo> craftCompetences = new ArrayList<>();
         for (CraftCompetence c : craftCompetenceServiceBL.getAllCraftCompetences()) {

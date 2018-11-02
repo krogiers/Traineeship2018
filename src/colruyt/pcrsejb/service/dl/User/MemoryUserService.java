@@ -59,10 +59,5 @@ public class MemoryUserService implements UserService {
             ).collect(Collectors.toList());
     }
 
-    @Override
-    public void addPrivilegesToUser(Privilege privi, User user) {
-
-    }
-
 
 }

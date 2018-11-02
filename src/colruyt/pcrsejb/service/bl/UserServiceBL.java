@@ -33,7 +33,7 @@ public class UserServiceBL{
 	}
 
 	public void addUser(User newUser) {
-		userdb.addElement(newUser);
+		userdb.save(newUser);
 	}
 
 	public Collection<User> getAllUsers() {
@@ -83,5 +83,9 @@ public class UserServiceBL{
 				}
 			}
 		}
+	}
+
+	public void delete(User user) {
+		userdb.deleteElement(user);
 	}
 }

@@ -13,7 +13,7 @@ public class MemoryTeamService implements TeamService {
 	
 	
 	@Override
-	public Team addElement(Team team) {
+	public Team save(Team team) {
 
 		team.setTeamID(db.size() + 1);
 		db.add(team);

@@ -30,7 +30,7 @@ public class DbCompetenceService extends DbService implements CompetenceService{
     }
 
     @Override
-    public Competence addElement(Competence element) {
+    public Competence save(Competence element) {
         return null;
     }
 

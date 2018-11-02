@@ -20,7 +20,7 @@ public class DbTeamService extends DbService implements TeamService {
     private static final String GET_TEAM_OF_USER = "SELECT * FROM Teamenrolments Join userprivileges up ON Userprivileges_ID = up.ID Join users on up.user_ID = users.ID where users.ID = ?";
 
     @Override
-    public Team addElement(Team element) {
+    public Team save(Team element) {
         try(Connection conn = this.createConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement(ADD_ELEMENT);
             preparedStatement.setString(1, element.getName());

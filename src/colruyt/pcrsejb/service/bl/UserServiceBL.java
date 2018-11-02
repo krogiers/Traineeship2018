@@ -1,15 +1,13 @@
 package colruyt.pcrsejb.service.bl;
 
-import java.util.Collection;
-import java.util.List;
-
-import colruyt.pcrsejb.entity.privileges.AdminPrivilege;
 import colruyt.pcrsejb.entity.privileges.FunctionResponsiblePrivilege;
 import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.User.DbUserService;
-import colruyt.pcrsejb.service.dl.User.MemoryUserService;
 import colruyt.pcrsejb.service.dl.User.UserService;
+
+import java.util.Collection;
+import java.util.List;
 
 public class UserServiceBL{
 
@@ -87,5 +85,9 @@ public class UserServiceBL{
 
 	public void delete(User user) {
 		userdb.deleteElement(user);
+	}
+
+	public User getUser(User user) {
+		return userdb.getElement(user);
 	}
 }

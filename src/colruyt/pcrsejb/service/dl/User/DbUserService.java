@@ -18,10 +18,11 @@ public class DbUserService extends DbService implements UserService {
 
     private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
     private static final String FIND_USERS_BY_FIRSTNAME = "Select * from Users where firstname = ?";
-    private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER('?') and UPPER(Lastname) like UPPER('?')";
+    private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER(?) and UPPER(Lastname) like UPPER(?)";
     private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
-    private static final String SAVE_USER = "INSERT into Users (id,firstname,lastname,password,email) values (((select max(id) from users)+1),?,?,?,?,?)";
-
+    private static final String INSERT_USER = "INSERT into Users (id,firstname,lastname,password,email, homecountry) values (((select max(id) from users)+1),?,?,?,?,?)";
+    private static final String UPDATE_USER = "UPDATE Users SET firstname = ?, lastname = ?, password = ?, email = ?, homecountry = ? WHERE ID = ?";
+    private static final String UPDATE_PRIVILIGE_TO_USER = "" ;
 
 
     @Override
@@ -82,9 +83,7 @@ public class DbUserService extends DbService implements UserService {
     }
 
 
-
-    @Override
-    public void addPrivilegesToUser(Privilege privi, User user){
+    private void addPrivilegesToUser(Privilege privi, User user){
         try(Connection conn = this.createConnection()){
             Integer functionId = null;
             String country = null;
@@ -96,11 +95,18 @@ public class DbUserService extends DbService implements UserService {
                 }
             }
 
-            PreparedStatement statement =  conn.prepareStatement(ADD_PRIVILIGE_TO_USER);
+            PreparedStatement statement;
+
+            if(privi.getId() != null){
+                statement =  conn.prepareStatement(UPDATE_PRIVILIGE_TO_USER, new String[] {"ID"});
+            }
+            else{
+                statement =  conn.prepareStatement(ADD_PRIVILIGE_TO_USER, new String[] {"ID"});
+            }
 
             statement.setInt(1, user.getId());
             statement.setInt(2, functionId);
-            statement.setInt(3, 1);
+            statement.setInt(3, 1); // active
             statement.setString(4, country);
             statement.setInt(5, privi.getId());
 
@@ -144,60 +150,57 @@ public class DbUserService extends DbService implements UserService {
             String country = rs.getString("homecountry");
 
             user = new User(id,firstname,lastname,password,email,new HashSet<Privilege>(), country);
-            user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(u)));
+            user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
         }
         return user;
     }
 
 
     @Override
-    public User save(User element) {
+    public User save(User user) {
 
         try(Connection conn = this.createConnection()){
+            PreparedStatement statement;
 
-            PreparedStatement statement =  conn.prepareStatement("");
+            if(user.getId() != null){
+                statement = conn.prepareStatement(UPDATE_USER, new String[] {"ID"});
 
-            statement.setString(1,element.getFirstName());
-            statement.setString(2,element.getLastName());
-            statement.setString(3,element.getEmail());
-            statement.setString(4,element.getPassword());
-            statement.setString(5, element.getCountry());
+            }
+            else{
+                statement = conn.prepareStatement(INSERT_USER, new String[] {"ID"});
+            }
 
-            //statement.setLong(1,element.getId());
+            statement.setString(1,user.getFirstName());
+            statement.setString(2,user.getLastName());
+            statement.setString(3,user.getEmail());
+            statement.setString(4,user.getPassword());
+            statement.setString(5, user.getCountry());
             statement.executeUpdate();
 
             ResultSet rs =  statement.getGeneratedKeys();
 
             if(rs.next()) {
-                element.setId((int) rs.getLong(1));
+                user.setId(rs.getInt("ID"));
 
-                for(Privilege e: element.getPrivileges()){
-
-                    this.addPrivilegesToUser(e,element);
-
+                for(Privilege priv: user.getPrivileges()){
+                    addPrivilegesToUser(priv, user);
                 }
             }
-            else
-            throw new IllegalArgumentException();
-
-            return element;
-
-
-
         } catch (SQLException e) {
+            //TODO throw exception!
+            user = null;
             e.printStackTrace();
+
         }
-            //TODO: Maak BEter
-            return null;
+        return user;
     }
 
     @Override
-    public User getElement(Integer index) {
-        User user = null;
+    public User getElement(User user) {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("Select * from Users where id = ?");
-            statement.setInt(1,index);
+            statement.setInt(1,user.getId());
 
 
             ResultSet rs =  statement.executeQuery();
@@ -234,7 +237,7 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("Select * from userprivileges up inner join privis ps " +
-                    "on up.privis_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ?");
+                    "on up.privis_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ? ");
 
             statement.setInt(1,u.getId());
 

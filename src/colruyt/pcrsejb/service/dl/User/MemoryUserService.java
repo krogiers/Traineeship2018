@@ -22,10 +22,10 @@ public class MemoryUserService implements UserService {
     }
 
     @Override
-    public User getElement(Integer index) {
+    public User getElement(User user) {
 
 
-        return this.db.get(index);
+        return this.db.get(user.getId());
     }
 
     @Override

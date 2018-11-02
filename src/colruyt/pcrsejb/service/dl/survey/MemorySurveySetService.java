@@ -20,8 +20,8 @@ public class MemorySurveySetService implements SurveySetService {
     }
 
     @Override
-    public SurveySet getElement(Integer index) {
-        return surveylist.get(index);
+    public SurveySet getElement(SurveySet surveySet) {
+        return surveylist.get(surveySet.getSurveySetID());
     }
 
     @Override

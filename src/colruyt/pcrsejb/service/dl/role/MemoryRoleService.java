@@ -19,8 +19,8 @@ public class MemoryRoleService implements RoleService {
     }
 
     @Override
-    public Role getElement(Integer index) {
-        return this.roleList.get(index.intValue());
+    public Role getElement(Role role) {
+        return this.roleList.get(role.getId());
     }
 
     @Override

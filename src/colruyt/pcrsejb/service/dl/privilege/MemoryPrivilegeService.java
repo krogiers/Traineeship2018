@@ -1,7 +1,6 @@
 package colruyt.pcrsejb.service.dl.privilege;
 
 import colruyt.pcrsejb.entity.privileges.Privilege;
-import colruyt.pcrsejb.entity.user.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,8 +20,8 @@ public class MemoryPrivilegeService implements PrivilegeService {
     }
 
     @Override
-    public Privilege getElement(Integer index) {
-        return this.privilegeList.get(index);
+    public Privilege getElement(Privilege privilege) {
+        return this.privilegeList.get(privilege.getId());
     }
 
     @Override

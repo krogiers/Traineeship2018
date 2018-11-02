@@ -73,12 +73,11 @@ public class DbPrivilegeService  extends DbService implements PrivilegeService  
 
     @Override
     //TODO: Fix --> moet Index E werden (Char van privilege)
-    public Privilege getElement(Integer index) {
-        Privilege privilege = null;
+    public Privilege getElement(Privilege privilege) {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement("Select  * from privis where id = ?");
-            statement.setInt(1,index);
+            statement.setInt(1,privilege.getId());
             ResultSet rs =  statement.executeQuery();
             privilege = convertToSinglePrivilege(rs);
 

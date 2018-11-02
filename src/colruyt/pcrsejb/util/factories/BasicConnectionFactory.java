@@ -1,3 +1,4 @@
+
 package colruyt.pcrsejb.util.factories;
 
 import java.io.FileInputStream;
@@ -7,7 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
 
 public class BasicConnectionFactory extends ConnectionFactory {
 	
@@ -59,7 +59,4 @@ public class BasicConnectionFactory extends ConnectionFactory {
 		//System.out.println("connection via DriverManager");
 		return conn;
 	}
-
-	
-
 }

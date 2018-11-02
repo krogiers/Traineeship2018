@@ -8,17 +8,17 @@ import java.util.Set;
 
 public class Function {
 
-	private int functionID;
+	private Integer functionID;
     private String title;
     private Set<Role> roleSet;
     private Set<FunctionCompetence> functionCompetenceSet;
-    private String operatingUnitId;
+    private int operatingUnitId;
 
 
 	public Function() {
 	}
 
-	public Function(int functionID, String title) {
+	public Function(Integer functionID, String title) {
 		setFunctionID(functionID);
 		setTitle(title);
 		this.roleSet = new HashSet<>();
@@ -38,14 +38,14 @@ public class Function {
 		this.setFunctionCompetenceSet(functionCompetenceSet);
 	}
 
-	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
+	public Function(Integer functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet) {
 		this.functionID = functionID;
 		this.title = title;
 		this.roleSet = roleSet;
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 
-	public Function(int functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet, String operatingUnitId) {
+	public Function(Integer functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet, int operatingUnitId) {
 		this.functionID = functionID;
 		this.title = title;
 		this.roleSet = roleSet;
@@ -53,11 +53,11 @@ public class Function {
 		this.operatingUnitId = operatingUnitId;
 	}
 
-	public int getFunctionID() {
+	public Integer getFunctionID() {
 		return functionID;
 	}
 
-	public void setFunctionID(int functionID) {
+	public void setFunctionID(Integer functionID) {
 		this.functionID = functionID;
 	}
 
@@ -85,11 +85,11 @@ public class Function {
 		this.functionCompetenceSet = functionCompetenceSet;
 	}
 
-	public String getOperatingUnitId() {
+	public int getOperatingUnitId() {
 		return operatingUnitId;
 	}
 
-	public void setOperatingUnitId(String operatingUnitId) {
+	public void setOperatingUnitId(int operatingUnitId) {
 		this.operatingUnitId = operatingUnitId;
 	}
 

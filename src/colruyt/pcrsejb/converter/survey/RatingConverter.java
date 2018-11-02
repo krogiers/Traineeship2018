@@ -3,24 +3,17 @@ package colruyt.pcrsejb.converter.survey;
 import colruyt.pcrsejb.bo.survey.RatingBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.competence.CompetenceConverter;
-import colruyt.pcrsejb.entity.competence.BehavioralCompetence;
 import colruyt.pcrsejb.entity.competence.Competence;
-import colruyt.pcrsejb.entity.competence.CraftCompetence;
 import colruyt.pcrsejb.entity.survey.Rating;
 
 public class RatingConverter implements GenericConverter<RatingBo,Rating> {
-
 
     @Override
     public RatingBo convertTo(Rating from) {
         RatingBo ratingBo = null;
         Competence competence = from.getCompetence();
-        CompetenceConverter conv = new CompetenceConverter();
-        if (competence instanceof CraftCompetence) {
-            ratingBo = new RatingBo(from.getLevel(), from.isEnergy(), conv.convertTo((CraftCompetence) competence));
-        } else if (competence instanceof BehavioralCompetence) {
-            ratingBo = new RatingBo(from.getLevel(), from.isEnergy(), conv.convertTo((BehavioralCompetence) competence));
-        }
+            CompetenceConverter conv = new CompetenceConverter();
+            ratingBo = new RatingBo(from.getLevel(), from.isEnergy(), conv.convertTo((Competence) competence));
         return ratingBo;
     }
 }

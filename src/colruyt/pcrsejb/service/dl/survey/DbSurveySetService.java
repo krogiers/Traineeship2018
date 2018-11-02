@@ -17,7 +17,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
 
     @Override
-    public SurveySet addElement(SurveySet element) {
+    public SurveySet save(SurveySet element) {
         try(Connection conn = this.createConnection()){
 
 

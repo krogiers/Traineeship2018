@@ -13,7 +13,7 @@ public class MemoryCompetenceService implements CompetenceService {
 	private static List<Competence> db = new ArrayList<>();
 	
 	@Override
-	public Competence addElement(Competence element) {
+	public Competence save(Competence element) {
 		element.setCompetenceID(db.size() + 1);
 		db.add(element);
 		return element;

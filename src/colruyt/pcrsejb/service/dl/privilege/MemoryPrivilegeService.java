@@ -15,7 +15,7 @@ public class MemoryPrivilegeService implements PrivilegeService {
     private static List<Privilege> privilegeList = new ArrayList<>();
 
     @Override
-    public Privilege addElement(Privilege element) {
+    public Privilege save(Privilege element) {
         this.privilegeList.add(element);
         return element;
     }

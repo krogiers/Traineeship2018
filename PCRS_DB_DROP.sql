@@ -57,7 +57,7 @@ ALTER TABLE UserPrivileges
     DROP CONSTRAINT UserPrivileges_Functions;
 
 ALTER TABLE UserPrivileges
-    DROP CONSTRAINT UserPrivileges_Privileges;
+    DROP CONSTRAINT UserPrivileges_Privis;
 
 ALTER TABLE UserPrivileges
     DROP CONSTRAINT UserPrivileges_User;
@@ -75,7 +75,7 @@ DROP TABLE Functions;
 
 DROP TABLE OperatingUnits;
 
-DROP TABLE "PRIVILEGES";
+DROP TABLE Privis;
 
 DROP TABLE Ratings;
 

@@ -11,7 +11,7 @@ public class CraftCompetenceServiceBL{
     private CraftCompetenceService craftCompetencedb = new MemoryCraftCompetenceService();
     public void addCraftCompetence(Competence convertTo){
         if(convertTo instanceof CraftCompetence) {
-            craftCompetencedb.addElement((CraftCompetence) convertTo);
+            craftCompetencedb.save((CraftCompetence) convertTo);
         }
     }
     

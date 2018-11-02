@@ -32,8 +32,8 @@ public class UserServiceBL{
 		return hasPrivilege;
 	}
 
-	public void saveUser(User newUser) {
-		userdb.addElement(newUser);
+	public void addUser(User newUser) {
+		userdb.save(newUser);
 	}
 
 	public Collection<User> getAllUsers() {

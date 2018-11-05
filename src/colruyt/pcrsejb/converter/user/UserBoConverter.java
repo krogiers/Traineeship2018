@@ -1,13 +1,13 @@
 package colruyt.pcrsejb.converter.user;
 
-import java.util.HashSet;
-
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
+
+import java.util.HashSet;
 
 public class UserBoConverter implements GenericConverter<User,UserBo> {
 

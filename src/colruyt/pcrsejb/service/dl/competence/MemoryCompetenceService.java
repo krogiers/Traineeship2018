@@ -1,8 +1,6 @@
 package colruyt.pcrsejb.service.dl.competence;
 
 import colruyt.pcrsejb.entity.competence.Competence;
-import colruyt.pcrsejb.entity.competence.CraftCompetence;
-import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,13 +36,13 @@ public class MemoryCompetenceService implements CompetenceService {
 	}
 
 	@Override
-	public Collection<FunctionCompetence> findAllFunctionCompetences() {
+	public Collection<Competence> findAllFunctionCompetences() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<CraftCompetence> findAllCraftCompetences() {
+	public Collection<Competence> findAllCraftCompetences() {
 		// TODO Auto-generated method stub
 		return null;
 	}

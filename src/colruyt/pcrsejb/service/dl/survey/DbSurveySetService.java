@@ -2,23 +2,34 @@ package colruyt.pcrsejb.service.dl.survey;
 
 import colruyt.pcrsejb.entity.survey.*;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.DbService;
+import colruyt.pcrsejb.service.dl.User.DbUserService;
+import colruyt.pcrsejb.service.dl.User.UserService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.xml.transform.Result;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class DbSurveySetService extends DbService implements SurveySetService {
+	
+	private UserService userService = new DbUserService();
 
-
-
+	private static final String FIND_USER_BY_SURVEY = "select * from users where ID = (select USER_ID from userprivileges where id =(SELECT userprivileges_id from surveysets s where S.MANAGERSURVEY = ? or S.MEMBERSURVEY = ? or S.CONSENSUSSURVEY = ?));";
+	private static final String FIND_SURVEYS_BY_USER = "select * from surveySets s where id = (select USERPrivileges_ID from userprivileges where user_Id = ?)";
+	private static final String FIND_SURVEYS_BY_USER_AND_YEAR = "select * from surveySets s where id = (select USERPrivileges_ID from userprivileges where user_Id = ?) and year = ?";
+	
     @Override
     public SurveySet save(SurveySet element) {
         try(Connection conn = this.createConnection()){
@@ -170,15 +181,81 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
 
     }
+    
+    private List<SurveySet> convertToSurveySetList(ResultSet rs) throws SQLException {
+    	List<SurveySet> surveySets = new ArrayList<SurveySet>();
+
+        while(rs.next()){
+            SurveySet surveySet = new SurveySet();
+            surveySet.setSurveySetID(rs.getInt("id"));
+            surveySets.add(getElement(surveySet));
+        }
+        return surveySets;
+	}
 
 
     @Override
     public List<SurveySet> findSurveySetsByUser(User u) {
-        return null;
+    	List<SurveySet> surveySets = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement(FIND_SURVEYS_BY_USER);
+
+            statement.setInt(1, u.getId());
+
+            ResultSet rs =  statement.executeQuery();
+            surveySets = convertToSurveySetList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return surveySets;
     }
 
-    @Override
+	@Override
     public SurveySet findSurveySetsByUserAndDate(User u, LocalDate year) {
-        return null;
+		SurveySet surveySet = null;
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement(FIND_SURVEYS_BY_USER_AND_YEAR);
+            statement.setInt(1, u.getId());
+            statement.setDate(2, Date.valueOf(year));
+            ResultSet rs =  statement.executeQuery();
+            surveySet =  convertSingleSurveySet(rs);
+           surveySet =  upgradeSurveySet(surveySet);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return surveySet;
     }
+
+	@Override
+	public User findUserBySurvey(Survey survey) {
+		User user = null;
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement(FIND_USER_BY_SURVEY);
+
+            statement.setInt(1,survey.getId());
+            statement.setInt(2,survey.getId());
+            statement.setInt(3,survey.getId());
+
+            ResultSet rs =  statement.executeQuery();
+            user = userService.convertToSingleUser(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+	}
+
+	@Override
+	public SurveySet findLastSurveySetForUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

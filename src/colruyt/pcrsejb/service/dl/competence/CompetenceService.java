@@ -7,7 +7,7 @@ import java.util.*;
 
 public interface CompetenceService extends GenericCrudService<Competence,Integer> {
 	
-	public Collection<FunctionCompetence> findAllFunctionCompetences();
-	public Collection<CraftCompetence> findAllCraftCompetences();
+	public Collection<Competence> findAllFunctionCompetences();
+	public Collection<Competence> findAllCraftCompetences();
 
 }

@@ -12,30 +12,27 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * The type Db competence service.
- */
 public class DbCompetenceService extends DbService implements CompetenceService{
 
-	private static final String FIND_GENERAL_COMPETENCES_FOR_FUNCTION = "";
-	private static final String FIND_ROLE_COMPETENCES_FOR_FUNCTION = "";
-	private static final String FIND_COMPETENCES_FOR_OPERATING_UNIT = "";
-	private static final String FIND_BEHAVIORAL_COMPETENCES = "";
-	
-	
+    private static final String GET_ALL_FUNCTION_COMPETENCES = "SELECT * FROM COMPETENCES C JOIN COMPETENCEDESCRIPTIONS CD ON C.ID = CD.COMPETENCES_ID  WHERE FUNCTIONS_ID = 1";
+    private static final String GET_ALL_CRAFT_COMPETENCES = "SELECT * FROM COMPETENCES C JOIN COMPETENCEDESCRIPTIONS CD ON C.ID = CD.COMPETENCES_ID  WHERE FUNCTIONROLES_ID = 1";
+
+
+
     @Override
-    public Collection<FunctionCompetence> findAllFunctionCompetences()
+    public Collection<Competence> findAllFunctionCompetences()
     {
-    	return null;
+        return getCompetenceList(GET_ALL_FUNCTION_COMPETENCES);
     }
 
     @Override
-    public Collection<CraftCompetence> findAllCraftCompetences() {
-        return null;
+    public Collection<Competence> findAllCraftCompetences() {
+        return getCompetenceList(GET_ALL_CRAFT_COMPETENCES);
     }
 
     @Override
     public Competence save(Competence element) {
+
         return null;
     }
 
@@ -91,5 +88,19 @@ public class DbCompetenceService extends DbService implements CompetenceService{
     @Override
     public void deleteElement(Competence element) {
 
+    }
+
+    private List<Competence> getCompetenceList(String sql){
+        List<Competence> competences = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+            PreparedStatement statement =  conn.prepareStatement(sql);
+
+            ResultSet rs =  statement.executeQuery();
+            competences = convertToCompetenceList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return competences;
     }
 }

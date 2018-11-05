@@ -1,14 +1,14 @@
 package colruyt.pcrsejb.bo.survey;
 
+import colruyt.pcrsejb.entity.survey.SurveyKind;
+
 import java.time.LocalDate;
 import java.util.HashMap;
-
-import colruyt.pcrsejb.entity.survey.SurveyKind;
 
 public class SurveySetBo implements Comparable<SurveySetBo>{
 
 
-    private long surveySetID;
+    private int surveySetID;
     private LocalDate surveyYear;
     private HashMap<SurveyKind, SurveyBo> surveyBoSet;
 
@@ -21,7 +21,7 @@ public class SurveySetBo implements Comparable<SurveySetBo>{
         this.surveyBoSet = surveyBoSet;
     }
 
-    public SurveySetBo(long surveySetID, LocalDate surveyYear, HashMap<SurveyKind, SurveyBo> surveyBoSet) {
+    public SurveySetBo(int surveySetID, LocalDate surveyYear, HashMap<SurveyKind, SurveyBo> surveyBoSet) {
         this.surveySetID = surveySetID;
         this.surveyYear = surveyYear;
         this.surveyBoSet = surveyBoSet;
@@ -33,7 +33,7 @@ public class SurveySetBo implements Comparable<SurveySetBo>{
      *
      * @return Value for property 'surveySetID'.
      */
-    public long getSurveySetID() {
+    public int getSurveySetID() {
         return surveySetID;
     }
 
@@ -42,7 +42,7 @@ public class SurveySetBo implements Comparable<SurveySetBo>{
      *
      * @param surveySetID Value to set for property 'surveySetID'.
      */
-    public void setSurveySetID(long surveySetID) {
+    public void setSurveySetID(int surveySetID) {
         this.surveySetID = surveySetID;
     }
 

@@ -1,11 +1,11 @@
-
 package colruyt.pcrsejb.entity.team;
 
-import colruyt.pcrsejb.entity.enrolment.Enrolment;
-import colruyt.pcrsejb.entity.privileges.TeamManagerPrivilege;
-import colruyt.pcrsejb.entity.user.User;
-
 import java.util.HashSet;
+
+import colruyt.pcrsejb.entity.enrolment.Enrolment;
+import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 /**
  * Klasse voor het aanmaken van een Team.
@@ -27,7 +27,19 @@ public class Team {
 	 */
 	public Team(String name, User teamManager) {
 		setName(name);
-		Enrolment enrollment = new Enrolment(teamManager, new TeamManagerPrivilege(), true);
+		UserPrivilege privilege = null;
+		for (UserPrivilege priv : teamManager.getPrivileges()) {
+			if (priv.getPrivilegeType() == PrivilegeType.TEAMMANAGER) {
+				privilege = priv;
+			}
+		}
+		if (privilege == null) {
+			privilege = new UserPrivilege(PrivilegeType.TEAMMANAGER, true);
+			HashSet<UserPrivilege> privileges = teamManager.getPrivileges();
+			privileges.add(privilege);
+			teamManager.setPrivileges(privileges);
+		}
+		Enrolment enrollment = new Enrolment(teamManager, privilege, true);
 		enrolmentsHashSet = new HashSet<>();
 		enrolmentsHashSet.add(enrollment);
 	}
@@ -38,18 +50,10 @@ public class Team {
 		this.enrolmentsHashSet = enrolmentsHashSet;
 	}
 
-	/**
-	 * Methode die het teamID retourneert
-	 * @return teamID
-	 */
 	public int getTeamID() {
 		return teamID;
 	}
 
-	/**
-	 * Methode voor het instellen van het teamID
-	 * @param teamID
-	 */
 	public void setTeamID(int teamID) {
 		this.teamID = teamID;
 	}
@@ -87,6 +91,15 @@ public class Team {
 	 */
 	public void setEnrolmentsHashSet(HashSet<Enrolment> enrollments) {
 		this.enrolmentsHashSet = enrollments;
+	}
+	public boolean contains(User teamMember) {
+		boolean contains = false;
+		for (Enrolment e : getEnrolmentsHashSet()) {
+			if (e.getUser() == teamMember) {
+				contains = true;
+			}
+		}
+		return contains;
 	}
 
 }

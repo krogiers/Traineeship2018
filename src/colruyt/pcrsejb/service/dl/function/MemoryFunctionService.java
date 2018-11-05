@@ -13,14 +13,14 @@ public class MemoryFunctionService implements FunctionService {
     @Override
     public Function save(Function element) {
 
-        element.setFunctionID(element.getFunctionID());
+        element.setId(element.getId());
         this.functionList.add(element);
         return element;
     }
 
     @Override
     public Function getElement(Function function) {
-        return this.functionList.get(function.getFunctionID());
+        return this.functionList.get(function.getId());
     }
 
     @Override

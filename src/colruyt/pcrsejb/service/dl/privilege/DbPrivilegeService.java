@@ -1,8 +1,5 @@
 package colruyt.pcrsejb.service.dl.privilege;
 
-import colruyt.pcrsejb.entity.privileges.*;
-import colruyt.pcrsejb.service.dl.DbService;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.AdminPrivilege;
+import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.DirectorPrivilege;
+import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.FunctionResponsiblePrivilege;
+import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.Privilege;
+import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.TeamManagerPrivilege;
+import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.TeamMemberPrivilege;
+import colruyt.pcrsejb.service.dl.DbService;
 
 
 

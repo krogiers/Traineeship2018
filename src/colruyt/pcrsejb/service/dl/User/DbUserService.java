@@ -1,10 +1,5 @@
 package colruyt.pcrsejb.service.dl.User;
 
-import colruyt.pcrsejb.entity.function.Function;
-import colruyt.pcrsejb.entity.privileges.*;
-import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.service.dl.DbService;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,290 +9,302 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+import colruyt.pcrsejb.entity.function.Function;
+import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
+import colruyt.pcrsejb.service.dl.DbService;
+import colruyt.pcrsejb.service.dl.function.DbFunctionService;
+import colruyt.pcrsejb.service.dl.function.FunctionService;
+
 public class DbUserService extends DbService implements UserService {
+	
+	FunctionService fs = new DbFunctionService();
 
-	private static final String FIND_USER_BY_ID = "Select * from Users where id = ?";
-	private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
-	private static final String FIND_USERS_BY_FIRSTNAME = "Select * from Users where firstname = ?";
-	private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER(?) and UPPER(Lastname) like UPPER(?)";
-	private static final String FIND_ALL_USERS = "Select * from Users";
-	private static final String INSERT_USER = "INSERT into Users (id,firstname,lastname,password,email, homecountry) values (((select max(id) from users)+1),?,?,?,?,?)";
-	private static final String UPDATE_USER = "UPDATE Users SET firstname = ?, lastname = ?, password = ?, email = ?, homecountry = ? WHERE ID = ?";
-	private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
-	private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?";
-	private static final String FIND_PRIVILEGES_OF_USER = "Select ps.* from userprivileges up inner join privis ps on up.privis_id = ps.id LEFT OUTER JOIN Functions f ON f.id = up.functions_id  where user_id = ? ";
-	private static final String DELETE_USER = "Delete from Users where id = ?";
+    private static final String FIND_USER_BY_ID = "Select * from Users where id = ?";
+    private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
+    private static final String FIND_USERS_BY_FIRSTNAME = "Select * from Users where firstname = ?";
+    private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER(?) and UPPER(Lastname) like UPPER(?)";
+    private static final String FIND_ALL_USERS = "Select * from Users";
+    private static final String INSERT_USER = "INSERT into Users (id,firstname,lastname,password,email, homecountry) values (((select max(id) from users)+1),?,?,?,?,?)";
+    private static final String UPDATE_USER = "UPDATE Users SET firstname = ?, lastname = ?, password = ?, email = ?, homecountry = ? WHERE ID = ?";
+    private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
+    private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?" ;
+    private static final String FIND_PRIVILEGES_OF_USER = "Select * from userprivileges where user_id = ?";
+    private static final String DELETE_USER = "Delete from Users where id = ?" ;
 
-	@Override
-	public List<User> findUsersByPrivilege(Privilege privilege) {
-		List<User> users = new ArrayList<>();
-		try (Connection conn = this.createConnection()) {
 
-			PreparedStatement statement = conn.prepareStatement(FIND_USERS_BY_PRIVILIGE);
-			statement.setInt(1, privilege.getId());
-			ResultSet rs = statement.executeQuery();
-			users = convertToUserList(rs);
+    @Override
+    public List<User> findUsersByPrivilege(UserPrivilege privilege) {
+        List<User> users = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return users;
-	}
+            PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_PRIVILIGE);
+          statement.setInt(1, privilege.getPrivilegeType().getId());
+          ResultSet rs =  statement.executeQuery();
+          users = convertToUserList(rs);
 
-	@Override
-	public List<User> findUsersByFirstName(String name) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 
-		List<User> users = new ArrayList<>();
-		try (Connection conn = this.createConnection()) {
+    @Override
+    public List<User> findUsersByFirstName(String name) {
 
-			PreparedStatement statement = conn.prepareStatement(FIND_USERS_BY_FIRSTNAME);
-			statement.setString(1, name);
-			ResultSet rs = statement.executeQuery();
-			users = convertToUserList(rs);
+        List<User> users = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return users;
-	}
+           PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_FIRSTNAME);
+           statement.setString(1,name);
+           ResultSet rs =  statement.executeQuery();
+           users = convertToUserList(rs);
 
-	@Override
-	public List<User> findUsersByShortName(String shortName) {
-		List<User> userList = new ArrayList<>();
-		try (Connection conn = this.createConnection()) {
 
-			PreparedStatement statement = conn.prepareStatement(FIND_USERS_BY_SHORTNAME);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 
-			String firstname = shortName.substring(0, 2).toUpperCase();
-			String lastname = shortName.substring(2).toUpperCase();
-			statement.setString(1, firstname + "%");
-			statement.setString(2, lastname + "%");
+    @Override
+    public List<User> findUsersByShortName(String shortName) {
+       List<User> userList = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
 
-			ResultSet rs = statement.executeQuery();
-			userList = convertToUserList(rs);
+            PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_SHORTNAME);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+            String firstname = shortName.substring(0,2).toUpperCase();
+            String lastname = shortName.substring(2).toUpperCase();
+            statement.setString(1,firstname + "%");
+            statement.setString(2,lastname + "%");
 
-		return userList;
-	}
 
-	private void addPrivilegesToUser(Privilege privi, User user) {
-		try (Connection conn = this.createConnection()) {
-			Integer functionId = null;
-			String country = null;
+            ResultSet rs =  statement.executeQuery();
+            userList = convertToUserList(rs);
 
-			if (privi instanceof FunctionHoldingPrivilege) {
-				functionId = ((FunctionHoldingPrivilege) privi).getFunction().getFunctionID();
-				if (privi instanceof FunctionResponsiblePrivilege) {
-					country = ((FunctionResponsiblePrivilege) privi).getCountry();
-				}
-			}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-			PreparedStatement statement;
+        return userList;
+    }
 
-			if (privi.getId() != null) {
-				statement = conn.prepareStatement(UPDATE_PRIVILIGE_TO_USER, new String[] { "ID" });
-			} else {
-				statement = conn.prepareStatement(ADD_PRIVILIGE_TO_USER, new String[] { "ID" });
-			}
 
-			statement.setInt(1, user.getId());
-			statement.setInt(2, functionId);
-			statement.setInt(3, 1); // active
-			statement.setString(4, country);
-			statement.setInt(5, privi.getId());
+    private void addPrivilegesToUser(UserPrivilege priv, User user){
+        try(Connection conn = this.createConnection()){
+            Integer functionId = null;
+            String country = null;
 
-			statement.executeUpdate();
+            if (PrivilegeType.TEAMMEMBER == priv.getPrivilegeType()) {
+            	//TODO Save the date
+            	functionId = ((TeamMemberUserPrivilege) priv).getFunction().getId();
+            }
+            else if(PrivilegeType.FUNCTIONRESPONSIBLE == priv.getPrivilegeType()) {
+            	functionId = ((FunctionResponsibleUserPrivilege) priv).getFunction().getId();
+            	country = ((FunctionResponsibleUserPrivilege) priv).getCountry();
+            }
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+            PreparedStatement statement;
 
-	private List<User> convertToUserList(ResultSet rs) throws SQLException {
+            if(priv.getId() != null){
+                statement =  conn.prepareStatement(UPDATE_PRIVILIGE_TO_USER, new String[] {"ID"});
+            }
+            else{
+                statement =  conn.prepareStatement(ADD_PRIVILIGE_TO_USER, new String[] {"ID"});
+            }
 
-		List<User> userList = new ArrayList<User>();
+            statement.setInt(1, user.getId());
+            statement.setInt(2, functionId);
+            statement.setInt(3, priv.isActive() ? 1 : 0); // active
+            statement.setString(4, country);
+            statement.setInt(5, priv.getId());
 
-		while (rs.next()) {
-			int id = rs.getInt("id");
-			String firstname = rs.getString("firstname");
-			String lastname = rs.getString("lastname");
-			String password = rs.getString("password");
-			String email = rs.getString("email");
-			String country = rs.getString("homecountry");
+            statement.executeUpdate();
 
-			User user = new User(id, firstname, lastname, password, email, new HashSet<Privilege>(), country);
-			user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-			userList.add(user);
-		}
-		return userList;
-	}
+    private List<User> convertToUserList(ResultSet rs) throws SQLException {
 
-	private User convertToSingleUser(ResultSet rs) throws SQLException {
+        List<User> userList = new ArrayList<User>();
 
-		User user = null;
-		if (rs.next()) {
-			int id = rs.getInt("id");
-			String firstname = rs.getString("firstname");
-			String lastname = rs.getString("lastname");
-			String password = rs.getString("password");
-			String email = rs.getString("email");
-			String country = rs.getString("homecountry");
+        while(rs.next()){
+            int id = rs.getInt("id");
+            String firstname = rs.getString("firstname");
+            String lastname = rs.getString("lastname");
+            String password = rs.getString("password");
+            String email = rs.getString("email");
+            String country = rs.getString("homecountry");
 
-			user = new User(id, firstname, lastname, password, email, new HashSet<Privilege>(), country);
-			user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
-		}
-		return user;
-	}
+            User user = new User(id,firstname,lastname,password,email,new HashSet<UserPrivilege>(), country);
+            user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
 
-	@Override
-	public User save(User user) {
+            userList.add(user);
+        }
+        return userList;
+    }
 
-		try (Connection conn = this.createConnection()) {
-			PreparedStatement statement;
 
-			if (user.getId() != null) {
-				statement = conn.prepareStatement(UPDATE_USER, new String[] { "ID" });
+    private User convertToSingleUser(ResultSet rs) throws SQLException {
 
-			} else {
-				statement = conn.prepareStatement(INSERT_USER, new String[] { "ID" });
-			}
+        User user =  null;
+        if(rs.next()){
+            int id = rs.getInt("id");
+            String firstname = rs.getString("firstname");
+            String lastname = rs.getString("lastname");
+            String password = rs.getString("password");
+            String email = rs.getString("email");
+            String country = rs.getString("homecountry");
 
-			statement.setString(1, user.getFirstName());
-			statement.setString(2, user.getLastName());
-			statement.setString(3, user.getEmail());
-			statement.setString(4, user.getPassword());
-			statement.setString(5, user.getCountry());
-			statement.executeUpdate();
+            user = new User(id,firstname,lastname,password,email,new HashSet<UserPrivilege>(), country);
+            user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
+        }
+        return user;
+    }
 
-			ResultSet rs = statement.getGeneratedKeys();
 
-			if (rs.next()) {
-				user.setId(rs.getInt("ID"));
+    @Override
+    public User save(User user) {
 
-				for (Privilege priv : user.getPrivileges()) {
-					addPrivilegesToUser(priv, user);
-				}
-			}
-		} catch (SQLException e) {
-			// TODO throw exception!
-			user = null;
-			e.printStackTrace();
+        try(Connection conn = this.createConnection()){
+            PreparedStatement statement;
 
-		}
-		return user;
-	}
+            if(user.getId() != null){
+                statement = conn.prepareStatement(UPDATE_USER, new String[] {"ID"});
 
-	@Override
-	public User getElement(User user) {
-		try (Connection conn = this.createConnection()) {
+            }
+            else{
+                statement = conn.prepareStatement(INSERT_USER, new String[] {"ID"});
+            }
 
-			PreparedStatement statement = conn.prepareStatement(FIND_USER_BY_ID);
-			statement.setInt(1, user.getId());
+            statement.setString(1,user.getFirstName());
+            statement.setString(2,user.getLastName());
+            statement.setString(3,user.getEmail());
+            statement.setString(4,user.getPassword());
+            statement.setString(5, user.getCountry());
+            statement.executeUpdate();
 
-			ResultSet rs = statement.executeQuery();
-			user = convertToSingleUser(rs);
+            ResultSet rs =  statement.getGeneratedKeys();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+            if(rs.next()) {
+                user.setId(rs.getInt("ID"));
 
-		return user;
-	}
+                for(UserPrivilege priv: user.getPrivileges()){
+                    addPrivilegesToUser(priv, user);
+                }
+            }
+        } catch (SQLException e) {
+            //TODO throw exception!
+            user = null;
+            e.printStackTrace();
 
-	@Override
-	public Collection<User> getAllElements() {
-		List<User> users = new ArrayList<>();
-		try (Connection conn = this.createConnection()) {
+        }
+        return user;
+    }
 
-			PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERS);
+    @Override
+    public User getElement(User user) {
+        try(Connection conn = this.createConnection()){
 
-			ResultSet rs = statement.executeQuery();
-			users = convertToUserList(rs);
+            PreparedStatement statement =  conn.prepareStatement(FIND_USER_BY_ID);
+            statement.setInt(1,user.getId());
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return users;
-	}
+            ResultSet rs =  statement.executeQuery();
+            user = convertToSingleUser(rs);
 
-	private List<Privilege> findPrivilegesForUser(User u) {
-		List<Privilege> privi = new ArrayList<>();
-		try (Connection conn = this.createConnection()) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-			PreparedStatement statement = conn.prepareStatement(FIND_PRIVILEGES_OF_USER);
+        return user;
+    }
 
-			statement.setInt(1, u.getId());
+    @Override
+    public Collection<User> getAllElements() {
+        List<User> users = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
 
-			ResultSet rs = statement.executeQuery();
-			privi = convertToPrivilegeList(rs);
+            PreparedStatement statement =  conn.prepareStatement(FIND_ALL_USERS);
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
 
-		return privi;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 
-	}
 
-	private List<Privilege> convertToPrivilegeList(ResultSet set) throws SQLException {
 
-		List<Privilege> privileges = new ArrayList<>();
-		while (set.next()) {
-			Privilege p;
-			char privilege = set.getString("shortname").charAt(0);
-			p = determineInstance(privilege);
-			p.setId(set.getInt("PRIVIS_ID"));
+    private List<UserPrivilege> findPrivilegesForUser(User u) {
+        List<UserPrivilege> privi = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
 
-			if (set.getString("COUNTRY") != null) {
-				((FunctionResponsiblePrivilege) p)
-						.setFunction(new Function(set.getInt("Functions_id"), set.getString("title")));
-			}
-			privileges.add(p);
-		}
-		return privileges;
-	}
+            PreparedStatement statement =  conn.prepareStatement(FIND_PRIVILEGES_OF_USER);
 
-	private Privilege determineInstance(char type) {
+            statement.setInt(1,u.getId());
 
-		Privilege p = null;
-		switch (type) {
-		case 'T':
-			p = new TeamManagerPrivilege();
-			break;
-		case 'M':
-			p = new TeamMemberPrivilege();
-			break;
-		case 'A':
-			p = new AdminPrivilege();
-			break;
-		case 'F':
-			p = new FunctionResponsiblePrivilege();
-			break;
-		case 'D':
-			p = new DirectorPrivilege();
-			break;
-		}
-		return p;
-	}
+            ResultSet rs =  statement.executeQuery();
+            privi = convertToUserPrivilegeList(rs);
 
-	/**
-	 * Methode om een User te verwijderen uit de database
-	 */
-	@Override
-	public void deleteElement(User element) {
-		try (Connection conn = this.createConnection()) {
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-			PreparedStatement statement = conn.prepareStatement(DELETE_USER);
-			statement.setInt(1, element.getId());
-			ResultSet rs = statement.executeQuery();
+        return privi;
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
+    }
+
+    private List<UserPrivilege> convertToUserPrivilegeList(ResultSet set) throws SQLException {
+
+        List<UserPrivilege> privileges = new ArrayList<>();
+        while(set.next()){
+            PrivilegeType type = determinePrivilegeType(set.getInt("PRIVIS_ID"));
+            UserPrivilege p;
+            if (PrivilegeType.TEAMMEMBER == type) {
+            	//TODO GET DATE from database
+            	p = new TeamMemberUserPrivilege(type, "1".equals(set.getInt("ACTIVE")), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), null);
+            }
+            else if(PrivilegeType.FUNCTIONRESPONSIBLE == type) {
+            	p = new FunctionResponsibleUserPrivilege(type, "1".equals(set.getInt("ACTIVE")), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), set.getString("COUNTRY"));
+            }
+            else {
+            	p = new UserPrivilege(type, "1".equals(set.getInt("ACTIVE")));
+            }
+            privileges.add(p);
+        }
+        return privileges;
+
+    }
+
+    private PrivilegeType determinePrivilegeType(Integer typeId){
+        PrivilegeType p = null;
+        for (PrivilegeType pt : PrivilegeType.values()) {
+        	if (pt.getId() == typeId) {
+        		p = pt;
+        	}
+        }
+        return p;
+    }
+
+    @Override
+    public void deleteElement(User element) {
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement(DELETE_USER);
+            statement.setLong(1,element.getId());
+            ResultSet rs =  statement.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

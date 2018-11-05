@@ -1,9 +1,9 @@
 package colruyt.pcrsejb.entity.user;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
-
 import java.util.HashSet;
 import java.util.Objects;
+
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 
 /**
@@ -18,7 +18,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<Privilege> privileges;
+	private HashSet<UserPrivilege> privileges;
 	private String country;
 
 	/**
@@ -31,7 +31,7 @@ public class User {
 	 * @param privileges HashSet
 	 */
 
-	public User(int id,String firstName, String lastName, String email, String password, HashSet<Privilege> privileges,
+	public User(int id,String firstName, String lastName, String email, String password, HashSet<UserPrivilege> privileges,
 				String country) {
 		setId(id);
 		setFirstName(firstName);
@@ -44,7 +44,7 @@ public class User {
 
 
 
-	public User(String firstName, String lastName, String email, String password, HashSet<Privilege> privileges, String country) {
+	public User(String firstName, String lastName, String email, String password, HashSet<UserPrivilege> privileges, String country) {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setEmail(email);
@@ -152,7 +152,7 @@ public class User {
 	 * 
 	 * @return privileges
 	 */
-	public HashSet<Privilege> getPrivileges() {
+	public HashSet<UserPrivilege> getPrivileges() {
 		return privileges;
 	}
 
@@ -161,7 +161,7 @@ public class User {
 	 * 
 	 * @param privileges
 	 */
-	public void setPrivileges(HashSet<Privilege> privileges) {
+	public void setPrivileges(HashSet<UserPrivilege> privileges) {
 		this.privileges = privileges;
 	}
 

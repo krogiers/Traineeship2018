@@ -1,11 +1,11 @@
 package colruyt.pcrsejb.service.dl.User;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
-import colruyt.pcrsejb.entity.user.User;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 public class MemoryUserService implements UserService {
 
@@ -41,7 +41,7 @@ public class MemoryUserService implements UserService {
     }
 
     @Override
-    public List<User> findUsersByPrivilege(Privilege privilege){
+    public List<User> findUsersByPrivilege(UserPrivilege privilege){
         return this.db.stream().filter(x -> x.getPrivileges().contains(privilege)).collect(Collectors.toList());
     }
 

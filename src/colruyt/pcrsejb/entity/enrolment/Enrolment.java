@@ -1,23 +1,23 @@
 package colruyt.pcrsejb.entity.enrolment;
 
-import colruyt.pcrsejb.entity.privileges.Privilege;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 public class Enrolment {
 
-	private long EnrolmentID;
+	private Integer EnrolmentID;
 	private User user;
-	private Privilege privilege;
+	private UserPrivilege privilege;
 	private boolean active;
 	
 	public Enrolment() {};
-	public Enrolment(User user, Privilege privilege, boolean active) {
+	public Enrolment(User user, UserPrivilege privilege, boolean active) {
 		this.user = user;
 		this.privilege = privilege;
 		this.active = active;
 	}
 
-	public Enrolment(long enrolmentID, colruyt.pcrsejb.entity.user.User user, colruyt.pcrsejb.entity.privileges.Privilege privilege, boolean active) {
+	public Enrolment(Integer enrolmentID, colruyt.pcrsejb.entity.user.User user, UserPrivilege privilege, boolean active) {
 		EnrolmentID = enrolmentID;
 		this.user = user;
 		this.privilege = privilege;
@@ -30,10 +30,17 @@ public class Enrolment {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	public Privilege getPrivilege() {
+	
+	public Integer getEnrolmentID() {
+		return EnrolmentID;
+	}
+	public void setEnrolmentID(Integer enrolmentID) {
+		EnrolmentID = enrolmentID;
+	}
+	public UserPrivilege getPrivilege() {
 		return privilege;
 	}
-	public void setPrivilege(Privilege privilege) {
+	public void setPrivilege(UserPrivilege privilege) {
 		this.privilege = privilege;
 	}
 	public boolean isActive() {

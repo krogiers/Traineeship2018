@@ -151,7 +151,7 @@ public class DbUserService extends DbService implements UserService {
     }
 
 
-    private User convertToSingleUser(ResultSet rs) throws SQLException {
+    public User convertToSingleUser(ResultSet rs) throws SQLException {
 
         User user =  null;
         if(rs.next()){

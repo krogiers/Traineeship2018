@@ -1,11 +1,10 @@
 package colruyt.pcrsejb.bo.user;
 
-import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 
 /**
  * Klasse voor het aanmaken van een User.

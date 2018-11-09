@@ -2,6 +2,8 @@ package colruyt.pcrsejb.service.dl.function;
 
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.service.dl.DbService;
+import colruyt.pcrsejb.service.dl.role.DbRoleService;
+import colruyt.pcrsejb.service.dl.role.RoleService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class DbFunctionService extends DbService implements FunctionService {
-
+	
+	private RoleService roleService = new DbRoleService();
+	
     private static final String ADD_FUNCTION = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?, ?)";
     private static final String GET_ELEMENT = "SELECT * FROM Functions f WHERE ID=?";
     private static final String GET_ALL_ELEMENTS = "SELECT * FROM Functions f INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID INNER JOIN Competences c ON c.Functions_ID = f.ID";
@@ -103,10 +108,17 @@ public class DbFunctionService extends DbService implements FunctionService {
 
     private Function convertToSingleFunction(ResultSet rs) throws SQLException {
         Function function = null;
-        while (rs.next()){
+        if (rs.next()){
+        	function = new Function();
             function.setId(rs.getInt("ID"));
             function.setTitle(rs.getString("TITLE"));
+            //TODO change by getOperatingUnit instead of ID
             function.setOperatingUnitId(rs.getInt("OPERATINGUNITS_ID"));
+            //TODO get Roles to function
+            function.setRoleSet(new HashSet<>());
+            //TODO getFunctionCompetencesRoleSet
+            function.setFunctionCompetenceSet(new HashSet<>());
+            
         }
         return function;
     }
@@ -115,6 +127,7 @@ public class DbFunctionService extends DbService implements FunctionService {
         List<Function> functionList = new ArrayList<>();
 
         while (rs.next()) {
+        	//TODO add roles & operating unit
             functionList.add(new Function(rs.getInt("ID"), rs.getString("TITLE")));
         }
         return functionList;

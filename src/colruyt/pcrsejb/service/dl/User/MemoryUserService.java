@@ -1,5 +1,7 @@
 package colruyt.pcrsejb.service.dl.User;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,6 +65,12 @@ public class MemoryUserService implements UserService {
     public List<User> getFunctionResponsible(int functionId, String country) {
         return null;
     }
+
+	@Override
+	public User convertToSingleUser(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 
 }

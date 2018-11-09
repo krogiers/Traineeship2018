@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.service.dl.survey;
 
+import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveySet;
 import colruyt.pcrsejb.entity.user.User;
 
@@ -45,4 +46,16 @@ public class MemorySurveySetService implements SurveySetService {
     public SurveySet findSurveySetsByUserAndDate(User u, LocalDate year) {
         return null;
     }
+
+	@Override
+	public User findUserBySurvey(Survey survey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public SurveySet findLastSurveySetForUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

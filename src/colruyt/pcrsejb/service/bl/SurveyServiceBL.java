@@ -1,13 +1,13 @@
 package colruyt.pcrsejb.service.bl;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveySet;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.survey.MemorySurveySetService;
 import colruyt.pcrsejb.service.dl.survey.SurveySetService;
-
-import java.time.LocalDate;
-import java.util.List;
 
 public class SurveyServiceBL {
 
@@ -35,6 +35,14 @@ public class SurveyServiceBL {
 
         //Todo: Event ???
     }
+
+	public User findUserBySurvey(Survey survey) {
+		return surveyService.findUserBySurvey(survey);
+	}
+
+	public SurveySet getLastSurveySetForUser(User user) {
+		return surveyService.findLastSurveySetForUser(user);
+	}
 
 
 

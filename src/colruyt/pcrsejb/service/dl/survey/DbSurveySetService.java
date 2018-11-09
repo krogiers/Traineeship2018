@@ -2,24 +2,15 @@ package colruyt.pcrsejb.service.dl.survey;
 
 import colruyt.pcrsejb.entity.survey.*;
 import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.User.DbUserService;
 import colruyt.pcrsejb.service.dl.User.UserService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.xml.transform.Result;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class DbSurveySetService extends DbService implements SurveySetService {

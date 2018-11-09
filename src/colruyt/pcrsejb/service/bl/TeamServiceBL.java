@@ -1,8 +1,5 @@
 package colruyt.pcrsejb.service.bl;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.team.Team;
@@ -17,6 +14,9 @@ import colruyt.pcrsejb.service.dl.team.TeamService;
 import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.team.TeamValidator;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 public class TeamServiceBL {
 	

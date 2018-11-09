@@ -5,7 +5,7 @@ import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
 import colruyt.pcrsejb.bo.survey.ConsensusRatingBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.converter.competence.*;
+import colruyt.pcrsejb.converter.competence.CompetenceBoConverter;
 import colruyt.pcrsejb.entity.survey.ConsensusRating;
 
 public class ConsensusRatingBoConverter implements GenericConverter<ConsensusRating,ConsensusRatingBo> {

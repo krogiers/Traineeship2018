@@ -1,7 +1,5 @@
 package colruyt.pcrsejb.facade;
 
-import java.util.ArrayList;
-
 import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.team.TeamBoConverter;
@@ -12,6 +10,8 @@ import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.TeamServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
+
+import java.util.ArrayList;
 
 public class TeamFacade {
 	private TeamServiceBL teamServiceBL = new TeamServiceBL();

@@ -1,8 +1,5 @@
 package colruyt.pcrsejb.facade;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
@@ -11,6 +8,9 @@ import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.UserServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class UserFacade {
 	private UserServiceBL userServiceBL = new UserServiceBL();

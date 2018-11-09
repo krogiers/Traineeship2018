@@ -1,11 +1,11 @@
 package colruyt.pcrsejb.entity.team;
 
-import java.util.HashSet;
-
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
+
+import java.util.HashSet;
 
 /**
  * Klasse voor het aanmaken van een Team.

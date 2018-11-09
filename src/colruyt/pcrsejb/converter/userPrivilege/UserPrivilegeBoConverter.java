@@ -1,14 +1,9 @@
 package colruyt.pcrsejb.converter.userPrivilege;
 
-import colruyt.pcrsejb.bo.userPrivilege.FunctionResponsibleUserPrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.FunctionUserPrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.PrivilegeTypeBo;
-import colruyt.pcrsejb.bo.userPrivilege.TeamMemberUserPrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
+import colruyt.pcrsejb.bo.userPrivilege.*;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.function.FunctionBoConverter;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
-import colruyt.pcrsejb.entity.userPrivilege.FunctionUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;

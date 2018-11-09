@@ -2,7 +2,7 @@ package colruyt.pcrsejb.entity.survey;
 
 import colruyt.pcrsejb.entity.competence.Competence;
 
-import java.util.*;
+import java.util.Objects;
 
 /**
  The type Rating. */

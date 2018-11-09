@@ -1,10 +1,8 @@
 package colruyt.pcrsejb.bo.privileges;
 
 import colruyt.pcrsejb.bo.survey.SurveySetBo;
-import colruyt.pcrsejb.entity.survey.SurveySet;
 
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {

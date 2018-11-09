@@ -1,9 +1,9 @@
 package colruyt.pcrsejb.entity.user;
 
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
+
 import java.util.HashSet;
 import java.util.Objects;
-
-import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 
 /**

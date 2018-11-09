@@ -1,10 +1,6 @@
 package colruyt.pcrsejb.converter.competence;
 
-import colruyt.pcrsejb.bo.competence.BehavioralCompetenceBo;
-import colruyt.pcrsejb.bo.competence.CompetenceBo;
-import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
-import colruyt.pcrsejb.bo.competence.DomainCompetenceBo;
-import colruyt.pcrsejb.bo.competence.OperatingUnitCompetenceBo;
+import colruyt.pcrsejb.bo.competence.*;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.entity.competence.BehavioralCompetence;
 import colruyt.pcrsejb.entity.competence.Competence;

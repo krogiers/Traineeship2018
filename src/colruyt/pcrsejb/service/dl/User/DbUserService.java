@@ -34,6 +34,8 @@ public class DbUserService extends DbService implements UserService {
     private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?" ;
     private static final String FIND_PRIVILEGES_OF_USER = "Select * from userprivileges where user_id = ?";
     private static final String DELETE_USER = "Delete from Users where id = ?" ;
+    private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where " +
+            "up.privis_id=? and active=1 and functions_id=? and country=?";
 
 
     @Override
@@ -42,9 +44,26 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_PRIVILIGE);
-          statement.setInt(1, privilege.getPrivilegeType().getId());
-          ResultSet rs =  statement.executeQuery();
-          users = convertToUserList(rs);
+            statement.setInt(1, privilege.getPrivilegeType().getId());
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getFunctionResponsible(int functionId, String country){
+        List<User> users = new ArrayList<>();
+        try (Connection conn = this.createConnection()) {
+            PreparedStatement statement =  conn.prepareStatement(FIND_FUNCTION_RESPONSIBLE);
+            statement.setInt(1, PrivilegeType.FUNCTIONRESPONSIBLE.getId());
+            statement.setInt(2, functionId);
+            statement.setString(3, country);
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
 
         } catch (SQLException e) {
             e.printStackTrace();

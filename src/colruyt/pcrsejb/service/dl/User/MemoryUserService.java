@@ -59,5 +59,10 @@ public class MemoryUserService implements UserService {
             ).collect(Collectors.toList());
     }
 
+    @Override
+    public List<User> getFunctionResponsible(int functionId, String country) {
+        return null;
+    }
+
 
 }

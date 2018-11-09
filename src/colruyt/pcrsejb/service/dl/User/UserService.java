@@ -11,4 +11,5 @@ public interface UserService extends GenericCrudService<User,Integer>{
     List<User> findUsersByPrivilege(UserPrivilege privilege);
     List<User> findUsersByFirstName(String name);
     List<User> findUsersByShortName(String shortName);
+    List<User> getFunctionResponsible(int functionId, String country);
 }

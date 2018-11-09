@@ -64,29 +64,16 @@ public class UserServiceBL{
     }
 
     public void checkFunctionResponsible(FunctionResponsibleUserPrivilege privilege, User user){
-		System.out.println("1");
-		for (User u :this.userdb.findUsersByPrivilege(privilege)){
-			System.out.println("2");
-			for (UserPrivilege p : u.getPrivileges()) {
-				System.out.println("3");
-				if (p.getPrivilegeType() == PrivilegeType.FUNCTIONRESPONSIBLE) {
-					System.out.println("4");
-					
-					FunctionResponsibleUserPrivilege frp = (FunctionResponsibleUserPrivilege) p;
-					System.out.println(frp.getFunction().getId());
-					System.out.println(frp.getCountry());
-					System.out.println(privilege.getFunction().getId());
-					System.out.println(privilege.getCountry());
+		// find all users with the FunctionResponsibleUserPrivilege as active
 
-					if (frp.getFunction().getId() == privilege.getFunction().getId() &&
-							frp.getCountry().equals(privilege.getCountry())) {
-						System.out.println("5");
-						throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");
-					}
+		List<User> functionResponsible = this.userdb.getFunctionResponsible(privilege.getFunction().getId(), privilege.getCountry());
 
-				}
-			}
+		if(functionResponsible.size() != 0) {
+			throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");
+		} else {
+
 		}
+
 	}
 
 	public void delete(User user) {

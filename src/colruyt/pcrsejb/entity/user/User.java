@@ -153,7 +153,7 @@ public class User {
 	 * @return privileges
 	 */
 	public HashSet<UserPrivilege> getPrivileges() {
-		return privileges;
+		return privileges = new HashSet<>();
 	}
 
 	/**

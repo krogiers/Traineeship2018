@@ -5,8 +5,6 @@ import colruyt.pcrsejb.converter.function.FunctionBoConverter;
 import colruyt.pcrsejb.converter.function.FunctionConverter;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.service.bl.FunctionServiceBL;
-import colruyt.pcrsejb.service.dl.function.FunctionService;
-import colruyt.pcrsejb.service.dl.function.MemoryFunctionService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +16,10 @@ public class FunctionFacade {
     private FunctionBoConverter functionBoConverter = new FunctionBoConverter();
 
 
-    public List<FunctionBo> getFunctionNames() {
+    public List<FunctionBo> getFunctions() {
         List<FunctionBo> functionBoList = new ArrayList<>();
 
-        for(Function function : functionServiceBL.getAllFunctionNames()) {
+        for(Function function : functionServiceBL.getAllFunctions()) {
             functionBoList.add(functionConverter.convertTo(function));
         }
         return functionBoList;

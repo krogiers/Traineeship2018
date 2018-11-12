@@ -1,25 +1,20 @@
 package colruyt.pcrsejb;
 
-import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
+import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.user.UserBo;
+import colruyt.pcrsejb.entity.function.Function;
+import colruyt.pcrsejb.facade.FunctionFacade;
 import colruyt.pcrsejb.facade.UserFacade;
-
-import java.util.HashSet;
 
 public class Main {
 
     public static void main(String[] args) {
-        UserBo userBo = new UserBo();
-        UserFacade uf = new UserFacade();
-        HashSet<PrivilegeBo> privileges = new HashSet<>();
+        UserFacade userFacade = new UserFacade();
 
-        userBo.setId(10);
-        userBo.setFirstName("Yendel");
-        userBo.setLastName("Lintermans");
-        userBo.setEmail("test@test.be");
-        userBo.setPassword("yendel");
-        userBo.setCountry("BE");
-        System.out.println(uf.getUser(userBo));
+        for(UserBo userBo : userFacade.getAllUsers()){
+            System.out.println("-------------------------");
+            System.out.println(userBo.getFirstName());
+        }
 
 
     }

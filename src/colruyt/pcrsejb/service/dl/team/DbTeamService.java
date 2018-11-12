@@ -100,16 +100,16 @@ public class DbTeamService extends DbService implements TeamService {
 		return teamList;
 	}
 
-	@Override
-	public void deleteElement(Team element) {
-		try (Connection conn = this.createConnection()) {
-			PreparedStatement preparedStatement = conn.prepareStatement(DELETE_ELEMENT);
-			preparedStatement.setInt(1, (int) element.getTeamID());
-			ResultSet rs = preparedStatement.executeQuery();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
-	}
+    @Override
+    public void deleteElement(Team element) {
+        try (Connection conn = this.createConnection()) {
+            PreparedStatement preparedStatement = conn.prepareStatement(DELETE_ELEMENT);
+            preparedStatement.setInt(1, element.getTeamID());
+            ResultSet rs = preparedStatement.executeQuery();
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+    }
 
 	@Override
 	public Team findTeamOfUser(User user) {

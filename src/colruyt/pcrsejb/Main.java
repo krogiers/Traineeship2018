@@ -1,25 +1,22 @@
 package colruyt.pcrsejb;
 
-import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
-import colruyt.pcrsejb.bo.user.UserBo;
-import colruyt.pcrsejb.facade.UserFacade;
-
-import java.util.HashSet;
+import colruyt.pcrsejb.bo.competence.CompetenceBo;
+import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
+import colruyt.pcrsejb.converter.GenericConverter;
+import colruyt.pcrsejb.entity.competence.Competence;
+import colruyt.pcrsejb.service.dl.competence.CompetenceService;
+import colruyt.pcrsejb.service.dl.competence.DbCompetenceService;
+import colruyt.pcrsejb.converter.competence.CompetenceBoConverter;
 
 public class Main {
 
     public static void main(String[] args) {
-        UserBo userBo = new UserBo();
-        UserFacade uf = new UserFacade();
-        HashSet<PrivilegeBo> privileges = new HashSet<>();
+        GenericConverter converter = new CompetenceBoConverter();
+        CompetenceBo competenceBo = new CraftCompetenceBo();
 
-        userBo.setId(10);
-        userBo.setFirstName("Yendel");
-        userBo.setLastName("Lintermans");
-        userBo.setEmail("test@test.be");
-        userBo.setPassword("yendel");
-        userBo.setCountry("BE");
-        System.out.println(uf.getUser(userBo));
+        CompetenceService competenceFacade = new DbCompetenceService();
+
+        competenceFacade.save((Competence)converter.convertTo(competenceBo));
 
 
     }

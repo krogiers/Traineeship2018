@@ -18,7 +18,7 @@ public class Team {
 	private String name;
 	private HashSet<Enrolment> enrolmentsHashSet;
 
-	public Team() {};
+	public Team() {}
 	/**
 	 * Constructor voor het aanmaken van een Team
 	 * 

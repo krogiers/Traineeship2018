@@ -78,7 +78,7 @@ public class UserServiceBL{
 					System.out.println(privilege.getFunction().getId());
 					System.out.println(privilege.getCountry());
 
-					if (frp.getFunction().getId() == privilege.getFunction().getId() &&
+					if (frp.getFunction().getId().equals(privilege.getFunction().getId()) &&
 							frp.getCountry().equals(privilege.getCountry())) {
 						System.out.println("5");
 						throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");

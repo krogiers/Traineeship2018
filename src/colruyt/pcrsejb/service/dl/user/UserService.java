@@ -1,4 +1,4 @@
-package colruyt.pcrsejb.service.dl.User;
+package colruyt.pcrsejb.service.dl.user;
 
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;

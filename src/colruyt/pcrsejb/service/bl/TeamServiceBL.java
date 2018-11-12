@@ -129,7 +129,7 @@ public class TeamServiceBL {
 	/**
 	 * Methode die de owner van de groep retourneert
 	 * 
-	 * @return User
+	 * @return user
 	 */
 	public User getOwnerOfTeam(Team team) {
 		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();

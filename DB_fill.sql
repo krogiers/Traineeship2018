@@ -73,7 +73,7 @@ INSERT INTO Privis (ID, FULLNAME, SHORTNAME)
 VALUES ((SELECT MAX(ID) FROM Privis)+1, 'Administrator', 'A');
 
 
---Creating User privileges
+--Creating user privileges
 -----------------------------------------------------------------------
 
 INSERT INTO USERPRIVILEGES (ID, USER_ID, FUNCTIONS_ID, ACTIVE, PRIVIS_ID) 
@@ -246,7 +246,7 @@ INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (9, 
 INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (10, 'I can design, develop, test and deploy a backend application exposing REST services in the JEE stack (EJB, JPA/Hibernate), getting data either on an Oracle or DB2 database, using the development tooling (RAD, IntelliJ/Eclipse, RTC, RAM, Git)', 10);
 INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (11, 'I can design, develop, test and deploy a backend application (using Java 8) exposing REST services in the Spring stack (SpringBoot, SpringCloud, JPA/Hibernate), getting data either on an Oracle or DB2 database, using the development tooling (IntelliJ/Eclipse, Git)', 11);
 INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (12, 'I can design, develop, test and deploy a frontend application in a Javascript based framework running on Angular, JavaScript, TypeScript and HTML, interacting with (Spring) REST-services, using the standard development tooling (IntelliJ/Eclipse, Visual Code, Git)', 12);
-INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (13, 'I can design, develop, test and deploy a java-application as an IMSL service provider/requester (java + IMSL procedures) on either an Oracle or DB2 database, using the standard software development tool(s) (RAD, Eclipse/IntelliJ,…)', 13);
+INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (13, 'I can design, develop, test and deploy a java-application as an IMSL service provider/requester (java + IMSL procedures) on either an Oracle or DB2 database, using the standard software development tool(s) (RAD, Eclipse/IntelliJ,ï¿½)', 13);
 INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (14, 'I can design, develop, test and deploy SOAP (JAX-WS) service provider and client application using the standard tooling (IntelliJ/Eclipse, Git, Gradle)', 14);
 INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (15, 'I can design, develop, test and deploy REST (JAX-RS) service provider and client application using the standard tooling (Swagger/OpenAPI, IntelliJ/Eclipse, Git, Gradle)', 15);
 INSERT INTO COMPETENCEDESCRIPTIONS (ID, DESCRIPTION, COMPETENCES_ID) VALUES (16, 'I can design, develop, test and deploy Async (JMS/EJB) service provider and client application using the standard tooling (AsyncAPI/YAML, IntelliJ/Eclipse, Git, Gradle)', 16);

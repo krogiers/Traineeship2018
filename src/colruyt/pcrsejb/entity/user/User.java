@@ -7,7 +7,7 @@ import java.util.Objects;
 
 
 /**
- * Klasse voor het aanmaken van een User.
+ * Klasse voor het aanmaken van een user.
  * 
  * @author jda1mbw
  */
@@ -22,7 +22,7 @@ public class User {
 	private String country;
 
 	/**
-	 * Constructor voor het aanmaken van een User
+	 * Constructor voor het aanmaken van een user
 	 * 
 	 * @param firstName String
 	 * @param lastName String
@@ -167,7 +167,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
+		return "user [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
 				+ privileges + ", country=" + country + "]";
 	}
 

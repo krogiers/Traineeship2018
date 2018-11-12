@@ -1,13 +1,13 @@
 package colruyt.pcrsejb.bo.user;
 
+import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
+
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
-
 /**
- * Klasse voor het aanmaken van een User.
+ * Klasse voor het aanmaken van een user.
  * 
  * @author jda1mbw
  */
@@ -28,7 +28,7 @@ public class UserBo {
 	}
 
 	/**
-	 * Constructor voor het aanmaken van een User met id
+	 * Constructor voor het aanmaken van een user met id
 	 *
 	 * @param firstName String
 	 * @param lastName String
@@ -185,7 +185,7 @@ public class UserBo {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
+		return "user [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
 				+ privilegeBoHashSet + " country=" + country + "]";
 	}
 

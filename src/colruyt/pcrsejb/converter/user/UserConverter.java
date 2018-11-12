@@ -10,7 +10,7 @@ import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import java.util.HashSet;
 
 /**
- * Class for converting a User Entity into a User BO
+ * Class for converting a user Entity into a user BO
  */
 public class UserConverter implements GenericConverter<UserBo,User> {
 

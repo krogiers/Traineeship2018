@@ -37,6 +37,10 @@ public class DbUserService extends DbService implements UserService {
     private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where " +
             "up.privis_id=? and active=1 and functions_id=? and country=?";
 
+    private static final String GET_FUNCTION_RESPONSIBLES = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id " +
+            "inner join Functions f on f.id = up.functions_id where up.privis_id = ? and active=1";
+
+
 
     @Override
     public List<User> findUsersByPrivilege(UserPrivilege privilege) {
@@ -45,6 +49,27 @@ public class DbUserService extends DbService implements UserService {
 
             PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_PRIVILIGE);
             statement.setInt(1, privilege.getPrivilegeType().getId());
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    /**
+     * get a list of all the function responsibles, joined with the function they are
+     * responsible for and the country for which they are responsible
+     * @return List of User objects who are function responsibles, with their function and country
+     */
+    @Override
+    public List<User> getAllFunctionResponsibles(){
+        List<User> users = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement(GET_FUNCTION_RESPONSIBLES);
+            statement.setInt(1, PrivilegeType.FUNCTIONRESPONSIBLE.getId());
             ResultSet rs =  statement.executeQuery();
             users = convertToUserList(rs);
 
@@ -162,6 +187,7 @@ public class DbUserService extends DbService implements UserService {
             String country = rs.getString("homecountry");
 
             User user = new User(id,firstname,lastname,password,email,new HashSet<UserPrivilege>(), country);
+            System.out.println(user);
             user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
 
             userList.add(user);

@@ -9,6 +9,8 @@ import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.bl.UserServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
@@ -53,8 +55,12 @@ public class UserFacade {
 		}
 	}
 
-    public List<UserBo> getFunctionResponsibles() {
-		return null;
+    public List<UserBo> getAllFunctionResponsibles() {
+		List<UserBo> functionResponsibleList = new ArrayList<>();
+		for (User u: userServiceBL.getAllFunctionResponsibles()){
+			functionResponsibleList.add(userConverter.convertTo(u));
+		}
+		return functionResponsibleList;
     }
 
 	public void addPrivilegeForUser(UserPrivilegeBo privilegeBo, UserBo userBo) {

@@ -72,5 +72,10 @@ public class MemoryUserService implements UserService {
 		return null;
 	}
 
+    @Override
+    public List<User> getAllFunctionResponsibles() {
+        return null;
+    }
+
 
 }

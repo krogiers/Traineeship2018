@@ -76,6 +76,10 @@ public class UserServiceBL{
 
 	}
 
+	public List<User> getAllFunctionResponsibles(){
+		return userdb.getAllFunctionResponsibles();
+	}
+
 	public void delete(User user) {
 		userdb.deleteElement(user);
 	}

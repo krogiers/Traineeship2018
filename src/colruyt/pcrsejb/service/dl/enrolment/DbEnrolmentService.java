@@ -51,10 +51,11 @@ public class DbEnrolmentService extends DbService implements EnrolmentService {
 		HashSet<Enrolment> enrolments = new HashSet<>();
 		try (Connection conn = this.createConnection()) {
 			PreparedStatement preparedStatement = conn.prepareStatement(GET_ENROLMENTS_FROM_TEAM);
+			preparedStatement.setInt(1, teamID);
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Enrolment enrolment = new Enrolment();
-				enrolment.setActive("1".equals(rs.getInt("ACTIVE")));
+				enrolment.setActive("1".equalsIgnoreCase(rs.getString("ACTIVE")));
 				enrolment.setEnrolmentID(rs.getInt("Id_1"));
 				enrolment.setPrivilege(userPrivilegeService.getElement(new UserPrivilege(rs.getInt("Userprivileges_id"))));
 				enrolment.setUser(userService.getElement(new User(rs.getInt("User_id"))));

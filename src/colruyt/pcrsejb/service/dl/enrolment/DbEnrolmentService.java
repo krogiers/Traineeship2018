@@ -59,7 +59,7 @@ public class DbEnrolmentService extends DbService implements EnrolmentService {
 				enrolment.setActive("1".equalsIgnoreCase(rs.getString("ACTIVE")));
 				enrolment.setEnrolmentID(rs.getInt("Id"));
 				enrolment.setPrivilege(userPrivilegeService.getElement(new UserPrivilege(rs.getInt("Userprivileges_id"))));
-				enrolment.setUser(userService.getElement(new User(rs.getInt("User_id"))));
+				enrolment.setUser(userPrivilegeService.getUserfromUserPrivileges(enrolment.getPrivilege()));
 				enrolments.add(enrolment);
 			}
 		} catch (SQLException e) {

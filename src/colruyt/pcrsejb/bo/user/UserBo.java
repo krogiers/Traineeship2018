@@ -23,6 +23,9 @@ public class UserBo {
 	private String password;
 	private HashSet<UserPrivilegeBo> privilegeBoHashSet;
 	private String country;
+	private Boolean hasActiveAdminRights;
+	private Boolean hasInactiveAdminRights;
+	private FunctionBo functionForFunctionResponsible;
 
 	/**
 	 * Default constructor
@@ -205,47 +208,35 @@ public class UserBo {
 		return Objects.hash(email);
 	}
 	
-	public boolean hasActiveAdminPrivilege()
-	{
-		boolean hasActiveAdminPrivilege = false;
-		for(UserPrivilegeBo p : this.getPrivilegeBoHashSet())
-		{
-			if(p.getPrivilegeType().equals(PrivilegeTypeBo.ADMINISTRATOR) & p.isActive()==true);
-			{
-				hasActiveAdminPrivilege = true;
-			}
-		}
-		return hasActiveAdminPrivilege;
-	}
-	
-	public boolean hasInactiveAdminPrivilege()
-	{
-		boolean hasActiveAdminPrivilege = false;
-		for(UserPrivilegeBo p : this.getPrivilegeBoHashSet())
-		{
-			if(p.getPrivilegeType().equals(PrivilegeTypeBo.ADMINISTRATOR) & p.isActive()==false);
-			{
-				hasActiveAdminPrivilege = true;
-			}
-		}
-		return hasActiveAdminPrivilege;
-	}
-	
-	public FunctionBo getFunctionForFunctionResponsiblePrivilege()
-	{
-		FunctionBo functionForFunctionResponsiblePrivilegeBo = null;
-		for(UserPrivilegeBo p : this.getPrivilegeBoHashSet())
-		{
-			if(p.getPrivilegeType().equals(PrivilegeTypeBo.FUNCTIONRESPONSIBLE) & p.isActive() == true)
-			{
-				functionForFunctionResponsiblePrivilegeBo = ((FunctionResponsibleUserPrivilegeBo)p).getFunction();
-			}
-		}
-		return functionForFunctionResponsiblePrivilegeBo;
-	}
 	
 	public String getFullName()
 	{
 		return this.getFirstName() + " " + this.getLastName();
 	}
+
+	public Boolean getHasActiveAdminRights() {
+		return hasActiveAdminRights;
+	}
+
+	public void setHasActiveAdminRights(Boolean hasActiveAdminRights) {
+		this.hasActiveAdminRights = hasActiveAdminRights;
+	}
+
+	public Boolean getHasInactiveAdminRights() {
+		return hasInactiveAdminRights;
+	}
+
+	public void setHasInactiveAdminRights(Boolean hasInactiveAdminRights) {
+		this.hasInactiveAdminRights = hasInactiveAdminRights;
+	}
+
+	public FunctionBo getFunctionForFunctionResponsible() {
+		return functionForFunctionResponsible;
+	}
+
+	public void setFunctionForFunctionResponsible(FunctionBo functionForFunctionResponsible) {
+		this.functionForFunctionResponsible = functionForFunctionResponsible;
+	}
+	
+	
 }

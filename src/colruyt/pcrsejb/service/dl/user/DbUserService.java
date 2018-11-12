@@ -332,7 +332,7 @@ public class DbUserService extends DbService implements colruyt.pcrsejb.service.
     private PrivilegeType determinePrivilegeType(Integer typeId){
         PrivilegeType p = null;
         for (PrivilegeType pt : PrivilegeType.values()) {
-        	if (pt.getId().equals(typeId)) {
+        	if (pt.getId() == typeId) {
         		p = pt;
         	}
         }

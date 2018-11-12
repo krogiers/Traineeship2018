@@ -18,7 +18,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<UserPrivilege> privileges;
+	private HashSet<UserPrivilege> privileges =  new HashSet<>();
 	private String country;
 
 	/**
@@ -159,7 +159,7 @@ public class User {
 	 * @return privileges
 	 */
 	public HashSet<UserPrivilege> getPrivileges() {
-		return privileges = new HashSet<>();
+		return privileges;
 	}
 
 	/**

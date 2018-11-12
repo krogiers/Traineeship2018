@@ -1,10 +1,13 @@
 package colruyt.pcrsejb.bo.user;
 
-import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import colruyt.pcrsejb.bo.function.FunctionBo;
+import colruyt.pcrsejb.bo.userPrivilege.FunctionResponsibleUserPrivilegeBo;
+import colruyt.pcrsejb.bo.userPrivilege.PrivilegeTypeBo;
+import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 
 /**
  * Klasse voor het aanmaken van een user.
@@ -200,5 +203,49 @@ public class UserBo {
 	@Override
 	public int hashCode() {
 		return Objects.hash(email);
+	}
+	
+	public boolean hasActiveAdminPrivilege()
+	{
+		boolean hasActiveAdminPrivilege = false;
+		for(UserPrivilegeBo p : this.getPrivilegeBoHashSet())
+		{
+			if(p.getPrivilegeType().equals(PrivilegeTypeBo.ADMINISTRATOR) & p.isActive()==true);
+			{
+				hasActiveAdminPrivilege = true;
+			}
+		}
+		return hasActiveAdminPrivilege;
+	}
+	
+	public boolean hasInactiveAdminPrivilege()
+	{
+		boolean hasActiveAdminPrivilege = false;
+		for(UserPrivilegeBo p : this.getPrivilegeBoHashSet())
+		{
+			if(p.getPrivilegeType().equals(PrivilegeTypeBo.ADMINISTRATOR) & p.isActive()==false);
+			{
+				hasActiveAdminPrivilege = true;
+			}
+		}
+		return hasActiveAdminPrivilege;
+	}
+	
+	public FunctionBo getFunctionForFunctionResponsiblePrivilege()
+	{
+		FunctionBo functionForFunctionResponsiblePrivilegeBo = null;
+		for(UserPrivilegeBo p : this.getPrivilegeBoHashSet())
+		{
+			if(p.getPrivilegeType().equals(PrivilegeTypeBo.FUNCTIONRESPONSIBLE) & p.isActive() == true)
+			{
+				functionForFunctionResponsiblePrivilegeBo = ((FunctionResponsibleUserPrivilegeBo)p).getFunction();
+			}
+		}
+		return functionForFunctionResponsiblePrivilegeBo;
+	}
+	
+	public String getFullName()
+	{
+		return this.getFirstName() + " " + this.getLastName();
 	}
 }

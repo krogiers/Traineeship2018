@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.facade;
 
+import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
@@ -63,5 +64,18 @@ public class UserFacade {
 
 	public UserBo getUser(UserBo userBo) {
 		return userConverter.convertTo(userServiceBL.getUser(userBoConverter.convertTo(userBo)));
+	}
+	
+	public boolean hasPrivilege(UserBo userBo, UserPrivilegeBo userPrivilegeBo)
+	{
+		boolean hasPrivilege = false;
+		for(UserPrivilegeBo p : userBo.getPrivilegeBoHashSet())
+		{
+			if(p.getPrivilegeType().equals(userPrivilegeBo.getPrivilegeType()) & p.isActive()==userPrivilegeBo.isActive())
+			{
+				hasPrivilege = true;
+			}
+		}
+		return hasPrivilege;
 	}
 }

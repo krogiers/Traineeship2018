@@ -9,6 +9,16 @@ public class UserPrivilege {
 		setPrivilegeType(privilegeType);
 		setActive(active);
 	}
+	
+	public UserPrivilege(Integer id, PrivilegeType privilegeType, boolean active) {
+		setId(id);
+		setPrivilegeType(privilegeType);
+		setActive(active);
+	}
+
+	public UserPrivilege(Integer id) {
+		setId(id);
+	}
 
 	public Integer getId() {
 		return id;

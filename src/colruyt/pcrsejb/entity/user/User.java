@@ -57,6 +57,12 @@ public class User {
 		// TODO Auto-generated constructor stub
 	}
 
+	public User(Integer id) {
+		setId(id);
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}

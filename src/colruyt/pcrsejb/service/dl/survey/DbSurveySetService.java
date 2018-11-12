@@ -3,8 +3,8 @@ package colruyt.pcrsejb.service.dl.survey;
 import colruyt.pcrsejb.entity.survey.*;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.DbService;
-import colruyt.pcrsejb.service.dl.User.DbUserService;
-import colruyt.pcrsejb.service.dl.User.UserService;
+import colruyt.pcrsejb.service.dl.user.DbUserService;
+import colruyt.pcrsejb.service.dl.user.UserService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.*;

@@ -12,7 +12,7 @@ public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {
     
     public TeamMemberPrivilegeBo() {
 		super();
-		this.setStartDateInCurrentFunction(null);;
+		this.setStartDateInCurrentFunction(null);
 		this.setSurveySetBoTreeSet(new TreeSet<>());
 		setId(1);
 	}

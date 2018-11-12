@@ -17,9 +17,9 @@ public class RatingBoConverter implements GenericConverter<Rating,RatingBo> {
         CompetenceBo competenceBo = from.getCompetenceBo();
         CompetenceBoConverter conv = new CompetenceBoConverter();
         if (competenceBo instanceof CraftCompetenceBo) {
-            rating = new Rating(from.getLevel(), from.isEnergy(), conv.convertTo((CraftCompetenceBo) competenceBo));
+            rating = new Rating(from.getLevel(), from.isEnergy(), conv.convertTo(competenceBo));
         } else if (competenceBo instanceof BehavioralCompetenceBo) {
-            rating = new Rating(from.getLevel(), from.isEnergy(), conv.convertTo((BehavioralCompetenceBo) competenceBo));
+            rating = new Rating(from.getLevel(), from.isEnergy(), conv.convertTo(competenceBo));
         }
         return rating;
     }

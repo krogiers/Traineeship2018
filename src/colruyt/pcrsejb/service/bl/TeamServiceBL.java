@@ -39,7 +39,7 @@ public class TeamServiceBL {
 	/**
 	 * Methode voor het maken van een teammanager
 	 * 
-	 * @param teammanager
+	 * @param teamMember
 	 */
 	public void addManagerToTeam(User teamMember, Team team) {
 		//TODO CHECK IF CURRENT MANAGER NOT EXISTING in team or in users privileges
@@ -93,7 +93,7 @@ public class TeamServiceBL {
 	 * Methode voor het maken van een teammanager
 	 * USER MUST EXIST in the team
 	 * 
-	 * @param teammanager
+	 * @param teamMember
 	 * @throws UserIsNotMemberOfTeamException 
 	 */
 	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {

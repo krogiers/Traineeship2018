@@ -86,7 +86,7 @@ public abstract class Competence {
 		Competence other = (Competence) obj;
 
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null )
 				return false;
 		} else if (!name.equals(other.name))
 			return false;

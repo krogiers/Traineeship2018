@@ -81,7 +81,7 @@ public class DbRoleService  extends DbService implements RoleService {
 	public void deleteElement(Role element) {
 		try (Connection conn = this.createConnection()) {
 			PreparedStatement preparedStatement = conn.prepareStatement(DELETE_ELEMENT);
-			preparedStatement.setInt(1, (int) element.getId());
+			preparedStatement.setInt(1, element.getId());
 			ResultSet rs = preparedStatement.executeQuery();
 		} catch (SQLException e1) {
 			e1.printStackTrace();

@@ -16,7 +16,7 @@ public class UserPrivilegeConverter implements GenericConverter<UserPrivilegeBo,
     public UserPrivilegeBo convertTo(UserPrivilege from) {
         UserPrivilegeBo userPrivilegeBo = null;
         PrivilegeType type = from.getPrivilegeType();
-        PrivilegeTypeBo typeBo = null;
+        PrivilegeTypeBo typeBo;
         if (type == PrivilegeType.TEAMMEMBER) {
         	typeBo = PrivilegeTypeBo.TEAMMEMBER;
         	userPrivilegeBo = new TeamMemberUserPrivilegeBo(typeBo, from.isActive(), functionConverter.convertTo(((FunctionUserPrivilege) from).getFunction()), ((TeamMemberUserPrivilege) from).getStartDateInCurrentFunction());

@@ -287,7 +287,7 @@ public class DbUserService extends DbService implements UserService {
     private PrivilegeType determinePrivilegeType(Integer typeId){
         PrivilegeType p = null;
         for (PrivilegeType pt : PrivilegeType.values()) {
-        	if (pt.getId() == typeId) {
+        	if (pt.getId().equals(typeId)) {
         		p = pt;
         	}
         }

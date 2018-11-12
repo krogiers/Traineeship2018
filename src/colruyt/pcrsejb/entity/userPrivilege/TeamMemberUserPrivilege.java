@@ -1,10 +1,10 @@
 package colruyt.pcrsejb.entity.userPrivilege;
 
-import java.time.LocalDate;
-import java.util.TreeSet;
-
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.survey.SurveySet;
+
+import java.time.LocalDate;
+import java.util.TreeSet;
 
 public class TeamMemberUserPrivilege extends FunctionUserPrivilege {
 	

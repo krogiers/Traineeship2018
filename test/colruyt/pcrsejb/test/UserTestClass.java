@@ -9,7 +9,7 @@
 //import colruyt.pcrsejb.entity.privileges.TeamMemberPrivilege;
 //import colruyt.pcrsejb.entity.role.Role;
 //import colruyt.pcrsejb.entity.team.Team;
-//import colruyt.pcrsejb.entity.user.User;
+//import colruyt.pcrsejb.entity.user.user;
 //import jdk.nashorn.internal.ir.annotations.Ignore;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@
 //
 //class UserTestClass {
 //
-//    User lauraLynn, jos, wouter;
+//    user lauraLynn, jos, wouter;
 //    HashSet<Privilege> teamMemberPriviligeSet;
 //    TeamMemberPrivilege teamMemberPrivilige;
 //    Team javaTrainee;
@@ -38,9 +38,9 @@
 //        softwareEngineer = new Function("Software Engineer", null,null);
 //        teamMemberPrivilige = new TeamMemberPrivilege();
 //        teamMemberPrivilige.setFunction(softwareEngineer);
-//        lauraLynn = new User("Laura", "Lynn", "LauraLynn@gmail.com", "LauraLynn", null);
-//        jos = new User("Jos", "Bond", "jos.bond@gmail.com", "JosBond", null );
-//        wouter = new User("Wouter", "Mosselmans", "wouter.mosselsmans@gmail.com", "WouterMosselsmans", null);
+//        lauraLynn = new user("Laura", "Lynn", "LauraLynn@gmail.com", "LauraLynn", null);
+//        jos = new user("Jos", "Bond", "jos.bond@gmail.com", "JosBond", null );
+//        wouter = new user("Wouter", "Mosselmans", "wouter.mosselsmans@gmail.com", "WouterMosselsmans", null);
 //        teamMemberPriviligeSet = new HashSet<>();
 //        developer = new Role();
 //        leadDeveloper = new Role();

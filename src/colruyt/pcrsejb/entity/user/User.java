@@ -1,13 +1,13 @@
 package colruyt.pcrsejb.entity.user;
 
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
+
 import java.util.HashSet;
 import java.util.Objects;
 
-import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
-
 
 /**
- * Klasse voor het aanmaken van een User.
+ * Klasse voor het aanmaken van een user.
  * 
  * @author jda1mbw
  */
@@ -22,7 +22,7 @@ public class User {
 	private String country;
 
 	/**
-	 * Constructor voor het aanmaken van een User
+	 * Constructor voor het aanmaken van een user
 	 * 
 	 * @param firstName String
 	 * @param lastName String
@@ -167,7 +167,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User{" +
+		return "user{" +
 				"id=" + id +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +

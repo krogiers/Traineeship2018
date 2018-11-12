@@ -1,16 +1,16 @@
 package colruyt.pcrsejb.service.bl;
 
-import java.util.Collection;
-import java.util.List;
-
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
-import colruyt.pcrsejb.service.dl.User.DbUserService;
-import colruyt.pcrsejb.service.dl.User.UserService;
+import colruyt.pcrsejb.service.dl.user.DbUserService;
+import colruyt.pcrsejb.service.dl.user.UserService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
+
+import java.util.Collection;
+import java.util.List;
 
 public class UserServiceBL{
 
@@ -71,9 +71,8 @@ public class UserServiceBL{
 		if(functionResponsible.size() != 0) {
 			throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");
 		} else {
-
-		}
-
+		    // TODO Add function responsible
+        }
 	}
 
 	public List<User> getAllFunctionResponsibles(){

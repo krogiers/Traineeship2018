@@ -29,7 +29,8 @@ public class BasicConnectionFactory extends ConnectionFactory {
 			Properties prop = new Properties();
 			InputStream input = null;
 			try {
-				//System.out.println(System.getProperty("user.dir"));
+				System.out.println("-----------------------------------------------");
+				System.out.println(System.getProperty("user.dir"));
 				input = new FileInputStream("config.properties");
 
 				// load a properties file
@@ -56,8 +57,7 @@ public class BasicConnectionFactory extends ConnectionFactory {
     
 	@Override
 	public Connection createConnection() throws SQLException {
-		Connection conn = DriverManager.getConnection(url, userId, passwd);
 		//System.out.println("connection via DriverManager");
-		return conn;
+		return DriverManager.getConnection(url, userId, passwd);
 	}
 }

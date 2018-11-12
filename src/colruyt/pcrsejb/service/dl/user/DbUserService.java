@@ -1,13 +1,4 @@
-package colruyt.pcrsejb.service.dl.User;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+package colruyt.pcrsejb.service.dl.user;
 
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.user.User;
@@ -19,7 +10,16 @@ import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
 
-public class DbUserService extends DbService implements UserService {
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
+public class DbUserService extends DbService implements colruyt.pcrsejb.service.dl.user.UserService {
 	
 	FunctionService fs = new DbFunctionService();
 
@@ -61,7 +61,7 @@ public class DbUserService extends DbService implements UserService {
     /**
      * get a list of all the function responsibles, joined with the function they are
      * responsible for and the country for which they are responsible
-     * @return List of User objects who are function responsibles, with their function and country
+     * @return List of user objects who are function responsibles, with their function and country
      */
     @Override
     public List<User> getAllFunctionResponsibles(){
@@ -332,7 +332,7 @@ public class DbUserService extends DbService implements UserService {
     private PrivilegeType determinePrivilegeType(Integer typeId){
         PrivilegeType p = null;
         for (PrivilegeType pt : PrivilegeType.values()) {
-        	if (pt.getId() == typeId) {
+        	if (pt.getId().equals(typeId)) {
         		p = pt;
         	}
         }

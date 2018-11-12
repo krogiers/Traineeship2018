@@ -5,7 +5,7 @@ import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
 import colruyt.pcrsejb.bo.survey.ConsensusRatingBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.converter.competence.*;
+import colruyt.pcrsejb.converter.competence.CompetenceBoConverter;
 import colruyt.pcrsejb.entity.survey.ConsensusRating;
 
 public class ConsensusRatingBoConverter implements GenericConverter<ConsensusRating,ConsensusRatingBo> {
@@ -18,10 +18,10 @@ public class ConsensusRatingBoConverter implements GenericConverter<ConsensusRat
         CompetenceBoConverter conv = new CompetenceBoConverter();
         if (competenceBo instanceof CraftCompetenceBo) {
             consensusRating = new ConsensusRating(from.getLevel(), from.isEnergy(),
-                    conv.convertTo((CraftCompetenceBo) competenceBo), from.getComment());
+                    conv.convertTo(competenceBo), from.getComment());
         } else if (competenceBo instanceof BehavioralCompetenceBo) {
             consensusRating = new ConsensusRating(from.getLevel(), from.isEnergy(),
-                    conv.convertTo((BehavioralCompetenceBo) competenceBo), from.getComment());
+                    conv.convertTo(competenceBo), from.getComment());
         }
         return consensusRating;
     }

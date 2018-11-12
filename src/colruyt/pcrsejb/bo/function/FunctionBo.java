@@ -2,8 +2,6 @@ package colruyt.pcrsejb.bo.function;
 
 import colruyt.pcrsejb.bo.competence.FunctionCompetenceBo;
 import colruyt.pcrsejb.bo.role.RoleBo;
-import colruyt.pcrsejb.entity.competence.FunctionCompetence;
-import colruyt.pcrsejb.entity.role.Role;
 
 import java.util.HashSet;
 import java.util.Set;

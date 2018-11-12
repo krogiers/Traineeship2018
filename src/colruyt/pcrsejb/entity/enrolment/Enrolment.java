@@ -10,7 +10,7 @@ public class Enrolment {
 	private UserPrivilege privilege;
 	private boolean active;
 	
-	public Enrolment() {};
+	public Enrolment() {}
 	public Enrolment(User user, UserPrivilege privilege, boolean active) {
 		this.user = user;
 		this.privilege = privilege;

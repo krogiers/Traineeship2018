@@ -10,10 +10,10 @@ public class RatingConverter implements GenericConverter<RatingBo,Rating> {
 
     @Override
     public RatingBo convertTo(Rating from) {
-        RatingBo ratingBo = null;
+        RatingBo ratingBo;
         Competence competence = from.getCompetence();
             CompetenceConverter conv = new CompetenceConverter();
-            ratingBo = new RatingBo(from.getLevel(), from.isEnergy(), conv.convertTo((Competence) competence));
+            ratingBo = new RatingBo(from.getLevel(), from.isEnergy(), conv.convertTo(competence));
         return ratingBo;
     }
 }

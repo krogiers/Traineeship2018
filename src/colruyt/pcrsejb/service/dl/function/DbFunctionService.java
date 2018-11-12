@@ -2,8 +2,6 @@ package colruyt.pcrsejb.service.dl.function;
 
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.service.dl.DbService;
-import colruyt.pcrsejb.service.dl.role.DbRoleService;
-import colruyt.pcrsejb.service.dl.role.RoleService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 
 public class DbFunctionService extends DbService implements FunctionService {
-	
-	private RoleService roleService = new DbRoleService();
 	
     private static final String ADD_FUNCTION = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?, ?)";
     private static final String GET_ELEMENT = "SELECT * FROM Functions f WHERE ID=?";

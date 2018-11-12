@@ -167,8 +167,15 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
-				+ privileges + ", country=" + country + "]";
+		return "User{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", privileges=" + privileges +
+				", country='" + country + '\'' +
+				'}';
 	}
 
 	@Override

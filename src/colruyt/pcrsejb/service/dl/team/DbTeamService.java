@@ -6,26 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
-import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.DbService;
+import colruyt.pcrsejb.service.dl.enrolment.DbEnrolmentService;
+import colruyt.pcrsejb.service.dl.enrolment.EnrolmentService;
 import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
 import colruyt.pcrsejb.service.dl.userPrivilege.DbUserPrivilegeService;
 import colruyt.pcrsejb.service.dl.userPrivilege.UserPrivilegeService;
 
 public class DbTeamService extends DbService implements TeamService {
-	private UserService userService = new DbUserService();
-	private UserPrivilegeService userPrivilegeService = new DbUserPrivilegeService();
+	private EnrolmentService enrolmentService = new DbEnrolmentService();
 	
 	private static final String ADD_ELEMENT = "INSERT INTO TEAMS(ID, NAME) VALUES((SELECT MAX(ID) FROM TEAMS), ?)";
 	private static final String GET_ELEMENT = "SELECT * FROM TEAMS WHERE ID=?";
-	private static final String GET_ALL_ELEMENTS = "select * from teams t left join teamenrolments e on T.ID = E.TEAM_ID left join userprivileges up on e.userprivileges_id = Up.ID";
+	private static final String GET_ALL_ELEMENTS = "select * from teams";
 	private static final String DELETE_ELEMENT = "DELETE FROM Teams WHERE ID = ? ";
 	private static final String GET_TEAM_OF_USER = "SELECT * FROM Teamenrolments Join userprivileges up ON Userprivileges_ID = up.ID Join users on up.user_ID = users.ID where users.ID = ?";
 
@@ -69,29 +67,12 @@ public class DbTeamService extends DbService implements TeamService {
 		try (Connection conn = this.createConnection()) {
 			PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ELEMENTS);
 			ResultSet rs = preparedStatement.executeQuery();
-			Team team = new Team();
+			Team team;
 			while (rs.next()) {
-				if (team.getTeamID() != rs.getInt("ID")) {
-					team = new Team();
-					team.setTeamID(rs.getInt("ID"));
-					team.setName(rs.getString("Name"));
-					team.setEnrolmentsHashSet(new HashSet<>());
-				}
-				rs.getInt("Userprivileges_id");
-				if(!(rs.wasNull())) {
-					HashSet<Enrolment> enrolments = team.getEnrolmentsHashSet();
-					//
-					Enrolment enrolment = new Enrolment();
-					enrolment.setActive(rs.getBoolean("Active"));
-					enrolment.setEnrolmentID(rs.getInt("Id_1"));
-					enrolment.setPrivilege(userPrivilegeService.getElement(new UserPrivilege(rs.getInt("Userprivileges_id"))));
-					enrolment.setUser(userService.getElement(new User(rs.getInt("User_id"))));
-					
-					
-					enrolments.add(enrolment);
-					team.setEnrolmentsHashSet(enrolments);
-					
-				}
+				team = new Team();
+				team.setTeamID(rs.getInt("ID"));
+				team.setName(rs.getString("Name"));
+				team.setEnrolmentsHashSet(enrolmentService.getEnrolmentsForTeam(team.getTeamID()));
 				teamList.add(team);
 			}
 		} catch (SQLException e) {

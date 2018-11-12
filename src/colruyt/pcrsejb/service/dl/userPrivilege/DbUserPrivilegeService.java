@@ -49,7 +49,7 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
                 	p = new FunctionResponsibleUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), rs.getString("COUNTRY"));
                 }
                 else {
-                	p = new UserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")));
+                	p = new UserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE"))); 
                 }
             }
 

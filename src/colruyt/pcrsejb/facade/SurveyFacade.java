@@ -1,8 +1,5 @@
 package colruyt.pcrsejb.facade;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import colruyt.pcrsejb.bo.survey.SurveyBo;
 import colruyt.pcrsejb.bo.survey.SurveySetBo;
 import colruyt.pcrsejb.bo.user.UserBo;
@@ -14,6 +11,9 @@ import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.entity.survey.SurveySet;
 import colruyt.pcrsejb.service.bl.SurveyServiceBL;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SurveyFacade {
     private SurveyServiceBL surveyServiceBL = new SurveyServiceBL();

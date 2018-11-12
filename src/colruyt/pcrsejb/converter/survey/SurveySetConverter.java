@@ -1,14 +1,14 @@
 package colruyt.pcrsejb.converter.survey;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
-
 import colruyt.pcrsejb.bo.survey.SurveyBo;
 import colruyt.pcrsejb.bo.survey.SurveySetBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveyKind;
 import colruyt.pcrsejb.entity.survey.SurveySet;
+
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class SurveySetConverter implements GenericConverter<SurveySetBo, SurveySet> {
 

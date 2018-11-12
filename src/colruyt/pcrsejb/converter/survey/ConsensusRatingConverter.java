@@ -17,10 +17,10 @@ public class ConsensusRatingConverter implements GenericConverter<ConsensusRatin
         CompetenceConverter conv = new CompetenceConverter();
         if (competence instanceof CraftCompetence) {
             consensusRatingBo = new ConsensusRatingBo(from.getLevel(), from.isEnergy(),
-                    conv.convertTo((CraftCompetence) competence), from.getComment());
+                    conv.convertTo(competence), from.getComment());
         } else if (competence instanceof BehavioralCompetence) {
             consensusRatingBo = new ConsensusRatingBo(from.getLevel(), from.isEnergy(),
-                    conv.convertTo((BehavioralCompetence) competence), from.getComment());
+                    conv.convertTo(competence), from.getComment());
         }
         return consensusRatingBo;
 

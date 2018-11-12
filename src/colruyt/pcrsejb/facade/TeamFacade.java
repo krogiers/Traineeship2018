@@ -1,7 +1,5 @@
 package colruyt.pcrsejb.facade;
 
-import java.util.ArrayList;
-
 import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.team.TeamBoConverter;
@@ -9,9 +7,10 @@ import colruyt.pcrsejb.converter.team.TeamConverter;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.entity.team.Team;
-import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.TeamServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
+
+import java.util.ArrayList;
 
 public class TeamFacade {
 	private TeamServiceBL teamServiceBL = new TeamServiceBL();
@@ -56,19 +55,19 @@ public class TeamFacade {
 	}
 
 	public UserBo getManager(TeamBo team) {
-		Team t = teamBoConverter.convertTo(team);
-		User manager = teamServiceBL.getOwnerOfTeam(t);
-		UserBo returning = userConverter.convertTo(manager);
-		return returning;
-		//return userConverter.convertTo(teamServiceBL.getOwnerOfTeam(teamBoConverter.convertTo(team)));
+//		Team t = teamBoConverter.convertTo(team);
+//		User manager = teamServiceBL.getOwnerOfTeam(t);
+//		UserBo returning = userConverter.convertTo(manager);
+//		return returning;
+		return userConverter.convertTo(teamServiceBL.getOwnerOfTeam(teamBoConverter.convertTo(team)));
 	}
 
 	public TeamBo getTeam(UserBo user) {
-		User usertje = userBoConverter.convertTo(user);
-		Team returning = teamServiceBL.getTeam(usertje);
-		TeamBo returningBo = teamConverter.convertTo(returning);
-		return returningBo;
-		//return teamConverter.convertTo(teamServiceBL.getTeam(userBoConverter.convertTo(user)));
+//		User usertje = userBoConverter.convertTo(user);
+//		Team returning = teamServiceBL.getTeam(usertje);
+//		TeamBo returningBo = teamConverter.convertTo(returning);
+//		return returningBo;
+		return teamConverter.convertTo(teamServiceBL.getTeam(userBoConverter.convertTo(user)));
 	}
 	
 }

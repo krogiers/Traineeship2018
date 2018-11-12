@@ -4,11 +4,7 @@ import colruyt.pcrsejb.bo.competence.BehavioralCompetenceBo;
 import colruyt.pcrsejb.bo.competence.CompetenceBo;
 import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
 import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.entity.competence.BehavioralCompetence;
-import colruyt.pcrsejb.entity.competence.Competence;
-import colruyt.pcrsejb.entity.competence.CraftCompetence;
-import colruyt.pcrsejb.entity.competence.DomainCompetence;
-import colruyt.pcrsejb.entity.competence.OperatingUnitCompetence;
+import colruyt.pcrsejb.entity.competence.*;
 
 public class CompetenceBoConverter implements GenericConverter<Competence,CompetenceBo> {
 

@@ -9,7 +9,7 @@ public class EnrolmentBo {
 	private PrivilegeBo privilegeBo;
 	private boolean active;
 
-	public EnrolmentBo() {};
+	public EnrolmentBo() {}
 
 	public EnrolmentBo(UserBo userBo, PrivilegeBo privilegeBo, boolean active) {
 		this.userBo = userBo;

@@ -1,16 +1,16 @@
 package colruyt.pcrsejb.service.bl;
 
-import java.util.Collection;
-import java.util.List;
-
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
-import colruyt.pcrsejb.service.dl.User.DbUserService;
-import colruyt.pcrsejb.service.dl.User.UserService;
+import colruyt.pcrsejb.service.dl.user.DbUserService;
+import colruyt.pcrsejb.service.dl.user.UserService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
+
+import java.util.Collection;
+import java.util.List;
 
 public class UserServiceBL{
 
@@ -78,7 +78,7 @@ public class UserServiceBL{
 					System.out.println(privilege.getFunction().getId());
 					System.out.println(privilege.getCountry());
 
-					if (frp.getFunction().getId() == privilege.getFunction().getId() &&
+					if (frp.getFunction().getId().equals(privilege.getFunction().getId()) &&
 							frp.getCountry().equals(privilege.getCountry())) {
 						System.out.println("5");
 						throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");

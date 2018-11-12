@@ -2,24 +2,15 @@ package colruyt.pcrsejb.service.dl.survey;
 
 import colruyt.pcrsejb.entity.survey.*;
 import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.DbService;
-import colruyt.pcrsejb.service.dl.User.DbUserService;
-import colruyt.pcrsejb.service.dl.User.UserService;
+import colruyt.pcrsejb.service.dl.user.DbUserService;
+import colruyt.pcrsejb.service.dl.user.UserService;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import javax.xml.transform.Result;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class DbSurveySetService extends DbService implements SurveySetService {
@@ -29,7 +20,14 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 	private static final String FIND_USER_BY_SURVEY = "select * from users where ID = (select USER_ID from userprivileges where id =(SELECT userprivileges_id from surveysets s where S.MANAGERSURVEY = ? or S.MEMBERSURVEY = ? or S.CONSENSUSSURVEY = ?));";
 	private static final String FIND_SURVEYS_BY_USER = "select * from surveySets s where id = (select USERPrivileges_ID from userprivileges where user_Id = ?)";
 	private static final String FIND_SURVEYS_BY_USER_AND_YEAR = "select * from surveySets s where id = (select USERPrivileges_ID from userprivileges where user_Id = ?) and year = ?";
-	
+	private static final String FIND_USER_BY_ID = "select * from surveysets ss where ss.id = ?";
+	private static final String GET_MEMBER_SURVEY_DATA = "select * from surveysets ss inner join surveys sy on ss.memberysurvey= sy.id inner join ratings where ss.id= ?";
+	private static final String GET_RATING_BY_ID = "select id,surveys_id,energy,commentary,competences_id from surveysets ss inner join surveys sy on ss.membersurvey= sy.id inner join ratings r on sy.id = r.surveys_id where surveys_id = ?";
+	private static final String GET_MANAGER_SURVEY = "select * from surveysets ss inner join surveys sy on ss.managersurvey = sy.id  where ss.id= ?";
+	private static final String GET_MANAGER_RATINGS = "select id,surveys_id,energy,commentary,competences_id from surveysets ss inner join surveys sy on ss.membersurvey= sy.id inner join ratings r on sy.id = r.surveys_id where surveys_id = ?";
+    private static final String GET_CONSENSUS_SURVEY = "select * from surveysets ss inner join surveys sy on ss.consensusservey = sy.id  where ss.id= ?";
+	private static final String GET_CONSENSUS_RATINGS = "select id,surveys_id,energy,commentary,competences_id from surveysets ss inner join surveys sy on ss.membersurvey= sy.id inner join ratings r on sy.id = r.surveys_id where surveys_id = ?";
+
     @Override
     public SurveySet save(SurveySet element) {
         try(Connection conn = this.createConnection()){
@@ -48,20 +46,15 @@ public class DbSurveySetService extends DbService implements SurveySetService {
     public SurveySet getElement(SurveySet surveySet) {
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement state = conn.prepareStatement("select * from surveysets ss where ss.id = ?");
+            PreparedStatement state = conn.prepareStatement(FIND_USER_BY_ID);
             state.setInt(1,surveySet.getSurveySetID());
             ResultSet set = state.executeQuery();
 
-          surveySet =  this.convertSingleSurveySet(set);
-          // Add surveys + Ratings
-         surveySet =  this.upgradeSurveySet(surveySet);
-
+            surveySet =  this.convertSingleSurveySet(set);
+            // TODO Add surveys + Ratings
+            surveySet =  this.upgradeSurveySet(surveySet);
 
             return surveySet;
-
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -73,12 +66,12 @@ public class DbSurveySetService extends DbService implements SurveySetService {
         try(Connection conn = this.createConnection()) {
 
             //Get Member Survey Data
-            PreparedStatement memberSurvey = conn.prepareStatement("select * from surveysets ss inner join surveys sy on ss.memberysurvey= sy.id inner join ratings where ss.id= ?");
+            PreparedStatement memberSurvey = conn.prepareStatement(GET_MEMBER_SURVEY_DATA);
             ResultSet ms = memberSurvey.executeQuery();
             Survey vey = toSingleSurvey(ms,new TeamMemberSurvey());
 
             //GetRatings
-            PreparedStatement memberratings = conn.prepareStatement("select id,surveys_id,energy,commentary,competences_id from surveysets ss inner join surveys sy on ss.membersurvey= sy.id inner join ratings r on sy.id = r.surveys_id where surveys_id = ?");
+            PreparedStatement memberratings = conn.prepareStatement(GET_RATING_BY_ID);
             memberratings.setInt(1,vey.getId());
 
             //AddRatings To Survey
@@ -88,13 +81,13 @@ public class DbSurveySetService extends DbService implements SurveySetService {
             set.getSurveySet().put(SurveyKind.TeamMember,vey);
 
             //Get manager Survey Data
-            PreparedStatement managerSurvey = conn.prepareStatement("select * from surveysets ss inner join surveys sy on ss.managersurvey = sy.id  where ss.id= ?");
+            PreparedStatement managerSurvey = conn.prepareStatement(GET_MANAGER_SURVEY);
             ResultSet mas = managerSurvey.executeQuery();
             Survey manvey = toSingleSurvey(mas,new TeamManagerSurvey());
 
 
 
-            PreparedStatement managerratings = conn.prepareStatement("select id,surveys_id,energy,commentary,competences_id from surveysets ss inner join surveys sy on ss.membersurvey= sy.id inner join ratings r on sy.id = r.surveys_id where surveys_id = ?");
+            PreparedStatement managerratings = conn.prepareStatement(GET_MANAGER_RATINGS);
             memberratings.setInt(1,manvey.getId());
 
             manvey.setRatingList(getRatings( managerratings.executeQuery()));
@@ -103,12 +96,12 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
 
             //Get Consensus Survey Data
-            PreparedStatement consensusSurvey = conn.prepareStatement("select * from surveysets ss inner join surveys sy on ss.consensusservey = sy.id  where ss.id= ?");
+            PreparedStatement consensusSurvey = conn.prepareStatement(GET_CONSENSUS_SURVEY);
             ResultSet cs = consensusSurvey.executeQuery();
             Survey convey = toSingleSurvey(cs,new ConsensusSurvey());
 
 
-            PreparedStatement consensusRating  = conn.prepareStatement("select id,surveys_id,energy,commentary,competences_id from surveysets ss inner join surveys sy on ss.membersurvey= sy.id inner join ratings r on sy.id = r.surveys_id where surveys_id = ?");
+            PreparedStatement consensusRating  = conn.prepareStatement(GET_CONSENSUS_RATINGS);
             consensusRating.setInt(1,convey.getId());
 
             convey.setRatingList(getRatings(consensusRating.executeQuery()));

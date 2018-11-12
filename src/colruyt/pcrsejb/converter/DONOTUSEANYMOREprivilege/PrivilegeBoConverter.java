@@ -3,7 +3,6 @@ package colruyt.pcrsejb.converter.DONOTUSEANYMOREprivilege;
 import colruyt.pcrsejb.bo.privileges.*;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.function.FunctionBoConverter;
-import colruyt.pcrsejb.converter.function.FunctionConverter;
 import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.*;
 
 public class PrivilegeBoConverter implements GenericConverter<Privilege,PrivilegeBo> {

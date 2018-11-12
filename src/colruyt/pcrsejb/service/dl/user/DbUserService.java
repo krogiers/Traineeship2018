@@ -1,13 +1,4 @@
-package colruyt.pcrsejb.service.dl.User;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+package colruyt.pcrsejb.service.dl.user;
 
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.user.User;
@@ -18,6 +9,15 @@ import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 public class DbUserService extends DbService implements UserService {
 	

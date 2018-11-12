@@ -1,8 +1,8 @@
 package colruyt.pcrsejb.facade;
 
-import java.util.List;
-
 import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
+
+import java.util.List;
 
 public class PrivilegeFacade {
 

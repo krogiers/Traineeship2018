@@ -1,7 +1,6 @@
 package colruyt.pcrsejb.bo.survey;
 
 import colruyt.pcrsejb.bo.competence.CompetenceBo;
-import colruyt.pcrsejb.entity.competence.Competence;
 
 import java.util.Objects;
 

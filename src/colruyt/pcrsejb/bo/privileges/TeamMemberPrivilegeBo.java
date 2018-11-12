@@ -1,10 +1,8 @@
 package colruyt.pcrsejb.bo.privileges;
 
 import colruyt.pcrsejb.bo.survey.SurveySetBo;
-import colruyt.pcrsejb.entity.survey.SurveySet;
 
 import java.time.LocalDate;
-import java.util.Set;
 import java.util.TreeSet;
 
 public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {
@@ -14,7 +12,7 @@ public class TeamMemberPrivilegeBo extends FunctionHoldingPrivilegeBo {
     
     public TeamMemberPrivilegeBo() {
 		super();
-		this.setStartDateInCurrentFunction(null);;
+		this.setStartDateInCurrentFunction(null);
 		this.setSurveySetBoTreeSet(new TreeSet<>());
 		setId(1);
 	}

@@ -1,7 +1,6 @@
 package colruyt.pcrsejb.bo.privileges;
 
 import colruyt.pcrsejb.bo.function.FunctionBo;
-import colruyt.pcrsejb.entity.function.Function;
 
 public abstract class FunctionHoldingPrivilegeBo extends PrivilegeBo {
 

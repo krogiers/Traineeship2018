@@ -1,13 +1,13 @@
 package colruyt.pcrsejb.converter.team;
 
-import java.util.HashSet;
-
 import colruyt.pcrsejb.bo.enrolment.EnrolmentBo;
 import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.enrolment.EnrolmentConverter;
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.team.Team;
+
+import java.util.HashSet;
 
 public class TeamConverter implements GenericConverter<TeamBo, Team>{
 

@@ -1,10 +1,10 @@
-package colruyt.pcrsejb.service.dl.privilege;
+package colruyt.pcrsejb.service.dl.NOTBEINGUSEDANYMOREprivilege;
+
+import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.Privilege;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.Privilege;
 
 
 

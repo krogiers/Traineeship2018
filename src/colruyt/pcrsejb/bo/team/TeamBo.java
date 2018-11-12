@@ -16,9 +16,7 @@ public class TeamBo {
 	private String name;
 	private HashSet<EnrolmentBo> enrolmentsBoHashSet;
 
-	public TeamBo() 
-	{
-	};
+	public TeamBo() {}
 	/**
 	 * Constructor voor het aanmaken van een Team
 	 *

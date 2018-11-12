@@ -1,8 +1,8 @@
 package colruyt.pcrsejb.entity.survey;
 
-import colruyt.pcrsejb.entity.competence.*;
+import colruyt.pcrsejb.entity.competence.Competence;
 
-import java.util.*;
+import java.util.Objects;
 
 /**
  The type Consensus rating. */

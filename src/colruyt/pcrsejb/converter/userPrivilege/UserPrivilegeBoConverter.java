@@ -1,14 +1,9 @@
 package colruyt.pcrsejb.converter.userPrivilege;
 
-import colruyt.pcrsejb.bo.userPrivilege.FunctionResponsibleUserPrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.FunctionUserPrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.PrivilegeTypeBo;
-import colruyt.pcrsejb.bo.userPrivilege.TeamMemberUserPrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
+import colruyt.pcrsejb.bo.userPrivilege.*;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.function.FunctionBoConverter;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
-import colruyt.pcrsejb.entity.userPrivilege.FunctionUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
@@ -21,7 +16,7 @@ public class UserPrivilegeBoConverter implements GenericConverter<UserPrivilege,
     public UserPrivilege convertTo(UserPrivilegeBo from) {
         UserPrivilege userPrivilege = null;
         PrivilegeTypeBo typeBo = from.getPrivilegeType();
-        PrivilegeType type = null;
+        PrivilegeType type;
         if (typeBo == PrivilegeTypeBo.TEAMMEMBER) {
         	type = PrivilegeType.TEAMMEMBER;
         	userPrivilege = new TeamMemberUserPrivilege(type, from.isActive(), functionBoConverter.convertTo(((FunctionUserPrivilegeBo) from).getFunction()), ((TeamMemberUserPrivilegeBo) from).getStartDateInCurrentFunction());

@@ -1,4 +1,4 @@
-package colruyt.pcrsejb.service.dl.privilege;
+package colruyt.pcrsejb.service.dl.NOTBEINGUSEDANYMOREprivilege;
 
 import colruyt.pcrsejb.entity.DONOTUSEANYMOREprivileges.Privilege;
 import colruyt.pcrsejb.service.dl.GenericCrudService;

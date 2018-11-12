@@ -4,6 +4,6 @@ import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
 public interface GenericValidator<T> {
 
-    public void validate(T toValidate) throws ValidationException;
+    void validate(T toValidate) throws ValidationException;
 
 }

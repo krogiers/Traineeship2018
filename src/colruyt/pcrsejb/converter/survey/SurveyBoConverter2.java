@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.converter.survey;
 
-import colruyt.pcrsejb.bo.survey.*;
+import colruyt.pcrsejb.bo.survey.RatingBo;
+import colruyt.pcrsejb.bo.survey.SurveyBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.entity.survey.*;
 

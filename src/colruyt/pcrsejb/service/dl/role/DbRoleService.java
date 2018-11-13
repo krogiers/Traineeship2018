@@ -1,8 +1,10 @@
 package colruyt.pcrsejb.service.dl.role;
 
+import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.role.Role;
 import colruyt.pcrsejb.service.dl.DbService;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +20,8 @@ public class DbRoleService  extends DbService implements RoleService {
 	private static final String DELETE_ELEMENT = "DELETE FROM Roles WHERE ID = ?";
 	private static final String ADD_ROLE = "INSERT INTO ROLES(ID, Name) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?)";
 	private static final String UPDATE_ROLE = "INSERT into roles (id,name) values (((select max(id) from FUNCTIONS)+1), ?)";
+	private static final String GET_ALL_ROLES_FOR_FUNCTION = "select * from roles r left outer join functionroles f " +
+			"on r.id = f.roles_id where f.functions_id is null or f.functions_id = ?";
 
 	@Override
 	public Role save(Role element) {
@@ -65,12 +69,7 @@ public class DbRoleService  extends DbService implements RoleService {
 		try (Connection conn = this.createConnection()) {
 			PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ELEMENTS);
 			ResultSet rs = preparedStatement.executeQuery();
-			while(rs.next()){
-				Role role = new Role();
-				role.setId(rs.getInt("ID"));
-				role.setName(rs.getString("Name"));
-				roleList.add(role);
-			}
+			roleList = convertToRoleList(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -87,5 +86,32 @@ public class DbRoleService  extends DbService implements RoleService {
 			e1.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public List<Role> getAllRolesForFunction(Function function) {
+		List<Role> roleList = new ArrayList<>();
+		try (Connection conn = this.createConnection()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ROLES_FOR_FUNCTION);
+			preparedStatement.setInt(1,function.getId());
+			ResultSet rs = preparedStatement.executeQuery();
+			roleList = convertToRoleList(rs);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return roleList;
+	}
+
+
+	private List<Role> convertToRoleList(ResultSet rs) throws SQLException {
+		List<Role> roleList = new ArrayList<>();
+		while(rs.next()){
+			Role role = new Role();
+			role.setId(rs.getInt("ID"));
+			role.setName(rs.getString("Name"));
+			roleList.add(role);
+		}
+		return roleList;
 	}
 }

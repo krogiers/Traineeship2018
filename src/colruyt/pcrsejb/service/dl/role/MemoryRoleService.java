@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.service.dl.role;
 
+import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.role.Role;
 
 import java.util.ArrayList;
@@ -31,5 +32,10 @@ public class MemoryRoleService implements RoleService {
     @Override
     public void deleteElement(Role element) {
         this.deleteElement(element);
+    }
+
+    @Override
+    public List<Role> getAllRolesForFunction(Function function) {
+        return null;
     }
 }

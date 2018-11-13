@@ -1,20 +1,28 @@
 package colruyt.pcrsejb.facade;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
+import colruyt.pcrsejb.converter.function.FunctionConverter;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
+import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.bl.UserServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserFacade {
 	private UserServiceBL userServiceBL = new UserServiceBL();
 	private UserBoConverter userBoConverter = new UserBoConverter();
 	private UserConverter userConverter = new UserConverter();
+	private FunctionConverter functionConverter = new FunctionConverter();
 	private UserPrivilegeBoConverter userPrivilegeBoConverter = new UserPrivilegeBoConverter();
 
 	public List<UserBo> getAllUsers() {
@@ -46,12 +54,54 @@ public class UserFacade {
 		
 	}
 	
+	 public FunctionBo getFunctionForPerson(UserBo user) {
+	    	
+	    	User u = this.userBoConverter.convertTo(user);
+	    	
+	    	FunctionBo bo = null;
+	    	
+	    	for(UserPrivilege p : u.getPrivileges()) {
+	    		
+	    		if(p.isActive() && p.getPrivilegeType().equals(PrivilegeType.TEAMMEMBER)) {
+	    			
+	    			
+	    			TeamMemberUserPrivilege fp = (TeamMemberUserPrivilege) p;
+	    			
+	    			bo = this.functionConverter.convertTo(fp.getFunction());
+	    			
+	    			
+	    			
+	    		}
+	    		
+	    	}
+	    	
+	    	return bo;
+	    	
+	    	
+	    	
+	    }
+	    
+	 
+	 public FunctionBo getFunctionForFunctionResponsible(UserBo user) {
+	    	
+	    	User u = this.userBoConverter.convertTo(user);
+	    	
+	    	FunctionBo bo = null;
+	    	
+	    	for(UserPrivilege p : u.getPrivileges()) {
+	    		
+	    		if(p.isActive() && p.getPrivilegeType().equals(PrivilegeType.FUNCTIONRESPONSIBLE)){
+	    			FunctionResponsibleUserPrivilege fp = (FunctionResponsibleUserPrivilege) p;
+	    			bo = this.functionConverter.convertTo(fp.getFunction());
+	    		}
+	    		
+	    	}
+	    	
+	    	return bo;
+	    }
 	
-	public UserBo getCurrentTeamLeaderFor(UserBo u) {
-		
-		return null;
-		
-	}
+	
+	
 	
 	public UserBo saveUser(UserBo user) {
 		try {

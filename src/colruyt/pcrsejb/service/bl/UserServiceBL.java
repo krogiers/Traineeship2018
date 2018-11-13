@@ -32,6 +32,7 @@ public class UserServiceBL{
 		}
 		return hasPrivilege;
 	}
+	
 
 	public User saveUser(User user) throws ValidationException {
 		userValidator.validate(user);

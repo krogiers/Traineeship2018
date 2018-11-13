@@ -9,6 +9,7 @@ public class RoleBo {
 
 	private String name;
     private List<RoleCompetenceBo> roleCompetenceBoList;
+    private boolean isActive;
 
     public RoleBo() {
 		super();
@@ -35,5 +36,11 @@ public class RoleBo {
 		this.roleCompetenceBoList = roleCompetenceBoList;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
 
+	public void setActive(boolean active) {
+		isActive = active;
+	}
 }

@@ -159,6 +159,7 @@ public class User {
 	 * @return privileges
 	 */
 	public HashSet<UserPrivilege> getPrivileges() {
+		//TODO Rework
 		return privileges = new HashSet<>();
 	}
 

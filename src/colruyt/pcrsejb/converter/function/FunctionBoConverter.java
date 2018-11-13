@@ -6,6 +6,7 @@ import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.role.RoleBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.competence.CompetenceBoConverter;
+import colruyt.pcrsejb.converter.operatingunit.OperatingUnitBoConverter;
 import colruyt.pcrsejb.converter.role.RoleBoConverter;
 import colruyt.pcrsejb.entity.competence.FunctionCompetence;
 import colruyt.pcrsejb.entity.function.Function;
@@ -16,10 +17,11 @@ import java.util.Set;
 
 public class FunctionBoConverter implements GenericConverter<Function,FunctionBo> {
 
+    private OperatingUnitBoConverter operatingUnitBoConverter = new OperatingUnitBoConverter();
 
     @Override
     public Function convertTo(FunctionBo from) {
-        return new Function(from.getID(), from.getTitle(), getRoleSet(from.getRoleBoSet()),getFunctionCompetenceSet(from.getFunctionCompetenceBoSet()));
+        return new Function(from.getID(), from.getTitle(), getRoleSet(from.getRoleBoSet()), getFunctionCompetenceSet(from.getFunctionCompetenceBoSet()), operatingUnitBoConverter.convertTo(from.getOperatingUnitBo()));
     }
 
     private HashSet<Role> getRoleSet(Set<RoleBo> roleBoSet){

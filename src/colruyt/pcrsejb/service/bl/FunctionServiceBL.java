@@ -9,8 +9,8 @@ import java.util.List;
 public class FunctionServiceBL {
 
     private FunctionService functionService = new DbFunctionService();
-    public List<Function> getAllFunctionNames() {
-        return (List<Function>) functionService.getAllFunctionNames();
+    public List<Function> getAllFunctions() {
+        return (List<Function>) functionService.getAllFunctions();
     }
 
 }

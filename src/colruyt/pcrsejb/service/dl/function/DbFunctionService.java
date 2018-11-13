@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.service.dl.function;
 
 import colruyt.pcrsejb.entity.function.Function;
+import colruyt.pcrsejb.entity.operatingunit.OperatingUnit;
 import colruyt.pcrsejb.service.dl.DbService;
 
 import java.sql.Connection;
@@ -13,25 +14,24 @@ import java.util.HashSet;
 import java.util.List;
 
 public class DbFunctionService extends DbService implements FunctionService {
-	
+
     private static final String ADD_FUNCTION = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?, ?)";
     private static final String GET_ELEMENT = "SELECT * FROM Functions f WHERE ID=?";
-    private static final String GET_ALL_ELEMENTS = "SELECT * FROM Functions f INNER JOIN FunctionRoles fr ON fr.Functions_ID = f.ID INNER JOIN Competences c ON c.Functions_ID = f.ID";
-    private static final String GET_ALL_FUNCTIONS = "SELECT * FROM Functions";
-    private static final String DELETE_FUNCTION = "Delete from Functions where id = ?";
-    private static final String UPDATE_FUNCTION = "INSERT into Functions (id,title,OperatingUnits_ID) values (((select max(id) from FUNCTIONS)+1), ?, ?)";
+    private static final String GET_ALL_ELEMENTS = "SELECT * FROM FUNCTIONS f inner join FUNCTIONROLES fr on fr.FUNCTIONS_ID = f.ID inner join COMPETENCES C on f.ID = C.FUNCTIONS_ID";
+    private static final String GET_ALL_FUNCTIONS = "SELECT f.ID AS FUNCTION_ID, f.title AS FUNCTION_TITLE, ou.id AS OPERATING_UNIT_ID, ou.title AS OPERATING_UNIT_NAME FROM Functions f INNER JOIN OperatingUnits ou ON ou.id = f.OperatingUnits_id";
+    private static final String DELETE_FUNCTION = "Delete FROM Functions WHERE id = ?";
+    private static final String UPDATE_FUNCTION = "INSERT INTO Functions (id,title,OperatingUnits_ID) values (((select max(id) from FUNCTIONS)+1), ?, ?)";
 
     @Override
     public Function save(Function element) {
 
-        try(Connection conn = this.createConnection()) {
+        try (Connection conn = this.createConnection()) {
             PreparedStatement statement;
 
-            if(element.getId() != null){
-                statement = conn.prepareStatement(UPDATE_FUNCTION, new String[] {"ID"});
-            }
-            else{
-                statement = conn.prepareStatement(ADD_FUNCTION, new String[] {"ID"});
+            if (element.getId() != null) {
+                statement = conn.prepareStatement(UPDATE_FUNCTION, new String[]{"ID"});
+            } else {
+                statement = conn.prepareStatement(ADD_FUNCTION, new String[]{"ID"});
             }
             statement.setString(1, element.getTitle());
             statement.setInt(2, element.getOperatingUnitId());
@@ -48,7 +48,7 @@ public class DbFunctionService extends DbService implements FunctionService {
 
     @Override
     public Function getElement(Function function) {
-        try (Connection conn = this.createConnection()){
+        try (Connection conn = this.createConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement(GET_ELEMENT);
             preparedStatement.setInt(1, function.getId());
             ResultSet rs = preparedStatement.executeQuery();
@@ -75,12 +75,18 @@ public class DbFunctionService extends DbService implements FunctionService {
     }
 
     @Override
-    public List<Function> getAllFunctionNames(){
+    public List<Function> getAllFunctions() {
         List<Function> functionList = new ArrayList<>();
         try (Connection conn = this.createConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_FUNCTIONS);
             ResultSet rs = preparedStatement.executeQuery();
-            functionList = convertToFunctions(rs);
+
+            while (rs.next()) {
+                OperatingUnit ou = new OperatingUnit(rs.getInt("OPERATING_UNIT_ID"), rs.getString("OPERATING_UNIT_NAME"));
+                functionList.add(new Function(rs.getInt("FUNCTION_ID"), rs.getString("FUNCTION_TITLE"), ou));
+            }
+
+            //functionList = convertToFunctions(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -90,11 +96,11 @@ public class DbFunctionService extends DbService implements FunctionService {
 
     @Override
     public void deleteElement(Function element) {
-        try(Connection conn = this.createConnection()){
+        try (Connection conn = this.createConnection()) {
 
-            PreparedStatement statement =  conn.prepareStatement(DELETE_FUNCTION);
-            statement.setLong(1,element.getId());
-            ResultSet rs =  statement.executeQuery();
+            PreparedStatement statement = conn.prepareStatement(DELETE_FUNCTION);
+            statement.setLong(1, element.getId());
+            ResultSet rs = statement.executeQuery();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,8 +110,8 @@ public class DbFunctionService extends DbService implements FunctionService {
 
     private Function convertToSingleFunction(ResultSet rs) throws SQLException {
         Function function = null;
-        if (rs.next()){
-        	function = new Function();
+        if (rs.next()) {
+            function = new Function();
             function.setId(rs.getInt("ID"));
             function.setTitle(rs.getString("TITLE"));
             //TODO change by getOperatingUnit instead of ID
@@ -114,17 +120,17 @@ public class DbFunctionService extends DbService implements FunctionService {
             function.setRoleSet(new HashSet<>());
             //TODO getFunctionCompetencesRoleSet
             function.setFunctionCompetenceSet(new HashSet<>());
-            
+
         }
         return function;
     }
 
     private List<Function> convertToFunctions(ResultSet rs) throws SQLException {
         List<Function> functionList = new ArrayList<>();
-
         while (rs.next()) {
-        	//TODO add roles & operating unit
-            functionList.add(new Function(rs.getInt("ID"), rs.getString("TITLE")));
+            //TODO add roles & operating unit
+            OperatingUnit ou = new OperatingUnit(rs.getInt("OPERATING_UNIT_ID"), rs.getString("OPERATING_UNIT_NAME"));
+            functionList.add(new Function(rs.getInt("FUNCTION_ID"), rs.getString("FUNCTION_TITLE"), ou));
         }
         return functionList;
     }

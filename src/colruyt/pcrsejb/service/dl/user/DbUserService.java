@@ -177,7 +177,6 @@ public class DbUserService extends DbService implements UserService {
 
             if(user.getId() != null){
                 statement = conn.prepareStatement(UPDATE_USER, new String[] {"ID"});
-
             }
             else{
                 statement = conn.prepareStatement(INSERT_USER, new String[] {"ID"});

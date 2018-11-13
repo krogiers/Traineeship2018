@@ -28,15 +28,15 @@ public class UserConverter implements GenericConverter<UserBo,User> {
     	FunctionConverter fv = new FunctionConverter();
     	for(UserPrivilege p : from.getPrivileges())
     	{
-    		if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR) & p.isActive())
+    		if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR) && p.isActive())
     		{
     			userBo.setHasActiveAdminRights(true);
     		}
-    		if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR) & !p.isActive())
+    		if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR) && !p.isActive())
     		{
     			userBo.setHasInactiveAdminRights(true);
     		}
-    		if(p.getPrivilegeType().equals(PrivilegeType.FUNCTIONRESPONSIBLE) & p.isActive())
+    		if(p.getPrivilegeType().equals(PrivilegeType.FUNCTIONRESPONSIBLE) && p.isActive())
     		{
     			userBo.setFunctionForFunctionResponsible(fv.convertTo(((FunctionUserPrivilege)p).getFunction()));
     		}

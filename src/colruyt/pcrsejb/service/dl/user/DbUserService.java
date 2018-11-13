@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class DbUserService extends DbService implements colruyt.pcrsejb.service.dl.user.UserService {
+public class DbUserService extends DbService implements UserService {
 	
 	FunctionService fs = new DbFunctionService();
 

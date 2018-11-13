@@ -33,9 +33,9 @@ public class UserServiceBL{
 		return hasPrivilege;
 	}
 
-	public void saveUser(User user) throws ValidationException {
+	public User saveUser(User user) throws ValidationException {
 		userValidator.validate(user);
-		userdb.save(user);
+		return userdb.save(user);
 	}
 
 	public Collection<User> getAllUsers() {

@@ -3,6 +3,8 @@ package colruyt.pcrsejb.service.dl.function;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.operatingunit.OperatingUnit;
 import colruyt.pcrsejb.service.dl.DbService;
+import colruyt.pcrsejb.service.dl.operatingUnit.DbOperatingUnitService;
+import colruyt.pcrsejb.service.dl.operatingUnit.OperatingUnitService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 
 public class DbFunctionService extends DbService implements FunctionService {
+	private OperatingUnitService operatingUnitService = new DbOperatingUnitService();
 
     private static final String ADD_FUNCTION = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?, ?)";
     private static final String GET_ELEMENT = "SELECT * FROM Functions f WHERE ID=?";
@@ -34,7 +37,7 @@ public class DbFunctionService extends DbService implements FunctionService {
                 statement = conn.prepareStatement(ADD_FUNCTION, new String[]{"ID"});
             }
             statement.setString(1, element.getTitle());
-            statement.setInt(2, element.getOperatingUnitId());
+            statement.setInt(2, element.getOperatingUnit().getId());
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 element.setId(rs.getInt("ID"));
@@ -114,8 +117,7 @@ public class DbFunctionService extends DbService implements FunctionService {
             function = new Function();
             function.setId(rs.getInt("ID"));
             function.setTitle(rs.getString("TITLE"));
-            //TODO change by getOperatingUnit instead of ID
-            function.setOperatingUnitId(rs.getInt("OPERATINGUNITS_ID"));
+            function.setOperatingUnit(operatingUnitService.getElement(new OperatingUnit(rs.getInt("OPERATINGUNITS_ID"))));
             //TODO get Roles to function
             function.setRoleSet(new HashSet<>());
             //TODO getFunctionCompetencesRoleSet
@@ -129,8 +131,7 @@ public class DbFunctionService extends DbService implements FunctionService {
         List<Function> functionList = new ArrayList<>();
         while (rs.next()) {
             //TODO add roles & operating unit
-            OperatingUnit ou = new OperatingUnit(rs.getInt("OPERATING_UNIT_ID"), rs.getString("OPERATING_UNIT_NAME"));
-            functionList.add(new Function(rs.getInt("FUNCTION_ID"), rs.getString("FUNCTION_TITLE"), ou));
+            functionList.add(new Function(rs.getInt("FUNCTION_ID"), rs.getString("FUNCTION_TITLE"), operatingUnitService.getElement(new OperatingUnit(rs.getInt("OPERATINGUNITS_ID")))));
         }
         return functionList;
     }

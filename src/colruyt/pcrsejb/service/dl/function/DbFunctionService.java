@@ -5,6 +5,8 @@ import colruyt.pcrsejb.entity.operatingunit.OperatingUnit;
 import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.operatingUnit.DbOperatingUnitService;
 import colruyt.pcrsejb.service.dl.operatingUnit.OperatingUnitService;
+import colruyt.pcrsejb.service.dl.role.DbRoleService;
+import colruyt.pcrsejb.service.dl.role.RoleService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +19,7 @@ import java.util.List;
 
 public class DbFunctionService extends DbService implements FunctionService {
 	private OperatingUnitService operatingUnitService = new DbOperatingUnitService();
+	private RoleService roleService = new DbRoleService();
 
     private static final String ADD_FUNCTION = "INSERT INTO FUNCTIONS(ID, Title, OperatingUnit_ID) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?, ?)";
     private static final String GET_ELEMENT = "SELECT * FROM Functions f WHERE ID=?";
@@ -118,8 +121,7 @@ public class DbFunctionService extends DbService implements FunctionService {
             function.setId(rs.getInt("ID"));
             function.setTitle(rs.getString("TITLE"));
             function.setOperatingUnit(operatingUnitService.getElement(new OperatingUnit(rs.getInt("OPERATINGUNITS_ID"))));
-            //TODO get Roles to function
-            function.setRoleSet(new HashSet<>());
+            function.setRoleSet(roleService.getAllRolesForFunction(function));
             //TODO getFunctionCompetencesRoleSet
             function.setFunctionCompetenceSet(new HashSet<>());
 

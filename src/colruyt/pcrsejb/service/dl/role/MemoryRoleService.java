@@ -5,6 +5,7 @@ import colruyt.pcrsejb.entity.role.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class MemoryRoleService implements RoleService {
@@ -35,7 +36,7 @@ public class MemoryRoleService implements RoleService {
     }
 
     @Override
-    public List<Role> getAllRolesForFunction(Function function) {
+    public HashSet<Role> getAllRolesForFunction(Function function) {
         return null;
     }
 }

@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class DbRoleService  extends DbService implements RoleService {
@@ -88,8 +89,8 @@ public class DbRoleService  extends DbService implements RoleService {
 	}
 
 	@Override
-	public List<Role> getAllRolesForFunction(Function function) {
-		List<Role> roleList = new ArrayList<>();
+	public HashSet<Role> getAllRolesForFunction(Function function) {
+		HashSet<Role> roleList = new HashSet<>();
 		try (Connection conn = this.createConnection()) {
 			PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ROLES_FOR_FUNCTION);
 			preparedStatement.setInt(1,function.getId());

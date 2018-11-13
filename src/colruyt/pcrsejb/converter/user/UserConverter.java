@@ -1,16 +1,21 @@
 package colruyt.pcrsejb.converter.user;
 
+import java.util.HashSet;
+
+import colruyt.pcrsejb.bo.team.TeamBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.function.FunctionConverter;
+import colruyt.pcrsejb.converter.team.TeamConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeConverter;
+import colruyt.pcrsejb.entity.enrolment.Enrolment;
+import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
-
-import java.util.HashSet;
+import colruyt.pcrsejb.service.dl.team.DbTeamService;
 
 /**
  * Class for converting a user Entity into a user BO
@@ -40,6 +45,10 @@ public class UserConverter implements GenericConverter<UserBo,User> {
     		{
     			userBo.setFunctionForFunctionResponsible(fv.convertTo(((FunctionUserPrivilege)p).getFunction()));
     		}
+    		if(p.getPrivilegeType().equals(PrivilegeType.TEAMMEMBER) && p.isActive())
+    		{
+    			userBo.setTeamManager((this.getTeam(from, p)).getTeamManager());
+    		}
     	}
        return userBo;
     }
@@ -53,4 +62,22 @@ public class UserConverter implements GenericConverter<UserBo,User> {
     	return privileges;
     }
 
+    private TeamBo getTeam(User user, UserPrivilege p)
+    {
+    	TeamBo team = null;
+    	DbTeamService dbTeamService = new DbTeamService();
+    	TeamConverter tc = new TeamConverter();
+    	for(Team t : dbTeamService.getAllElements())
+    	{
+    		for(Enrolment e : t.getEnrolmentsHashSet())
+    		{
+    			if(e.getUser().equals(user) & e.isActive() & e.getPrivilege().equals(p))
+    			{
+    				team = tc.convertTo(t);
+    			}
+    		}
+    	}
+    	return team;
+    }
+    
 }

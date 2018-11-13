@@ -24,6 +24,7 @@ public class UserBo {
 	private Boolean hasActiveAdminRights;
 	private Boolean hasInactiveAdminRights;
 	private FunctionBo functionForFunctionResponsible;
+	private UserBo teamManager;
 
 	/**
 	 * Default constructor
@@ -49,6 +50,7 @@ public class UserBo {
 		setId(id);
 		setPrivilegeBoHashSet(privilegeBoHashSet);
 		setCountry(country);
+		
 	}
 	
 	public UserBo(String firstName, String lastName, String email, String password, HashSet<UserPrivilegeBo> privilegeBoHashSet,
@@ -235,6 +237,15 @@ public class UserBo {
 	public void setFunctionForFunctionResponsible(FunctionBo functionForFunctionResponsible) {
 		this.functionForFunctionResponsible = functionForFunctionResponsible;
 	}
-	
+
+	public UserBo getTeamManager() {
+		return teamManager;
+	}
+
+	public void setTeamManager(UserBo teamManager) {
+		this.teamManager = teamManager;
+	}
+
+
 	
 }

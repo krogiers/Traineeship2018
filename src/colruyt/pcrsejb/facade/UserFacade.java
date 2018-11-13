@@ -44,13 +44,15 @@ public class UserFacade {
 		userServiceBL.delete(userBoConverter.convertTo(user));
 	}
 
-	public void saveUser(UserBo user) {
+	public UserBo saveUser(UserBo user) {
 		try {
-			userServiceBL.saveUser(userBoConverter.convertTo(user));
+			return userConverter.convertTo(userServiceBL.saveUser(userBoConverter.convertTo(user)));
 		} catch (ValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
+	
 	}
 
     public List<UserBo> getFunctionResponsibles() {

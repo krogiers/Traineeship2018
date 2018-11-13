@@ -43,14 +43,15 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
                 UserPrivilege p;
                 if (PrivilegeType.TEAMMEMBER == type) {
                 	//TODO GET DATE from database
-                	p = new TeamMemberUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), null);
+                	p = new TeamMemberUserPrivilege(type, 1 == rs.getInt("ACTIVE"), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), null);
                 }
                 else if(PrivilegeType.FUNCTIONRESPONSIBLE == type) {
-                	p = new FunctionResponsibleUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), rs.getString("COUNTRY"));
+                	p = new FunctionResponsibleUserPrivilege(type, 1 == rs.getInt("ACTIVE"), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), rs.getString("COUNTRY"));
                 }
                 else {
-                	p = new UserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE"))); 
+                	p = new UserPrivilege(type, 1 == rs.getInt("ACTIVE")); 
                 }
+                userPrivilege = p;
             }
 
         } catch (SQLException e) {

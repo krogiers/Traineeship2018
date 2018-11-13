@@ -270,13 +270,13 @@ public class DbUserService extends DbService implements UserService {
             UserPrivilege p;
             if (PrivilegeType.TEAMMEMBER == type) {
             	//TODO GET DATE from database
-            	p = new TeamMemberUserPrivilege(type, "1".equals(set.getInt("ACTIVE")), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), null);
+            	p = new TeamMemberUserPrivilege(type, 1 == set.getInt("ACTIVE"), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), null);
             }
             else if(PrivilegeType.FUNCTIONRESPONSIBLE == type) {
-            	p = new FunctionResponsibleUserPrivilege(type, "1".equals(set.getInt("ACTIVE")), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), set.getString("COUNTRY"));
+            	p = new FunctionResponsibleUserPrivilege(type, 1==set.getInt("ACTIVE"), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), set.getString("COUNTRY"));
             }
             else {
-            	p = new UserPrivilege(type, "1".equals(set.getInt("ACTIVE")));
+            	p = new UserPrivilege(type, 1 == set.getInt("ACTIVE"));
             }
             privileges.add(p);
         }

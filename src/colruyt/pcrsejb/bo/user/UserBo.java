@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.inject.Named;
-
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 
@@ -15,7 +13,6 @@ import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
  * 
  * @author jda1mbw
  */	
-@Named
 public class UserBo implements Serializable{
 
 	private static final long serialVersionUID = 1L;

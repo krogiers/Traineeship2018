@@ -41,8 +41,18 @@ public class UserFacade {
 	 */
 	public void removeUser(UserBo user) {
 		userServiceBL.delete(userBoConverter.convertTo(user));
+		
+		
+		
 	}
-
+	
+	
+	public UserBo getCurrentTeamLeaderFor(UserBo u) {
+		
+		return null;
+		
+	}
+	
 	public UserBo saveUser(UserBo user) {
 		try {
 			return userConverter.convertTo(userServiceBL.saveUser(userBoConverter.convertTo(user)));

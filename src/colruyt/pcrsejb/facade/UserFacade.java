@@ -1,6 +1,5 @@
 package colruyt.pcrsejb.facade;
 
-import colruyt.pcrsejb.bo.privileges.PrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
@@ -11,7 +10,6 @@ import colruyt.pcrsejb.service.bl.UserServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class UserFacade {
 	private UserServiceBL userServiceBL = new UserServiceBL();
@@ -54,8 +52,12 @@ public class UserFacade {
 		}
 	}
 
-    public List<UserBo> getFunctionResponsibles() {
-		return null;
+    public List<UserBo> getAllFunctionResponsibles() {
+		List<UserBo> functionResponsibleList = new ArrayList<>();
+		for (User u: userServiceBL.getAllFunctionResponsibles()){
+			functionResponsibleList.add(userConverter.convertTo(u));
+		}
+		return functionResponsibleList;
     }
 
 	public void addPrivilegeForUser(UserPrivilegeBo privilegeBo, UserBo userBo) {

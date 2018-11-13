@@ -19,7 +19,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class DbUserService extends DbService implements UserService {
+public class DbUserService extends DbService implements colruyt.pcrsejb.service.dl.user.UserService {
 	
 	FunctionService fs = new DbFunctionService();
 
@@ -34,6 +34,12 @@ public class DbUserService extends DbService implements UserService {
     private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?" ;
     private static final String FIND_PRIVILEGES_OF_USER = "Select * from userprivileges where user_id = ?";
     private static final String DELETE_USER = "Delete from Users where id = ?" ;
+    private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where " +
+            "up.privis_id=? and active=1 and functions_id=? and country=?";
+
+    private static final String GET_FUNCTION_RESPONSIBLES = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id " +
+            "inner join Functions f on f.id = up.functions_id where up.privis_id = ? and active=1";
+
 
 
     @Override
@@ -42,9 +48,47 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
 
             PreparedStatement statement =  conn.prepareStatement(FIND_USERS_BY_PRIVILIGE);
-          statement.setInt(1, privilege.getPrivilegeType().getId());
-          ResultSet rs =  statement.executeQuery();
-          users = convertToUserList(rs);
+            statement.setInt(1, privilege.getPrivilegeType().getId());
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    /**
+     * get a list of all the function responsibles, joined with the function they are
+     * responsible for and the country for which they are responsible
+     * @return List of user objects who are function responsibles, with their function and country
+     */
+    @Override
+    public List<User> getAllFunctionResponsibles(){
+        List<User> users = new ArrayList<>();
+        try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement(GET_FUNCTION_RESPONSIBLES);
+            statement.setInt(1, PrivilegeType.FUNCTIONRESPONSIBLE.getId());
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> getFunctionResponsible(int functionId, String country){
+        List<User> users = new ArrayList<>();
+        try (Connection conn = this.createConnection()) {
+            PreparedStatement statement =  conn.prepareStatement(FIND_FUNCTION_RESPONSIBLE);
+            statement.setInt(1, PrivilegeType.FUNCTIONRESPONSIBLE.getId());
+            statement.setInt(2, functionId);
+            statement.setString(3, country);
+            ResultSet rs =  statement.executeQuery();
+            users = convertToUserList(rs);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -143,6 +187,7 @@ public class DbUserService extends DbService implements UserService {
             String country = rs.getString("homecountry");
 
             User user = new User(id,firstname,lastname,password,email,new HashSet<UserPrivilege>(), country);
+            System.out.println(user);
             user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
 
             userList.add(user);

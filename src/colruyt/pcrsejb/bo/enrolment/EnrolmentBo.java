@@ -17,9 +17,7 @@ public class EnrolmentBo {
 		this.privilegeBo = privilegeBo;
 		this.active = active;
 	}
-	public UserBo getUserBO() {
-		return userBo;
-	}
+
 
 	public void setUserBo(UserBo userBo) {
 		this.userBo = userBo;
@@ -57,7 +55,7 @@ public class EnrolmentBo {
 	public boolean equals(Object o) {
 		boolean gelijk = false;
 		try {
-			if (this.getUserBO().getEmail().equalsIgnoreCase(((EnrolmentBo)o).getUserBO().getEmail()) && this.getPrivilegeBo().getId() == ((EnrolmentBo)o).getPrivilegeBo().getId()) {
+			if (this.getUserBo().getEmail().equalsIgnoreCase(((EnrolmentBo)o).getUserBo().getEmail()) && this.getPrivilegeBo().getId() == ((EnrolmentBo)o).getPrivilegeBo().getId()) {
 				gelijk = true;
 			}
 		}

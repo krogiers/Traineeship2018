@@ -41,15 +41,27 @@ public class UserFacade {
 	 */
 	public void removeUser(UserBo user) {
 		userServiceBL.delete(userBoConverter.convertTo(user));
+		
+		
+		
 	}
-
-	public void saveUser(UserBo user) {
+	
+	
+	public UserBo getCurrentTeamLeaderFor(UserBo u) {
+		
+		return null;
+		
+	}
+	
+	public UserBo saveUser(UserBo user) {
 		try {
-			userServiceBL.saveUser(userBoConverter.convertTo(user));
+			return userConverter.convertTo(userServiceBL.saveUser(userBoConverter.convertTo(user)));
 		} catch (ValidationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
+	
 	}
 
     public List<UserBo> getAllFunctionResponsibles() {

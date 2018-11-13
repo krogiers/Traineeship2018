@@ -49,6 +49,7 @@ public class UserBo {
 		setId(id);
 		setPrivilegeBoHashSet(privilegeBoHashSet);
 		setCountry(country);
+		
 	}
 	
 	public UserBo(String firstName, String lastName, String email, String password, HashSet<UserPrivilegeBo> privilegeBoHashSet,
@@ -235,6 +236,8 @@ public class UserBo {
 	public void setFunctionForFunctionResponsible(FunctionBo functionForFunctionResponsible) {
 		this.functionForFunctionResponsible = functionForFunctionResponsible;
 	}
-	
+
+
+
 	
 }

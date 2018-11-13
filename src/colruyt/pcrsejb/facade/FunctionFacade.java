@@ -24,4 +24,8 @@ public class FunctionFacade {
         }
         return functionBoList;
     }
+
+    public FunctionBo getFunction(FunctionBo functionBo) {
+        return functionConverter.convertTo(functionServiceBL.getFunction(functionBoConverter.convertTo(functionBo)));
+    }
 }

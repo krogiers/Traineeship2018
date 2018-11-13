@@ -1,22 +1,20 @@
 package colruyt.pcrsejb;
 
-import colruyt.pcrsejb.bo.competence.CompetenceBo;
-import colruyt.pcrsejb.bo.competence.CraftCompetenceBo;
-import colruyt.pcrsejb.converter.GenericConverter;
-import colruyt.pcrsejb.entity.competence.Competence;
-import colruyt.pcrsejb.service.dl.competence.CompetenceService;
-import colruyt.pcrsejb.service.dl.competence.DbCompetenceService;
-import colruyt.pcrsejb.converter.competence.CompetenceBoConverter;
+import colruyt.pcrsejb.bo.function.FunctionBo;
+import colruyt.pcrsejb.bo.user.UserBo;
+import colruyt.pcrsejb.entity.function.Function;
+import colruyt.pcrsejb.facade.FunctionFacade;
+import colruyt.pcrsejb.facade.UserFacade;
 
 public class Main {
 
     public static void main(String[] args) {
-        GenericConverter converter = new CompetenceBoConverter();
-        CompetenceBo competenceBo = new CraftCompetenceBo();
+        UserFacade userFacade = new UserFacade();
 
-        CompetenceService competenceFacade = new DbCompetenceService();
-
-        competenceFacade.save((Competence)converter.convertTo(competenceBo));
+        for(UserBo userBo : userFacade.getAllUsers()){
+            System.out.println("-------------------------");
+            System.out.println(userBo.getFirstName());
+        }
 
 
     }

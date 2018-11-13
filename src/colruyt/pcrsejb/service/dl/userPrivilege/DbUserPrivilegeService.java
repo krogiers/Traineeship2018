@@ -9,6 +9,8 @@ import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
+import colruyt.pcrsejb.service.dl.user.DbUserService;
+import colruyt.pcrsejb.service.dl.user.UserService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +23,7 @@ import java.util.List;
 
 public class DbUserPrivilegeService extends DbService implements UserPrivilegeService {
 	private FunctionService fs = new DbFunctionService();
+	private UserService us = new DbUserService();
 
 	@Override
 	public UserPrivilege save(UserPrivilege element) {
@@ -40,17 +43,22 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
             
             if(rs.next()){
             	PrivilegeType type = determinePrivilegeType(rs.getInt("PRIVIS_ID"));
-                UserPrivilege p;
                 if (PrivilegeType.TEAMMEMBER == type) {
                 	//TODO GET DATE from database
-                	p = new TeamMemberUserPrivilege(type, "1".equals(rs.getInt("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), null);
+
+                	userPrivilege = new TeamMemberUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), null);
+
                 }
                 else if(PrivilegeType.FUNCTIONRESPONSIBLE == type) {
-                	p = new FunctionResponsibleUserPrivilege(type, "1".equals(rs.getInt("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), rs.getString("COUNTRY"));
+
+                	userPrivilege = new FunctionResponsibleUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), rs.getString("COUNTRY"));
                 }
                 else {
-                	p = new UserPrivilege(type, "1".equals(rs.getInt("ACTIVE")));
+
+                	userPrivilege = new UserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE"))); 
                 }
+
+                userPrivilege.setId(element.getId());
             }
 
         } catch (SQLException e) {
@@ -82,5 +90,26 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
         }
         return p;
     }
+
+	@Override
+	public User getUserfromUserPrivileges(UserPrivilege privilege) {
+		User user =  null;
+		try(Connection conn = this.createConnection()){
+
+            PreparedStatement statement =  conn.prepareStatement("select * from userprivileges where id = ?");
+            statement.setInt(1, privilege.getId());
+
+            ResultSet rs =  statement.executeQuery();
+            
+            if(rs.next()){
+                	user = us.getElement(new User(rs.getInt("user_id")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+	}
 
 }

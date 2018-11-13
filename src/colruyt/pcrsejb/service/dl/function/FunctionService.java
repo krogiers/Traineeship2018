@@ -7,6 +7,6 @@ import java.util.Collection;
 
 public interface FunctionService extends GenericCrudService<Function,Integer> {
 
-    Collection<Function> getAllFunctionNames();
+    Collection<Function> getAllFunctions();
 
 }

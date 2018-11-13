@@ -222,7 +222,6 @@ public class DbUserService extends DbService implements colruyt.pcrsejb.service.
 
             if(user.getId() != null){
                 statement = conn.prepareStatement(UPDATE_USER, new String[] {"ID"});
-
             }
             else{
                 statement = conn.prepareStatement(INSERT_USER, new String[] {"ID"});
@@ -315,13 +314,13 @@ public class DbUserService extends DbService implements colruyt.pcrsejb.service.
             UserPrivilege p;
             if (PrivilegeType.TEAMMEMBER == type) {
             	//TODO GET DATE from database
-            	p = new TeamMemberUserPrivilege(type, "1".equals(set.getInt("ACTIVE")), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), null);
+            	p = new TeamMemberUserPrivilege(type, 1 == set.getInt("ACTIVE"), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), null);
             }
             else if(PrivilegeType.FUNCTIONRESPONSIBLE == type) {
-            	p = new FunctionResponsibleUserPrivilege(type, "1".equals(set.getInt("ACTIVE")), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), set.getString("COUNTRY"));
+            	p = new FunctionResponsibleUserPrivilege(type, 1==set.getInt("ACTIVE"), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), set.getString("COUNTRY"));
             }
             else {
-            	p = new UserPrivilege(type, "1".equals(set.getInt("ACTIVE")));
+            	p = new UserPrivilege(type, 1 == set.getInt("ACTIVE"));
             }
             privileges.add(p);
         }

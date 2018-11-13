@@ -18,7 +18,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<UserPrivilege> privileges;
+	private HashSet<UserPrivilege> privileges =  new HashSet<>();
 	private String country;
 
 	/**

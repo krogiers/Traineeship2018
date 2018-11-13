@@ -14,6 +14,7 @@ import java.util.HashSet;
 public class TeamBo {
 
 	private String name;
+	private Integer id;
 	private HashSet<EnrolmentBo> enrolmentsBoHashSet;
 
 	public TeamBo() {}
@@ -30,6 +31,12 @@ public class TeamBo {
 		enrolmentsBoHashSet.add(enrolment);
 	}
 
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	/**
 	 * Methode die de naam van het team retourneert
 	 * 

@@ -13,11 +13,10 @@ import java.util.Collection;
 import java.util.List;
 
 public class UserServiceBL{
-
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
 	private UserValidator userValidator = new UserValidator();
-    
+
 	/**
 	 * Methode voor het navragen van privilege
 	 * 

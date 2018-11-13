@@ -8,6 +8,7 @@ import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.service.bl.TeamServiceBL;
+import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
 import java.util.ArrayList;
@@ -47,11 +48,15 @@ public class TeamFacade {
 	}
 
 	public void removeUserFromTeam(TeamBo team, UserBo user) {
-		// TODO		
+		try {
+			this.teamServiceBL.removeTeamMemberFromTeam(this.userBoConverter.convertTo(user), this.teamBoConverter.convertTo(team));
+		} catch (UserIsNotMemberOfTeamException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	public void addUserToTeam(TeamBo team, UserBo user) {
-		// TODO 
+	//TOdo
 	}
 
 	public UserBo getManager(TeamBo team) {
@@ -60,6 +65,15 @@ public class TeamFacade {
 //		UserBo returning = userConverter.convertTo(manager);
 //		return returning;
 		return userConverter.convertTo(teamServiceBL.getOwnerOfTeam(teamBoConverter.convertTo(team)));
+	}
+	
+	public UserBo getManager(UserBo userbo) {
+		
+		//Get the current Team of the UserBo
+		Team currentTeam = teamServiceBL.getTeam(this.userBoConverter.convertTo(userbo));
+		
+		//Return the Owner of the Team
+		return this.userConverter.convertTo(this.teamServiceBL.getOwnerOfTeam(currentTeam));
 	}
 
 	public TeamBo getTeam(UserBo user) {

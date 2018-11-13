@@ -17,7 +17,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
+	private String password="";
 	private HashSet<UserPrivilege> privileges =  new HashSet<>();
 	private String country;
 
@@ -31,7 +31,7 @@ public class User {
 	 * @param privileges HashSet
 	 */
 
-	public User(int id,String firstName, String lastName, String email, String password, HashSet<UserPrivilege> privileges,
+	public User(Integer id,String firstName, String lastName, String email, String password, HashSet<UserPrivilege> privileges,
 				String country) {
 		setId(id);
 		setFirstName(firstName);
@@ -67,7 +67,7 @@ public class User {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

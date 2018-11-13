@@ -186,8 +186,7 @@ public class DbUserService extends DbService implements UserService {
             String email = rs.getString("email");
             String country = rs.getString("homecountry");
 
-            User user = new User(id,firstname,lastname,password,email,new HashSet<UserPrivilege>(), country);
-            System.out.println(user);
+            User user = new User(id,firstname,lastname,email, password, new HashSet<UserPrivilege>(), country);
             user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
 
             userList.add(user);
@@ -207,7 +206,7 @@ public class DbUserService extends DbService implements UserService {
             String email = rs.getString("email");
             String country = rs.getString("homecountry");
 
-            user = new User(id,firstname,lastname,password,email,new HashSet<UserPrivilege>(), country);
+            user = new User(id,firstname,lastname,email, password, new HashSet<UserPrivilege>(), country);
             user.setPrivileges(new HashSet<>(this.findPrivilegesForUser(user)));
         }
         return user;
@@ -229,9 +228,9 @@ public class DbUserService extends DbService implements UserService {
 
             statement.setString(1,user.getFirstName());
             statement.setString(2,user.getLastName());
-            statement.setString(3,user.getEmail());
-            statement.setString(4,user.getPassword());
-            statement.setString(5, user.getCountry());
+            statement.setString(3,user.getPassword());
+            statement.setString(4,user.getEmail());
+            statement.setString(5, user.getCountry().substring(0, 2));
             statement.executeUpdate();
 
             ResultSet rs =  statement.getGeneratedKeys();

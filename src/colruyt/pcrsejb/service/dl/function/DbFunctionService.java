@@ -75,7 +75,7 @@ public class DbFunctionService extends DbService implements FunctionService {
     }
 
     @Override
-    public List<Function> getAllFunctions() {
+    public List<Function> getAllFunctionNames() {
         List<Function> functionList = new ArrayList<>();
         try (Connection conn = this.createConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_FUNCTIONS);

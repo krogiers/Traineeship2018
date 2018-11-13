@@ -20,8 +20,7 @@ public class DbRoleService  extends DbService implements RoleService {
 	private static final String DELETE_ELEMENT = "DELETE FROM Roles WHERE ID = ?";
 	private static final String ADD_ROLE = "INSERT INTO ROLES(ID, Name) VALUES((SELECT MAX(ID) FROM FUNCTIONS)+1, ?)";
 	private static final String UPDATE_ROLE = "INSERT into roles (id,name) values (((select max(id) from FUNCTIONS)+1), ?)";
-	private static final String GET_ALL_ROLES_FOR_FUNCTION = "select * from roles r left outer join functionroles f " +
-			"on r.id = f.roles_id where f.functions_id is null or f.functions_id = ?";
+	private static final String GET_ALL_ROLES_FOR_FUNCTION = "select * from functionroles where functions_id = ?";
 
 	@Override
 	public Role save(Role element) {
@@ -95,8 +94,12 @@ public class DbRoleService  extends DbService implements RoleService {
 			PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ROLES_FOR_FUNCTION);
 			preparedStatement.setInt(1,function.getId());
 			ResultSet rs = preparedStatement.executeQuery();
-			roleList = convertToRoleList(rs);
-
+			while (rs.next()) {
+				Role role = new Role();
+				role.setId(rs.getInt("ROLES_ID"));
+				role = getElement(role);
+				roleList.add(role);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -11,7 +11,6 @@ import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class UserFacade {
 	private UserServiceBL userServiceBL = new UserServiceBL();
 	private UserBoConverter userBoConverter = new UserBoConverter();
@@ -55,8 +54,12 @@ public class UserFacade {
 	
 	}
 
-    public List<UserBo> getFunctionResponsibles() {
-		return null;
+    public List<UserBo> getAllFunctionResponsibles() {
+		List<UserBo> functionResponsibleList = new ArrayList<>();
+		for (User u: userServiceBL.getAllFunctionResponsibles()){
+			functionResponsibleList.add(userConverter.convertTo(u));
+		}
+		return functionResponsibleList;
     }
 
 	public void addPrivilegeForUser(UserPrivilegeBo privilegeBo, UserBo userBo) {
@@ -65,5 +68,18 @@ public class UserFacade {
 
 	public UserBo getUser(UserBo userBo) {
 		return userConverter.convertTo(userServiceBL.getUser(userBoConverter.convertTo(userBo)));
+	}
+	
+	public boolean hasPrivilege(UserBo userBo, UserPrivilegeBo userPrivilegeBo)
+	{
+		boolean hasPrivilege = false;
+		for(UserPrivilegeBo p : userBo.getPrivilegeBoHashSet())
+		{
+			if(p.getPrivilegeType().equals(userPrivilegeBo.getPrivilegeType()) & p.isActive()==userPrivilegeBo.isActive())
+			{
+				hasPrivilege = true;
+			}
+		}
+		return hasPrivilege;
 	}
 }

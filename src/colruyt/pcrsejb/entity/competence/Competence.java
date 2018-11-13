@@ -2,10 +2,16 @@ package colruyt.pcrsejb.entity.competence;
 
 public abstract class Competence {
 
-	private int competenceID;
+	private Integer competenceID;
     private String name;
+    private String description;
 
-    
+	public Competence(Integer competenceID, String name, String description) {
+		this.competenceID = competenceID;
+		this.name = name;
+		this.description = description;
+	}
+
 	public Competence() {
 		super();
 	}
@@ -14,7 +20,7 @@ public abstract class Competence {
 		this.setName(name);
 	}
 
-	public Competence(int competenceID, String name) {
+	public Competence(Integer competenceID, String name) {
 		this.competenceID = competenceID;
 		this.name = name;
 
@@ -25,7 +31,7 @@ public abstract class Competence {
 	 *
 	 * @return Value for property 'competenceID'.
 	 */
-	public int getCompetenceID() {
+	public Integer getCompetenceID() {
 		return competenceID;
 	}
 
@@ -34,7 +40,7 @@ public abstract class Competence {
 	 *
 	 * @param competenceID Value to set for property 'competenceID'.
 	 */
-	public void setCompetenceID(int competenceID) {
+	public void setCompetenceID(Integer competenceID) {
 		this.competenceID = competenceID;
 	}
 
@@ -50,6 +56,15 @@ public abstract class Competence {
 //		}
 		
 		this.name = name;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override
@@ -71,7 +86,7 @@ public abstract class Competence {
 		Competence other = (Competence) obj;
 
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null )
 				return false;
 		} else if (!name.equals(other.name))
 			return false;

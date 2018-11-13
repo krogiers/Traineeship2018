@@ -57,8 +57,7 @@ public class BasicConnectionFactory extends ConnectionFactory {
     
 	@Override
 	public Connection createConnection() throws SQLException {
-		Connection conn = DriverManager.getConnection(url, userId, passwd);
 		//System.out.println("connection via DriverManager");
-		return conn;
+		return DriverManager.getConnection(url, userId, passwd);
 	}
 }

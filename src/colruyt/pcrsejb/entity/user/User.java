@@ -7,7 +7,7 @@ import java.util.Objects;
 
 
 /**
- * Klasse voor het aanmaken van een User.
+ * Klasse voor het aanmaken van een user.
  * 
  * @author jda1mbw
  */
@@ -18,11 +18,11 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<UserPrivilege> privileges;
+	private HashSet<UserPrivilege> privileges =  new HashSet<>();
 	private String country;
 
 	/**
-	 * Constructor voor het aanmaken van een User
+	 * Constructor voor het aanmaken van een user
 	 * 
 	 * @param firstName String
 	 * @param lastName String
@@ -56,6 +56,12 @@ public class User {
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public User(Integer id) {
+		setId(id);
+	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -167,8 +173,15 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
-				+ privileges + ", country=" + country + "]";
+		return "user{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", privileges=" + privileges +
+				", country='" + country + '\'' +
+				'}';
 	}
 
 	@Override

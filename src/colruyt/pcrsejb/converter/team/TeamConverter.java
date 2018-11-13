@@ -18,6 +18,7 @@ public class TeamConverter implements GenericConverter<TeamBo, Team>{
 	public TeamBo convertTo(Team from) {
 		TeamBo teamBo = new TeamBo();
 		teamBo.setName(from.getName());
+		teamBo.setId(from.getTeamID());
 		HashSet<EnrolmentBo> enrolmentsBoHashSet = new HashSet<>();
 		for (Enrolment e : from.getEnrolmentsHashSet())
 		{

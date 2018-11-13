@@ -1,5 +1,8 @@
 package colruyt.pcrsejb.service.bl;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.team.Team;
@@ -9,18 +12,15 @@ import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
-import colruyt.pcrsejb.service.dl.team.MemoryTeamService;
+import colruyt.pcrsejb.service.dl.team.DbTeamService;
 import colruyt.pcrsejb.service.dl.team.TeamService;
 import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.team.TeamValidator;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 public class TeamServiceBL {
 	
-	private TeamService teamdb = new MemoryTeamService();
+	private TeamService teamdb = new DbTeamService();
 	private FunctionService functiondb = new DbFunctionService();
 	private TeamValidator validator = new TeamValidator();
 	/**
@@ -39,7 +39,7 @@ public class TeamServiceBL {
 	/**
 	 * Methode voor het maken van een teammanager
 	 * 
-	 * @param teammanager
+	 * @param teamMember
 	 */
 	public void addManagerToTeam(User teamMember, Team team) {
 		//TODO CHECK IF CURRENT MANAGER NOT EXISTING in team or in users privileges
@@ -93,7 +93,7 @@ public class TeamServiceBL {
 	 * Methode voor het maken van een teammanager
 	 * USER MUST EXIST in the team
 	 * 
-	 * @param teammanager
+	 * @param teamMember
 	 * @throws UserIsNotMemberOfTeamException 
 	 */
 	public void promoteTeamMemberToManagerInTeam(User teamMember, Team team) throws UserIsNotMemberOfTeamException {
@@ -129,7 +129,7 @@ public class TeamServiceBL {
 	/**
 	 * Methode die de owner van de groep retourneert
 	 * 
-	 * @return User
+	 * @return user
 	 */
 	public User getOwnerOfTeam(Team team) {
 		HashSet<Enrolment> enrollments = team.getEnrolmentsHashSet();

@@ -16,7 +16,7 @@ public class FunctionFacade {
     private FunctionBoConverter functionBoConverter = new FunctionBoConverter();
 
 
-    public List<FunctionBo> getFunctionNames() {
+    public List<FunctionBo> getAllFunctionNames() {
         List<FunctionBo> functionBoList = new ArrayList<>();
 
         for(Function function : functionServiceBL.getAllFunctionNames()) {

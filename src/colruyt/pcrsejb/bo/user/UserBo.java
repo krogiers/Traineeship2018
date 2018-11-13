@@ -4,10 +4,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 
 /**
- * Klasse voor het aanmaken van een User.
+ * Klasse voor het aanmaken van een user.
  * 
  * @author jda1mbw
  */
@@ -20,6 +21,10 @@ public class UserBo {
 	private String password;
 	private HashSet<UserPrivilegeBo> privilegeBoHashSet;
 	private String country;
+	private Boolean hasActiveAdminRights;
+	private Boolean hasInactiveAdminRights;
+	private FunctionBo functionForFunctionResponsible;
+	private UserBo teamManager;
 
 	/**
 	 * Default constructor
@@ -28,7 +33,7 @@ public class UserBo {
 	}
 
 	/**
-	 * Constructor voor het aanmaken van een User met id
+	 * Constructor voor het aanmaken van een user met id
 	 *
 	 * @param firstName String
 	 * @param lastName String
@@ -45,6 +50,7 @@ public class UserBo {
 		setId(id);
 		setPrivilegeBoHashSet(privilegeBoHashSet);
 		setCountry(country);
+		
 	}
 	
 	public UserBo(String firstName, String lastName, String email, String password, HashSet<UserPrivilegeBo> privilegeBoHashSet,
@@ -185,7 +191,7 @@ public class UserBo {
 
 	@Override
 	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
+		return "user [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
 				+ privilegeBoHashSet + " country=" + country + "]";
 	}
 
@@ -201,4 +207,45 @@ public class UserBo {
 	public int hashCode() {
 		return Objects.hash(email);
 	}
+	
+	
+	public String getFullName()
+	{
+		return this.getFirstName() + " " + this.getLastName();
+	}
+
+	public Boolean getHasActiveAdminRights() {
+		return hasActiveAdminRights;
+	}
+
+	public void setHasActiveAdminRights(Boolean hasActiveAdminRights) {
+		this.hasActiveAdminRights = hasActiveAdminRights;
+	}
+
+	public Boolean getHasInactiveAdminRights() {
+		return hasInactiveAdminRights;
+	}
+
+	public void setHasInactiveAdminRights(Boolean hasInactiveAdminRights) {
+		this.hasInactiveAdminRights = hasInactiveAdminRights;
+	}
+
+	public FunctionBo getFunctionForFunctionResponsible() {
+		return functionForFunctionResponsible;
+	}
+
+	public void setFunctionForFunctionResponsible(FunctionBo functionForFunctionResponsible) {
+		this.functionForFunctionResponsible = functionForFunctionResponsible;
+	}
+
+	public UserBo getTeamManager() {
+		return teamManager;
+	}
+
+	public void setTeamManager(UserBo teamManager) {
+		this.teamManager = teamManager;
+	}
+
+
+	
 }

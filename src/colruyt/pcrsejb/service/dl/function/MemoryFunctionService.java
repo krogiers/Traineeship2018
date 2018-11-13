@@ -34,7 +34,7 @@ public class MemoryFunctionService implements FunctionService {
     }
 
     @Override
-    public Collection<Function> getAllFunctionNames() {
+    public List<Function> getAllFunctionNames() {
         // TODO
         return null;
     }

@@ -1,9 +1,5 @@
 package colruyt.pcrsejb.service.dl.team;
 
-import colruyt.pcrsejb.entity.team.Team;
-import colruyt.pcrsejb.entity.user.User;
-import colruyt.pcrsejb.service.dl.DbService;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,91 +8,105 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import colruyt.pcrsejb.entity.team.Team;
+import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.service.dl.DbService;
+import colruyt.pcrsejb.service.dl.enrolment.DbEnrolmentService;
+import colruyt.pcrsejb.service.dl.enrolment.EnrolmentService;
+import colruyt.pcrsejb.service.dl.user.DbUserService;
+import colruyt.pcrsejb.service.dl.user.UserService;
+import colruyt.pcrsejb.service.dl.userPrivilege.DbUserPrivilegeService;
+import colruyt.pcrsejb.service.dl.userPrivilege.UserPrivilegeService;
+
 public class DbTeamService extends DbService implements TeamService {
-    private static final String ADD_ELEMENT = "INSERT INTO TEAMS(ID, NAME) VALUES((SELECT MAX(ID) FROM TEAMS), ?)";
-    private static final String GET_ELEMENT = "SELECT * FROM TEAMS WHERE ID=?";
-    private static final String GET_ALL_ELEMENTS = "SELECT * FROM Teams";
-    private static final String DELETE_ELEMENT = "DELETE FROM Teams WHERE ID = ? ";
-    private static final String GET_TEAM_OF_USER = "SELECT * FROM Teamenrolments Join userprivileges up ON Userprivileges_ID = up.ID Join users on up.user_ID = users.ID where users.ID = ?";
+	private EnrolmentService enrolmentService = new DbEnrolmentService();
+	
+	private static final String ADD_ELEMENT = "INSERT INTO TEAMS(ID, NAME) VALUES((SELECT MAX(ID) FROM TEAMS), ?)";
+	private static final String GET_ELEMENT = "SELECT * FROM TEAMS WHERE ID=?";
+	private static final String GET_ALL_ELEMENTS = "select * from teams";
+	private static final String DELETE_ELEMENT = "DELETE FROM Teams WHERE ID = ? ";
+	private static final String GET_TEAM_OF_USER = "SELECT * FROM Teamenrolments Join userprivileges up ON Userprivileges_ID = up.ID Join users on up.user_ID = users.ID where users.ID = ?";
 
-    @Override
-    public Team save(Team element) {
-        try(Connection conn = this.createConnection()) {
-            PreparedStatement preparedStatement = conn.prepareStatement(ADD_ELEMENT);
-            preparedStatement.setString(1, element.getName());
-            preparedStatement.executeUpdate();
-            ResultSet rs = preparedStatement.getResultSet();
-            if (rs.next()) {
-                element.setTeamID(rs.getInt("ID"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return element;
-    }
+	@Override
+	public Team save(Team element) {
+		try (Connection conn = this.createConnection()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(ADD_ELEMENT);
+			preparedStatement.setString(1, element.getName());
+			preparedStatement.executeUpdate();
+			ResultSet rs = preparedStatement.getResultSet();
+			if (rs.next()) {
+				element.setTeamID(rs.getInt("ID"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return element;
+	}
 
-    @Override
-    public Team getElement(Team team) {
-        try (Connection conn = this.createConnection()){
-            PreparedStatement preparedStatement = conn.prepareStatement(GET_ELEMENT);
-            preparedStatement.setInt(1, team.getTeamID());
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                team = new Team();
-                team.setTeamID(rs.getInt("ID"));
-                team.setName(rs.getString("Name"));
-            }
+	@Override
+	public Team getElement(Team team) {
+		try (Connection conn = this.createConnection()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(GET_ELEMENT);
+			preparedStatement.setInt(1, team.getTeamID());
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				team = new Team();
+				team.setTeamID(rs.getInt("ID"));
+				team.setName(rs.getString("Name"));
+			}
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return team;
-    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return team;
+	}
 
-    @Override
-    public Collection<Team> getAllElements() {
-        List<Team> teamList = new ArrayList<>();
-        try (Connection conn = this.createConnection()) {
-            PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ELEMENTS);
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                Team team = new Team();
-                team.setTeamID(rs.getInt("ID"));
-                team.setName(rs.getString("Name"));
-                teamList.add(team);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return teamList;
-    }
+	@Override
+	public Collection<Team> getAllElements() {
+		List<Team> teamList = new ArrayList<>();
+		try (Connection conn = this.createConnection()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(GET_ALL_ELEMENTS);
+			ResultSet rs = preparedStatement.executeQuery();
+			Team team;
+			while (rs.next()) {
+				team = new Team();
+				team.setTeamID(rs.getInt("ID"));
+				team.setName(rs.getString("Name"));
+				team.setEnrolmentsHashSet(enrolmentService.getEnrolmentsForTeam(team));
+				teamList.add(team);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return teamList;
+	}
 
     @Override
     public void deleteElement(Team element) {
         try (Connection conn = this.createConnection()) {
             PreparedStatement preparedStatement = conn.prepareStatement(DELETE_ELEMENT);
-            preparedStatement.setInt(1, (int) element.getTeamID());
+            preparedStatement.setInt(1, element.getTeamID());
             ResultSet rs = preparedStatement.executeQuery();
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
     }
 
-    @Override
-    public Team findTeamOfUser(User user) {
-        Team team = null;
-        try (Connection conn = this.createConnection()){
-            PreparedStatement preparedStatement = conn.prepareStatement(GET_TEAM_OF_USER);
-            preparedStatement.setInt(1, user.getId());
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                team = new Team();
-                team.setTeamID(rs.getInt("ID"));
-                team.setName(rs.getString("Name"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return team;
-    }
+	@Override
+	public Team findTeamOfUser(User user) {
+		Team team = null;
+		try (Connection conn = this.createConnection()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(GET_TEAM_OF_USER);
+			preparedStatement.setInt(1, user.getId());
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				team = new Team();
+				team.setTeamID(rs.getInt("ID"));
+				team.setName(rs.getString("Name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return team;
+	}
 }

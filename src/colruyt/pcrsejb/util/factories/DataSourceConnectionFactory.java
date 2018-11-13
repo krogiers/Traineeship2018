@@ -11,7 +11,7 @@ public class DataSourceConnectionFactory extends ConnectionFactory {
 
 	private static DataSourceConnectionFactory instance;
 	// fill in the correct JNDI name instead of XXX !
-	private static String jndiName="XXX";
+	private static String jndiName;
 
 	private DataSourceConnectionFactory() {
 

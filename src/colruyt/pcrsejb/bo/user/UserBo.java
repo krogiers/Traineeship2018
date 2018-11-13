@@ -5,8 +5,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import colruyt.pcrsejb.bo.function.FunctionBo;
-import colruyt.pcrsejb.bo.userPrivilege.FunctionResponsibleUserPrivilegeBo;
-import colruyt.pcrsejb.bo.userPrivilege.PrivilegeTypeBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 
 /**

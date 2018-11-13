@@ -14,7 +14,6 @@ public class Function {
     private Set<Role> roleSet = new HashSet<>();
     private Set<FunctionCompetence> functionCompetenceSet = new HashSet<>();
     private OperatingUnit operatingUnit;
-    private int operatingUnitId;
 
     public Function() {
     }
@@ -50,14 +49,6 @@ public class Function {
         this.title = title;
         this.roleSet = roleSet;
         this.functionCompetenceSet = functionCompetenceSet;
-    }
-
-    public Function(Integer functionID, String title, Set<Role> roleSet, Set<FunctionCompetence> functionCompetenceSet, int operatingUnitId) {
-        this.id = functionID;
-        this.title = title;
-        this.roleSet = roleSet;
-        this.functionCompetenceSet = functionCompetenceSet;
-        this.operatingUnitId = operatingUnitId;
     }
 
     public Function(Integer id) {
@@ -103,15 +94,7 @@ public class Function {
     public void setFunctionCompetenceSet(HashSet<FunctionCompetence> functionCompetenceSet) {
         this.functionCompetenceSet = functionCompetenceSet;
     }
-
-    public int getOperatingUnitId() {
-        return operatingUnitId;
-    }
-
-    public void setOperatingUnitId(int operatingUnitId) {
-        this.operatingUnitId = operatingUnitId;
-    }
-
+    
     public OperatingUnit getOperatingUnit() {
         return operatingUnit;
     }

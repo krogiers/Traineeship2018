@@ -56,14 +56,14 @@ public class TeamFacade {
 
 	public UserBo getManager(TeamBo team) {
 //		Team t = teamBoConverter.convertTo(team);
-//		User manager = teamServiceBL.getOwnerOfTeam(t);
+//		user manager = teamServiceBL.getOwnerOfTeam(t);
 //		UserBo returning = userConverter.convertTo(manager);
 //		return returning;
 		return userConverter.convertTo(teamServiceBL.getOwnerOfTeam(teamBoConverter.convertTo(team)));
 	}
 
 	public TeamBo getTeam(UserBo user) {
-//		User usertje = userBoConverter.convertTo(user);
+//		user usertje = userBoConverter.convertTo(user);
 //		Team returning = teamServiceBL.getTeam(usertje);
 //		TeamBo returningBo = teamConverter.convertTo(returning);
 //		return returningBo;

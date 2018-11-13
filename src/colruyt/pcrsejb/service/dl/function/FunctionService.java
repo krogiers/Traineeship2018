@@ -4,9 +4,10 @@ import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.service.dl.GenericCrudService;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface FunctionService extends GenericCrudService<Function,Integer> {
 
-    Collection<Function> getAllFunctions();
+    List<Function> getAllFunctionNames();
 
 }

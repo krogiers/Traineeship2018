@@ -61,11 +61,21 @@ public class MemoryUserService implements UserService {
             ).collect(Collectors.toList());
     }
 
+    @Override
+    public List<User> getFunctionResponsible(int functionId, String country) {
+        return null;
+    }
+
 	@Override
 	public User convertToSingleUser(ResultSet rs) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public List<User> getAllFunctionResponsibles() {
+        return null;
+    }
 
 
 }

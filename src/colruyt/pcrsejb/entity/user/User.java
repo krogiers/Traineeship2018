@@ -18,7 +18,7 @@ public class User {
 	private String lastName;
 	private String email;
 	private String password;
-	private HashSet<UserPrivilege> privileges;
+	private HashSet<UserPrivilege> privileges =  new HashSet<>();
 	private String country;
 
 	/**
@@ -159,8 +159,7 @@ public class User {
 	 * @return privileges
 	 */
 	public HashSet<UserPrivilege> getPrivileges() {
-		//TODO Rework
-		return privileges = new HashSet<>();
+		return privileges;
 	}
 
 	/**
@@ -174,8 +173,15 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "user [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", privileges="
-				+ privileges + ", country=" + country + "]";
+		return "user{" +
+				"id=" + id +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", privileges=" + privileges +
+				", country='" + country + '\'' +
+				'}';
 	}
 
 	@Override

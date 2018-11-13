@@ -3,6 +3,8 @@ package colruyt.pcrsejb.bo.team;
 import colruyt.pcrsejb.bo.enrolment.EnrolmentBo;
 import colruyt.pcrsejb.bo.privileges.TeamManagerPrivilegeBo;
 import colruyt.pcrsejb.bo.user.UserBo;
+import colruyt.pcrsejb.bo.userPrivilege.PrivilegeTypeBo;
+import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 
 import java.util.HashSet;
 
@@ -26,7 +28,8 @@ public class TeamBo {
 	 */
 	public TeamBo(String name, UserBo teamManager) {
 		setName(name);
-		EnrolmentBo enrolment = new EnrolmentBo(teamManager, new TeamManagerPrivilegeBo(), true);
+
+		EnrolmentBo enrolment = new EnrolmentBo(teamManager, new UserPrivilegeBo(PrivilegeTypeBo.TEAMMANAGER, true), true);
 		enrolmentsBoHashSet = new HashSet<>();
 		enrolmentsBoHashSet.add(enrolment);
 	}

@@ -2,20 +2,24 @@ package colruyt.pcrsejb.entity.operatingunit;
 
 public class OperatingUnit {
 
-	private int operatingUnitId;
+	private Integer id;
 	private String operatingUnitName;
 
-	public OperatingUnit(int operatingUnitId, String operatingUnitName) {
-		this.operatingUnitId = operatingUnitId;
-		this.operatingUnitName = operatingUnitName;
+	public OperatingUnit(Integer id, String operatingUnitName) {
+		setId(id);
+		setOperatingUnitName(operatingUnitName);
+	}
+	
+	public OperatingUnit(Integer id) {
+		setId(id);
 	}
 
-	public int getOperatingUnitId() {
-		return operatingUnitId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setOperatingUnitId(int operatingUnitId) {
-		this.operatingUnitId = operatingUnitId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getOperatingUnitName() {

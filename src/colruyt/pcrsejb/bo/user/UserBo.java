@@ -24,7 +24,6 @@ public class UserBo {
 	private Boolean hasActiveAdminRights;
 	private Boolean hasInactiveAdminRights;
 	private FunctionBo functionForFunctionResponsible;
-	private UserBo teamManager;
 
 	/**
 	 * Default constructor
@@ -238,13 +237,6 @@ public class UserBo {
 		this.functionForFunctionResponsible = functionForFunctionResponsible;
 	}
 
-	public UserBo getTeamManager() {
-		return teamManager;
-	}
-
-	public void setTeamManager(UserBo teamManager) {
-		this.teamManager = teamManager;
-	}
 
 
 	

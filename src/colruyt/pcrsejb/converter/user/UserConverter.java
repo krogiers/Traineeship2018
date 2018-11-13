@@ -45,10 +45,6 @@ public class UserConverter implements GenericConverter<UserBo,User> {
     		{
     			userBo.setFunctionForFunctionResponsible(fv.convertTo(((FunctionUserPrivilege)p).getFunction()));
     		}
-    		if(p.getPrivilegeType().equals(PrivilegeType.TEAMMEMBER) && p.isActive())
-    		{
-    			userBo.setTeamManager((this.getTeam(from, p)).getTeamManager());
-    		}
     	}
        return userBo;
     }
@@ -62,22 +58,5 @@ public class UserConverter implements GenericConverter<UserBo,User> {
     	return privileges;
     }
 
-    private TeamBo getTeam(User user, UserPrivilege p)
-    {
-    	TeamBo team = null;
-    	DbTeamService dbTeamService = new DbTeamService();
-    	TeamConverter tc = new TeamConverter();
-    	for(Team t : dbTeamService.getAllElements())
-    	{
-    		for(Enrolment e : t.getEnrolmentsHashSet())
-    		{
-    			if(e.getUser().equals(user) & e.isActive() & e.getPrivilege().equals(p))
-    			{
-    				team = tc.convertTo(t);
-    			}
-    		}
-    	}
-    	return team;
-    }
     
 }

@@ -13,5 +13,8 @@ public class RoleServiceBL {
 	public Collection<Role> getAllRoles() {
 		return roledb.getAllElements();
 	}
-	
+
+    public void save(Role role) {
+		roledb.save(role);
+    }
 }

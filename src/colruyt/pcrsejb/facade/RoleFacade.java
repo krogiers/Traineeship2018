@@ -24,4 +24,7 @@ public class RoleFacade {
 	}
 
 
+    public void save(RoleBo role) {
+		roleServiceBL.save(roleBoConverter.convertTo(role));
+    }
 }

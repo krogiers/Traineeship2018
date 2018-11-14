@@ -58,24 +58,14 @@ public class UserFacade {
 	    	
 	    	User u = this.userBoConverter.convertTo(user);
 	    	
-	    	FunctionBo bo = null;
-	    	
-	    	for(UserPrivilege p : u.getPrivileges()) {
+	    
+	    			
+	    		return 	this.functionConverter.convertTo(this.userServiceBL.getFunctionForPerson(u));
+	    			
+	    			
+	    			
 	    		
-	    		if(p.isActive() && p.getPrivilegeType().equals(PrivilegeType.TEAMMEMBER)) {
-	    			
-	    			
-	    			TeamMemberUserPrivilege fp = (TeamMemberUserPrivilege) p;
-	    			
-	    			bo = this.functionConverter.convertTo(fp.getFunction());
-	    			
-	    			
-	    			
-	    		}
-	    		
-	    	}
-	    	
-	    	return bo;
+	    
 	    	
 	    	
 	    	
@@ -86,18 +76,9 @@ public class UserFacade {
 	    	
 	    	User u = this.userBoConverter.convertTo(user);
 	    	
-	    	FunctionBo bo = null;
-	    	
-	    	for(UserPrivilege p : u.getPrivileges()) {
+	    
+	    			return this.functionConverter.convertTo(this.userServiceBL.getFunctionForFunctionResponsible(u));
 	    		
-	    		if(p.isActive() && p.getPrivilegeType().equals(PrivilegeType.FUNCTIONRESPONSIBLE)){
-	    			FunctionResponsibleUserPrivilege fp = (FunctionResponsibleUserPrivilege) p;
-	    			bo = this.functionConverter.convertTo(fp.getFunction());
-	    		}
-	    		
-	    	}
-	    	
-	    	return bo;
 	    }
 	
 	

@@ -19,6 +19,7 @@ public class UserServiceBL{
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
 	private UserValidator userValidator = new UserValidator();
+	private DbUserPrivilegeService dbUserPrivilegeService = new DbUserPrivilegeService();
 	//private PrivilegeDl
 
 	/**
@@ -156,7 +157,8 @@ public class UserServiceBL{
 	 			adminPrivilege.setActive(!(adminPrivilege.isActive()));
 	 			
 	 			//dbUserPrivilegeService.save(adminPrivilege);
-	 			throw new NotImplementedException();
+	 			
+	 			dbUserPrivilegeService.save(adminPrivilege, user);
 	 			
 	 		} 
 		 

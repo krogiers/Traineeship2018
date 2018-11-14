@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.Collection;
 
@@ -24,15 +25,17 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
 	private FunctionService fs = new DbFunctionService();
 	private UserService us = new DbUserService();
 
+	
+	
+	
 	private static final String INSERT_USERPRIVILEGE= "INSERT INTO userprivileges(id, user_id, functions_id, active, country, privis_id) values (((select max(id) from userprivileges)+1), ?, ?, ?, ?, ?) ";
 	private static final String UPDATE_ACTIVE_FROM_USERPRIVILEGE= "UPDATE userprivileges set active = ? where id = ?";
-	private static final String UPDATE_USERPRIVILEGE = "UPDATE userprivileges set user_id = ? functions_id = ?, active = ?, country = ?, privis_id = ? where id = ?";
-	private static final String SELECT_USERPRIVILEGE = "SELECT * FROM userprivileges where id = ?";
-	
+	private static final String UPDATE_USERPRIVILEGE = "UPDATE userprivileges set user_id = ?, functions_id = ?, active = ?, country = ?, privis_id = ? where id = ?";
+
 
 	@Override
 	public UserPrivilege save(UserPrivilege element, User user) {
-		UserPrivilege userPrivilege = null;
+
 		try(Connection conn = this.createConnection()){
 			PreparedStatement statement = null;
 			if(element.getId()!=null)
@@ -40,29 +43,45 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
 				statement = conn.prepareStatement(UPDATE_USERPRIVILEGE, new String[] {"ID"});
 				statement.setInt(6, element.getId());
 			}
-			if(element.getId()==null)
+			else
 			{
 				statement = conn.prepareStatement(INSERT_USERPRIVILEGE, new String[] {"ID"});
 			}
-			statement.setInt(2 , element instanceof FunctionUserPrivilege? ((FunctionUserPrivilege)element).getFunction().getId() : 0);
+			statement.setInt(1, user.getId());
+			if(element instanceof FunctionUserPrivilege)
+			{
+				statement.setInt(2, ((FunctionUserPrivilege)element).getFunction().getId());
+			}
+			else
+			{
+				statement.setNull(2, Types.INTEGER);
+			}
 			statement.setInt(3, element.isActive() ? 1 : 0);
-			statement.setString(4, element instanceof FunctionResponsibleUserPrivilege ? ((FunctionResponsibleUserPrivilege)element).getCountry() : null );
+			if(element instanceof FunctionResponsibleUserPrivilege)
+			{
+				statement.setString(4,  ((FunctionResponsibleUserPrivilege)element).getCountry());
+			}
+			else
+			{
+				statement.setNull(4, Types.CHAR);
+			}
 			statement.setInt(5, element.getPrivilegeType().getId());
 			
 			statement.executeUpdate();
 			
-			PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
-			statement2.setInt(1, element.getId());
+			ResultSet rs = statement.getGeneratedKeys();
 			
-			ResultSet rs = statement2.executeQuery();
+			if(rs.next())
+			{
+				element.setId(rs.getInt("ID"));
+			}
 			
-			userPrivilege = convertToSingleUserPrivilege(rs);
 			
 		}catch(SQLException e) {
-			userPrivilege = null;
+			element = null;
 			e.printStackTrace();
 		}
-		return userPrivilege;
+		return element;
 	}
 	
 	/**
@@ -70,7 +89,6 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
 	 */
 	@Override
 	public UserPrivilege save(UserPrivilege element) {
-		UserPrivilege userPrivilege = null;
 		try(Connection conn = this.createConnection()){
 			PreparedStatement statement;
 			if(element.getId()!= null)
@@ -80,14 +98,6 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
 				statement.setInt(1, element.isActive()? 1 : 0);
 				
 				statement.executeUpdate();
-				
-				PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
-				statement2.setInt(1, element.getId());
-				
-				ResultSet rs = statement2.executeQuery();
-				
-				userPrivilege = convertToSingleUserPrivilege(rs);
-				
 			}
 			else
 			{
@@ -95,11 +105,11 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
 			}
 		} catch (SQLException e) {
         //TODO throw exception!
-		element = null;
         e.printStackTrace();
 		}
-		return userPrivilege;
+		return element;
 	}
+	
 	
 	@Override
 	public UserPrivilege getElement(UserPrivilege element) {

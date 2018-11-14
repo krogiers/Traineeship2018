@@ -27,6 +27,7 @@ public class TeamBo {
 	 * @param teamManager
 	 */
 	public TeamBo(String name, UserBo teamManager) {
+		
 		setName(name);
 
 		EnrolmentBo enrolment = new EnrolmentBo(teamManager, new UserPrivilegeBo(PrivilegeTypeBo.TEAMMANAGER, true), true);

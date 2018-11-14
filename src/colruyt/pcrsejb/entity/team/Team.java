@@ -16,7 +16,7 @@ public class Team {
 
 	private int teamID;
 	private String name;
-	private HashSet<Enrolment> enrolmentsHashSet;
+	private HashSet<Enrolment> enrolmentsHashSet = new HashSet<>();;
 
 	public Team() {}
 	/**

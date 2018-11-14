@@ -11,6 +11,7 @@ import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
+import colruyt.pcrsejb.service.dl.userPrivilege.DbUserPrivilegeService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -19,6 +20,7 @@ public class UserServiceBL{
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
 	private UserValidator userValidator = new UserValidator();
+	private DbUserPrivilegeService dbUserPrivilegeService = new DbUserPrivilegeService();
 	//private PrivilegeDl
 
 	/**

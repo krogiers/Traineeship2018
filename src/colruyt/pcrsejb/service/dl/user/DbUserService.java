@@ -35,6 +35,8 @@ public class DbUserService extends DbService implements UserService {
 	private static final String DELETE_USER = "Delete from Users where id = ?";
 	private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where "
 			+ "up.privis_id=? and active=1 and functions_id=? and country=?";
+	private static final String GET_FUNCTION_RESPONSIBLES = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id "
+			+ "inner join Functions f on f.id = up.functions_id where up.privis_id = ? and active=1";
 
 
 

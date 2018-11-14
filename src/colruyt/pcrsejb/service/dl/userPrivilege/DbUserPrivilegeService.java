@@ -27,37 +27,42 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
 	private static final String INSERT_USERPRIVILEGE= "INSERT INTO userprivileges(id, user_id, functions_id, active, country, privis_id) values (((select max(id) from userprivileges)+1), ?, ?, ?, ?, ?) ";
 	private static final String UPDATE_ACTIVE_FROM_USERPRIVILEGE= "UPDATE userprivileges set active = ? where id = ?";
 	private static final String UPDATE_USERPRIVILEGE = "UPDATE userprivileges set user_id = ? functions_id = ?, active = ?, country = ?, privis_id = ? where id = ?";
-	
+	private static final String SELECT_USERPRIVILEGE = "SELECT * FROM userprivileges where id = ?";
 	
 
 	@Override
-	public UserPrivilege save(UserPrivilege privilege, User user) {
+	public UserPrivilege save(UserPrivilege element, User user) {
+		UserPrivilege userPrivilege = null;
 		try(Connection conn = this.createConnection()){
 			PreparedStatement statement = null;
-			if(privilege.getId()!=null)
+			if(element.getId()!=null)
 			{
 				statement = conn.prepareStatement(UPDATE_USERPRIVILEGE, new String[] {"ID"});
-				statement.setInt(6, privilege.getId());
+				statement.setInt(6, element.getId());
 			}
-			if(privilege.getId()==null)
+			if(element.getId()==null)
 			{
 				statement = conn.prepareStatement(INSERT_USERPRIVILEGE, new String[] {"ID"});
 			}
-			statement.setInt(2 , privilege instanceof FunctionUserPrivilege? ((FunctionUserPrivilege)privilege).getFunction().getId() : 0);
-			statement.setInt(3, privilege.isActive() ? 1 : 0);
-			statement.setString(4, privilege instanceof FunctionResponsibleUserPrivilege ? ((FunctionResponsibleUserPrivilege)privilege).getCountry() : null );
-			statement.setInt(5, privilege.getPrivilegeType().getId());
+			statement.setInt(2 , element instanceof FunctionUserPrivilege? ((FunctionUserPrivilege)element).getFunction().getId() : 0);
+			statement.setInt(3, element.isActive() ? 1 : 0);
+			statement.setString(4, element instanceof FunctionResponsibleUserPrivilege ? ((FunctionResponsibleUserPrivilege)element).getCountry() : null );
+			statement.setInt(5, element.getPrivilegeType().getId());
 			
 			statement.executeUpdate();
-			ResultSet rs = statement.getGeneratedKeys();
 			
-			privilege.setId(rs.getInt("ID"));
+			PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
+			statement2.setInt(1, element.getId());
+			
+			ResultSet rs = statement2.executeQuery();
+			
+			userPrivilege = convertToSingleUserPrivilege(rs);
 			
 		}catch(SQLException e) {
-			privilege = null;
+			userPrivilege = null;
 			e.printStackTrace();
 		}
-		return privilege;
+		return userPrivilege;
 	}
 	
 	/**
@@ -70,12 +75,19 @@ public class DbUserPrivilegeService extends DbService implements UserPrivilegeSe
 			PreparedStatement statement;
 			if(element.getId()!= null)
 			{
-				statement = conn.prepareStatement(UPDATE_ACTIVE_FROM_USERPRIVILEGE);
+				statement = conn.prepareStatement(UPDATE_ACTIVE_FROM_USERPRIVILEGE, new String[] {"ID"});
 				statement.setInt(2, element.getId());
-				statement.setInt(2, element.isActive()? 1 : 0);
+				statement.setInt(1, element.isActive()? 1 : 0);
 				
-				ResultSet rs = statement.executeQuery();
+				statement.executeUpdate();
+				
+				PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
+				statement2.setInt(1, element.getId());
+				
+				ResultSet rs = statement2.executeQuery();
+				
 				userPrivilege = convertToSingleUserPrivilege(rs);
+				
 			}
 			else
 			{

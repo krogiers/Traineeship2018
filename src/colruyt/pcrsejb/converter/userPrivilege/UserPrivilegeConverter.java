@@ -37,6 +37,7 @@ public class UserPrivilegeConverter implements GenericConverter<UserPrivilegeBo,
         	typeBo = PrivilegeTypeBo.ADMINISTRATOR;
         	userPrivilegeBo = new UserPrivilegeBo(typeBo, from.isActive());
         }
+        userPrivilegeBo.setId(from.getId());
         return userPrivilegeBo;
     }
 }

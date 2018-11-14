@@ -92,4 +92,8 @@ public class UserFacade {
 		}
 		return hasPrivilege;
 	}
+
+	public UserBo getUserByEmail(String email) {
+		return userConverter.convertTo(userServiceBL.getUserByEmail(email));
+	}
 }

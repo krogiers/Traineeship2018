@@ -85,4 +85,8 @@ public class UserServiceBL{
 	public User getUser(User user) {
 		return userdb.getElement(user);
 	}
+
+	public User getUserByEmail(String email) {
+		return userdb.getElementByEmail(email);
+	}
 }

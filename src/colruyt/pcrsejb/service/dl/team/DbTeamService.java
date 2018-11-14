@@ -25,7 +25,7 @@ public class DbTeamService extends DbService implements TeamService {
 	private static final String GET_ELEMENT = "SELECT * FROM TEAMS WHERE ID=?";
 	private static final String GET_ALL_ELEMENTS = "select * from teams";
 	private static final String DELETE_ELEMENT = "DELETE FROM Teams WHERE ID = ? ";
-	private static final String GET_TEAM_OF_USER = "SELECT * FROM Teamenrolments Join userprivileges up ON Userprivileges_ID = up.ID Join users on up.user_ID = users.ID where users.ID = ?";
+	private static final String GET_TEAM_OF_USER = "SELECT * FROM Teamenrolments Join userprivileges up ON Userprivileges_ID = up.ID Join users on up.user_ID = users.ID inner join teams ts on team_id = ts.id where users.ID = ?";
 
 	@Override
 	public Team save(Team element) {
@@ -103,6 +103,7 @@ public class DbTeamService extends DbService implements TeamService {
 				team = new Team();
 				team.setTeamID(rs.getInt("ID"));
 				team.setName(rs.getString("Name"));
+				team.setEnrolmentsHashSet(enrolmentService.getEnrolmentsForTeam(team));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

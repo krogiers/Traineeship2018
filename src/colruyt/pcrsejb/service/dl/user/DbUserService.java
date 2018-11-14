@@ -67,7 +67,7 @@ public class DbUserService extends DbService implements UserService {
         List<User> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement(GET_FUNCTION_RESPONSIBLES);
+            PreparedStatement statement =  conn.prepareStatement(FIND_FUNCTION_RESPONSIBLE);
             statement.setInt(1, PrivilegeType.FUNCTIONRESPONSIBLE.getId());
             ResultSet rs =  statement.executeQuery();
             users = convertToUserList(rs);
@@ -133,8 +133,8 @@ public class DbUserService extends DbService implements UserService {
             e.printStackTrace();
         }
 
-		return userList;
-	}
+        return userList;
+    }
 
 
     private void addPrivilegesToUser(UserPrivilege priv, User user){

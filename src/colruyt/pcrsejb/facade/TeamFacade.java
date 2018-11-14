@@ -76,6 +76,7 @@ public class TeamFacade {
 		
 		//Return the Owner of the Team
 		return this.userConverter.convertTo(this.teamServiceBL.getOwnerOfTeam(currentTeam));
+		
 	}
 
 	public TeamBo getTeam(UserBo user) {

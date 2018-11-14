@@ -1,21 +1,23 @@
 package colruyt.pcrsejb.service.bl;
 
+import java.util.Collection;
+import java.util.List;
+
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
+import colruyt.pcrsejb.service.dl.userPrivilege.DbUserPrivilegeService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
-
-import java.util.Collection;
-import java.util.List;
 
 public class UserServiceBL{
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
 	private UserValidator userValidator = new UserValidator();
+	private DbUserPrivilegeService dbUserPrivilegeService = new DbUserPrivilegeService();
 
 	/**
 	 * Methode voor het navragen van privilege
@@ -88,5 +90,19 @@ public class UserServiceBL{
 
 	public User getUserByEmail(String email) {
 		return userdb.getElementByEmail(email);
+	}
+	
+	public void alterStatusOfAdminPrivilege(User user)
+	{
+		UserPrivilege adminPrivilege = null;
+		for(UserPrivilege p : user.getPrivileges())
+		{
+			if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR))
+			{
+				adminPrivilege = p;
+			}
+		}
+		adminPrivilege.setActive(!(adminPrivilege.isActive()));
+		dbUserPrivilegeService.save(adminPrivilege);
 	}
 }

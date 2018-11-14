@@ -7,5 +7,6 @@ import colruyt.pcrsejb.service.dl.GenericCrudService;
 public interface UserPrivilegeService extends GenericCrudService<UserPrivilege,Integer>{
 
 	User getUserfromUserPrivileges(UserPrivilege privilege);
+	UserPrivilege save(UserPrivilege privilege, User user);
 	
 }

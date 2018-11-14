@@ -82,6 +82,9 @@ public class MemoryUserService implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public void alterStatusOfAdminPrivilege(User user) {
+		
+	}
 
 
 }

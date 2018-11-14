@@ -17,7 +17,7 @@ public class RoleBoConverter implements GenericConverter<Role,RoleBo> {
     @Override
     public Role convertTo(RoleBo from) {
 
-        return new Role(from.getName(), getRoleComptenceList(from.getRoleCompetenceBoList()));
+        return new Role(from.getId(), from.getName(), getRoleComptenceList(from.getRoleCompetenceBoList()));
     }
 
     private List<RoleCompetence> getRoleComptenceList(List<RoleCompetenceBo> competences) {

@@ -45,8 +45,7 @@ public class FunctionConverter implements GenericConverter<FunctionBo, Function>
     }
 
     private OperatingUnitBo getOperatingUnit(OperatingUnit ou) {
-        OperatingUnitConverter converter = new OperatingUnitConverter();
-        return converter.convertTo(ou);
+        return operatingUnitConverter.convertTo(ou);
     }
 
 }

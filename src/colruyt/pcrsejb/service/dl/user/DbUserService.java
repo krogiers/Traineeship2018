@@ -21,22 +21,20 @@ public class DbUserService extends DbService implements UserService {
 	
 	private FunctionService fs = new DbFunctionService();
 
-    private static final String FIND_USER_BY_ID = "Select * from Users where id = ?";
-    private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
-    private static final String FIND_USERS_BY_FIRSTNAME = "Select * from Users where firstname = ?";
-    private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER(?) and UPPER(Lastname) like UPPER(?)";
-    private static final String FIND_ALL_USERS = "Select * from Users";
-    private static final String INSERT_USER = "INSERT into Users (id,firstname,lastname,password,email, homecountry) values (((select max(id) from users)+1),?,?,?,?,?)";
-    private static final String UPDATE_USER = "UPDATE Users SET firstname = ?, lastname = ?, password = ?, email = ?, homecountry = ? WHERE ID = ?";
-    private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
-    private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?" ;
-    private static final String FIND_PRIVILEGES_OF_USER = "Select * from userprivileges where user_id = ?";
-    private static final String DELETE_USER = "Delete from Users where id = ?" ;
-    private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where " +
-            "up.privis_id=? and active=1 and functions_id=? and country=?";
-
-    private static final String GET_FUNCTION_RESPONSIBLES = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id " +
-            "inner join Functions f on f.id = up.functions_id where up.privis_id = ? and active=1";
+	private static final String FIND_USER_BY_ID = "Select * from Users where id = ?";
+	private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
+	private static final String FIND_USERS_BY_FIRSTNAME = "Select * from Users where firstname = ?";
+	private static final String FIND_USERS_BY_SHORTNAME = "Select * from Users where UPPER(Firstname) like UPPER(?) and UPPER(Lastname) like UPPER(?)";
+	private static final String FIND_USERS_BY_EMAIL = "Select * from Users where UPPER(email) = UPPER(?)";
+	private static final String FIND_ALL_USERS = "Select * from Users";
+	private static final String INSERT_USER = "INSERT into Users (id,firstname,lastname,password,email, homecountry) values (((select max(id) from users)+1),?,?,?,?,?)";
+	private static final String UPDATE_USER = "UPDATE Users SET firstname = ?, lastname = ?, password = ?, email = ?, homecountry = ? WHERE ID = ?";
+	private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
+	private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?";
+	private static final String FIND_PRIVILEGES_OF_USER = "Select * from userprivileges where user_id = ?";
+	private static final String DELETE_USER = "Delete from Users where id = ?";
+	private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where "
+			+ "up.privis_id=? and active=1 and functions_id=? and country=?";
 
 
 
@@ -132,8 +130,8 @@ public class DbUserService extends DbService implements UserService {
             e.printStackTrace();
         }
 
-        return userList;
-    }
+		return userList;
+	}
 
 
     private void addPrivilegesToUser(UserPrivilege priv, User user){
@@ -247,9 +245,9 @@ public class DbUserService extends DbService implements UserService {
             user = null;
             e.printStackTrace();
 
-        }
-        return user;
-    }
+		}
+		return user;
+	}
 
     @Override
     public User getElement(User user) {
@@ -265,8 +263,8 @@ public class DbUserService extends DbService implements UserService {
             e.printStackTrace();
         }
 
-        return user;
-    }
+		return user;
+	}
 
     @Override
     public Collection<User> getAllElements() {
@@ -320,6 +318,7 @@ public class DbUserService extends DbService implements UserService {
             else {
             	p = new UserPrivilege(type, 1 == set.getInt("ACTIVE"));
             }
+            p.setId(set.getInt("ID"));
             privileges.add(p);
         }
         return privileges;
@@ -348,5 +347,23 @@ public class DbUserService extends DbService implements UserService {
             e.printStackTrace();
         }
     }
+
+	@Override
+	public User getElementByEmail(String email) {
+		User user = new User();
+		try (Connection conn = this.createConnection()) {
+
+			PreparedStatement statement = conn.prepareStatement(FIND_USERS_BY_EMAIL);
+			statement.setString(1, email);
+			ResultSet rs = statement.executeQuery();
+			user = convertToSingleUser(rs);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+
 
 }

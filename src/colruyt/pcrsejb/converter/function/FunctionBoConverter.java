@@ -27,20 +27,22 @@ public class FunctionBoConverter implements GenericConverter<Function,FunctionBo
     private HashSet<Role> getRoleSet(Set<RoleBo> roleBoSet){
         HashSet<Role> roleHashSet = new HashSet<>();
         RoleBoConverter conv = new RoleBoConverter();
-
-        for(RoleBo roleBo : roleBoSet) {
-            roleHashSet.add(conv.convertTo(roleBo));
+        if (roleBoSet != null) {
+            for(RoleBo roleBo : roleBoSet) {
+                roleHashSet.add(conv.convertTo(roleBo));
+            }
         }
         return roleHashSet;
     }
 
     private HashSet<FunctionCompetence> getFunctionCompetenceSet(Set<FunctionCompetenceBo> functionCompetenceBoSet){
         HashSet<FunctionCompetence> functionCompetenceHashSet = new HashSet<>();
-		CompetenceBoConverter competenceBoConverter = new CompetenceBoConverter(); 
-        for(FunctionCompetenceBo functionCompetenceBo: functionCompetenceBoSet) {
-            functionCompetenceHashSet.add((FunctionCompetence) competenceBoConverter.convertTo((CompetenceBo) functionCompetenceBo));
+		CompetenceBoConverter competenceBoConverter = new CompetenceBoConverter();
+		if (functionCompetenceBoSet != null) {
+            for(FunctionCompetenceBo functionCompetenceBo: functionCompetenceBoSet) {
+                functionCompetenceHashSet.add((FunctionCompetence) competenceBoConverter.convertTo((CompetenceBo) functionCompetenceBo));
+            }
         }
-
         return functionCompetenceHashSet;
     }
 }

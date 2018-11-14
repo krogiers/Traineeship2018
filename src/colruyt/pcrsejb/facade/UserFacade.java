@@ -5,16 +5,21 @@ import java.util.List;
 
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.user.UserBo;
+import colruyt.pcrsejb.bo.userPrivilege.PrivilegeTypeBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.function.FunctionConverter;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
 import colruyt.pcrsejb.entity.user.User;
+<<<<<<< HEAD
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
+=======
+import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 import colruyt.pcrsejb.service.bl.UserServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
@@ -81,8 +86,12 @@ public class UserFacade {
 	    		
 	    }
 	
+<<<<<<< HEAD
 	
 	
+=======
+
+>>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
 	
 	public UserBo saveUser(UserBo user) {
 		try {
@@ -111,16 +120,26 @@ public class UserFacade {
 		return userConverter.convertTo(userServiceBL.getUser(userBoConverter.convertTo(userBo)));
 	}
 	
-	public boolean hasPrivilege(UserBo userBo, UserPrivilegeBo userPrivilegeBo)
+	
+	public boolean hasPrivilege(UserBo userBo, PrivilegeTypeBo privilegeTypeBo, boolean isActive)
 	{
 		boolean hasPrivilege = false;
 		for(UserPrivilegeBo p : userBo.getPrivilegeBoHashSet())
 		{
-			if(p.getPrivilegeType().equals(userPrivilegeBo.getPrivilegeType()) & p.isActive()==userPrivilegeBo.isActive())
+			if(p.getPrivilegeType().equals(privilegeTypeBo) && p.isActive() == isActive)
 			{
 				hasPrivilege = true;
 			}
 		}
 		return hasPrivilege;
+	}
+
+	public UserBo getUserByEmail(String email) {
+		return userConverter.convertTo(userServiceBL.getUserByEmail(email));
+	}
+	
+	public void alterStatusOfAdminPrivilege(UserBo userBo)
+	{
+		userServiceBL.alterStatusOfAdminPrivilege(userBoConverter.convertTo(userBo));
 	}
 }

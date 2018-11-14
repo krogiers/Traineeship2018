@@ -1,21 +1,19 @@
 package colruyt.pcrsejb.facade;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import colruyt.pcrsejb.bo.function.FunctionBo;
-import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.converter.function.FunctionBoConverter;
 import colruyt.pcrsejb.converter.function.FunctionConverter;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.service.bl.FunctionServiceBL;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FunctionFacade {
 
     private FunctionServiceBL functionServiceBL = new FunctionServiceBL();
     private FunctionConverter functionConverter = new FunctionConverter();
     private FunctionBoConverter functionBoConverter = new FunctionBoConverter();
-    
 
 
     public List<FunctionBo> getAllFunctionNames() {
@@ -26,9 +24,8 @@ public class FunctionFacade {
         }
         return functionBoList;
     }
-    
-    
-    
-   
-    
+
+    public FunctionBo getFunction(FunctionBo functionBo) {
+        return functionConverter.convertTo(functionServiceBL.getFunction(functionBoConverter.convertTo(functionBo)));
+    }
 }

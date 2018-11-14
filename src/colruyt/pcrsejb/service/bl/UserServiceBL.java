@@ -1,11 +1,14 @@
 package colruyt.pcrsejb.service.bl;
 
-import java.util.Collection;
-import java.util.List;
+
 
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.entity.function.Function;
+
+import java.util.Collection;
+import java.util.List;
+
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;

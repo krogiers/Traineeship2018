@@ -1,4 +1,5 @@
 package colruyt.pcrsejb.service.bl;
+import colruyt.pcrsejb.entity.function.Function;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,18 +7,19 @@ import java.util.List;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
+import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
-import colruyt.pcrsejb.service.dl.userPrivilege.DbUserPrivilegeService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class UserServiceBL{
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
 	private UserValidator userValidator = new UserValidator();
-	private DbUserPrivilegeService dbUserPrivilegeService = new DbUserPrivilegeService();
+	//private PrivilegeDl
 
 	/**
 	 * Methode voor het navragen van privilege
@@ -34,6 +36,7 @@ public class UserServiceBL{
 		}
 		return hasPrivilege;
 	}
+	
 
 	public User saveUser(User user) throws ValidationException {
 		userValidator.validate(user);
@@ -88,17 +91,73 @@ public class UserServiceBL{
 		return userdb.getElement(user);
 	}
 	
-	public void alterStatusOfAdminPrivilege(User user)
-	{
-		UserPrivilege adminPrivilege = null;
-		for(UserPrivilege p : user.getPrivileges())
-		{
-			if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR))
-			{
-				adminPrivilege = p;
-			}
-		}
-		adminPrivilege.setActive(!(adminPrivilege.isActive()));
-		dbUserPrivilegeService.save(adminPrivilege);
-	}
+
+	 public Function getFunctionForPerson(User user) {
+	    	
+	    
+	    	
+	    	Function bo = null;
+	    	
+	    	for(UserPrivilege p : user.getPrivileges()) {
+	    		
+	    		if(p.isActive() && p.getPrivilegeType().equals(PrivilegeType.TEAMMEMBER)) {
+	    			
+	    			
+	    			TeamMemberUserPrivilege fp = (TeamMemberUserPrivilege) p;
+	    			
+	    			bo = fp.getFunction();
+	    			
+	    			
+	    			
+	    		}
+	    		
+	    	}
+	    	
+	    	return bo;
+	    	
+	    	
+	    	
+	    }
+	 
+	 
+	 public Function getFunctionForFunctionResponsible(User user) {
+	    	
+	    	
+	    	
+	    	Function bo = null;
+	    	
+	    	for(UserPrivilege p : user.getPrivileges()) {
+	    		
+	    		if(p.isActive() && p.getPrivilegeType().equals(PrivilegeType.FUNCTIONRESPONSIBLE)){
+	    			FunctionResponsibleUserPrivilege fp = (FunctionResponsibleUserPrivilege) p;
+	    			bo = fp.getFunction();
+	    		}
+	    		
+	    	}
+	    	
+	    	return bo;
+	    }
+	 
+	 		public User getUserByEmail(String email) {
+				return userdb.getElementByEmail(email);
+			} 
+	 		
+	 		
+	 		public void alterStatusOfAdminPrivilege(User user)
+	 		{
+	 			UserPrivilege adminPrivilege = null;
+	 			for(UserPrivilege p : user.getPrivileges())
+	 			{
+	 				if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR))
+	 				{
+	 					adminPrivilege = p;
+	 				}
+	 			}
+	 			adminPrivilege.setActive(!(adminPrivilege.isActive()));
+	 			//dbUserPrivilegeService.save(adminPrivilege);
+	 			throw new NotImplementedException();
+	 		} 
+		 
+
+	    
 }

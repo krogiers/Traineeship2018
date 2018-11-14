@@ -78,6 +78,10 @@ public class MemoryUserService implements UserService {
     }
 
 	@Override
+	public User getElementByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	public void alterStatusOfAdminPrivilege(User user) {
 		
 	}

@@ -46,6 +46,7 @@ public class UserPrivilegeConverter implements GenericConverter<UserPrivilegeBo,
         	userPrivilegeBo.setId(from.getId());
 
         }
+        userPrivilegeBo.setId(from.getId());
         return userPrivilegeBo;
     }
 }

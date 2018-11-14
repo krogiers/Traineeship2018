@@ -122,6 +122,7 @@ CREATE TABLE UserPrivileges (
     Active number(1,0)  NOT NULL,
     Country char(2)  NULL,
     Privis_ID int  NOT NULL,
+    StartDateInCurrentFunction date NULL,
     CONSTRAINT UserPrivileges_pk PRIMARY KEY (ID)
 ) ;
 

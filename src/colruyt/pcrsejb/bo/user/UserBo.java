@@ -21,9 +21,6 @@ public class UserBo {
 	private String password;
 	private HashSet<UserPrivilegeBo> privilegeBoHashSet;
 	private String country;
-	private Boolean hasActiveAdminRights;
-	private Boolean hasInactiveAdminRights;
-	private FunctionBo functionForFunctionResponsible;
 
 	/**
 	 * Default constructor
@@ -212,32 +209,6 @@ public class UserBo {
 	{
 		return this.getFirstName() + " " + this.getLastName();
 	}
-
-	public Boolean getHasActiveAdminRights() {
-		return hasActiveAdminRights;
-	}
-
-	public void setHasActiveAdminRights(Boolean hasActiveAdminRights) {
-		this.hasActiveAdminRights = hasActiveAdminRights;
-	}
-
-	public Boolean getHasInactiveAdminRights() {
-		return hasInactiveAdminRights;
-	}
-
-	public void setHasInactiveAdminRights(Boolean hasInactiveAdminRights) {
-		this.hasInactiveAdminRights = hasInactiveAdminRights;
-	}
-
-	public FunctionBo getFunctionForFunctionResponsible() {
-		return functionForFunctionResponsible;
-	}
-
-	public void setFunctionForFunctionResponsible(FunctionBo functionForFunctionResponsible) {
-		this.functionForFunctionResponsible = functionForFunctionResponsible;
-	}
-
-
 
 	
 }

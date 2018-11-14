@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Traineeship2018.iml" filepath="$PROJECT_DIR$/Traineeship2018.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Traineeship2018FrontEndConsole/Traineeship2018FrontEndConsole.iml" filepath="$PROJECT_DIR$/../Traineeship2018FrontEndConsole/Traineeship2018FrontEndConsole.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Traineeship2018FrontEndJSF/Traineeship2018FrontEndJSF.iml" filepath="$PROJECT_DIR$/../Traineeship2018FrontEndJSF/Traineeship2018FrontEndJSF.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../frontendjsf/frontendjsf.iml" filepath="$PROJECT_DIR$/../frontendjsf/frontendjsf.iml" />
     </modules>
   </component>
 </project>

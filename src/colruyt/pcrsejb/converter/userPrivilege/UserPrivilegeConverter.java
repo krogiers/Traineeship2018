@@ -20,22 +20,31 @@ public class UserPrivilegeConverter implements GenericConverter<UserPrivilegeBo,
         if (type == PrivilegeType.TEAMMEMBER) {
         	typeBo = PrivilegeTypeBo.TEAMMEMBER;
         	userPrivilegeBo = new TeamMemberUserPrivilegeBo(typeBo, from.isActive(), functionConverter.convertTo(((FunctionUserPrivilege) from).getFunction()), ((TeamMemberUserPrivilege) from).getStartDateInCurrentFunction());
+        	userPrivilegeBo.setId(from.getId());
         }
         else if (type == PrivilegeType.TEAMMANAGER) {
         	typeBo = PrivilegeTypeBo.TEAMMANAGER;
         	userPrivilegeBo = new UserPrivilegeBo(typeBo, from.isActive());
+        	userPrivilegeBo.setId(from.getId());
+
         }
         else if (type == PrivilegeType.FUNCTIONRESPONSIBLE) {
         	typeBo = PrivilegeTypeBo.FUNCTIONRESPONSIBLE;
         	userPrivilegeBo = new FunctionResponsibleUserPrivilegeBo(typeBo, from.isActive(), functionConverter.convertTo(((FunctionUserPrivilege) from).getFunction()), ((FunctionResponsibleUserPrivilege) from).getCountry());
+        	userPrivilegeBo.setId(from.getId());
+
         }
         else if (type == PrivilegeType.DIRECTOR) {
         	typeBo = PrivilegeTypeBo.DIRECTOR;
         	userPrivilegeBo = new UserPrivilegeBo(typeBo, from.isActive());
+        	userPrivilegeBo.setId(from.getId());
+
         }
         else if (type == PrivilegeType.ADMINISTRATOR) {
         	typeBo = PrivilegeTypeBo.ADMINISTRATOR;
         	userPrivilegeBo = new UserPrivilegeBo(typeBo, from.isActive());
+        	userPrivilegeBo.setId(from.getId());
+
         }
         userPrivilegeBo.setId(from.getId());
         return userPrivilegeBo;

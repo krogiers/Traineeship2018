@@ -35,7 +35,7 @@ public class UserFacade {
 		return users;
 	}
 
-	public List<UserBo> searchUsers(String shortString) {
+	public List<UserBo> getUsersByShortName(String shortString) {
 		List<UserBo> matchingUsers = new ArrayList<>();
 		for (User u : userServiceBL.getUserByShortName(shortString)) {
 			matchingUsers.add(userConverter.convertTo(u));

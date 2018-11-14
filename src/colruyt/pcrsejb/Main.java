@@ -10,11 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
         UserFacade userFacade = new UserFacade();
+        System.out.println(userFacade.getUsersByShortName("womos"));
 
-        for(UserBo userBo : userFacade.getAllUsers()){
-            System.out.println("-------------------------");
-            System.out.println(userBo.getFirstName());
-        }
 
 
     }

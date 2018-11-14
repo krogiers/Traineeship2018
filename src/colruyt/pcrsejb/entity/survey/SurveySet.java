@@ -3,10 +3,10 @@ package colruyt.pcrsejb.entity.survey;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+//import javax.persistence.Entity;
+//import javax.persistence.Id;
 
-@Entity
+//@Entity
 public class SurveySet implements Comparable<SurveySet>{
 
 	

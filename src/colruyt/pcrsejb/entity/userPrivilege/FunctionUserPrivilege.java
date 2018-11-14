@@ -5,6 +5,8 @@ import colruyt.pcrsejb.entity.function.Function;
 public class FunctionUserPrivilege extends UserPrivilege {
 	
 	private Function function;
+
+
 	
 	public FunctionUserPrivilege(PrivilegeType privilegeType, boolean active, Function function) {
 		super(privilegeType, active);

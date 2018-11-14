@@ -1,12 +1,14 @@
 package colruyt.pcrsejb.service.dl.user;
 
 import colruyt.pcrsejb.entity.user.User;
+import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MemoryUserService implements UserService {
@@ -82,7 +84,13 @@ public class MemoryUserService implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public void alterStatusOfAdminPrivilege(User user) {
+
+    @Override
+    public Map<User, FunctionResponsibleUserPrivilege> getFunctionResponsibles() {
+        return null;
+    }
+
+    public void alterStatusOfAdminPrivilege(User user) {
 		
 	}
 

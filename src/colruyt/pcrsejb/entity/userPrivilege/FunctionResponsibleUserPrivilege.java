@@ -5,7 +5,8 @@ import colruyt.pcrsejb.entity.function.Function;
 public class FunctionResponsibleUserPrivilege extends FunctionUserPrivilege {
 	
 	private String country;
-	
+
+
 	public FunctionResponsibleUserPrivilege(PrivilegeType privilegeType, boolean active, Function function, String country) {
 		super(privilegeType, active, function);
 		setCountry(country);

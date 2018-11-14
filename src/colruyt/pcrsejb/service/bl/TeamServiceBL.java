@@ -1,7 +1,9 @@
 package colruyt.pcrsejb.service.bl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.function.Function;
@@ -10,6 +12,8 @@ import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
+import colruyt.pcrsejb.service.dl.enrolment.DbEnrolmentService;
+import colruyt.pcrsejb.service.dl.enrolment.EnrolmentService;
 import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
 import colruyt.pcrsejb.service.dl.team.DbTeamService;
@@ -23,6 +27,7 @@ public class TeamServiceBL {
 	private TeamService teamdb = new DbTeamService();
 	private FunctionService functiondb = new DbFunctionService();
 	private TeamValidator validator = new TeamValidator();
+	private EnrolmentService enrolmentdb = new DbEnrolmentService();
 	/**
 	 * Methode voor het toevoegen van een teamMember
 	 * 
@@ -154,6 +159,22 @@ public class TeamServiceBL {
 
 	public Team getTeam(User user) {
 		return teamdb.findTeamOfUser(user);
+	}
+
+	public List<Team> getTeamsOfManager(User manager) {
+		UserPrivilege managerPrivilege = null;
+		List<Team> teamList = new ArrayList<>();
+
+		for(UserPrivilege up : manager.getPrivileges()){
+			if(up.isActive() && up.getPrivilegeType().equals(PrivilegeType.TEAMMANAGER)){
+				managerPrivilege = up;
+			}
+		}
+		for(Enrolment e : enrolmentdb.getEnrolmentsForPrivilege(managerPrivilege)){
+			teamList.add(teamdb.findTeamOfEnrolments(e));
+		}
+
+		return teamList;
 	}
 
 	public void removeTeam(Team team) {

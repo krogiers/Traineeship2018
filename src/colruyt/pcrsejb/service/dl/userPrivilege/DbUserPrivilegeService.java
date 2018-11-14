@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.user.User;
@@ -21,111 +23,104 @@ import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
 
 public class DbUserPrivilegeService extends DbService implements UserPrivilegeService {
-	private FunctionService fs = new DbFunctionService();
-	private UserService us = new DbUserService();
+    private FunctionService fs = new DbFunctionService();
+    private UserService us = new DbUserService();
 
-	private static final String INSERT_USERPRIVILEGE= "INSERT INTO userprivileges(id, user_id, functions_id, active, country, privis_id) values (((select max(id) from userprivileges)+1), ?, ?, ?, ?, ?) ";
-	private static final String UPDATE_ACTIVE_FROM_USERPRIVILEGE= "UPDATE userprivileges set active = ? where id = ?";
-	private static final String UPDATE_USERPRIVILEGE = "UPDATE userprivileges set user_id = ? functions_id = ?, active = ?, country = ?, privis_id = ? where id = ?";
-	private static final String SELECT_USERPRIVILEGE = "SELECT * FROM userprivileges where id = ?";
-	
+    private static final String INSERT_USERPRIVILEGE = "INSERT INTO userprivileges(id, user_id, functions_id, active, country, privis_id) values (((select max(id) from userprivileges)+1), ?, ?, ?, ?, ?) ";
+    private static final String UPDATE_ACTIVE_FROM_USERPRIVILEGE = "UPDATE userprivileges set active = ? where id = ?";
+    private static final String UPDATE_USERPRIVILEGE = "UPDATE userprivileges set user_id = ? functions_id = ?, active = ?, country = ?, privis_id = ? where id = ?";
+    private static final String SELECT_USERPRIVILEGE = "SELECT * FROM userprivileges where id = ?";
+    private static final String SELECT_USERPRIVILEGES_FROM_USER = "SELECT * FROM userprivileges where user_id = ? ";
 
-	@Override
-	public UserPrivilege save(UserPrivilege element, User user) {
-		UserPrivilege userPrivilege = null;
-		try(Connection conn = this.createConnection()){
-			PreparedStatement statement = null;
-			if(element.getId()!=null)
-			{
-				statement = conn.prepareStatement(UPDATE_USERPRIVILEGE, new String[] {"ID"});
-				statement.setInt(6, element.getId());
-			}
-			if(element.getId()==null)
-			{
-				statement = conn.prepareStatement(INSERT_USERPRIVILEGE, new String[] {"ID"});
-			}
-			statement.setInt(2 , element instanceof FunctionUserPrivilege? ((FunctionUserPrivilege)element).getFunction().getId() : 0);
-			statement.setInt(3, element.isActive() ? 1 : 0);
-			statement.setString(4, element instanceof FunctionResponsibleUserPrivilege ? ((FunctionResponsibleUserPrivilege)element).getCountry() : null );
-			statement.setInt(5, element.getPrivilegeType().getId());
-			
-			statement.executeUpdate();
-			
-			PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
-			statement2.setInt(1, element.getId());
-			
-			ResultSet rs = statement2.executeQuery();
-			
-			userPrivilege = convertToSingleUserPrivilege(rs);
-			
-		}catch(SQLException e) {
-			userPrivilege = null;
-			e.printStackTrace();
-		}
-		return userPrivilege;
-	}
-	
-	/**
-	 * can only update boolean active from existing userprivilege, since user must be known.
-	 */
-	@Override
-	public UserPrivilege save(UserPrivilege element) {
-		UserPrivilege userPrivilege = null;
-		try(Connection conn = this.createConnection()){
-			PreparedStatement statement;
-			if(element.getId()!= null)
-			{
-				statement = conn.prepareStatement(UPDATE_ACTIVE_FROM_USERPRIVILEGE, new String[] {"ID"});
-				statement.setInt(2, element.getId());
-				statement.setInt(1, element.isActive()? 1 : 0);
-				
-				statement.executeUpdate();
-				
-				PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
-				statement2.setInt(1, element.getId());
-				
-				ResultSet rs = statement2.executeQuery();
-				
-				userPrivilege = convertToSingleUserPrivilege(rs);
-				
-			}
-			else
-			{
-				element = null;
-			}
-		} catch (SQLException e) {
-        //TODO throw exception!
-		element = null;
-        e.printStackTrace();
-		}
-		return userPrivilege;
-	}
-	
-	@Override
-	public UserPrivilege getElement(UserPrivilege element) {
-		UserPrivilege userPrivilege =  null;
-		try(Connection conn = this.createConnection()){
+    @Override
+    public UserPrivilege save(UserPrivilege element, User user) {
+        UserPrivilege userPrivilege = null;
+        try (Connection conn = this.createConnection()) {
+            PreparedStatement statement = null;
+            if (element.getId() != null) {
+                statement = conn.prepareStatement(UPDATE_USERPRIVILEGE, new String[]{"ID"});
+                statement.setInt(6, element.getId());
+            }
+            if (element.getId() == null) {
+                statement = conn.prepareStatement(INSERT_USERPRIVILEGE, new String[]{"ID"});
+            }
+            statement.setInt(2, element instanceof FunctionUserPrivilege ? ((FunctionUserPrivilege) element).getFunction().getId() : 0);
+            statement.setInt(3, element.isActive() ? 1 : 0);
+            statement.setString(4, element instanceof FunctionResponsibleUserPrivilege ? ((FunctionResponsibleUserPrivilege) element).getCountry() : null);
+            statement.setInt(5, element.getPrivilegeType().getId());
 
-            PreparedStatement statement =  conn.prepareStatement("select * from userprivileges where id = ?");
+            statement.executeUpdate();
+
+            PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
+            statement2.setInt(1, element.getId());
+
+            ResultSet rs = statement2.executeQuery();
+
+            userPrivilege = convertToSingleUserPrivilege(rs);
+
+        } catch (SQLException e) {
+            userPrivilege = null;
+            e.printStackTrace();
+        }
+        return userPrivilege;
+    }
+
+    /**
+     * can only update boolean active from existing userprivilege, since user must be known.
+     */
+    @Override
+    public UserPrivilege save(UserPrivilege element) {
+        UserPrivilege userPrivilege = null;
+        try (Connection conn = this.createConnection()) {
+            PreparedStatement statement;
+            if (element.getId() != null) {
+                statement = conn.prepareStatement(UPDATE_ACTIVE_FROM_USERPRIVILEGE, new String[]{"ID"});
+                statement.setInt(2, element.getId());
+                statement.setInt(1, element.isActive() ? 1 : 0);
+
+                statement.executeUpdate();
+
+                PreparedStatement statement2 = conn.prepareStatement(SELECT_USERPRIVILEGE);
+                statement2.setInt(1, element.getId());
+
+                ResultSet rs = statement2.executeQuery();
+
+                userPrivilege = convertToSingleUserPrivilege(rs);
+
+            } else {
+                element = null;
+            }
+        } catch (SQLException e) {
+            //TODO throw exception!
+            element = null;
+            e.printStackTrace();
+        }
+        return userPrivilege;
+    }
+
+    @Override
+    public UserPrivilege getElement(UserPrivilege element) {
+        UserPrivilege userPrivilege = null;
+        try (Connection conn = this.createConnection()) {
+
+            PreparedStatement statement = conn.prepareStatement("select * from userprivileges where id = ?");
             statement.setInt(1, element.getId());
 
-            ResultSet rs =  statement.executeQuery();
-            
-            if(rs.next()){
-            	PrivilegeType type = determinePrivilegeType(rs.getInt("PRIVIS_ID"));
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                PrivilegeType type = determinePrivilegeType(rs.getInt("PRIVIS_ID"));
                 if (PrivilegeType.TEAMMEMBER == type) {
-                	//TODO GET DATE from database
+                    //TODO GET DATE from database
 
-                	userPrivilege = new TeamMemberUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), null);
+                    userPrivilege = new TeamMemberUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), null);
 
-                }
-                else if(PrivilegeType.FUNCTIONRESPONSIBLE == type) {
+                } else if (PrivilegeType.FUNCTIONRESPONSIBLE == type) {
 
-                	userPrivilege = new FunctionResponsibleUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), rs.getString("COUNTRY"));
-                }
-                else {
+                    userPrivilege = new FunctionResponsibleUserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")), fs.getElement(new Function(rs.getInt("FUNCTIONS_ID"))), rs.getString("COUNTRY"));
+                } else {
 
-                	userPrivilege = new UserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE"))); 
+                    userPrivilege = new UserPrivilege(type, "1".equalsIgnoreCase(rs.getString("ACTIVE")));
                 }
 
                 userPrivilege.setId(element.getId());

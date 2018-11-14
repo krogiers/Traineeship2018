@@ -11,15 +11,14 @@ import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
 
 import java.sql.*;
+import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class DbUserService extends DbService implements UserService {
 	
 	private FunctionService fs = new DbFunctionService();
+
 
 	private static final String FIND_USER_BY_ID = "Select * from Users where id = ?";
 	private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
@@ -35,8 +34,10 @@ public class DbUserService extends DbService implements UserService {
 	private static final String DELETE_USER = "Delete from Users where id = ?";
 	private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where "
 			+ "up.privis_id=? and active=1 and functions_id=? and country=?";
-	private static final String GET_FUNCTION_RESPONSIBLES = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id "
+	private static final String GET_FUNCTION_RESPONSIBLES = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id "
 			+ "inner join Functions f on f.id = up.functions_id where up.privis_id = ? and active=1";
+
+	private static final String GET_FUNCTION_RESPONSIBLE_IDS = "SELECT * FROM USERPRIVILEGES WHERE PRIVIS_ID=? and ACTIVE=1";
 
 
 
@@ -66,7 +67,7 @@ public class DbUserService extends DbService implements UserService {
         List<User> users = new ArrayList<>();
         try(Connection conn = this.createConnection()){
 
-            PreparedStatement statement =  conn.prepareStatement(GET_FUNCTION_RESPONSIBLES);
+            PreparedStatement statement =  conn.prepareStatement(FIND_FUNCTION_RESPONSIBLE);
             statement.setInt(1, PrivilegeType.FUNCTIONRESPONSIBLE.getId());
             ResultSet rs =  statement.executeQuery();
             users = convertToUserList(rs);
@@ -132,8 +133,8 @@ public class DbUserService extends DbService implements UserService {
             e.printStackTrace();
         }
 
-		return userList;
-	}
+        return userList;
+    }
 
 
     private void addPrivilegesToUser(UserPrivilege priv, User user){
@@ -386,6 +387,33 @@ public class DbUserService extends DbService implements UserService {
 		}
 		return user;
 	}
+
+    public Map<User, FunctionResponsibleUserPrivilege> getFunctionResponsibles(){
+        Map<User, FunctionResponsibleUserPrivilege> functionResponsibleMap = new HashMap<>();
+        User user = new User();
+        Function function = new Function();
+
+        FunctionResponsibleUserPrivilege up = null;
+
+        try (Connection conn = this.createConnection()) {
+
+            PreparedStatement statement = conn.prepareStatement(GET_FUNCTION_RESPONSIBLE_IDS);
+            statement.setInt(1, PrivilegeType.FUNCTIONRESPONSIBLE.getId());
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()) {
+                user.setId(rs.getInt("user_id"));
+                function.setId(rs.getInt("functions_id"));
+                user = getElement(user);
+                function = fs.getElement(function);
+                up = new FunctionResponsibleUserPrivilege(PrivilegeType.FUNCTIONRESPONSIBLE, true, function, rs.getString("country"));
+                functionResponsibleMap.put(user, up);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return functionResponsibleMap;
+    }
 
 
 

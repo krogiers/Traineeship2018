@@ -73,4 +73,10 @@ public class MemoryTeamService implements TeamService {
 		*/
 	}
 
+	@Override
+	public Team findTeamOfEnrolments(Enrolment e) {
+		//TODO
+		return null;
+	}
+
 }

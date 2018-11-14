@@ -3,6 +3,10 @@ package colruyt.pcrsejb.entity.survey;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.Entity;
+
+
+@Entity
 public abstract class Survey {
 
     private LocalDate dateCompleted;

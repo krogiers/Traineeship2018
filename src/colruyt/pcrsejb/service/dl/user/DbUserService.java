@@ -321,6 +321,7 @@ public class DbUserService extends DbService implements UserService {
             else {
             	p = new UserPrivilege(type, 1 == set.getInt("ACTIVE"));
             }
+            p.setId(set.getInt("id"));
             privileges.add(p);
         }
         return privileges;

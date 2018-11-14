@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 import colruyt.pcrsejb.entity.enrolment.Enrolment;
 import colruyt.pcrsejb.entity.team.Team;
@@ -22,6 +24,7 @@ public class DbEnrolmentService extends DbService implements EnrolmentService {
 	private UserPrivilegeService userPrivilegeService = new DbUserPrivilegeService();
 	
 	private static final String GET_ENROLMENTS_FROM_TEAM = "Select * from teamenrolments where team_id = ?";
+	private static final String GET_ENROLMENTS_FROM_USERPRIVILEGE = "SELECT * FROM teamenrolments where userprivileges_ID = ?";
 
 	@Override
 	public Enrolment save(Enrolment element) {
@@ -53,6 +56,27 @@ public class DbEnrolmentService extends DbService implements EnrolmentService {
 		try (Connection conn = this.createConnection()) {
 			PreparedStatement preparedStatement = conn.prepareStatement(GET_ENROLMENTS_FROM_TEAM);
 			preparedStatement.setInt(1, team.getTeamID());
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				Enrolment enrolment = new Enrolment();
+				enrolment.setActive("1".equalsIgnoreCase(rs.getString("ACTIVE")));
+				enrolment.setEnrolmentID(rs.getInt("Id"));
+				enrolment.setPrivilege(userPrivilegeService.getElement(new UserPrivilege(rs.getInt("Userprivileges_id"))));
+				enrolment.setUser(userPrivilegeService.getUserfromUserPrivileges(enrolment.getPrivilege()));
+				enrolments.add(enrolment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return enrolments;
+	}
+
+	@Override
+	public List<Enrolment> getEnrolmentsForPrivilege(UserPrivilege privilege) {
+		List<Enrolment> enrolments = new ArrayList<>();
+		try (Connection conn = this.createConnection()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(GET_ENROLMENTS_FROM_USERPRIVILEGE);
+			preparedStatement.setInt(1, privilege.getId());
 			ResultSet rs = preparedStatement.executeQuery();
 			while (rs.next()) {
 				Enrolment enrolment = new Enrolment();

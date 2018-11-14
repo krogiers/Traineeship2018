@@ -77,5 +77,10 @@ public class MemoryUserService implements UserService {
         return null;
     }
 
+	@Override
+	public void alterStatusOfAdminPrivilege(User user) {
+		
+	}
+
 
 }

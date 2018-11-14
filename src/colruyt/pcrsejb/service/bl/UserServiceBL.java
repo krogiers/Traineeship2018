@@ -154,7 +154,7 @@ public class UserServiceBL{
 	 				}
 	 			}
 	 			adminPrivilege.setActive(!(adminPrivilege.isActive()));
-	 			dbUserPrivilegeService.save(adminPrivilege);
+	 			dbUserPrivilegeService.save(adminPrivilege, user);
 	 			
 	 		} 
 		 

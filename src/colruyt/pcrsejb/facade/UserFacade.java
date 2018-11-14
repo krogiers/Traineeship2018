@@ -12,14 +12,11 @@ import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
 import colruyt.pcrsejb.entity.user.User;
-<<<<<<< HEAD
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
-=======
-import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
+
 import colruyt.pcrsejb.service.bl.UserServiceBL;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
@@ -86,13 +83,7 @@ public class UserFacade {
 	    		
 	    }
 	
-<<<<<<< HEAD
-	
-	
-=======
 
->>>>>>> branch 'master' of https://github.com/krogiers/Traineeship2018.git
-	
 	public UserBo saveUser(UserBo user) {
 		try {
 			return userConverter.convertTo(userServiceBL.saveUser(userBoConverter.convertTo(user)));

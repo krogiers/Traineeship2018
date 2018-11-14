@@ -1,9 +1,4 @@
 package colruyt.pcrsejb.service.bl;
-
-
-
-import colruyt.pcrsejb.bo.function.FunctionBo;
-import colruyt.pcrsejb.bo.user.UserBo;
 import colruyt.pcrsejb.entity.function.Function;
 
 import java.util.Collection;
@@ -18,11 +13,13 @@ import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class UserServiceBL{
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
 	private UserValidator userValidator = new UserValidator();
+	//private PrivilegeDl
 
 	/**
 	 * Methode voor het navragen van privilege
@@ -140,5 +137,27 @@ public class UserServiceBL{
 	    	
 	    	return bo;
 	    }
+	 
+	 		public User getUserByEmail(String email) {
+				return userdb.getElementByEmail(email);
+			} 
+	 		
+	 		
+	 		public void alterStatusOfAdminPrivilege(User user)
+	 		{
+	 			UserPrivilege adminPrivilege = null;
+	 			for(UserPrivilege p : user.getPrivileges())
+	 			{
+	 				if(p.getPrivilegeType().equals(PrivilegeType.ADMINISTRATOR))
+	 				{
+	 					adminPrivilege = p;
+	 				}
+	 			}
+	 			adminPrivilege.setActive(!(adminPrivilege.isActive()));
+	 			//dbUserPrivilegeService.save(adminPrivilege);
+	 			throw new NotImplementedException();
+	 		} 
+		 
+
 	    
 }

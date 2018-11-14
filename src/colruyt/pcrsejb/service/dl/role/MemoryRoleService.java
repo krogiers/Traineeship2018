@@ -1,9 +1,11 @@
 package colruyt.pcrsejb.service.dl.role;
 
+import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.role.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class MemoryRoleService implements RoleService {
@@ -31,5 +33,10 @@ public class MemoryRoleService implements RoleService {
     @Override
     public void deleteElement(Role element) {
         this.deleteElement(element);
+    }
+
+    @Override
+    public HashSet<Role> getAllRolesForFunction(Function function) {
+        return null;
     }
 }

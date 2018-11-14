@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.bo.user;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,15 +12,16 @@ import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
  * Klasse voor het aanmaken van een user.
  * 
  * @author jda1mbw
- */
-public class UserBo {
+ */	
+public class UserBo implements Serializable{
 
-	private int id;
+	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
-	private HashSet<UserPrivilegeBo> privilegeBoHashSet;
+	private String password="";
+	private HashSet<UserPrivilegeBo> privilegeBoHashSet= new HashSet<>();
 	private String country;
 	private Boolean hasActiveAdminRights;
 	private Boolean hasInactiveAdminRights;
@@ -65,9 +67,9 @@ public class UserBo {
 	/**
 	 * Methode die de ID van een user retourneert
 	 * 
-	 * @return id (int)
+	 * @return id (Integer)
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -76,7 +78,7 @@ public class UserBo {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

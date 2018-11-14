@@ -1,5 +1,6 @@
 package colruyt.pcrsejb.service.bl;
 
+import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
@@ -14,4 +15,8 @@ public class FunctionServiceBL {
         return (List<Function>) functionService.getAllFunctionNames();
     }
 
+
+    public Function getFunction(Function function) {
+        return functionService.getElement(function);
+    }
 }

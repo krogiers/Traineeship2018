@@ -28,8 +28,8 @@ public class DbUserService extends DbService implements UserService {
 	private static final String FIND_ALL_USERS = "Select * from Users";
 	private static final String INSERT_USER = "INSERT into Users (id,firstname,lastname,password,email, homecountry) values (((select max(id) from users)+1),?,?,?,?,?)";
 	private static final String UPDATE_USER = "UPDATE Users SET firstname = ?, lastname = ?, password = ?, email = ?, homecountry = ? WHERE ID = ?";
-	private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?)";
-	private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, email = ?, country = ?, Privis_ID WHERE ID = ?";
+	private static final String ADD_PRIVILIGE_TO_USER = "INSERT into UserPrivileges values ( ( SELECT MAX(ID) FROM UserPrivileges) + 1,?,?,?,?,?,?)";
+	private static final String UPDATE_PRIVILIGE_TO_USER = "UPDATE UserPrivileges SET User_ID = ?, Functions_ID = ?, Active = ?, country = ?, Privis_ID = ?, STARTDATEINCURRENTFUNCTION = ? WHERE ID = ?";
 	private static final String FIND_PRIVILEGES_OF_USER = "Select * from userprivileges where user_id = ?";
 	private static final String DELETE_USER = "Delete from Users where id = ?";
 	private static final String FIND_FUNCTION_RESPONSIBLE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id where "
@@ -162,13 +162,34 @@ public class DbUserService extends DbService implements UserService {
             }
 
             statement.setInt(1, user.getId());
-            statement.setInt(2, functionId);
+            if (functionId == null) {
+            	statement.setNull(2, Types.INTEGER);
+            }
+            else {
+            	statement.setInt(2, functionId);
+            }
             statement.setInt(3, priv.isActive() ? 1 : 0); // active
-            statement.setString(4, country);
-            statement.setInt(5, priv.getId());
-            statement.setDate(6, Date.valueOf(startDateInCurrentFunction));
-
+            if (country == null) {
+            	statement.setNull(4, Types.CHAR);
+            }
+            else {
+            	statement.setString(4, country);
+            }
+            statement.setInt(5, priv.getPrivilegeType().getId());
+            if (startDateInCurrentFunction == null) {
+            	statement.setNull(6, Types.DATE);
+            }
+            else {
+            	statement.setDate(6, Date.valueOf(startDateInCurrentFunction));
+            }
+            if (priv.getId() != null) {
+            	statement.setInt(7, priv.getId());
+            }
             statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+            if (rs.next()) {
+            	priv.setId(rs.getInt(1));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -237,7 +258,7 @@ public class DbUserService extends DbService implements UserService {
             ResultSet rs =  statement.getGeneratedKeys();
 
             if(rs.next()) {
-                user.setId(rs.getInt("ID"));
+                user.setId(rs.getInt(1));
 
                 for(UserPrivilege priv: user.getPrivileges()){
                     addPrivilegesToUser(priv, user);

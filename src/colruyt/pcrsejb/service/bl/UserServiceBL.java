@@ -1,9 +1,8 @@
 package colruyt.pcrsejb.service.bl;
-import colruyt.pcrsejb.entity.function.Function;
-
 import java.util.Collection;
 import java.util.List;
 
+import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
@@ -11,14 +10,15 @@ import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
+import colruyt.pcrsejb.service.dl.userPrivilege.DbUserPrivilegeService;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class UserServiceBL{
 	// Altijd op Abstract werken.
 	private UserService userdb = new DbUserService();
 	private UserValidator userValidator = new UserValidator();
+	private DbUserPrivilegeService dbUserPrivilegeService = new DbUserPrivilegeService();
 	//private PrivilegeDl
 
 	/**
@@ -154,8 +154,8 @@ public class UserServiceBL{
 	 				}
 	 			}
 	 			adminPrivilege.setActive(!(adminPrivilege.isActive()));
-	 			//dbUserPrivilegeService.save(adminPrivilege);
-	 			throw new NotImplementedException();
+	 			dbUserPrivilegeService.save(adminPrivilege);
+	 			
 	 		} 
 		 
 

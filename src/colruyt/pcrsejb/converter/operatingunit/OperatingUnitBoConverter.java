@@ -8,7 +8,11 @@ public class OperatingUnitBoConverter implements GenericConverter<OperatingUnit,
 
     @Override
     public OperatingUnit convertTo(OperatingUnitBo from) {
-        return new OperatingUnit(from.getOperatingUnitId(), from.getOperatingUnitName());
+        OperatingUnit operatingUnit = null;
+        if (from != null) {
+            operatingUnit = new OperatingUnit(from.getOperatingUnitId(), from.getOperatingUnitName());
+        }
+        return operatingUnit;
     }
 
 }

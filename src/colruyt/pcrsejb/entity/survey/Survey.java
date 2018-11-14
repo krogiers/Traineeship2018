@@ -9,6 +9,8 @@ public abstract class Survey {
     private List<Rating> ratingList;
     private int id;
 
+    
+    
     public Survey() {
     }
 

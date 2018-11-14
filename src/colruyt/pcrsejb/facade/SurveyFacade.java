@@ -39,5 +39,12 @@ public class SurveyFacade {
 	public UserBo getUserOfSurvey(SurveyBo survey) {
 		return userConverter.convertTo(surveyServiceBL.findUserBySurvey(surveyBoConverter2.convertTo(survey)));
 	}
+	
+	public SurveySetBo createSurveyFor(UserBo u ) {
+		
+		return null;
+		
+		
+	}
 
 }

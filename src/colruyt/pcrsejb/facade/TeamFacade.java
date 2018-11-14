@@ -7,11 +7,13 @@ import colruyt.pcrsejb.converter.team.TeamConverter;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.entity.team.Team;
+import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.bl.TeamServiceBL;
 import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeamFacade {
 	private TeamServiceBL teamServiceBL = new TeamServiceBL();
@@ -83,5 +85,4 @@ public class TeamFacade {
 //		return returningBo;
 		return teamConverter.convertTo(teamServiceBL.getTeam(userBoConverter.convertTo(user)));
 	}
-	
 }

@@ -23,9 +23,6 @@ public class UserBo implements Serializable{
 	private String password="";
 	private HashSet<UserPrivilegeBo> privilegeBoHashSet= new HashSet<>();
 	private String country;
-	private Boolean hasActiveAdminRights;
-	private Boolean hasInactiveAdminRights;
-	private FunctionBo functionForFunctionResponsible;
 
 	/**
 	 * Default constructor
@@ -214,32 +211,6 @@ public class UserBo implements Serializable{
 	{
 		return this.getFirstName() + " " + this.getLastName();
 	}
-
-	public Boolean getHasActiveAdminRights() {
-		return hasActiveAdminRights;
-	}
-
-	public void setHasActiveAdminRights(Boolean hasActiveAdminRights) {
-		this.hasActiveAdminRights = hasActiveAdminRights;
-	}
-
-	public Boolean getHasInactiveAdminRights() {
-		return hasInactiveAdminRights;
-	}
-
-	public void setHasInactiveAdminRights(Boolean hasInactiveAdminRights) {
-		this.hasInactiveAdminRights = hasInactiveAdminRights;
-	}
-
-	public FunctionBo getFunctionForFunctionResponsible() {
-		return functionForFunctionResponsible;
-	}
-
-	public void setFunctionForFunctionResponsible(FunctionBo functionForFunctionResponsible) {
-		this.functionForFunctionResponsible = functionForFunctionResponsible;
-	}
-
-
 
 	
 }

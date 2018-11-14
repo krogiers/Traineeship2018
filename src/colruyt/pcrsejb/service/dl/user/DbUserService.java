@@ -10,10 +10,8 @@ import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.function.DbFunctionService;
 import colruyt.pcrsejb.service.dl.function.FunctionService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,7 +19,7 @@ import java.util.List;
 
 public class DbUserService extends DbService implements UserService {
 	
-	FunctionService fs = new DbFunctionService();
+	private FunctionService fs = new DbFunctionService();
 
     private static final String FIND_USER_BY_ID = "Select * from Users where id = ?";
     private static final String FIND_USERS_BY_PRIVILIGE = "Select * from Users u inner join UserPrivileges up on u.id = up.user_id  where up.privis_id = ? and active=1";
@@ -142,10 +140,11 @@ public class DbUserService extends DbService implements UserService {
         try(Connection conn = this.createConnection()){
             Integer functionId = null;
             String country = null;
+            LocalDate startDateInCurrentFunction = null;
 
             if (PrivilegeType.TEAMMEMBER == priv.getPrivilegeType()) {
-            	//TODO Save the date
             	functionId = ((TeamMemberUserPrivilege) priv).getFunction().getId();
+            	startDateInCurrentFunction = ((TeamMemberUserPrivilege) priv).getStartDateInCurrentFunction();
             }
             else if(PrivilegeType.FUNCTIONRESPONSIBLE == priv.getPrivilegeType()) {
             	functionId = ((FunctionResponsibleUserPrivilege) priv).getFunction().getId();
@@ -166,6 +165,7 @@ public class DbUserService extends DbService implements UserService {
             statement.setInt(3, priv.isActive() ? 1 : 0); // active
             statement.setString(4, country);
             statement.setInt(5, priv.getId());
+            statement.setDate(6, Date.valueOf(startDateInCurrentFunction));
 
             statement.executeUpdate();
 
@@ -312,8 +312,7 @@ public class DbUserService extends DbService implements UserService {
             PrivilegeType type = determinePrivilegeType(set.getInt("PRIVIS_ID"));
             UserPrivilege p;
             if (PrivilegeType.TEAMMEMBER == type) {
-            	//TODO GET DATE from database
-            	p = new TeamMemberUserPrivilege(type, 1 == set.getInt("ACTIVE"), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), null);
+            	p = new TeamMemberUserPrivilege(type, 1 == set.getInt("ACTIVE"), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), set.getDate("STARTDATEINCURRENTFUNCTION").toLocalDate());
             }
             else if(PrivilegeType.FUNCTIONRESPONSIBLE == type) {
             	p = new FunctionResponsibleUserPrivilege(type, 1==set.getInt("ACTIVE"), fs.getElement(new Function(set.getInt("FUNCTIONS_ID"))), set.getString("COUNTRY"));

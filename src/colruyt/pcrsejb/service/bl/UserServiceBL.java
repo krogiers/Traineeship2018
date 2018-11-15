@@ -144,7 +144,7 @@ public class UserServiceBL{
 			} 
 	 		
 	 		
-	 		public void alterStatusOfAdminPrivilege(User user)
+	 		public User alterStatusOfAdminPrivilege(User user)
 	 		{
 	 			UserPrivilege adminPrivilege = null;
 	 			for(UserPrivilege p : user.getPrivileges())
@@ -159,6 +159,7 @@ public class UserServiceBL{
 	 			//dbUserPrivilegeService.save(adminPrivilege);
 	 			
 	 			dbUserPrivilegeService.save(adminPrivilege, user);
+	 			return user;
 	 			
 	 		} 
 		 

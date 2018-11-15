@@ -1,16 +1,20 @@
 package colruyt.pcrsejb.facade;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.user.UserBo;
+import colruyt.pcrsejb.bo.userPrivilege.FunctionResponsibleUserPrivilegeBo;
 import colruyt.pcrsejb.bo.userPrivilege.PrivilegeTypeBo;
 import colruyt.pcrsejb.bo.userPrivilege.UserPrivilegeBo;
 import colruyt.pcrsejb.converter.function.FunctionConverter;
 import colruyt.pcrsejb.converter.user.UserBoConverter;
 import colruyt.pcrsejb.converter.user.UserConverter;
 import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeBoConverter;
+import colruyt.pcrsejb.converter.userPrivilege.UserPrivilegeConverter;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
@@ -26,6 +30,7 @@ public class UserFacade {
 	private UserConverter userConverter = new UserConverter();
 	private FunctionConverter functionConverter = new FunctionConverter();
 	private UserPrivilegeBoConverter userPrivilegeBoConverter = new UserPrivilegeBoConverter();
+	private UserPrivilegeConverter userPrivilegeConverter = new UserPrivilegeConverter();
 
 	public List<UserBo> getAllUsers() {
 		List<UserBo> users = new ArrayList<>();
@@ -51,36 +56,17 @@ public class UserFacade {
 	 */
 	public void removeUser(UserBo user) {
 		userServiceBL.delete(userBoConverter.convertTo(user));
-		
-		
-		
 	}
 	
 	 public FunctionBo getFunctionForPerson(UserBo user) {
-	    	
 	    	User u = this.userBoConverter.convertTo(user);
-	    	
-	    
-	    			
-	    		return 	this.functionConverter.convertTo(this.userServiceBL.getFunctionForPerson(u));
-	    			
-	    			
-	    			
-	    		
-	    
-	    	
-	    	
-	    	
+	    	return 	this.functionConverter.convertTo(this.userServiceBL.getFunctionForPerson(u));
 	    }
 	    
 	 
 	 public FunctionBo getFunctionForFunctionResponsible(UserBo user) {
-	    	
 	    	User u = this.userBoConverter.convertTo(user);
-	    	
-	    
-	    			return this.functionConverter.convertTo(this.userServiceBL.getFunctionForFunctionResponsible(u));
-	    		
+	    	return this.functionConverter.convertTo(this.userServiceBL.getFunctionForFunctionResponsible(u));
 	    }
 	
 
@@ -95,11 +81,16 @@ public class UserFacade {
 	
 	}
 
-    public List<UserBo> getAllFunctionResponsibles() {
-		List<UserBo> functionResponsibleList = new ArrayList<>();
-		for (User u: userServiceBL.getAllFunctionResponsibles()){
-			functionResponsibleList.add(userConverter.convertTo(u));
+    public Map<UserBo, FunctionResponsibleUserPrivilegeBo> getAllFunctionResponsibles() {
+		Map<UserBo, FunctionResponsibleUserPrivilegeBo> functionResponsibleList = new HashMap<>();
+
+		for (Map.Entry<User, FunctionResponsibleUserPrivilege> entry : userServiceBL.getAllFunctionResponsibles().entrySet()) {
+			functionResponsibleList.put(
+					userConverter.convertTo(entry.getKey()),
+					(FunctionResponsibleUserPrivilegeBo) userPrivilegeConverter.convertTo(entry.getValue())
+					);
 		}
+
 		return functionResponsibleList;
     }
 

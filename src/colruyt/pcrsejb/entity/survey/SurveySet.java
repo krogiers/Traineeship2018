@@ -3,10 +3,18 @@ package colruyt.pcrsejb.entity.survey;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class SurveySet implements Comparable<SurveySet>{
 
+	
     private int surveySetID;
+	
     private LocalDate surveyYear;
+    
+    
     private HashMap<SurveyKind,Survey> surveySet;
 
     public SurveySet(int l, LocalDate surveyYear, HashMap<SurveyKind,Survey> surveySet) {

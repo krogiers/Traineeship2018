@@ -1,6 +1,7 @@
 package colruyt.pcrsejb.service.bl;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.user.User;
@@ -79,8 +80,8 @@ public class UserServiceBL{
         }
 	}
 
-	public List<User> getAllFunctionResponsibles(){
-		return userdb.getAllFunctionResponsibles();
+	public Map<User, FunctionResponsibleUserPrivilege> getAllFunctionResponsibles(){
+		return userdb.getFunctionResponsibles();
 	}
 
 	public void delete(User user) {
@@ -154,6 +155,9 @@ public class UserServiceBL{
 	 				}
 	 			}
 	 			adminPrivilege.setActive(!(adminPrivilege.isActive()));
+	 			
+	 			//dbUserPrivilegeService.save(adminPrivilege);
+	 			
 	 			dbUserPrivilegeService.save(adminPrivilege, user);
 	 			return user;
 	 			

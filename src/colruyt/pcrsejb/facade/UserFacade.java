@@ -129,8 +129,8 @@ public class UserFacade {
 		return userConverter.convertTo(userServiceBL.getUserByEmail(email));
 	}
 	
-	public void alterStatusOfAdminPrivilege(UserBo userBo)
+	public UserBo alterStatusOfAdminPrivilege(UserBo userBo)
 	{
-		userServiceBL.alterStatusOfAdminPrivilege(userBoConverter.convertTo(userBo));
+		return userConverter.convertTo(userServiceBL.alterStatusOfAdminPrivilege(userBoConverter.convertTo(userBo)));
 	}
 }

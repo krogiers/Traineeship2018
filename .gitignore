@@ -20,3 +20,4 @@ target/
 
 *.properties
 /.factorypath
+/.idea/modules.xml

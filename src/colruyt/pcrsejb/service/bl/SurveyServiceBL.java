@@ -13,13 +13,12 @@ import colruyt.pcrsejb.entity.competence.RoleCompetence;
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.role.Role;
 import colruyt.pcrsejb.entity.survey.ConsensusRating;
-import colruyt.pcrsejb.entity.survey.ConsensusSurvey;
+
 import colruyt.pcrsejb.entity.survey.Rating;
 import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveyKind;
 import colruyt.pcrsejb.entity.survey.SurveySet;
-import colruyt.pcrsejb.entity.survey.TeamManagerSurvey;
-import colruyt.pcrsejb.entity.survey.TeamMemberSurvey;
+
 import colruyt.pcrsejb.entity.team.Team;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.rating.RatingService;
@@ -70,14 +69,18 @@ public class SurveyServiceBL {
 
     	SurveySet set = new SurveySet();
     	
-    	Survey member = new TeamMemberSurvey();
+    	Survey member = new Survey();
     	member.setRatingList(rat);
+    	member.setSurveyKind(SurveyKind.TeamMember);
     	
-    	Survey manager = new TeamManagerSurvey();
+    	
+    	Survey manager = new Survey();
     	manager.setRatingList(rat);
+    	manager.setSurveyKind(SurveyKind.TeamManager);
     	
-    	Survey consensus = new ConsensusSurvey();
+    	Survey consensus = new Survey();
     	consensus.setRatingList(this.getConsensusRatings(func));
+    	consensus.setSurveyKind(SurveyKind.Consensus);
     	
     	set.getSurveySet().put(SurveyKind.TeamMember, member);
     	

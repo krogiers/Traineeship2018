@@ -1,8 +1,10 @@
 package colruyt.pcrsejb.converter.userPrivilege;
 
+import colruyt.pcrsejb.bo.function.FunctionBo;
 import colruyt.pcrsejb.bo.userPrivilege.*;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.converter.function.FunctionBoConverter;
+import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.userPrivilege.FunctionResponsibleUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.PrivilegeType;
 import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
@@ -29,6 +31,8 @@ public class UserPrivilegeBoConverter implements GenericConverter<UserPrivilege,
         }
         else if (typeBo == PrivilegeTypeBo.FUNCTIONRESPONSIBLE) {
         	type = PrivilegeType.FUNCTIONRESPONSIBLE;
+        	Function fbo = functionBoConverter.convertTo(((FunctionUserPrivilegeBo) from).getFunction());
+        	String c = ((FunctionResponsibleUserPrivilegeBo) from).getCountry();
         	userPrivilege = new FunctionResponsibleUserPrivilege(type, from.isActive(), functionBoConverter.convertTo(((FunctionUserPrivilegeBo) from).getFunction()), ((FunctionResponsibleUserPrivilegeBo) from).getCountry());
         	userPrivilege.setId(from.getId());
         }

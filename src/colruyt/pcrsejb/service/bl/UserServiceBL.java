@@ -1,7 +1,5 @@
 package colruyt.pcrsejb.service.bl;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import colruyt.pcrsejb.entity.function.Function;
 import colruyt.pcrsejb.entity.user.User;
@@ -65,6 +63,9 @@ public class UserServiceBL{
 		if (privilege.getPrivilegeType() == PrivilegeType.FUNCTIONRESPONSIBLE) {
 			checkFunctionResponsible((FunctionResponsibleUserPrivilege) privilege, user);
 		}
+		HashSet<UserPrivilege> privis = user.getPrivileges();
+		privis.add(privilege);
+		user.setPrivileges(privis);
 		userdb.save(user);
     }
 

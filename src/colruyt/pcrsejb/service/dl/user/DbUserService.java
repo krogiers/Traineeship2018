@@ -243,6 +243,7 @@ public class DbUserService extends DbService implements UserService {
 
             if(user.getId() != null){
                 statement = conn.prepareStatement(UPDATE_USER, new String[] {"ID"});
+                statement.setInt(6, user.getId());
             }
             else{
                 statement = conn.prepareStatement(INSERT_USER, new String[] {"ID"});
@@ -253,16 +254,18 @@ public class DbUserService extends DbService implements UserService {
             statement.setString(3,user.getPassword());
             statement.setString(4,user.getEmail());
             statement.setString(5, user.getCountry().substring(0, 2));
+
             statement.executeUpdate();
 
             ResultSet rs =  statement.getGeneratedKeys();
 
+
+
             if(rs.next()) {
                 user.setId(rs.getInt(1));
-
-                for(UserPrivilege priv: user.getPrivileges()){
-                    addPrivilegesToUser(priv, user);
-                }
+            }
+            for(UserPrivilege priv: user.getPrivileges()){
+                addPrivilegesToUser(priv, user);
             }
         } catch (SQLException e) {
             //TODO throw exception!

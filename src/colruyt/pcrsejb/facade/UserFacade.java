@@ -22,6 +22,7 @@ import colruyt.pcrsejb.entity.userPrivilege.TeamMemberUserPrivilege;
 import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 
 import colruyt.pcrsejb.service.bl.UserServiceBL;
+import colruyt.pcrsejb.util.exceptions.bl.FunctionResponsibleAlreadyAssignedException;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 
 public class UserFacade {
@@ -94,7 +95,8 @@ public class UserFacade {
 		return functionResponsibleList;
     }
 
-	public void addPrivilegeForUser(UserPrivilegeBo privilegeBo, UserBo userBo) {
+	public void addPrivilegeForUser(UserPrivilegeBo privilegeBo, UserBo userBo)
+			throws FunctionResponsibleAlreadyAssignedException {
 		userServiceBL.addPrivilegeForUser(userPrivilegeBoConverter.convertTo(privilegeBo), userBoConverter.convertTo(userBo));
 	}
 

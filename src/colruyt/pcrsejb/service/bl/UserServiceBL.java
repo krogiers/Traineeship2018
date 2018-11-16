@@ -10,6 +10,7 @@ import colruyt.pcrsejb.entity.userPrivilege.UserPrivilege;
 import colruyt.pcrsejb.service.dl.user.DbUserService;
 import colruyt.pcrsejb.service.dl.user.UserService;
 import colruyt.pcrsejb.service.dl.userPrivilege.DbUserPrivilegeService;
+import colruyt.pcrsejb.util.exceptions.bl.FunctionResponsibleAlreadyAssignedException;
 import colruyt.pcrsejb.util.exceptions.validation.ValidationException;
 import colruyt.pcrsejb.util.validators.user.UserValidator;
 
@@ -59,7 +60,7 @@ public class UserServiceBL{
 	}
 
 
-    public void addPrivilegeForUser(UserPrivilege privilege, User user) {
+    public void addPrivilegeForUser(UserPrivilege privilege, User user) throws FunctionResponsibleAlreadyAssignedException {
 		if (privilege.getPrivilegeType() == PrivilegeType.FUNCTIONRESPONSIBLE) {
 			checkFunctionResponsible((FunctionResponsibleUserPrivilege) privilege, user);
 		}
@@ -69,16 +70,14 @@ public class UserServiceBL{
 		userdb.save(user);
     }
 
-    public void checkFunctionResponsible(FunctionResponsibleUserPrivilege privilege, User user){
+    public void checkFunctionResponsible(FunctionResponsibleUserPrivilege privilege, User user)
+			throws FunctionResponsibleAlreadyAssignedException {
 		// find all users with the FunctionResponsibleUserPrivilege as active
-
 		List<User> functionResponsible = this.userdb.getFunctionResponsible(privilege.getFunction().getId(), privilege.getCountry());
 
 		if(functionResponsible.size() != 0) {
-			throw new UnsupportedOperationException("Function Reponsible already taken for this function and country.");
-		} else {
-		    // TODO Add function responsible
-        }
+			throw new FunctionResponsibleAlreadyAssignedException("Function responsible already taken");
+		}
 	}
 
 	public Map<User, FunctionResponsibleUserPrivilege> getAllFunctionResponsibles(){

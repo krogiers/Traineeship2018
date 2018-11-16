@@ -1,9 +1,14 @@
 package colruyt.pcrsejb.entity.operatingunit;
 
+import java.util.HashSet;
+
+import colruyt.pcrsejb.entity.competence.OperatingUnitCompetence;
+
 public class OperatingUnit {
 
 	private Integer id;
 	private String operatingUnitName;
+	private HashSet<OperatingUnitCompetence> operatingUnitCompetences;
 
 	public OperatingUnit(Integer id, String operatingUnitName) {
 		setId(id);

@@ -24,6 +24,7 @@ import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.rating.RatingService;
 import colruyt.pcrsejb.service.dl.survey.MemorySurveySetService;
 import colruyt.pcrsejb.service.dl.survey.SurveySetService;
+import colruyt.pcrsejb.util.exceptions.bl.UserIsNotMemberOfTeamException;
 
 public class SurveyServiceBL {
 
@@ -58,8 +59,14 @@ public class SurveyServiceBL {
     public SurveySet createSurveySetFor(User user) {
     	
     	//Get Team of user
-    	Team team = teamService.getTeam(user);
-    	//Get TeamManager of User
+		Team team = null;
+		try {
+			team = teamService.getTeam(user);
+		} catch (UserIsNotMemberOfTeamException e) {
+			// TODO handle the exception
+			e.printStackTrace();
+		}
+		//Get TeamManager of User
     	User teamManager = teamService.getOwnerOfTeam(team);
     	
     	//Get Ratings For Functie .... 

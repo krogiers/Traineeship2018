@@ -12,7 +12,7 @@ import java.util.HashSet;
 public class TeamConverter implements GenericConverter<TeamBo, Team>{
 
 	EnrolmentConverter enrolmentConverter = new EnrolmentConverter();
-	
+
 
 	@Override
 	public TeamBo convertTo(Team from) {
@@ -20,14 +20,14 @@ public class TeamConverter implements GenericConverter<TeamBo, Team>{
 		teamBo.setName(from.getName());
 		teamBo.setId(from.getTeamID());
 		HashSet<EnrolmentBo> enrolmentsBoHashSet = new HashSet<>();
-		for (Enrolment e : from.getEnrolmentsHashSet())
-		{
+		for (Enrolment e : from.getEnrolmentsHashSet()) {
 			enrolmentsBoHashSet.add(enrolmentConverter.convertTo(e));
 		}
 		teamBo.setEnrolmentsBoHashSet(enrolmentsBoHashSet);
+
 		return teamBo;
 	}
-	
-	
+
+
 
 }

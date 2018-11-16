@@ -157,8 +157,12 @@ public class TeamServiceBL {
 		return teamdb.getAllElements();
 	}
 
-	public Team getTeam(User user) {
-		return teamdb.findTeamOfUser(user);
+	public Team getTeam(User user) throws UserIsNotMemberOfTeamException {
+		Team team = teamdb.findTeamOfUser(user);
+		if (team == null) {
+			throw new UserIsNotMemberOfTeamException("User is not a member of any team");
+		}
+		return team;
 	}
 
 	public List<Team> getTeamsOfManager(User manager) {

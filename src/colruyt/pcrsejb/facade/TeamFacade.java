@@ -67,7 +67,7 @@ public class TeamFacade {
         return userConverter.convertTo(teamServiceBL.getOwnerOfTeam(teamBoConverter.convertTo(team)));
     }
 
-    public UserBo getManager(UserBo userbo) {
+    public UserBo getManager(UserBo userbo) throws UserIsNotMemberOfTeamException {
 
         //Get the current Team of the UserBo
         Team currentTeam = teamServiceBL.getTeam(this.userBoConverter.convertTo(userbo));
@@ -76,7 +76,7 @@ public class TeamFacade {
         return this.userConverter.convertTo(this.teamServiceBL.getOwnerOfTeam(currentTeam));
     }
 
-    public TeamBo getTeam(UserBo user) {
+    public TeamBo getTeam(UserBo user) throws UserIsNotMemberOfTeamException {
 //		user usertje = userBoConverter.convertTo(user);
 //		Team returning = teamServiceBL.getTeam(usertje);
 //		TeamBo returningBo = teamConverter.convertTo(returning);

@@ -4,6 +4,7 @@ import colruyt.pcrsejb.bo.survey.*;
 import colruyt.pcrsejb.converter.GenericConverter;
 import colruyt.pcrsejb.entity.survey.Rating;
 import colruyt.pcrsejb.entity.survey.Survey;
+import colruyt.pcrsejb.entity.survey.SurveyKind;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,24 +17,16 @@ public class SurveyConverter2 implements GenericConverter<SurveyBo,Survey> {
     @Override
     public SurveyBo convertTo(Survey from) {
 
-        SurveyBo bo = null;
-        switch(determineInstance(from)){
-            case "TeamMemberSurvey" : bo = new TeamMemberSurveyBo(from.getDateCompleted(),convertRatings(from.getRatingList())); break;
-            case "TeamManagerSurvey" : bo = new TeamManagerSurveyBo(from.getDateCompleted(),convertRatings(from.getRatingList())); break;
-            case "ConsensusSurvey" : bo = new ConsensusSurveyBo(from.getDateCompleted(),convertRatings(from.getRatingList())); break;
+    	switch(from.getSurveyKind()) {
+    	case TeamMember: return new SurveyBo(from.getDateCompleted(),convertRatings(from.getRatingList()),SurveyKindBo.TeamMember); 
+    	case TeamManager: return new SurveyBo(from.getDateCompleted(),convertRatings(from.getRatingList()),SurveyKindBo.TeamManager); 
+    	case Consensus: return new SurveyBo(from.getDateCompleted(),convertRatings(from.getRatingList()),SurveyKindBo.Consensus); 
+		default: return null;
 
-
-        }
-        return bo;
-
-
+    	}
     }
 
-    private String determineInstance(Survey suy){
 
-        return suy.getClass().getSimpleName();
-
-    }
 
     protected List<RatingBo> convertRatings(List<Rating> ratings){
 

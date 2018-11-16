@@ -11,13 +11,11 @@ import java.util.Collection;
 import java.util.List;
 
 import colruyt.pcrsejb.entity.survey.ConsensusRating;
-import colruyt.pcrsejb.entity.survey.ConsensusSurvey;
+
 import colruyt.pcrsejb.entity.survey.Rating;
 import colruyt.pcrsejb.entity.survey.Survey;
 import colruyt.pcrsejb.entity.survey.SurveyKind;
 import colruyt.pcrsejb.entity.survey.SurveySet;
-import colruyt.pcrsejb.entity.survey.TeamManagerSurvey;
-import colruyt.pcrsejb.entity.survey.TeamMemberSurvey;
 import colruyt.pcrsejb.entity.user.User;
 import colruyt.pcrsejb.service.dl.DbService;
 import colruyt.pcrsejb.service.dl.user.DbUserService;
@@ -79,7 +77,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
             //Get Member Survey Data
             PreparedStatement memberSurvey = conn.prepareStatement(GET_MEMBER_SURVEY_DATA);
             ResultSet ms = memberSurvey.executeQuery();
-            Survey vey = toSingleSurvey(ms,new TeamMemberSurvey());
+            Survey vey = toSingleSurvey(ms,SurveyKind.TeamMember);
 
             //GetRatings
             PreparedStatement memberratings = conn.prepareStatement(GET_RATING_BY_ID);
@@ -94,7 +92,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
             //Get manager Survey Data
             PreparedStatement managerSurvey = conn.prepareStatement(GET_MANAGER_SURVEY);
             ResultSet mas = managerSurvey.executeQuery();
-            Survey manvey = toSingleSurvey(mas,new TeamManagerSurvey());
+            Survey manvey = toSingleSurvey(mas,SurveyKind.TeamManager);
 
 
 
@@ -109,7 +107,7 @@ public class DbSurveySetService extends DbService implements SurveySetService {
             //Get Consensus Survey Data
             PreparedStatement consensusSurvey = conn.prepareStatement(GET_CONSENSUS_SURVEY);
             ResultSet cs = consensusSurvey.executeQuery();
-            Survey convey = toSingleSurvey(cs,new ConsensusSurvey());
+            Survey convey = toSingleSurvey(cs,SurveyKind.Consensus);
 
 
             PreparedStatement consensusRating  = conn.prepareStatement(GET_CONSENSUS_RATINGS);
@@ -132,12 +130,15 @@ public class DbSurveySetService extends DbService implements SurveySetService {
 
     }
 
-    private Survey toSingleSurvey(ResultSet rs,Survey e) throws SQLException {
+    private Survey toSingleSurvey(ResultSet rs,SurveyKind kind) throws SQLException {
+    	
+    	Survey suy = new Survey();
+    	suy.setSurveyKind(kind);
         if(rs.next()){
-            e.setId(rs.getInt("id"));
-            e.setDateCompleted(rs.getDate("datecompleted").toLocalDate());
+            suy.setId(rs.getInt("id"));
+            suy.setDateCompleted(rs.getDate("datecompleted").toLocalDate());
         }
-        return e;
+        return suy;
 
     }
 

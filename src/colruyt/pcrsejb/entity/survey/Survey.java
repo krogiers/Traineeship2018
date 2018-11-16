@@ -7,20 +7,34 @@ import java.util.List;
 
 
 //@Entity
-public abstract class Survey {
+public class Survey {
 
     private LocalDate dateCompleted;
     private List<Rating> ratingList;
     private int id;
+    private SurveyKind surveyKind;
+    
+    
+    
+    
+    
+    
+    public SurveyKind getSurveyKind() {
+		return surveyKind;
+	}
 
-    
-    
-    public Survey() {
+	public void setSurveyKind(SurveyKind surveyKind) {
+		this.surveyKind = surveyKind;
+	}
+
+	public Survey() {
     }
 
-    public Survey(LocalDate dateCompleted, List<Rating> ratingList) {
+    public Survey(LocalDate dateCompleted, List<Rating> ratingList,SurveyKind kind) {
         this.dateCompleted = dateCompleted;
         this.ratingList = ratingList;
+        this.surveyKind = kind;
+        
     }
 
     public LocalDate getDateCompleted() {

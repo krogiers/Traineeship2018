@@ -107,6 +107,8 @@ public class DbTeamService extends DbService implements TeamService {
                 team = new Team();
                 team.setTeamID(rs.getInt("ID"));
                 team.setName(rs.getString("Name"));
+                team.setEnrolmentsHashSet(enrolmentService.getEnrolmentsForTeam(team));
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();

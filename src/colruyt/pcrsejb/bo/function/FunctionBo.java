@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class FunctionBo {
 
-    private int ID;
+    private Integer id;
     private String title;
     private Set<RoleBo> roleBoSet = new HashSet<>();
     private Set<FunctionCompetenceBo> functionCompetenceBoSet = new HashSet<>();
@@ -31,33 +31,33 @@ public class FunctionBo {
         this.setFunctionCompetenceBoSet(functionCompetenceBoSet);
     }
 
-    public FunctionBo(int ID, String title, Set<RoleBo> roleBoSet, Set<FunctionCompetenceBo> functionCompetenceBoSet) {
-        this.ID = ID;
+    public FunctionBo(Integer id, String title, Set<RoleBo> roleBoSet, Set<FunctionCompetenceBo> functionCompetenceBoSet) {
+        this.id = id;
         this.title = title;
         this.roleBoSet = roleBoSet;
         this.functionCompetenceBoSet = functionCompetenceBoSet;
     }
 
-    public FunctionBo(int ID, String title, OperatingUnitBo operatingUnitBo) {
-        this.ID = ID;
+    public FunctionBo(Integer id, String title, OperatingUnitBo operatingUnitBo) {
+        this.id = id;
         this.title = title;
         this.operatingUnitBo = operatingUnitBo;
     }
 
-    public FunctionBo(int ID, String title, Set<RoleBo> roleBoSet, Set<FunctionCompetenceBo> functionCompetenceBoSet, OperatingUnitBo operatingUnitBo) {
-        this.ID = ID;
+    public FunctionBo(Integer id, String title, Set<RoleBo> roleBoSet, Set<FunctionCompetenceBo> functionCompetenceBoSet, OperatingUnitBo operatingUnitBo) {
+        this.id = id;
         this.title = title;
         this.roleBoSet = roleBoSet;
         this.functionCompetenceBoSet = functionCompetenceBoSet;
         this.operatingUnitBo = operatingUnitBo;
     }
 
-    public int getID() {
-        return ID;
+    public Integer getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
